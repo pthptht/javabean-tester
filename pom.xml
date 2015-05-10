@@ -31,22 +31,6 @@
 
     <developers>
         <developer>
-            <id>rdawson</id>
-            <name>Rob Dawson</name>
-            <email />
-            <url>http://codebox.org.uk/</url>
-            <organization>codebox</organization>
-            <organizationUrl>http://codebox.org.uk/</organizationUrl>
-            <roles>
-                <role>Architect</role>
-                <role>Developer</role>
-            </roles>
-            <timezone>-5</timezone>
-            <properties>
-                <picUrl>https://avatars1.githubusercontent.com/u/615829?s=460</picUrl>
-            </properties>
-        </developer>
-        <developer>
             <id>jlandis</id>
             <name>Jeremy Landis</name>
             <email>jeremylandis@hotmail.com</email>
@@ -71,11 +55,26 @@
             <organization>hazendaz</organization>
             <organizationUrl>https://github.com/hazendaz</organizationUrl>
             <roles>
+                <role>Architect</role>
                 <role>Developer</role>
             </roles>
             <timezone>-5</timezone>
             <properties>
                 <picUrl>http://m.c.lnkd.licdn.com/mpr/mpr/shrink_200_200/p/1/000/128/174/30cff69.jpg</picUrl>
+            </properties>
+        </contributor>
+        <contributor>
+            <name>Rob Dawson</name>
+            <email />
+            <url>http://codebox.org.uk/</url>
+            <organization>codebox</organization>
+            <organizationUrl>http://codebox.org.uk/</organizationUrl>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>-5</timezone>
+            <properties>
+                <picUrl>https://avatars1.githubusercontent.com/u/615829?s=460</picUrl>
             </properties>
         </contributor>
     </contributors>
