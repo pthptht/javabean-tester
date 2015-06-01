@@ -530,6 +530,8 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
+                <!-- Due to OSS parent causing maven bug, this would be 1.2 otherwise -->
+                <version>1.4</version>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>
