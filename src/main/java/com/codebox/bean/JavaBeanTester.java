@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import org.junit.Assert;
-import org.mockito.cglib.beans.ImmutableBean;
+import org.mockito.cglib.beans.BeanCopier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -151,13 +151,17 @@ public final class JavaBeanTester {
 
         // Create Immutable Instance
         try {
-            @SuppressWarnings("unchecked")
-            final T e = (T) ImmutableBean.create(x);
+            BeanCopier clazzBeanCopier = BeanCopier.create(clazz, clazz, false);
+            final T e = clazz.newInstance();
+            clazzBeanCopier.copy(x, e, null);
             Assert.assertEquals(e, x);
 
-            @SuppressWarnings("unchecked")
-            final T e2 = (T) ImmutableBean.create(ext);
-            Assert.assertEquals(e2, ext);
+            if (extension != null) {
+                BeanCopier extensionBeanCopier = BeanCopier.create(extension, extension, false);
+                final E e2 = extension.newInstance();
+                extensionBeanCopier.copy(ext, e2, null);
+                Assert.assertEquals(e2, ext);
+            }
         } catch (final Exception e) {
             // Do nothing class is not mutable
         }
