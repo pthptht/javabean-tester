@@ -10,5 +10,5 @@ Javabean Tester is a reflection based library for testing java beans.  Effective
 
 Original maintainer [codebox](https://github.com/codebox) only intended for this project to be a simple class that users would make additional
 changes to.  Over time, this copy has evolved into a full project and now is the primary project going forwards.  Issues has been opened up
-for use and pull requests are gladdly appreciated.
+for use and pull requests are gladly appreciated.
 
