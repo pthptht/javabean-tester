@@ -21,7 +21,7 @@
     <inceptionYear>2012</inceptionYear>
 
     <prerequisites>
-        <maven>3.1.1</maven>
+        <maven>3.2.3</maven>
     </prerequisites>
 
     <organization>
@@ -84,6 +84,19 @@
         <url>https://github.com/hazendaz/javabean-tester/issues</url>
     </issueManagement>
 
+    <ciManagement>
+        <system>travis</system>
+        <url>https://travis-ci.org/hazendaz/javabean-tester/</url>
+    </ciManagement>
+
+    <distributionManagement>
+        <site>
+            <id>gh-pages</id>
+            <name>JavaBean Tester GitHub Pages</name>
+            <url>git:ssh://git@github.com/hazedaz/javabean-tester.git?gh-pages#</url>
+        </site>
+    </distributionManagement>
+
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -109,10 +122,15 @@
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
-        <maven.min-version>3.1.1</maven.min-version>
+        <maven.compiler.testSource>1.6</maven.compiler.testSource>
+        <maven.compiler.testTarget>1.6</maven.compiler.testTarget>
+        <maven.min-version>3.2.3</maven.min-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <signature.artifact>java16</signature.artifact>
+        <signature.version>1.1</signature.version>
     </properties>
     <dependencies>
          <dependency>
@@ -173,6 +191,10 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.3</version>
+                    <configuration>
+                        <!-- Slightly faster builds, see https://issues.apache.org/jira/browse/MCOMPILER-209 -->
+                        <useIncrementalCompilation>false</useIncrementalCompilation>
+                      </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -205,16 +227,27 @@
                     <version>3.4</version>
                     <dependencies>
                         <dependency>
+                            <groupId>org.apache.maven.doxia</groupId>
+                            <artifactId>doxia-module-markdown</artifactId>
+                            <version>1.6</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>net.trajano.wagon</groupId>
+                            <artifactId>wagon-git</artifactId>
+                            <version>2.0.3</version>
+                        </dependency>
+                        <!-- For reporting only of versions -->
+                        <dependency>
                             <groupId>org.apache.maven.skins</groupId>
                             <artifactId>maven-fluido-skin</artifactId>
                             <version>1.4</version>
                         </dependency>
+                        <dependency>
+                            <groupId>org.apache.maven.wagon</groupId>
+                            <artifactId>wagon-ssh</artifactId>
+                            <version>2.9</version>
+                        </dependency>
                     </dependencies>
-                </plugin>
-                <plugin>
-                    <groupId>com.github.github</groupId>
-                    <artifactId>site-maven-plugin</artifactId>
-                    <version>0.11</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -225,7 +258,7 @@
                 <plugin>
                     <groupId>pl.project13.maven</groupId>
                     <artifactId>git-commit-id-plugin</artifactId>
-                    <version>2.1.13</version>
+                    <version>2.1.15</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -263,7 +296,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.5.4</version>
+                    <version>2.5.5</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -291,11 +324,49 @@
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>0.7.5.201505241946</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>tidy-maven-plugin</artifactId>
+                    <version>1.0-beta-1</version>
+                </plugin>
+                <plugin>
+                    <groupId>net.revelc.code</groupId>
+                    <artifactId>formatter-maven-plugin</artifactId>
+                    <version>0.5.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.mycila</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>2.11</version>
+                    <configuration>
+                        <header>license.txt</header>
+                        <excludes>
+                            <exclude>target/**</exclude>
+                            <exclude>**/.gitignore</exclude>
+                            <exclude>**/*.txt</exclude>
+                            <exclude>**/*.xml</exclude>
+                            <exclude>**/*.properties</exclude>
+                            <exclude>**/*.html</exclude>
+                            <exclude>**/*.css</exclude>
+                        </excludes>
+                        <includes>
+                            <include>**/*.java</include>
+                        </includes>
+                        <mapping>
+                            <java>JAVADOC_STYLE</java>
+                        </mapping>
+                    </configuration>
+                </plugin>
                 <!-- Report Only -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>jdepend-maven-plugin</artifactId>
                     <version>2.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-changelog-plugin</artifactId>
+                    <version>2.3</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -315,12 +386,12 @@
                         <dependency>
                             <groupId>com.jcraft</groupId>
                             <artifactId>jsch</artifactId>
-                            <version>0.1.52</version>
+                            <version>0.1.53</version>
                         </dependency>
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>4.0.0.201505260635-rc2</version>
+                            <version>4.0.1.201506240215-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
@@ -373,12 +444,12 @@
                         <dependency>
                             <groupId>com.jcraft</groupId>
                             <artifactId>jsch</artifactId>
-                            <version>0.1.52</version>
+                            <version>0.1.53</version>
                         </dependency>
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>4.0.0.201505260635-rc2</version>
+                            <version>4.0.1.201506240215-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
@@ -392,6 +463,29 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
                     <version>2.6</version>
+                </plugin>
+                <!-- Wagon -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>wagon-maven-plugin</artifactId>
+                    <version>1.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>animal-sniffer-maven-plugin</artifactId>
+                    <version>1.14</version>
+                    <configuration>
+                        <signature>
+                            <groupId>org.codehaus.mojo.signature</groupId>
+                            <artifactId>${signature.artifact}</artifactId>
+                            <version>${signature.version}</version>
+                        </signature>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.owasp</groupId>
+                    <artifactId>dependency-check-maven</artifactId>
+                    <version>1.2.11</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -418,7 +512,12 @@
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
                 <configuration>
-                    <dotGitDirectory>../../../.git</dotGitDirectory>
+                    <dotGitDirectory>.git</dotGitDirectory>
+                    <!-- Fixes occassional issue in commit id plugin - see 
+                        https://github.com/ktoso/maven-git-commit-id-plugin/issues/61 -->
+                    <gitDescribe>
+                        <always>true</always>
+                    </gitDescribe>
                 </configuration>
                 <executions>
                     <execution>
@@ -442,7 +541,7 @@
                         </manifest>
                         <manifestEntries>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
-                            <copyright>${copyright}</copyright>
+                            <Copyright>${copyright}</Copyright>
                             <Git-Revision>${git.commit.id}</Git-Revision>
                             <Os-Name>${os.name}</Os-Name>
                             <Os-Arch>${os.arch}</Os-Arch>
@@ -465,7 +564,7 @@
                         </manifest>
                         <manifestEntries>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
-                            <copyright>${copyright}</copyright>
+                            <Copyright>${copyright}</Copyright>
                             <Git-Revision>${git.commit.id}</Git-Revision>
                             <Os-Name>${os.name}</Os-Name>
                             <Os-Arch>${os.arch}</Os-Arch>
@@ -502,7 +601,7 @@
                         </manifest>
                         <manifestEntries>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
-                            <copyright>${copyright}</copyright>
+                            <Copyright>${copyright}</Copyright>
                             <Git-Revision>${git.commit.id}</Git-Revision>
                             <Os-Name>${os.name}</Os-Name>
                             <Os-Arch>${os.arch}</Os-Arch>
@@ -532,19 +631,19 @@
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <!-- Due to OSS parent causing maven bug, this would be 1.2 otherwise -->
                 <version>1.4</version>
+                <configuration>
+                    <rules>
+                        <requireMavenVersion>
+                            <version>[${maven.min-version},)</version>
+                        </requireMavenVersion>
+                    </rules>
+                </configuration>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>
                         <goals>
                             <goal>enforce</goal>
                         </goals>
-                        <configuration>
-                            <rules>
-                                <requireMavenVersion>
-                                    <version>[${maven.min-version},)</version>
-                                </requireMavenVersion>
-                            </rules>
-                        </configuration>
                     </execution>
                     <execution>
                         <id>enforce-clean</id>
@@ -552,13 +651,6 @@
                         <goals>
                             <goal>enforce</goal>
                         </goals>
-                        <configuration>
-                            <rules>
-                                <requireMavenVersion>
-                                    <version>[${maven.min-version},)</version>
-                                </requireMavenVersion>
-                            </rules>
-                        </configuration>
                     </execution>
                     <execution>
                         <id>enforce-site</id>
@@ -566,22 +658,33 @@
                         <goals>
                             <goal>enforce</goal>
                         </goals>
-                        <configuration>
-                            <rules>
-                                <requireMavenVersion>
-                                    <version>[${maven.min-version},)</version>
-                                </requireMavenVersion>
-                            </rules>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <configuration>
-                    <generateSitemap>true</generateSitemap>
-                </configuration>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>animal-sniffer-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>test-sniffer</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -602,9 +705,20 @@
                 </executions>
             </plugin>
         </plugins>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh</artifactId>
+                <version>2.9</version>
+            </extension>
+        </extensions>
     </build>
     <reporting>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changelog-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-changes-plugin</artifactId>
@@ -659,6 +773,17 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jdepend-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>aggregate</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
         </plugins>
     </reporting>
@@ -742,6 +867,17 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <plugin>
+                        <groupId>org.owasp</groupId>
+                        <artifactId>dependency-check-maven</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -785,27 +921,129 @@
                             <configuration>
                                 <lifecycleMappingMetadata>
                                     <pluginExecutions>
-                                        <pluginExecutions>
-                                            <pluginExecution>
-                                                <pluginExecutionFilter>
-                                                    <groupId>org.apache.maven.plugins</groupId>
-                                                    <artifactId>maven-enforcer-plugin</artifactId>
-                                                    <versionRange>[1.4,)</versionRange>
-                                                    <goals>
-                                                        <goal>enforce</goal>
-                                                    </goals>
-                                                </pluginExecutionFilter>
-                                                <action>
-                                                    <ignore />
-                                                </action>
-                                            </pluginExecution>
-                                        </pluginExecutions>
+                                        <pluginExecution>
+                                            <pluginExecutionFilter>
+                                                <groupId>com.mycila</groupId>
+                                                <artifactId>license-maven-plugin</artifactId>
+                                                <versionRange>[2.11,)</versionRange>
+                                                <goals>
+                                                    <goal>format</goal>
+                                                </goals>
+                                            </pluginExecutionFilter>
+                                            <action>
+                                                <ignore />
+                                            </action>
+                                        </pluginExecution>
+                                        <pluginExecution>
+                                            <pluginExecutionFilter>
+                                                <groupId>net.revelc.code</groupId>
+                                                <artifactId>formatter-maven-plugin</artifactId>
+                                                <versionRange>[0.5.2,)</versionRange>
+                                                <goals>
+                                                    <goal>format</goal>
+                                                </goals>
+                                            </pluginExecutionFilter>
+                                            <action>
+                                                <ignore />
+                                            </action>
+                                        </pluginExecution>
+                                        <pluginExecution>
+                                            <pluginExecutionFilter>
+                                                <groupId>org.apache.maven.plugins</groupId>
+                                                <artifactId>maven-enforcer-plugin</artifactId>
+                                                <versionRange>[1.4,)</versionRange>
+                                                <goals>
+                                                    <goal>enforce</goal>
+                                                </goals>
+                                            </pluginExecutionFilter>
+                                            <action>
+                                                <ignore />
+                                            </action>
+                                        </pluginExecution>
+                                        <pluginExecution>
+                                            <pluginExecutionFilter>
+                                                <groupId>org.jacoco</groupId>
+                                                <artifactId>jacoco-maven-plugin</artifactId>
+                                                <versionRange>[0.7.5.201505241946,)</versionRange>
+                                                <goals>
+                                                    <goal>prepare-agent</goal>
+                                                </goals>
+                                            </pluginExecutionFilter>
+                                            <action>
+                                                <ignore />
+                                            </action>
+                                        </pluginExecution>
                                     </pluginExecutions>
                                 </lifecycleMappingMetadata>
                             </configuration>
                         </plugin>
                     </plugins>
                 </pluginManagement>
+            </build>
+        </profile>
+        <profile>
+            <id>format</id>
+            <activation>
+                <file>
+                    <exists>format.xml</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>net.revelc.code</groupId>
+                        <artifactId>formatter-maven-plugin</artifactId>
+                        <configuration>
+                            <configFile>format.xml</configFile>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>format</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>sort</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>tidy-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>pom</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
     </profiles>
