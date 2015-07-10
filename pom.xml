@@ -15,7 +15,7 @@
     <packaging>jar</packaging>
 
     <name>javabean-tester</name>
-    <description>Javabean Tester</description>
+    <description>Javabean Tester Simplifies POJO Testing and greatly simplifies Lombok Bean Testing!</description>
     <url>https://github.com/hazendaz/javabean-tester</url>
     <inceptionYear>2012</inceptionYear>
     <organization>
@@ -98,6 +98,18 @@
     <ciManagement>
         <system>travis</system>
         <url>https://travis-ci.org/hazendaz/javabean-tester/</url>
+        <notifiers>
+            <notifier>
+            <type>mail</type>
+            <sendOnError>true</sendOnError>
+            <sendOnFailure>true</sendOnFailure>
+            <sendOnSuccess>false</sendOnSuccess>
+            <sendOnWarning>false</sendOnWarning>
+            <configuration>
+                <address>jeremylandis@hotmail.com</address>
+            </configuration>
+        </notifier>
+    </notifiers>
     </ciManagement>
     <distributionManagement>
         <site>
@@ -272,6 +284,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>2.15</version>
+                    <!-- Not working
+                    <configuration>
+                        <configLocation>config/google_checks.xml</configLocation>
+                    </configuration>
+                    -->
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -281,7 +298,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-pmd-plugin</artifactId>
-                    <version>3.4</version>
+                    <version>3.5</version>
                 </plugin>
                 <!-- Tools -->
                 <plugin>
