@@ -34,6 +34,10 @@ import org.mockito.cglib.beans.BeanCopier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.codebox.enums.CanEquals;
+import com.codebox.enums.LoadData;
+import com.codebox.enums.LoadType;
+
 /**
  * This helper class can be used to unit test the get/set/equals/canEqual/toString/hashCode methods of JavaBean-style
  * Value Objects.
@@ -42,32 +46,6 @@ import org.slf4j.LoggerFactory;
  * @author jeremy.landis
  */
 public final class JavaBeanTester {
-
-    /**
-     * PERFORM_CAN_EQUALS is boolean value that is passed into static methods to determine if can equals should be
-     * performed. Generally this will be true except for cases for it otherwise fails due to missing support within
-     * this library.
-     */
-    public static final boolean PERFORM_CAN_EQUALS   = true;
-
-    /**
-     * LOAD_UNDERLYING_DATA is boolean value that is passed into static methods to determine if underlying object data
-     * should be populated. Generally this will be true except for cases for it otherwise fails due to missing support
-     * within this library.
-     */
-    public static final boolean LOAD_UNDERLYING_DATA = true;
-
-    /**
-     * SKIP_CAN_EQUALS is boolean value that is passed into static methods to determine if can equals should be
-     * performed. Use this in cases where it otherwise fails due to missing support within this library.
-     */
-    public static final boolean SKIP_CAN_EQUALS      = false;
-
-    /**
-     * SKIP_LOAD_UNDERLYING_DATA is boolean value that is passed into static methods to determine if underlying object data
-     * should be populated. Use this in cases where it otherwise fails due to missing support within this library.
-     */
-    public static final boolean SKIP_LOAD_UNDERLYING_DATA = true;
 
     /**
      * JavaBeanTester constructor is private to prevent instantiation of object.
@@ -87,7 +65,7 @@ public final class JavaBeanTester {
      *            the class under test.
      * @param extension
      *            extension of class under test.
-     * @param loadUnderlyingData
+     * @param loadData
      *            load underlying data with values.
      * @throws IntrospectionException
      *             thrown if the JavaBeanTester.load method throws this exception for the class under test.
@@ -97,8 +75,7 @@ public final class JavaBeanTester {
      *             thrown if the clazz.newIntances() method throws this exception for the class under test.
      */
     public static <T, E> void equalsHashCodeToStringSymmetricTest(final Class<T> clazz, final Class<E> extension,
-            final boolean loadUnderlyingData) throws IntrospectionException, InstantiationException,
-            IllegalAccessException {
+            final LoadData loadData) throws IntrospectionException, InstantiationException, IllegalAccessException {
         // Create Instances
         final T x = clazz.newInstance();
         final T y = clazz.newInstance();
@@ -129,11 +106,11 @@ public final class JavaBeanTester {
         }
 
         // Populate Side X
-        JavaBeanTester.load(clazz, x, loadUnderlyingData);
+        JavaBeanTester.load(clazz, x, loadData);
 
         // Populate Side E
         if (ext != null) {
-            JavaBeanTester.load(extension, ext, loadUnderlyingData);
+            JavaBeanTester.load(extension, ext, loadData);
         }
 
         // ReTest Equals (flip)
@@ -145,10 +122,10 @@ public final class JavaBeanTester {
         }
 
         // Populate Size Y
-        JavaBeanTester.load(clazz, y, loadUnderlyingData);
+        JavaBeanTester.load(clazz, y, loadData);
 
         // ReTest Equals and HashCode
-        if (loadUnderlyingData) {
+        if (loadData == LoadData.ON) {
             Assert.assertEquals(x, y);
             Assert.assertEquals(x.hashCode(), y.hashCode());
         } else {
@@ -191,12 +168,12 @@ public final class JavaBeanTester {
      *            the class instance under test.
      * @param expected
      *            the instance expected for tests.
-     * @param loadUnderlyingData
+     * @param loadData
      *            load underlying data with values.
      * @throws IntrospectionException
      *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      */
-    public static <T> void equalsTests(final T instance, final T expected, final boolean loadUnderlyingData)
+    public static <T> void equalsTests(final T instance, final T expected, final LoadData loadData)
             throws IntrospectionException {
 
         // Perform hashCode test dependent on data coming in
@@ -225,7 +202,7 @@ public final class JavaBeanTester {
                         final Object original = getter.invoke(instance);
 
                         // Build a value of the correct type to be passed to the set method using alternate test
-                        Object value = JavaBeanTester.buildValue(returnType, loadUnderlyingData, 1);
+                        Object value = JavaBeanTester.buildValue(returnType, loadData, LoadType.ALTERNATE_DATA);
 
                         // Call the set method, then check the same value comes back out of the get method
                         setter.invoke(instance, value);
@@ -238,7 +215,7 @@ public final class JavaBeanTester {
                         }
 
                         // Build a value of the correct type to be passed to the set method using null test
-                        value = JavaBeanTester.buildValue(returnType, loadUnderlyingData, 2);
+                        value = JavaBeanTester.buildValue(returnType, loadData, LoadType.NULL_DATA);
 
                         // Call the set method, then check the same value comes back out of the get method
                         setter.invoke(instance, value);
@@ -283,16 +260,16 @@ public final class JavaBeanTester {
      *            the class under test.
      * @param instance
      *            the instance of class under test.
-     * @param loadUnderlyingData
+     * @param loadData
      *            load recursively all underlying data objects.
      * @param skipThese
      *            the names of any properties that should not be tested.
      * @throws IntrospectionException
      *             thrown if the JavaBeanTester.getterSetterTests method throws this exception for the class under test.
      */
-    public static <T> void load(final Class<T> clazz, final T instance, final boolean loadUnderlyingData,
+    public static <T> void load(final Class<T> clazz, final T instance, final LoadData loadData,
             final String... skipThese) throws IntrospectionException {
-        JavaBeanTester.getterSetterTests(clazz, instance, loadUnderlyingData, skipThese);
+        JavaBeanTester.getterSetterTests(clazz, instance, loadData, skipThese);
     }
 
     /**
@@ -308,7 +285,7 @@ public final class JavaBeanTester {
      *            extension of class under test.
      * @param checkEquals
      *            should equals be checked (use true unless good reason not to).
-     * @param loadUnderlyingData
+     * @param loadData
      *            load recursively all underlying data objects.
      * @param skipThese
      *            the names of any properties that should not be tested.
@@ -322,12 +299,12 @@ public final class JavaBeanTester {
      *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest
      *             method throws this exception for the class under test.
      */
-    public static <T, E> void test(final Class<T> clazz, final Class<E> extension, final boolean checkEquals,
-            final boolean loadUnderlyingData, final String... skipThese) throws IntrospectionException,
-            InstantiationException, IllegalAccessException {
-        JavaBeanTester.getterSetterTests(clazz, clazz.newInstance(), loadUnderlyingData, skipThese);
-        if (checkEquals) {
-            JavaBeanTester.equalsHashCodeToStringSymmetricTest(clazz, extension, loadUnderlyingData);
+    public static <T, E> void test(final Class<T> clazz, final Class<E> extension, final CanEquals checkEquals,
+            final LoadData loadData, final String... skipThese) throws IntrospectionException, InstantiationException,
+            IllegalAccessException {
+        JavaBeanTester.getterSetterTests(clazz, clazz.newInstance(), loadData, skipThese);
+        if (checkEquals == CanEquals.ON) {
+            JavaBeanTester.equalsHashCodeToStringSymmetricTest(clazz, extension, loadData);
         }
     }
 
@@ -355,10 +332,10 @@ public final class JavaBeanTester {
      *            the type parameter associated with the class under test.
      * @param clazz
      *            the class under test.
-     * @param loadUnderlyingData
+     * @param loadData
      *            load recursively all underlying data objects.
      * @param loadType
-     *            0 = standard data load 1 = alternate data load 2 = null data load.
+     *            load type for data.
      * @return Object value built from method for clazz
      * @throws InstantiationException
      *             thrown if the constructor.newIntances or JavaBeanTester.test method throws this exception for the
@@ -369,7 +346,7 @@ public final class JavaBeanTester {
      * @throws InvocationTargetException
      *             thrown if the constructor.newIntances method throws this exception for the class under test.
      */
-    private static <T> Object buildValue(final Class<T> clazz, final boolean loadUnderlyingData, final int loadType)
+    private static <T> Object buildValue(final Class<T> clazz, final LoadData loadData, final LoadType loadType)
             throws InstantiationException, IllegalAccessException, InvocationTargetException {
         // If we are using a Mocking framework try that first...
         final Object mockedObject = JavaBeanTester.buildMockValue(clazz);
@@ -381,10 +358,10 @@ public final class JavaBeanTester {
         final Constructor<?>[] ctrs = clazz.getConstructors();
         for (final Constructor<?> ctr : ctrs) {
             if (ctr.getParameterTypes().length == 0 && clazz != String.class) {
-                if (loadUnderlyingData) {
+                if (loadData == LoadData.ON) {
                     // Load Underlying Data
                     try {
-                        JavaBeanTester.getterSetterTests(clazz, clazz.newInstance(), loadUnderlyingData);
+                        JavaBeanTester.getterSetterTests(clazz, clazz.newInstance(), loadData);
                     } catch (final IntrospectionException e) {
                         Assert.fail(String.format("An exception was thrown while testing the clazz %s: %s",
                                 clazz.getName(), e.toString()));
@@ -399,17 +376,17 @@ public final class JavaBeanTester {
         // Specific rules for common classes
         Object returnObject = null;
         switch (loadType) {
-            case 1:
+            case STANDARD_DATA:
                 returnObject = JavaBeanTester.setAlternateValues(clazz);
                 break;
-            case 2:
+            case ALTERNATE_DATA:
                 returnObject = JavaBeanTester.setNullValues(clazz);
                 break;
             default:
                 returnObject = JavaBeanTester.setStandardValues(clazz);
                 break;
         }
-        if (returnObject != null || loadType == 2) {
+        if (returnObject != null || loadType == LoadType.NULL_DATA) {
             return returnObject;
 
         } else if (clazz.isAssignableFrom(List.class)) {
@@ -427,11 +404,11 @@ public final class JavaBeanTester {
             // XXX Add additional rules here
 
         } else {
-            
+
             // XXX Don't fail this...until alternative solution is determined
-//            Assert.fail(String.format(
-//                    "Unable to build an instance of class %s, please add some code to the %s class to do this.",
-//                    clazz.getName(), JavaBeanTester.class.getName()));
+            // Assert.fail(String.format(
+            // "Unable to build an instance of class %s, please add some code to the %s class to do this.",
+            // clazz.getName(), JavaBeanTester.class.getName()));
             return null;
         }
     }
@@ -445,14 +422,14 @@ public final class JavaBeanTester {
      *            the class under test.
      * @param instance
      *            the instance of class under test.
-     * @param loadUnderlyingData
+     * @param loadData
      *            load underlying data.
      * @param skipThese
      *            the names of any properties that should not be tested.
      * @throws IntrospectionException
      *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      */
-    private static <T> void getterSetterTests(final Class<T> clazz, final T instance, final boolean loadUnderlyingData,
+    private static <T> void getterSetterTests(final Class<T> clazz, final T instance, final LoadData loadData,
             final String... skipThese) throws IntrospectionException {
         final PropertyDescriptor[] props = Introspector.getBeanInfo(clazz).getPropertyDescriptors();
         nextProp: for (final PropertyDescriptor prop : props) {
@@ -475,7 +452,7 @@ public final class JavaBeanTester {
                     // we can test this property
                     try {
                         // Build a value of the correct type to be passed to the set method
-                        final Object value = JavaBeanTester.buildValue(returnType, loadUnderlyingData, 0);
+                        final Object value = JavaBeanTester.buildValue(returnType, loadData, LoadType.STANDARD_DATA);
 
                         // Call the set method, then check the same value comes back out of the get method
                         setter.invoke(instance, value);
