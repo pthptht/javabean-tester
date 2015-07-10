@@ -14,8 +14,15 @@
  */
 package com.codebox.enums;
 
+/**
+ * The Enum LoadData.
+ */
 public enum LoadData {
 
-    ON, OFF;
+    /** The on. */
+    ON,
+
+    /** The off. */
+    OFF;
 
 }

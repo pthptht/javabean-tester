@@ -23,23 +23,44 @@ import org.junit.Test;
 import com.codebox.enums.CanEquals;
 import com.codebox.enums.LoadData;
 
+/**
+ * The Class JavaBeanTesterTest.
+ */
 public class JavaBeanTesterTest {
 
+    /** The sample bean. */
     private SampleBean sampleBean;
+
+    /** The expected bean. */
     private SampleBean expectedBean;
 
+    /**
+     * Inits the.
+     */
     @Before
     public void init() {
         this.sampleBean = new SampleBean();
         this.expectedBean = new SampleBean();
     }
 
+    /**
+     * Load_full bean.
+     *
+     * @throws IntrospectionException
+     *             the introspection exception
+     */
     @Test
     public void load_fullBean() throws IntrospectionException {
         JavaBeanTester.load(SampleBean.class, this.sampleBean, LoadData.ON);
         Assert.assertNotNull(this.sampleBean.getDoubleWrapper());
     }
 
+    /**
+     * Load_full bean equals.
+     *
+     * @throws IntrospectionException
+     *             the introspection exception
+     */
     @Test
     public void load_fullBeanEquals() throws IntrospectionException {
         JavaBeanTester.load(SampleBean.class, this.sampleBean, LoadData.ON);
@@ -55,6 +76,12 @@ public class JavaBeanTesterTest {
         JavaBeanTester.equalsTests(this.sampleBean, this.expectedBean, LoadData.ON);
     }
 
+    /**
+     * Load_full bean equals short.
+     *
+     * @throws IntrospectionException
+     *             the introspection exception
+     */
     @Test
     public void load_fullBeanEqualsShort() throws IntrospectionException {
         JavaBeanTester.load(SampleBean.class, this.sampleBean, LoadData.ON);
@@ -62,6 +89,12 @@ public class JavaBeanTesterTest {
         JavaBeanTester.equalsTests(this.sampleBean, this.expectedBean, LoadData.ON);
     }
 
+    /**
+     * Load_full bean equals skip underlying.
+     *
+     * @throws IntrospectionException
+     *             the introspection exception
+     */
     @Test
     public void load_fullBeanEqualsSkipUnderlying() throws IntrospectionException {
         JavaBeanTester.load(SampleBean.class, this.sampleBean, LoadData.OFF);
@@ -69,12 +102,24 @@ public class JavaBeanTesterTest {
         JavaBeanTester.equalsTests(this.sampleBean, this.expectedBean, LoadData.OFF);
     }
 
+    /**
+     * Load_full bean skip underlying data.
+     *
+     * @throws IntrospectionException
+     *             the introspection exception
+     */
     @Test
     public void load_fullBeanSkipUnderlyingData() throws IntrospectionException {
         JavaBeanTester.load(SampleBean.class, this.sampleBean, LoadData.OFF);
         Assert.assertNotNull(this.sampleBean.getDoubleWrapper());
     }
 
+    /**
+     * Load_partial bean equals.
+     *
+     * @throws IntrospectionException
+     *             the introspection exception
+     */
     @Test
     public void load_partialBeanEquals() throws IntrospectionException {
         JavaBeanTester.load(SampleBean.class, this.sampleBean, LoadData.ON);
@@ -88,6 +133,12 @@ public class JavaBeanTesterTest {
         JavaBeanTester.equalsTests(this.sampleBean, this.expectedBean, LoadData.ON);
     }
 
+    /**
+     * Load_skip bean properties.
+     *
+     * @throws IntrospectionException
+     *             the introspection exception
+     */
     @Test
     public void load_skipBeanProperties() throws IntrospectionException {
         JavaBeanTester.load(SampleBean.class, this.sampleBean, LoadData.ON, "string");
@@ -95,27 +146,77 @@ public class JavaBeanTesterTest {
         Assert.assertNull(this.sampleBean.getString());
     }
 
+    /**
+     * Test_full bean.
+     *
+     * @throws IntrospectionException
+     *             the introspection exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     */
     @Test
     public void test_fullBean() throws IntrospectionException, InstantiationException, IllegalAccessException {
         JavaBeanTester.test(SampleBean.class, SampleExtensionBean.class, CanEquals.ON, LoadData.ON);
     }
 
+    /**
+     * Test_full bean null ext.
+     *
+     * @throws IntrospectionException
+     *             the introspection exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     */
     @Test
     public void test_fullBeanNullExt() throws IntrospectionException, InstantiationException, IllegalAccessException {
         JavaBeanTester.test(SampleBean.class, null, CanEquals.ON, LoadData.ON);
     }
 
+    /**
+     * Test_full bean skip underlying data.
+     *
+     * @throws IntrospectionException
+     *             the introspection exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     */
     @Test
     public void test_fullBeanSkipUnderlyingData() throws IntrospectionException, InstantiationException,
             IllegalAccessException {
         JavaBeanTester.test(SampleBean.class, SampleExtensionBean.class, CanEquals.ON, LoadData.OFF);
     }
 
+    /**
+     * Test_skip bean properties.
+     *
+     * @throws IntrospectionException
+     *             the introspection exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     */
     @Test
     public void test_skipBeanProperties() throws IntrospectionException, InstantiationException, IllegalAccessException {
         JavaBeanTester.test(SampleBean.class, SampleExtensionBean.class, CanEquals.ON, LoadData.ON, "string");
     }
 
+    /**
+     * Test_skip can equals.
+     *
+     * @throws IntrospectionException
+     *             the introspection exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     */
     @Test
     public void test_skipCanEquals() throws IntrospectionException, InstantiationException, IllegalAccessException {
         JavaBeanTester.test(SampleBean.class, SampleExtensionBean.class, CanEquals.OFF, LoadData.ON);

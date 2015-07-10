@@ -14,8 +14,18 @@
  */
 package com.codebox.enums;
 
+/**
+ * The Enum LoadType.
+ */
 public enum LoadType {
 
-    STANDARD_DATA, ALTERNATE_DATA, NULL_DATA;
+    /** The standard data. */
+    STANDARD_DATA,
+
+    /** The alternate data. */
+    ALTERNATE_DATA,
+
+    /** The null data. */
+    NULL_DATA;
 
 }

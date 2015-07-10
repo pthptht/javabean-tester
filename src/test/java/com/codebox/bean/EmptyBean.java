@@ -14,6 +14,9 @@
  */
 package com.codebox.bean;
 
+/**
+ * The Class EmptyBean.
+ */
 public class EmptyBean {
     // Empty bean for testing
 }

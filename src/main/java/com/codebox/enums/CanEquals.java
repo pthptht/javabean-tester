@@ -14,8 +14,15 @@
  */
 package com.codebox.enums;
 
+/**
+ * The Enum CanEquals.
+ */
 public enum CanEquals {
 
-    ON, OFF;
+    /** The on. */
+    ON,
+
+    /** The off. */
+    OFF;
 
 }

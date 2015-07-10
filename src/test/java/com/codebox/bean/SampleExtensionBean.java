@@ -17,8 +17,13 @@ package com.codebox.bean;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * Instantiates a new sample extension bean.
+ */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class SampleExtensionBean extends SampleBean {
+
+    /** The extension. */
     private String extension;
 }

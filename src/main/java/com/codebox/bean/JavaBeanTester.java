@@ -292,12 +292,12 @@ public final class JavaBeanTester {
      * @throws IntrospectionException
      *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest
      *             method throws this exception for the class under test.
-     * @throws IllegalAccessException
-     *             thrown if the JavaBeanTester.getterSetterTests or clazz.newInstance() method throws this exception
-     *             for the class under test.
      * @throws InstantiationException
      *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest
      *             method throws this exception for the class under test.
+     * @throws IllegalAccessException
+     *             thrown if the JavaBeanTester.getterSetterTests or clazz.newInstance() method throws this exception
+     *             for the class under test.
      */
     public static <T, E> void test(final Class<T> clazz, final Class<E> extension, final CanEquals checkEquals,
             final LoadData loadData, final String... skipThese) throws IntrospectionException, InstantiationException,
