@@ -16,18 +16,20 @@
 
     <name>javabean-tester</name>
     <description>Javabean Tester</description>
-
     <url>https://github.com/hazendaz/javabean-tester</url>
     <inceptionYear>2012</inceptionYear>
-
-    <prerequisites>
-        <maven>3.2.3</maven>
-    </prerequisites>
-
     <organization>
         <name>hazendaz</name>
         <url>https://github.com/hazendaz/</url>
     </organization>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>manual</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
 
     <developers>
         <developer>
@@ -79,32 +81,9 @@
         </contributor>
     </contributors>
 
-    <issueManagement>
-        <system>Github</system>
-        <url>https://github.com/hazendaz/javabean-tester/issues</url>
-    </issueManagement>
-
-    <ciManagement>
-        <system>travis</system>
-        <url>https://travis-ci.org/hazendaz/javabean-tester/</url>
-    </ciManagement>
-
-    <distributionManagement>
-        <site>
-            <id>gh-pages</id>
-            <name>JavaBean Tester GitHub Pages</name>
-            <url>git:ssh://git@github.com/hazedaz/javabean-tester.git?gh-pages#</url>
-        </site>
-    </distributionManagement>
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>manual</distribution>
-            <comments>A business-friendly OSS license</comments>
-        </license>
-    </licenses>
+    <prerequisites>
+        <maven>3.2.3</maven>
+    </prerequisites>
 
     <scm>
         <connection>scm:git:ssh://git@github.com/hazendaz/javabean-tester.git</connection>
@@ -112,6 +91,21 @@
         <url>https://github.com/hazendaz/javabean-tester</url>
         <tag>HEAD</tag>
     </scm>
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/hazendaz/javabean-tester/issues</url>
+    </issueManagement>
+    <ciManagement>
+        <system>travis</system>
+        <url>https://travis-ci.org/hazendaz/javabean-tester/</url>
+    </ciManagement>
+    <distributionManagement>
+        <site>
+            <id>gh-pages</id>
+            <name>JavaBean Tester GitHub Pages</name>
+            <url>git:ssh://git@github.com/hazedaz/javabean-tester.git?gh-pages#</url>
+        </site>
+    </distributionManagement>
 
     <properties>
         <copyright>2015</copyright>
@@ -132,6 +126,7 @@
         <signature.artifact>java16</signature.artifact>
         <signature.version>1.1</signature.version>
     </properties>
+
     <dependencies>
          <dependency>
             <groupId>org.projectlombok</groupId>
@@ -178,6 +173,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -713,6 +709,7 @@
             </extension>
         </extensions>
     </build>
+
     <reporting>
         <plugins>
             <plugin>
@@ -787,6 +784,7 @@
             </plugin>
         </plugins>
     </reporting>
+
     <profiles>
         <profile>
             <id>checks</id>
