@@ -115,7 +115,7 @@
         <site>
             <id>gh-pages</id>
             <name>JavaBean Tester GitHub Pages</name>
-            <url>git:ssh://git@github.com/hazedaz/javabean-tester.git?gh-pages#</url>
+            <url>git:ssh://git@github.com/hazendaz/javabean-tester.git?gh-pages#</url>
         </site>
     </distributionManagement>
 
