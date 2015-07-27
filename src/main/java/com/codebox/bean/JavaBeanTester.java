@@ -376,10 +376,10 @@ public final class JavaBeanTester {
         // Specific rules for common classes
         Object returnObject = null;
         switch (loadType) {
-            case STANDARD_DATA:
+            case ALTERNATE_DATA:
                 returnObject = JavaBeanTester.setAlternateValues(clazz);
                 break;
-            case ALTERNATE_DATA:
+            case NULL_DATA:
                 returnObject = JavaBeanTester.setNullValues(clazz);
                 break;
             default:
