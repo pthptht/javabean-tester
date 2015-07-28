@@ -26,6 +26,7 @@ import com.codebox.enums.LoadData;
 /**
  * The Class JavaBeanTesterTest.
  */
+@SuppressWarnings("deprecation")
 public class JavaBeanTesterTest {
 
     /** The sample bean. */
@@ -159,6 +160,7 @@ public class JavaBeanTesterTest {
     @Test
     public void test_fullBean() throws IntrospectionException, InstantiationException, IllegalAccessException {
         JavaBeanTester.test(SampleBean.class, SampleExtensionBean.class, CanEquals.ON, LoadData.ON);
+        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().loadData().test();
     }
 
     /**
@@ -174,6 +176,7 @@ public class JavaBeanTesterTest {
     @Test
     public void test_fullBeanNullExt() throws IntrospectionException, InstantiationException, IllegalAccessException {
         JavaBeanTester.test(SampleBean.class, null, CanEquals.ON, LoadData.ON);
+        JavaBeanTester.builder(SampleBean.class).checkEquals().loadData().test();
     }
 
     /**
@@ -190,6 +193,7 @@ public class JavaBeanTesterTest {
     public void test_fullBeanSkipUnderlyingData() throws IntrospectionException, InstantiationException,
             IllegalAccessException {
         JavaBeanTester.test(SampleBean.class, SampleExtensionBean.class, CanEquals.ON, LoadData.OFF);
+        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().test();
     }
 
     /**
@@ -205,6 +209,8 @@ public class JavaBeanTesterTest {
     @Test
     public void test_skipBeanProperties() throws IntrospectionException, InstantiationException, IllegalAccessException {
         JavaBeanTester.test(SampleBean.class, SampleExtensionBean.class, CanEquals.ON, LoadData.ON, "string");
+        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().loadData().skip("string")
+                .test();
     }
 
     /**
@@ -220,6 +226,7 @@ public class JavaBeanTesterTest {
     @Test
     public void test_skipCanEquals() throws IntrospectionException, InstantiationException, IllegalAccessException {
         JavaBeanTester.test(SampleBean.class, SampleExtensionBean.class, CanEquals.OFF, LoadData.ON);
+        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).loadData().test();
     }
 
 }
