@@ -190,8 +190,7 @@ class JavaBeanTesterWorker<T, E> {
      * @param instance
      *            the instance of class under test.
      * @throws IntrospectionException
-     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under
-     *             test.
+     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      */
     void getterSetterTests(final T instance) throws IntrospectionException {
         final PropertyDescriptor[] props = Introspector.getBeanInfo(this.clazz).getPropertyDescriptors();
@@ -374,8 +373,7 @@ class JavaBeanTesterWorker<T, E> {
      * @param expected
      *            the instance expected for tests.
      * @throws IntrospectionException
-     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under
-     *             test.
+     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      */
     void equalsTests(final T instance, final T expected) throws IntrospectionException {
 
