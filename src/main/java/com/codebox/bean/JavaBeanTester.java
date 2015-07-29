@@ -174,7 +174,8 @@ public final class JavaBeanTester {
             throws IntrospectionException {
 
         @SuppressWarnings("unchecked")
-        JavaBeanTesterWorker<T, Object> worker = new JavaBeanTesterWorker<T, Object>((Class<T>) instance.getClass(), Object.class);
+        JavaBeanTesterWorker<T, Object> worker = new JavaBeanTesterWorker<T, Object>((Class<T>) instance.getClass(),
+                Object.class);
         worker.setLoadData(loadData);
         worker.equalsTests(instance, expected);
     }
