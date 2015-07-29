@@ -31,10 +31,69 @@ import java.util.HashSet;
 public final class JavaBeanTester {
 
     /**
+     * PERFORM_CAN_EQUALS is boolean value that is passed into static methods to determine if can equals should be
+     * performed. Generally this will be true except for cases for it otherwise fails due to missing support within this
+     * library.
+     */
+    @Deprecated
+    public static final boolean PERFORM_CAN_EQUALS        = true;
+
+    /**
+     * LOAD_UNDERLYING_DATA is boolean value that is passed into static methods to determine if underlying object data
+     * should be populated. Generally this will be true except for cases for it otherwise fails due to missing support
+     * within this library.
+     */
+    @Deprecated
+    public static final boolean LOAD_UNDERLYING_DATA      = true;
+
+    /**
+     * SKIP_CAN_EQUALS is boolean value that is passed into static methods to determine if can equals should be
+     * performed. Use this in cases where it otherwise fails due to missing support within this library.
+     */
+    @Deprecated
+    public static final boolean SKIP_CAN_EQUALS           = false;
+
+    /**
+     * SKIP_LOAD_UNDERLYING_DATA is boolean value that is passed into static methods to determine if underlying object
+     * data should be populated. Use this in cases where it otherwise fails due to missing support within this library.
+     */
+    @Deprecated
+    public static final boolean SKIP_LOAD_UNDERLYING_DATA = true;
+
+    /**
      * JavaBeanTester constructor is private to prevent instantiation of object.
      */
     private JavaBeanTester() {
         // Hide constructor of static class.
+    }
+
+    /**
+     * Tests the equals/hashCode/toString methods of the specified class.
+     *
+     * @param <T>
+     *            the type parameter associated with the class under test.
+     * @param <E>
+     *            the type parameter associated with the extension class under test.
+     * @param clazz
+     *            the class under test.
+     * @param extension
+     *            extension of class under test.
+     * @param loadData
+     *            load underlying data with values.
+     * @throws IntrospectionException
+     *             thrown if the JavaBeanTester.load method throws this exception for the class under test.
+     * @throws InstantiationException
+     *             thrown if the clazz.newInstance() method throws this exception for the class under test.
+     * @throws IllegalAccessException
+     *             thrown if the clazz.newIntances() method throws this exception for the class under test.
+     * @see JavaBeanTester#builder(Class)
+     * @see JavaBeanTesterBuilder#testObjectMethods()
+     * @deprecated in favor of builder method.
+     */
+    @Deprecated
+    public static <T, E> void equalsHashCodeToStringSymmetricTest(final Class<T> clazz, final Class<E> extension,
+            final boolean loadData) throws IntrospectionException, InstantiationException, IllegalAccessException {
+        JavaBeanTester.equalsHashCodeToStringSymmetricTest(clazz, extension, loadData ? LoadData.ON : LoadData.OFF);
     }
 
     /**
@@ -87,6 +146,30 @@ public final class JavaBeanTester {
      * @deprecated in favor of builder method.
      */
     @Deprecated
+    public static <T> void equalsTests(final T instance, final T expected, final boolean loadData)
+            throws IntrospectionException {
+        JavaBeanTester.equalsTests(instance, expected, loadData ? LoadData.ON : LoadData.OFF);
+    }
+
+    /**
+     * Equals Tests will traverse one object changing values until all have been tested against another object. This is
+     * done to effectively test all paths through equals.
+     *
+     * @param <T>
+     *            the type parameter associated with the class under test.
+     * @param instance
+     *            the class instance under test.
+     * @param expected
+     *            the instance expected for tests.
+     * @param loadData
+     *            load underlying data with values.
+     * @throws IntrospectionException
+     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
+     * @see JavaBeanTester#builder(Class)
+     * @see JavaBeanTesterBuilder#testEquals(Object, Object)
+     * @deprecated in favor of builder method.
+     */
+    @Deprecated
     public static <T> void equalsTests(final T instance, final T expected, final LoadData loadData)
             throws IntrospectionException {
 
@@ -116,9 +199,71 @@ public final class JavaBeanTester {
      * @deprecated in favor of builder method.
      */
     @Deprecated
+    public static <T> void load(final Class<T> clazz, final T instance, final boolean loadUnderlyingData,
+            final String... skipThese) throws IntrospectionException {
+        JavaBeanTester.load(clazz, instance, loadUnderlyingData ? LoadData.ON : LoadData.OFF, skipThese);
+    }
+
+    /**
+     * Tests the load methods of the specified class.
+     *
+     * @param <T>
+     *            the type parameter associated with the class under test.
+     * @param clazz
+     *            the class under test.
+     * @param instance
+     *            the instance of class under test.
+     * @param loadData
+     *            load recursively all underlying data objects.
+     * @param skipThese
+     *            the names of any properties that should not be tested.
+     * @throws IntrospectionException
+     *             thrown if the JavaBeanTester.getterSetterTests method throws this exception for the class under test.
+     * @see JavaBeanTester#builder(Class)
+     * @see JavaBeanTesterBuilder#testInstance(Object)
+     * @deprecated in favor of builder method.
+     */
+    @Deprecated
     public static <T> void load(final Class<T> clazz, final T instance, final LoadData loadData,
             final String... skipThese) throws IntrospectionException {
         JavaBeanTesterWorker.load(clazz, instance, loadData, skipThese);
+    }
+
+    /**
+     * Tests the get/set/equals/hashCode/toString methods of the specified class.
+     *
+     * @param <T>
+     *            the type parameter associated with the class under test.
+     * @param <E>
+     *            the type parameter associated with the extension class under test.
+     * @param clazz
+     *            the class under test.
+     * @param extension
+     *            extension of class under test.
+     * @param checkEquals
+     *            should equals be checked (use true unless good reason not to).
+     * @param loadData
+     *            load recursively all underlying data objects.
+     * @param skipThese
+     *            the names of any properties that should not be tested.
+     * @throws IntrospectionException
+     *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest
+     *             method throws this exception for the class under test.
+     * @throws InstantiationException
+     *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest
+     *             method throws this exception for the class under test.
+     * @throws IllegalAccessException
+     *             thrown if the JavaBeanTester.getterSetterTests or clazz.newInstance() method throws this exception
+     *             for the class under test.
+     * @see JavaBeanTester#builder(Class)
+     * @see JavaBeanTesterBuilder#test()
+     * @deprecated in favor of builder method.
+     */
+    @Deprecated
+    public static <T, E> void test(final Class<T> clazz, final Class<E> extension, final CanEquals checkEquals,
+            final boolean loadData, final String... skipThese) throws IntrospectionException, InstantiationException,
+            IllegalAccessException {
+        JavaBeanTester.test(clazz, extension, checkEquals, loadData ? LoadData.ON : LoadData.OFF, skipThese);
     }
 
     /**
