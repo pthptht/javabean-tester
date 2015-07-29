@@ -55,7 +55,7 @@ public class ValueBuilder {
      * @return the load data
      */
     public LoadData getLoadData() {
-        return loadData;
+        return this.loadData;
     }
 
     /**
@@ -81,11 +81,11 @@ public class ValueBuilder {
         final Constructor<?>[] ctrs = clazz.getConstructors();
         for (final Constructor<?> ctr : ctrs) {
             if (ctr.getParameterTypes().length == 0 && clazz != String.class) {
-                if (loadData == LoadData.ON) {
+                if (this.loadData == LoadData.ON) {
                     // Load Underlying Data
                     try {
                         JavaBeanTesterWorker<T, Object> beanTesterWorker = new JavaBeanTesterWorker<T, Object>(clazz);
-                        beanTesterWorker.setLoadData(loadData);
+                        beanTesterWorker.setLoadData(this.loadData);
                         beanTesterWorker.getterSetterTests(clazz.newInstance());
                     } catch (final IntrospectionException e) {
                         Assert.fail(String.format("An exception was thrown while testing the clazz %s: %s",

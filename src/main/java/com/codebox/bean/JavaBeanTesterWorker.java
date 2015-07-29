@@ -123,7 +123,7 @@ class JavaBeanTesterWorker<T, E> {
      * @return the load data
      */
     public LoadData getLoadData() {
-        return loadData;
+        return this.loadData;
     }
 
     /**
@@ -142,7 +142,7 @@ class JavaBeanTesterWorker<T, E> {
      * @return the check equals
      */
     public CanEquals getCheckEquals() {
-        return checkEquals;
+        return this.checkEquals;
     }
 
     /**
@@ -161,7 +161,7 @@ class JavaBeanTesterWorker<T, E> {
      * @return the skip these
      */
     public Set<String> getSkipThese() {
-        return skipThese;
+        return this.skipThese;
     }
 
     /**
@@ -178,8 +178,8 @@ class JavaBeanTesterWorker<T, E> {
      *             under test.
      */
     public void test() throws IntrospectionException, InstantiationException, IllegalAccessException {
-        getterSetterTests(clazz.newInstance());
-        if (checkEquals == CanEquals.ON) {
+        getterSetterTests(this.clazz.newInstance());
+        if (this.checkEquals == CanEquals.ON) {
             equalsHashCodeToStringSymmetricTest();
         }
     }
@@ -194,10 +194,10 @@ class JavaBeanTesterWorker<T, E> {
      *             test.
      */
     void getterSetterTests(final T instance) throws IntrospectionException {
-        final PropertyDescriptor[] props = Introspector.getBeanInfo(clazz).getPropertyDescriptors();
+        final PropertyDescriptor[] props = Introspector.getBeanInfo(this.clazz).getPropertyDescriptors();
         nextProp: for (final PropertyDescriptor prop : props) {
             // Check the list of properties that we don't want to test
-            for (final String skipThis : skipThese) {
+            for (final String skipThis : this.skipThese) {
                 if (skipThis.equals(prop.getName())) {
                     continue nextProp;
                 }
@@ -267,7 +267,7 @@ class JavaBeanTesterWorker<T, E> {
     private <R> Object buildValue(Class<R> returnType, LoadType loadType) throws InstantiationException,
             IllegalAccessException, InvocationTargetException {
         ValueBuilder valueBuilder = new ValueBuilder();
-        valueBuilder.setLoadData(loadData);
+        valueBuilder.setLoadData(this.loadData);
         return valueBuilder.buildValue(returnType, loadType);
     }
 
@@ -284,11 +284,11 @@ class JavaBeanTesterWorker<T, E> {
     public void equalsHashCodeToStringSymmetricTest() throws IntrospectionException, InstantiationException,
             IllegalAccessException {
         // Create Instances
-        final T x = clazz.newInstance();
-        final T y = clazz.newInstance();
+        final T x = this.clazz.newInstance();
+        final T y = this.clazz.newInstance();
         E ext = null;
-        if (extension != null) {
-            ext = extension.newInstance();
+        if (this.extension != null) {
+            ext = this.extension.newInstance();
         }
 
         // Test Empty Equals, HashCode, and ToString
@@ -313,11 +313,11 @@ class JavaBeanTesterWorker<T, E> {
         }
 
         // Populate Side X
-        load(clazz, x, loadData);
+        load(this.clazz, x, this.loadData);
 
         // Populate Side E
         if (ext != null) {
-            load(extension, ext, loadData);
+            load(this.extension, ext, this.loadData);
         }
 
         // ReTest Equals (flip)
@@ -329,10 +329,10 @@ class JavaBeanTesterWorker<T, E> {
         }
 
         // Populate Size Y
-        load(clazz, y, loadData);
+        load(this.clazz, y, this.loadData);
 
         // ReTest Equals and HashCode
-        if (loadData == LoadData.ON) {
+        if (this.loadData == LoadData.ON) {
             Assert.assertEquals(x, y);
             Assert.assertEquals(x.hashCode(), y.hashCode());
         } else {
@@ -349,14 +349,14 @@ class JavaBeanTesterWorker<T, E> {
 
         // Create Immutable Instance
         try {
-            BeanCopier clazzBeanCopier = BeanCopier.create(clazz, clazz, false);
-            final T e = clazz.newInstance();
+            BeanCopier clazzBeanCopier = BeanCopier.create(this.clazz, this.clazz, false);
+            final T e = this.clazz.newInstance();
             clazzBeanCopier.copy(x, e, null);
             Assert.assertEquals(e, x);
 
-            if (extension != null) {
-                BeanCopier extensionBeanCopier = BeanCopier.create(extension, extension, false);
-                final E e2 = extension.newInstance();
+            if (this.extension != null) {
+                BeanCopier extensionBeanCopier = BeanCopier.create(this.extension, this.extension, false);
+                final E e2 = this.extension.newInstance();
                 extensionBeanCopier.copy(ext, e2, null);
                 Assert.assertEquals(e2, ext);
             }
@@ -388,7 +388,7 @@ class JavaBeanTesterWorker<T, E> {
         }
 
         ValueBuilder valueBuilder = new ValueBuilder();
-        valueBuilder.setLoadData(loadData);
+        valueBuilder.setLoadData(this.loadData);
 
         final PropertyDescriptor[] props = Introspector.getBeanInfo(instance.getClass()).getPropertyDescriptors();
         for (final PropertyDescriptor prop : props) {

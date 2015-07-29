@@ -39,7 +39,7 @@ public class JavaBeanTesterBuilder<T, E> {
      *            the clazz
      */
     JavaBeanTesterBuilder(Class<T> clazz) {
-        worker = new JavaBeanTesterWorker<T, E>(clazz);
+        this.worker = new JavaBeanTesterWorker<T, E>(clazz);
     }
 
     /**
@@ -51,7 +51,7 @@ public class JavaBeanTesterBuilder<T, E> {
      *            the extension
      */
     JavaBeanTesterBuilder(Class<T> clazz, Class<E> extension) {
-        worker = new JavaBeanTesterWorker<T, E>(clazz, extension);
+        this.worker = new JavaBeanTesterWorker<T, E>(clazz, extension);
     }
 
     /**
@@ -71,7 +71,7 @@ public class JavaBeanTesterBuilder<T, E> {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder<T, E> checkEquals(boolean value) {
-        worker.setCheckEquals(value ? CanEquals.ON : CanEquals.OFF);
+        this.worker.setCheckEquals(value ? CanEquals.ON : CanEquals.OFF);
         return this;
     }
 
@@ -92,7 +92,7 @@ public class JavaBeanTesterBuilder<T, E> {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder<T, E> loadData(boolean value) {
-        worker.setLoadData(value ? LoadData.ON : LoadData.OFF);
+        this.worker.setLoadData(value ? LoadData.ON : LoadData.OFF);
         return this;
     }
 
@@ -106,7 +106,7 @@ public class JavaBeanTesterBuilder<T, E> {
     public JavaBeanTesterBuilder<T, E> skip(String... propertyNames) {
         if (propertyNames != null) {
             for (String propertyName : propertyNames) {
-                worker.getSkipThese().add(propertyName);
+                this.worker.getSkipThese().add(propertyName);
             }
         }
         return this;
@@ -123,7 +123,7 @@ public class JavaBeanTesterBuilder<T, E> {
      *             the instantiation exception
      */
     public void test() throws IllegalAccessException, IntrospectionException, InstantiationException {
-        worker.test();
+        this.worker.test();
     }
 
     /**
@@ -137,7 +137,7 @@ public class JavaBeanTesterBuilder<T, E> {
      *             thrown if the clazz.newInstance() method throws this exception for the class under test.
      */
     public void testObjectMethods() throws IllegalAccessException, IntrospectionException, InstantiationException {
-        worker.equalsHashCodeToStringSymmetricTest();
+        this.worker.equalsHashCodeToStringSymmetricTest();
     }
 
     /**
@@ -149,7 +149,7 @@ public class JavaBeanTesterBuilder<T, E> {
      *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      */
     public void testInstance(T instance) throws IntrospectionException {
-        worker.getterSetterTests(instance);
+        this.worker.getterSetterTests(instance);
     }
 
     /**
@@ -163,6 +163,6 @@ public class JavaBeanTesterBuilder<T, E> {
      *             the introspection exception
      */
     public void testEquals(T instance, T expected) throws IntrospectionException {
-        worker.equalsTests(instance, expected);
+        this.worker.equalsTests(instance, expected);
     }
 }
