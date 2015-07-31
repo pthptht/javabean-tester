@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ValueBuilder.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">javabean-tester</a> &gt; <a href="index.source.html" class="el_package">com.codebox.bean</a> &gt; <span class="el_source">ValueBuilder.java</span></div><h1>ValueBuilder.java</h1><pre class="source lang-java linenums">/**
+ * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
+ *
+ * Copyright (c) 2012 - 2015 Hazendaz.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of The Apache Software License,
+ * Version 2.0 which accompanies this distribution, and is available at
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ *
+ * Contributors:
+ *     CodeBox (Rob Dawson).
+ *     Hazendaz (Jeremy Landis).
+ */
+package com.codebox.bean;
+
+import com.codebox.enums.LoadData;
+import com.codebox.enums.LoadType;
+import org.junit.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.beans.IntrospectionException;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
+/**
+ * Builds values from given type.
+ */
+<span class="fc" id="L37">public class ValueBuilder {</span>
+
+    /** The load data. */
+    private LoadData loadData;
+
+    /**
+     * Sets the load data.
+     *
+     * @param loadData
+     *            the new load data
+     */
+    public void setLoadData(LoadData loadData) {
+<span class="fc" id="L49">        this.loadData = loadData;</span>
+<span class="fc" id="L50">    }</span>
+
+    /**
+     * Gets the load data.
+     *
+     * @return the load data
+     */
+    public LoadData getLoadData() {
+<span class="nc" id="L58">        return this.loadData;</span>
+    }
+
+    /**
+     * Builds the value.
+     *
+     * @param &lt;T&gt;
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param loadType
+     *            the load type
+     * @return the object
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     */
+    public &lt;T&gt; Object buildValue(Class&lt;T&gt; clazz, LoadType loadType) throws IllegalAccessException,
+            InvocationTargetException, InstantiationException {
+        // Next check for a no-arg constructor
+<span class="fc" id="L81">        final Constructor&lt;?&gt;[] ctrs = clazz.getConstructors();</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        for (final Constructor&lt;?&gt; ctr : ctrs) {</span>
+<span class="fc bfc" id="L83" title="All 4 branches covered.">            if (ctr.getParameterTypes().length == 0 &amp;&amp; clazz != String.class) {</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">                if (this.loadData == LoadData.ON) {</span>
+                    // Load Underlying Data
+                    try {
+<span class="fc" id="L87">                        JavaBeanTesterWorker&lt;T, Object&gt; beanTesterWorker = new JavaBeanTesterWorker&lt;T, Object&gt;(clazz);</span>
+<span class="fc" id="L88">                        beanTesterWorker.setLoadData(this.loadData);</span>
+<span class="fc" id="L89">                        beanTesterWorker.getterSetterTests(clazz.newInstance());</span>
+<span class="nc" id="L90">                    } catch (final IntrospectionException e) {</span>
+<span class="nc" id="L91">                        Assert.fail(String.format(&quot;An exception was thrown while testing the clazz %s: %s&quot;,</span>
+                                clazz.getName(), e.toString()));
+<span class="fc" id="L93">                    }</span>
+<span class="fc" id="L94">                    return null;</span>
+                }
+                // The class has a no-arg constructor, so just call it
+<span class="fc" id="L97">                return ctr.newInstance();</span>
+            }
+        }
+
+        // Specific rules for common classes
+<span class="fc" id="L102">        Object returnObject = null;</span>
+<span class="pc bfc" id="L103" title="All 3 branches covered.">        switch (loadType) {</span>
+            case ALTERNATE_DATA:
+<span class="fc" id="L105">                returnObject = setAlternateValues(clazz);</span>
+<span class="fc" id="L106">                break;</span>
+            case NULL_DATA:
+<span class="fc" id="L108">                returnObject = setNullValues(clazz);</span>
+<span class="fc" id="L109">                break;</span>
+            default:
+<span class="fc" id="L111">                returnObject = setStandardValues(clazz);</span>
+<span class="fc" id="L112">                break;</span>
+        }
+<span class="fc bfc" id="L114" title="All 4 branches covered.">        if (returnObject != null || loadType == LoadType.NULL_DATA) {</span>
+<span class="fc" id="L115">            return returnObject;</span>
+
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        } else if (clazz.isAssignableFrom(List.class)) {</span>
+<span class="fc" id="L118">            return new ArrayList&lt;Object&gt;();</span>
+
+<span class="fc bfc" id="L120" title="All 2 branches covered.">        } else if (clazz.isAssignableFrom(Map.class)) {</span>
+<span class="fc" id="L121">            return new HashMap&lt;Object, Object&gt;();</span>
+
+<span class="fc bfc" id="L123" title="All 2 branches covered.">        } else if (clazz.isAssignableFrom(ConcurrentMap.class)) {</span>
+<span class="fc" id="L124">            return new ConcurrentHashMap&lt;Object, Object&gt;();</span>
+
+<span class="pc bpc" id="L126" title="1 of 2 branches missed.">        } else if (clazz == Logger.class) {</span>
+<span class="fc" id="L127">            return LoggerFactory.getLogger(clazz);</span>
+
+            // XXX Add additional rules here
+
+        } else {
+
+            // XXX Don't fail this...until alternative solution is determined
+            // Assert.fail(String.format(
+            // &quot;Unable to build an instance of class %s, please add some code to the %s class to do this.&quot;,
+            // clazz.getName(), JavaBeanTester.class.getName()));
+<span class="nc" id="L137">            return null;</span>
+        }
+    }
+
+    /**
+     * Set using alternate test values.
+     *
+     * @param &lt;T&gt;
+     *            the type parameter associated with the class under test.
+     * @param clazz
+     *            the class under test.
+     * @return Object the Object to use for test.
+     */
+    private static &lt;T&gt; Object setAlternateValues(final Class&lt;T&gt; clazz) {
+<span class="fc" id="L151">        return setValues(clazz, &quot;ALT_VALUE&quot;, 1, Boolean.FALSE, Integer.valueOf(2), Long.valueOf(2),</span>
+                Double.valueOf(2.0), Float.valueOf(2.0F), Character.valueOf('N'), Byte.valueOf((byte) 2));
+    }
+
+    /**
+     * Set using null test values.
+     *
+     * @param &lt;T&gt;
+     *            the type parameter associated with the class under test.
+     * @param clazz
+     *            the class under test.
+     * @return Object the Object to use for test.
+     */
+    private static &lt;T&gt; Object setNullValues(final Class&lt;T&gt; clazz) {
+<span class="fc" id="L165">        return setValues(clazz, null, 0, null, null, null, null, null, null, null);</span>
+    }
+
+    /**
+     * Set using standard test values.
+     *
+     * @param &lt;T&gt;
+     *            the type parameter associated with the class under test.
+     * @param clazz
+     *            the class under test.
+     * @return Object the Object to use for test.
+     */
+    private static &lt;T&gt; Object setStandardValues(final Class&lt;T&gt; clazz) {
+<span class="fc" id="L178">        return setValues(clazz, &quot;TEST_VALUE&quot;, 1, Boolean.TRUE, Integer.valueOf(1), Long.valueOf(1),</span>
+                Double.valueOf(1.0), Float.valueOf(1.0F), Character.valueOf('Y'), Byte.valueOf((byte) 1));
+    }
+
+    /**
+     * Set Values for object.
+     *
+     * @param &lt;T&gt;
+     *            the type parameter associated with the class under test.
+     * @param clazz
+     *            the class instance under test.
+     * @param string
+     *            value of string object.
+     * @param arrayLength
+     *            amount of array objects to create.
+     * @param booleanValue
+     *            value of boolean object.
+     * @param integerValue
+     *            value of integer object.
+     * @param longValue
+     *            value of long object.
+     * @param doubleValue
+     *            value of double object.
+     * @param floatValue
+     *            value of float object.
+     * @param characterValue
+     *            value of character object.
+     * @param byteValue
+     *            value of character object.
+     * @return Object value determined by input class. If not found, returns null.
+     */
+    private static &lt;T&gt; Object setValues(final Class&lt;T&gt; clazz, final String string, final int arrayLength,
+            final Boolean booleanValue, final Integer integerValue, final Long longValue, final Double doubleValue,
+            final Float floatValue, final Character characterValue, final Byte byteValue) {
+<span class="fc bfc" id="L212" title="All 2 branches covered.">        if (clazz == String.class) {</span>
+<span class="fc" id="L213">            return string;</span>
+<span class="fc bfc" id="L214" title="All 2 branches covered.">        } else if (clazz.isArray()) {</span>
+<span class="fc" id="L215">            return Array.newInstance(clazz.getComponentType(), arrayLength);</span>
+<span class="fc bfc" id="L216" title="All 4 branches covered.">        } else if (clazz == boolean.class || clazz == Boolean.class) {</span>
+<span class="fc bfc" id="L217" title="All 4 branches covered.">            if (clazz == boolean.class &amp;&amp; booleanValue == null) {</span>
+<span class="fc" id="L218">                return Boolean.FALSE;</span>
+            }
+<span class="fc" id="L220">            return booleanValue;</span>
+<span class="fc bfc" id="L221" title="All 4 branches covered.">        } else if (clazz == int.class || clazz == Integer.class) {</span>
+<span class="fc bfc" id="L222" title="All 4 branches covered.">            if (clazz == int.class &amp;&amp; integerValue == null) {</span>
+<span class="fc" id="L223">                return Integer.valueOf(-1);</span>
+            }
+<span class="fc" id="L225">            return integerValue;</span>
+<span class="fc bfc" id="L226" title="All 4 branches covered.">        } else if (clazz == long.class || clazz == Long.class) {</span>
+<span class="fc bfc" id="L227" title="All 4 branches covered.">            if (clazz == long.class &amp;&amp; longValue == null) {</span>
+<span class="fc" id="L228">                return Long.valueOf(-1);</span>
+            }
+<span class="fc" id="L230">            return longValue;</span>
+<span class="fc bfc" id="L231" title="All 4 branches covered.">        } else if (clazz == double.class || clazz == Double.class) {</span>
+<span class="fc bfc" id="L232" title="All 4 branches covered.">            if (clazz == double.class &amp;&amp; doubleValue == null) {</span>
+<span class="fc" id="L233">                return Double.valueOf(-1.0);</span>
+            }
+<span class="fc" id="L235">            return doubleValue;</span>
+<span class="fc bfc" id="L236" title="All 4 branches covered.">        } else if (clazz == float.class || clazz == Float.class) {</span>
+<span class="fc bfc" id="L237" title="All 4 branches covered.">            if (clazz == float.class &amp;&amp; floatValue == null) {</span>
+<span class="fc" id="L238">                return Float.valueOf(-1.0F);</span>
+            }
+<span class="fc" id="L240">            return floatValue;</span>
+<span class="fc bfc" id="L241" title="All 4 branches covered.">        } else if (clazz == char.class || clazz == Character.class) {</span>
+<span class="fc bfc" id="L242" title="All 4 branches covered.">            if (clazz == char.class &amp;&amp; characterValue == null) {</span>
+<span class="fc" id="L243">                return Character.valueOf('\u0000');</span>
+            }
+<span class="fc" id="L245">            return characterValue;</span>
+<span class="fc bfc" id="L246" title="All 4 branches covered.">        } else if (clazz == byte.class || clazz == Byte.class) {</span>
+<span class="fc bfc" id="L247" title="All 4 branches covered.">            if (clazz == byte.class &amp;&amp; byteValue == null) {</span>
+<span class="fc" id="L248">                return Byte.valueOf((byte) -1);</span>
+            }
+<span class="fc" id="L250">            return byteValue;</span>
+        }
+<span class="fc" id="L252">        return null;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

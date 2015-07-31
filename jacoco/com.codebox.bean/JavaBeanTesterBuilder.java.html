@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>JavaBeanTesterBuilder.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">javabean-tester</a> &gt; <a href="index.source.html" class="el_package">com.codebox.bean</a> &gt; <span class="el_source">JavaBeanTesterBuilder.java</span></div><h1>JavaBeanTesterBuilder.java</h1><pre class="source lang-java linenums">/**
+ * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
+ *
+ * Copyright (c) 2012 - 2015 Hazendaz.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of The Apache Software License,
+ * Version 2.0 which accompanies this distribution, and is available at
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ *
+ * Contributors:
+ *     CodeBox (Rob Dawson).
+ *     Hazendaz (Jeremy Landis).
+ */
+package com.codebox.bean;
+
+import com.codebox.enums.CanEquals;
+import com.codebox.enums.LoadData;
+
+import java.beans.IntrospectionException;
+
+/**
+ * The Class JavaBeanTesterBuilder.
+ *
+ * @param &lt;T&gt;
+ *            the generic type
+ * @param &lt;E&gt;
+ *            the element type
+ */
+public class JavaBeanTesterBuilder&lt;T, E&gt; {
+
+    /** The worker. */
+    private JavaBeanTesterWorker&lt;T, E&gt; worker;
+
+    /**
+     * Instantiates a new java bean tester builder.
+     *
+     * @param clazz
+     *            the clazz
+     */
+<span class="nc" id="L41">    JavaBeanTesterBuilder(Class&lt;T&gt; clazz) {</span>
+<span class="nc" id="L42">        this.worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz);</span>
+<span class="nc" id="L43">    }</span>
+
+    /**
+     * Instantiates a new java bean tester builder.
+     *
+     * @param clazz
+     *            the clazz
+     * @param extension
+     *            the extension
+     */
+<span class="fc" id="L53">    JavaBeanTesterBuilder(Class&lt;T&gt; clazz, Class&lt;E&gt; extension) {</span>
+<span class="fc" id="L54">        this.worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz, extension);</span>
+<span class="fc" id="L55">    }</span>
+
+    /**
+     * Check equals.
+     *
+     * @return the java bean tester builder
+     */
+    public JavaBeanTesterBuilder&lt;T, E&gt; checkEquals() {
+<span class="fc" id="L63">        return checkEquals(true);</span>
+    }
+
+    /**
+     * Check equals.
+     *
+     * @param value
+     *            the value
+     * @return the java bean tester builder
+     */
+    public JavaBeanTesterBuilder&lt;T, E&gt; checkEquals(boolean value) {
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        this.worker.setCheckEquals(value ? CanEquals.ON : CanEquals.OFF);</span>
+<span class="fc" id="L75">        return this;</span>
+    }
+
+    /**
+     * Load data.
+     *
+     * @return the java bean tester builder
+     */
+    public JavaBeanTesterBuilder&lt;T, E&gt; loadData() {
+<span class="fc" id="L84">        return loadData(true);</span>
+    }
+
+    /**
+     * Load data.
+     *
+     * @param value
+     *            the value
+     * @return the java bean tester builder
+     */
+    public JavaBeanTesterBuilder&lt;T, E&gt; loadData(boolean value) {
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        this.worker.setLoadData(value ? LoadData.ON : LoadData.OFF);</span>
+<span class="fc" id="L96">        return this;</span>
+    }
+
+    /**
+     * Skip.
+     *
+     * @param propertyNames
+     *            the property names
+     * @return the java bean tester builder
+     */
+    public JavaBeanTesterBuilder&lt;T, E&gt; skip(String... propertyNames) {
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">        if (propertyNames != null) {</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">            for (String propertyName : propertyNames) {</span>
+<span class="fc" id="L109">                this.worker.getSkipThese().add(propertyName);</span>
+            }
+        }
+<span class="fc" id="L112">        return this;</span>
+    }
+
+    /**
+     * Test.
+     *
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws IntrospectionException
+     *             the introspection exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     */
+    public void test() throws IllegalAccessException, IntrospectionException, InstantiationException {
+<span class="fc" id="L126">        this.worker.test();</span>
+<span class="fc" id="L127">    }</span>
+
+    /**
+     * Tests the equals/hashCode/toString methods of the specified class.
+     *
+     * @throws IllegalAccessException
+     *             thrown if the clazz.newIntances() method throws this exception for the class under test.
+     * @throws IntrospectionException
+     *             thrown if the load method throws this exception for the class under test.
+     * @throws InstantiationException
+     *             thrown if the clazz.newInstance() method throws this exception for the class under test.
+     */
+    public void testObjectMethods() throws IllegalAccessException, IntrospectionException, InstantiationException {
+<span class="nc" id="L140">        this.worker.equalsHashCodeToStringSymmetricTest();</span>
+<span class="nc" id="L141">    }</span>
+
+    /**
+     * Getter Setter Tests.
+     *
+     * @param instance
+     *            the instance of class under test.
+     * @throws IntrospectionException
+     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
+     */
+    public void testInstance(T instance) throws IntrospectionException {
+<span class="nc" id="L152">        this.worker.getterSetterTests(instance);</span>
+<span class="nc" id="L153">    }</span>
+
+    /**
+     * Test equals.
+     *
+     * @param instance
+     *            the instance
+     * @param expected
+     *            the expected
+     * @throws IntrospectionException
+     *             the introspection exception
+     */
+    public void testEquals(T instance, T expected) throws IntrospectionException {
+<span class="nc" id="L166">        this.worker.equalsTests(instance, expected);</span>
+<span class="nc" id="L167">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

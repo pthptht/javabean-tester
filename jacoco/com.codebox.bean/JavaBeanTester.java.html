@@ -14,29 +14,12 @@
  */
 package com.codebox.bean;
 
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-
-import org.junit.Assert;
-import org.mockito.cglib.beans.BeanCopier;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.codebox.enums.CanEquals;
 import com.codebox.enums.LoadData;
-import com.codebox.enums.LoadType;
+
+import java.beans.IntrospectionException;
+import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * This helper class can be used to unit test the get/set/equals/canEqual/toString/hashCode methods of JavaBean-style
@@ -48,11 +31,41 @@ import com.codebox.enums.LoadType;
 public final class JavaBeanTester {
 
     /**
+     * PERFORM_CAN_EQUALS is boolean value that is passed into static methods to determine if can equals should be
+     * performed. Generally this will be true except for cases for it otherwise fails due to missing support within this
+     * library.
+     */
+    @Deprecated
+    public static final boolean PERFORM_CAN_EQUALS        = true;
+
+    /**
+     * LOAD_UNDERLYING_DATA is boolean value that is passed into static methods to determine if underlying object data
+     * should be populated. Generally this will be true except for cases for it otherwise fails due to missing support
+     * within this library.
+     */
+    @Deprecated
+    public static final boolean LOAD_UNDERLYING_DATA      = true;
+
+    /**
+     * SKIP_CAN_EQUALS is boolean value that is passed into static methods to determine if can equals should be
+     * performed. Use this in cases where it otherwise fails due to missing support within this library.
+     */
+    @Deprecated
+    public static final boolean SKIP_CAN_EQUALS           = false;
+
+    /**
+     * SKIP_LOAD_UNDERLYING_DATA is boolean value that is passed into static methods to determine if underlying object
+     * data should be populated. Use this in cases where it otherwise fails due to missing support within this library.
+     */
+    @Deprecated
+    public static final boolean SKIP_LOAD_UNDERLYING_DATA = true;
+
+    /**
      * JavaBeanTester constructor is private to prevent instantiation of object.
      */
-<span class="nc" id="L53">    private JavaBeanTester() {</span>
+<span class="nc" id="L66">    private JavaBeanTester() {</span>
         // Hide constructor of static class.
-<span class="nc" id="L55">    }</span>
+<span class="nc" id="L68">    }</span>
 
     /**
      * Tests the equals/hashCode/toString methods of the specified class.
@@ -73,90 +86,46 @@ public final class JavaBeanTester {
      *             thrown if the clazz.newInstance() method throws this exception for the class under test.
      * @throws IllegalAccessException
      *             thrown if the clazz.newIntances() method throws this exception for the class under test.
+     * @see JavaBeanTester#builder(Class)
+     * @see JavaBeanTesterBuilder#testObjectMethods()
+     * @deprecated in favor of builder method.
      */
+    @Deprecated
+    public static &lt;T, E&gt; void equalsHashCodeToStringSymmetricTest(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension,
+            final boolean loadData) throws IntrospectionException, InstantiationException, IllegalAccessException {
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        JavaBeanTester.equalsHashCodeToStringSymmetricTest(clazz, extension, loadData ? LoadData.ON : LoadData.OFF);</span>
+<span class="nc" id="L97">    }</span>
+
+    /**
+     * Tests the equals/hashCode/toString methods of the specified class.
+     *
+     * @param &lt;T&gt;
+     *            the type parameter associated with the class under test.
+     * @param &lt;E&gt;
+     *            the type parameter associated with the extension class under test.
+     * @param clazz
+     *            the class under test.
+     * @param extension
+     *            extension of class under test.
+     * @param loadData
+     *            load underlying data with values.
+     * @throws IntrospectionException
+     *             thrown if the JavaBeanTester.load method throws this exception for the class under test.
+     * @throws InstantiationException
+     *             thrown if the clazz.newInstance() method throws this exception for the class under test.
+     * @throws IllegalAccessException
+     *             thrown if the clazz.newIntances() method throws this exception for the class under test.
+     * @see JavaBeanTester#builder(Class)
+     * @see JavaBeanTesterBuilder#testObjectMethods()
+     * @deprecated in favor of builder method.
+     */
+    @Deprecated
     public static &lt;T, E&gt; void equalsHashCodeToStringSymmetricTest(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension,
             final LoadData loadData) throws IntrospectionException, InstantiationException, IllegalAccessException {
-        // Create Instances
-<span class="fc" id="L80">        final T x = clazz.newInstance();</span>
-<span class="fc" id="L81">        final T y = clazz.newInstance();</span>
-<span class="fc" id="L82">        E ext = null;</span>
-<span class="fc bfc" id="L83" title="All 2 branches covered.">        if (extension != null) {</span>
-<span class="fc" id="L84">            ext = extension.newInstance();</span>
-        }
-
-        // Test Empty Equals, HashCode, and ToString
-<span class="fc" id="L88">        Assert.assertEquals(x, y);</span>
-<span class="fc" id="L89">        Assert.assertEquals(x.hashCode(), y.hashCode());</span>
-<span class="fc" id="L90">        Assert.assertEquals(x.toString(), y.toString());</span>
-
-        // Test Empty Equals, HashCode, and ToString
-<span class="fc bfc" id="L93" title="All 2 branches covered.">        if (ext != null) {</span>
-<span class="fc" id="L94">            Assert.assertNotEquals(ext, y);</span>
-<span class="fc" id="L95">            Assert.assertNotEquals(ext.hashCode(), y.hashCode());</span>
-        }
-
-        // Test Empty One Sided Tests
-<span class="fc" id="L99">        Assert.assertNotEquals(x, null);</span>
-<span class="fc" id="L100">        Assert.assertEquals(x, x);</span>
-
-        // Test Empty One Sided Tests
-<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (ext != null) {</span>
-<span class="fc" id="L104">            Assert.assertNotEquals(ext, null);</span>
-<span class="fc" id="L105">            Assert.assertEquals(ext, ext);</span>
-        }
-
-        // Populate Side X
-<span class="fc" id="L109">        JavaBeanTester.load(clazz, x, loadData);</span>
-
-        // Populate Side E
-<span class="fc bfc" id="L112" title="All 2 branches covered.">        if (ext != null) {</span>
-<span class="fc" id="L113">            JavaBeanTester.load(extension, ext, loadData);</span>
-        }
-
-        // ReTest Equals (flip)
-<span class="fc" id="L117">        Assert.assertNotEquals(y, x);</span>
-
-        // ReTest Equals (flip)
-<span class="fc bfc" id="L120" title="All 2 branches covered.">        if (ext != null) {</span>
-<span class="fc" id="L121">            Assert.assertNotEquals(y, ext);</span>
-        }
-
-        // Populate Size Y
-<span class="fc" id="L125">        JavaBeanTester.load(clazz, y, loadData);</span>
-
-        // ReTest Equals and HashCode
-<span class="fc bfc" id="L128" title="All 2 branches covered.">        if (loadData == LoadData.ON) {</span>
-<span class="fc" id="L129">            Assert.assertEquals(x, y);</span>
-<span class="fc" id="L130">            Assert.assertEquals(x.hashCode(), y.hashCode());</span>
-        } else {
-<span class="fc" id="L132">            Assert.assertNotEquals(x, y);</span>
-<span class="fc" id="L133">            Assert.assertNotEquals(x.hashCode(), y.hashCode());</span>
-        }
-
-        // ReTest Equals and HashCode
-<span class="fc bfc" id="L137" title="All 2 branches covered.">        if (ext != null) {</span>
-<span class="fc" id="L138">            Assert.assertNotEquals(ext, y);</span>
-<span class="fc" id="L139">            Assert.assertNotEquals(ext.hashCode(), y.hashCode());</span>
-<span class="fc" id="L140">            Assert.assertNotEquals(ext.toString(), y.toString());</span>
-        }
-
-        // Create Immutable Instance
-        try {
-<span class="fc" id="L145">            BeanCopier clazzBeanCopier = BeanCopier.create(clazz, clazz, false);</span>
-<span class="fc" id="L146">            final T e = clazz.newInstance();</span>
-<span class="fc" id="L147">            clazzBeanCopier.copy(x, e, null);</span>
-<span class="fc" id="L148">            Assert.assertEquals(e, x);</span>
-
-<span class="fc bfc" id="L150" title="All 2 branches covered.">            if (extension != null) {</span>
-<span class="fc" id="L151">                BeanCopier extensionBeanCopier = BeanCopier.create(extension, extension, false);</span>
-<span class="fc" id="L152">                final E e2 = extension.newInstance();</span>
-<span class="fc" id="L153">                extensionBeanCopier.copy(ext, e2, null);</span>
-<span class="fc" id="L154">                Assert.assertEquals(e2, ext);</span>
-            }
-<span class="nc" id="L156">        } catch (final Exception e) {</span>
-            // Do nothing class is not mutable
-<span class="fc" id="L158">        }</span>
-<span class="fc" id="L159">    }</span>
+<span class="nc" id="L125">        JavaBeanTesterWorker&lt;T, E&gt; worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz, extension);</span>
+<span class="nc" id="L126">        worker.setLoadData(loadData);</span>
+<span class="nc" id="L127">        worker.equalsHashCodeToStringSymmetricTest();</span>
+<span class="nc" id="L128">    }</span>
 
     /**
      * Equals Tests will traverse one object changing values until all have been tested against another object. This is
@@ -172,84 +141,44 @@ public final class JavaBeanTester {
      *            load underlying data with values.
      * @throws IntrospectionException
      *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
+     * @see JavaBeanTester#builder(Class)
+     * @see JavaBeanTesterBuilder#testEquals(Object, Object)
+     * @deprecated in favor of builder method.
      */
+    @Deprecated
+    public static &lt;T&gt; void equalsTests(final T instance, final T expected, final boolean loadData)
+            throws IntrospectionException {
+<span class="nc bnc" id="L151" title="All 2 branches missed.">        JavaBeanTester.equalsTests(instance, expected, loadData ? LoadData.ON : LoadData.OFF);</span>
+<span class="nc" id="L152">    }</span>
+
+    /**
+     * Equals Tests will traverse one object changing values until all have been tested against another object. This is
+     * done to effectively test all paths through equals.
+     *
+     * @param &lt;T&gt;
+     *            the type parameter associated with the class under test.
+     * @param instance
+     *            the class instance under test.
+     * @param expected
+     *            the instance expected for tests.
+     * @param loadData
+     *            load underlying data with values.
+     * @throws IntrospectionException
+     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
+     * @see JavaBeanTester#builder(Class)
+     * @see JavaBeanTesterBuilder#testEquals(Object, Object)
+     * @deprecated in favor of builder method.
+     */
+    @Deprecated
     public static &lt;T&gt; void equalsTests(final T instance, final T expected, final LoadData loadData)
             throws IntrospectionException {
 
-        // Perform hashCode test dependent on data coming in
-        // Assert.assertEquals(expected.hashCode(), instance.hashCode());
-<span class="fc bfc" id="L181" title="All 2 branches covered.">        if (expected.hashCode() == instance.hashCode()) {</span>
-<span class="fc" id="L182">            Assert.assertEquals(expected.hashCode(), instance.hashCode());</span>
-        } else {
-<span class="fc" id="L184">            Assert.assertNotEquals(expected.hashCode(), instance.hashCode());</span>
-        }
-
-<span class="fc" id="L187">        final PropertyDescriptor[] props = Introspector.getBeanInfo(instance.getClass()).getPropertyDescriptors();</span>
-<span class="fc bfc" id="L188" title="All 2 branches covered.">        for (final PropertyDescriptor prop : props) {</span>
-<span class="fc" id="L189">            final Method getter = prop.getReadMethod();</span>
-<span class="fc" id="L190">            final Method setter = prop.getWriteMethod();</span>
-
-<span class="pc bpc" id="L192" title="1 of 4 branches missed.">            if (getter != null &amp;&amp; setter != null) {</span>
-                // We have both a get and set method for this property
-<span class="fc" id="L194">                final Class&lt;?&gt; returnType = getter.getReturnType();</span>
-<span class="fc" id="L195">                final Class&lt;?&gt;[] params = setter.getParameterTypes();</span>
-
-<span class="pc bpc" id="L197" title="2 of 4 branches missed.">                if (params.length == 1 &amp;&amp; params[0] == returnType) {</span>
-                    // The set method has 1 argument, which is of the same type as the return type of the get method, so
-                    // we can test this property
-                    try {
-                        // Save original value
-<span class="fc" id="L202">                        final Object original = getter.invoke(instance);</span>
-
-                        // Build a value of the correct type to be passed to the set method using alternate test
-<span class="fc" id="L205">                        Object value = JavaBeanTester.buildValue(returnType, loadData, LoadType.ALTERNATE_DATA);</span>
-
-                        // Call the set method, then check the same value comes back out of the get method
-<span class="fc" id="L208">                        setter.invoke(instance, value);</span>
-
-                        // Check equals depending on data
-<span class="fc bfc" id="L211" title="All 2 branches covered.">                        if (instance.equals(expected)) {</span>
-<span class="fc" id="L212">                            Assert.assertEquals(expected, instance);</span>
-                        } else {
-<span class="fc" id="L214">                            Assert.assertNotEquals(expected, instance);</span>
-                        }
-
-                        // Build a value of the correct type to be passed to the set method using null test
-<span class="fc" id="L218">                        value = JavaBeanTester.buildValue(returnType, loadData, LoadType.NULL_DATA);</span>
-
-                        // Call the set method, then check the same value comes back out of the get method
-<span class="fc" id="L221">                        setter.invoke(instance, value);</span>
-
-                        // Check equals depending on data
-<span class="fc bfc" id="L224" title="All 2 branches covered.">                        if (instance.equals(expected)) {</span>
-<span class="fc" id="L225">                            Assert.assertEquals(expected, instance);</span>
-                        } else {
-<span class="fc" id="L227">                            Assert.assertNotEquals(expected, instance);</span>
-                        }
-
-                        // Reset to original value
-<span class="fc" id="L231">                        setter.invoke(instance, original);</span>
-
-<span class="nc" id="L233">                    } catch (final IllegalAccessException e) {</span>
-<span class="nc" id="L234">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
-                                prop.getName(), e.toString()));
-<span class="nc" id="L236">                    } catch (final IllegalArgumentException e) {</span>
-<span class="nc" id="L237">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
-                                prop.getName(), e.toString()));
-<span class="nc" id="L239">                    } catch (final InstantiationException e) {</span>
-<span class="nc" id="L240">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
-                                prop.getName(), e.toString()));
-<span class="nc" id="L242">                    } catch (final InvocationTargetException e) {</span>
-<span class="nc" id="L243">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
-                                prop.getName(), e.toString()));
-<span class="nc" id="L245">                    } catch (final SecurityException e) {</span>
-<span class="nc" id="L246">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
-                                prop.getName(), e.toString()));
-<span class="pc" id="L248">                    }</span>
-                }
-            }
-        }
-<span class="fc" id="L252">    }</span>
+        @SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L177">        JavaBeanTesterWorker&lt;T, Object&gt; worker = new JavaBeanTesterWorker&lt;T, Object&gt;((Class&lt;T&gt;) instance.getClass(),</span>
+                Object.class);
+<span class="fc" id="L179">        worker.setLoadData(loadData);</span>
+<span class="fc" id="L180">        worker.equalsTests(instance, expected);</span>
+<span class="fc" id="L181">    }</span>
 
     /**
      * Tests the load methods of the specified class.
@@ -266,11 +195,40 @@ public final class JavaBeanTester {
      *            the names of any properties that should not be tested.
      * @throws IntrospectionException
      *             thrown if the JavaBeanTester.getterSetterTests method throws this exception for the class under test.
+     * @see JavaBeanTester#builder(Class)
+     * @see JavaBeanTesterBuilder#testInstance(Object)
+     * @deprecated in favor of builder method.
      */
+    @Deprecated
+    public static &lt;T&gt; void load(final Class&lt;T&gt; clazz, final T instance, final boolean loadUnderlyingData,
+            final String... skipThese) throws IntrospectionException {
+<span class="nc bnc" id="L205" title="All 2 branches missed.">        JavaBeanTester.load(clazz, instance, loadUnderlyingData ? LoadData.ON : LoadData.OFF, skipThese);</span>
+<span class="nc" id="L206">    }</span>
+
+    /**
+     * Tests the load methods of the specified class.
+     *
+     * @param &lt;T&gt;
+     *            the type parameter associated with the class under test.
+     * @param clazz
+     *            the class under test.
+     * @param instance
+     *            the instance of class under test.
+     * @param loadData
+     *            load recursively all underlying data objects.
+     * @param skipThese
+     *            the names of any properties that should not be tested.
+     * @throws IntrospectionException
+     *             thrown if the JavaBeanTester.getterSetterTests method throws this exception for the class under test.
+     * @see JavaBeanTester#builder(Class)
+     * @see JavaBeanTesterBuilder#testInstance(Object)
+     * @deprecated in favor of builder method.
+     */
+    @Deprecated
     public static &lt;T&gt; void load(final Class&lt;T&gt; clazz, final T instance, final LoadData loadData,
             final String... skipThese) throws IntrospectionException {
-<span class="fc" id="L272">        JavaBeanTester.getterSetterTests(clazz, instance, loadData, skipThese);</span>
-<span class="fc" id="L273">    }</span>
+<span class="fc" id="L230">        JavaBeanTesterWorker.load(clazz, instance, loadData, skipThese);</span>
+<span class="fc" id="L231">    }</span>
 
     /**
      * Tests the get/set/equals/hashCode/toString methods of the specified class.
@@ -298,305 +256,88 @@ public final class JavaBeanTester {
      * @throws IllegalAccessException
      *             thrown if the JavaBeanTester.getterSetterTests or clazz.newInstance() method throws this exception
      *             for the class under test.
+     * @see JavaBeanTester#builder(Class)
+     * @see JavaBeanTesterBuilder#test()
+     * @deprecated in favor of builder method.
      */
+    @Deprecated
     public static &lt;T, E&gt; void test(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension, final CanEquals checkEquals,
-            final LoadData loadData, final String... skipThese) throws IntrospectionException, InstantiationException,
+            final boolean loadData, final String... skipThese) throws IntrospectionException, InstantiationException,
             IllegalAccessException {
-<span class="fc" id="L305">        JavaBeanTester.getterSetterTests(clazz, clazz.newInstance(), loadData, skipThese);</span>
-<span class="fc bfc" id="L306" title="All 2 branches covered.">        if (checkEquals == CanEquals.ON) {</span>
-<span class="fc" id="L307">            JavaBeanTester.equalsHashCodeToStringSymmetricTest(clazz, extension, loadData);</span>
-        }
-<span class="fc" id="L309">    }</span>
+<span class="nc bnc" id="L267" title="All 2 branches missed.">        JavaBeanTester.test(clazz, extension, checkEquals, loadData ? LoadData.ON : LoadData.OFF, skipThese);</span>
+<span class="nc" id="L268">    }</span>
 
     /**
-     * Build Mock Value Tests.
+     * Tests the get/set/equals/hashCode/toString methods of the specified class.
      *
      * @param &lt;T&gt;
      *            the type parameter associated with the class under test.
+     * @param &lt;E&gt;
+     *            the type parameter associated with the extension class under test.
      * @param clazz
      *            the class under test.
-     * @return Object this method is not currently implemented therefore null is returned.
-     */
-    private static &lt;T&gt; Object buildMockValue(final Class&lt;T&gt; clazz) {
-<span class="fc bfc" id="L321" title="All 2 branches covered.">        if (!Modifier.isFinal(clazz.getModifiers())) {</span>
-            // Insert a call to your favorite mocking framework here
-<span class="fc" id="L323">            return null;</span>
-        }
-<span class="fc" id="L325">        return null;</span>
-    }
-
-    /**
-     * Build Value Tests. Will loop through recursively all objects.
-     *
-     * @param &lt;T&gt;
-     *            the type parameter associated with the class under test.
-     * @param clazz
-     *            the class under test.
+     * @param extension
+     *            extension of class under test.
+     * @param checkEquals
+     *            should equals be checked (use true unless good reason not to).
      * @param loadData
      *            load recursively all underlying data objects.
-     * @param loadType
-     *            load type for data.
-     * @return Object value built from method for clazz
-     * @throws InstantiationException
-     *             thrown if the constructor.newIntances or JavaBeanTester.test method throws this exception for the
-     *             class under test.
-     * @throws IllegalAccessException
-     *             thrown if the constructor.newIntances or JavaBeanTester.test method throws this exception for the
-     *             class under test.
-     * @throws InvocationTargetException
-     *             thrown if the constructor.newIntances method throws this exception for the class under test.
-     */
-    private static &lt;T&gt; Object buildValue(final Class&lt;T&gt; clazz, final LoadData loadData, final LoadType loadType)
-            throws InstantiationException, IllegalAccessException, InvocationTargetException {
-        // If we are using a Mocking framework try that first...
-<span class="fc" id="L352">        final Object mockedObject = JavaBeanTester.buildMockValue(clazz);</span>
-<span class="pc bpc" id="L353" title="1 of 2 branches missed.">        if (mockedObject != null) {</span>
-<span class="nc" id="L354">            return mockedObject;</span>
-        }
-
-        // Next check for a no-arg constructor
-<span class="fc" id="L358">        final Constructor&lt;?&gt;[] ctrs = clazz.getConstructors();</span>
-<span class="fc bfc" id="L359" title="All 2 branches covered.">        for (final Constructor&lt;?&gt; ctr : ctrs) {</span>
-<span class="fc bfc" id="L360" title="All 4 branches covered.">            if (ctr.getParameterTypes().length == 0 &amp;&amp; clazz != String.class) {</span>
-<span class="fc bfc" id="L361" title="All 2 branches covered.">                if (loadData == LoadData.ON) {</span>
-                    // Load Underlying Data
-                    try {
-<span class="fc" id="L364">                        JavaBeanTester.getterSetterTests(clazz, clazz.newInstance(), loadData);</span>
-<span class="nc" id="L365">                    } catch (final IntrospectionException e) {</span>
-<span class="nc" id="L366">                        Assert.fail(String.format(&quot;An exception was thrown while testing the clazz %s: %s&quot;,</span>
-                                clazz.getName(), e.toString()));
-<span class="fc" id="L368">                    }</span>
-<span class="fc" id="L369">                    return null;</span>
-                }
-                // The class has a no-arg constructor, so just call it
-<span class="fc" id="L372">                return ctr.newInstance();</span>
-            }
-        }
-
-        // Specific rules for common classes
-<span class="fc" id="L377">        Object returnObject = null;</span>
-<span class="pc bfc" id="L378" title="All 3 branches covered.">        switch (loadType) {</span>
-            case STANDARD_DATA:
-<span class="fc" id="L380">                returnObject = JavaBeanTester.setAlternateValues(clazz);</span>
-<span class="fc" id="L381">                break;</span>
-            case ALTERNATE_DATA:
-<span class="fc" id="L383">                returnObject = JavaBeanTester.setNullValues(clazz);</span>
-<span class="fc" id="L384">                break;</span>
-            default:
-<span class="fc" id="L386">                returnObject = JavaBeanTester.setStandardValues(clazz);</span>
-                break;
-        }
-<span class="fc bfc" id="L389" title="All 4 branches covered.">        if (returnObject != null || loadType == LoadType.NULL_DATA) {</span>
-<span class="fc" id="L390">            return returnObject;</span>
-
-<span class="fc bfc" id="L392" title="All 2 branches covered.">        } else if (clazz.isAssignableFrom(List.class)) {</span>
-<span class="fc" id="L393">            return new ArrayList&lt;Object&gt;();</span>
-
-<span class="fc bfc" id="L395" title="All 2 branches covered.">        } else if (clazz.isAssignableFrom(Map.class)) {</span>
-<span class="fc" id="L396">            return new HashMap&lt;Object, Object&gt;();</span>
-
-<span class="fc bfc" id="L398" title="All 2 branches covered.">        } else if (clazz.isAssignableFrom(ConcurrentMap.class)) {</span>
-<span class="fc" id="L399">            return new ConcurrentHashMap&lt;Object, Object&gt;();</span>
-
-<span class="fc bfc" id="L401" title="All 2 branches covered.">        } else if (clazz == Logger.class) {</span>
-<span class="fc" id="L402">            return LoggerFactory.getLogger(clazz);</span>
-
-            // XXX Add additional rules here
-
-        } else {
-
-            // XXX Don't fail this...until alternative solution is determined
-            // Assert.fail(String.format(
-            // &quot;Unable to build an instance of class %s, please add some code to the %s class to do this.&quot;,
-            // clazz.getName(), JavaBeanTester.class.getName()));
-<span class="fc" id="L412">            return null;</span>
-        }
-    }
-
-    /**
-     * Getter Setter Tests.
-     *
-     * @param &lt;T&gt;
-     *            the type parameter associated with the class under test.
-     * @param clazz
-     *            the class under test.
-     * @param instance
-     *            the instance of class under test.
-     * @param loadData
-     *            load underlying data.
      * @param skipThese
      *            the names of any properties that should not be tested.
      * @throws IntrospectionException
-     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
+     *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest
+     *             method throws this exception for the class under test.
+     * @throws InstantiationException
+     *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest
+     *             method throws this exception for the class under test.
+     * @throws IllegalAccessException
+     *             thrown if the JavaBeanTester.getterSetterTests or clazz.newInstance() method throws this exception
+     *             for the class under test.
+     * @see JavaBeanTester#builder(Class)
+     * @see JavaBeanTesterBuilder#test()
+     * @deprecated in favor of builder method.
      */
-    private static &lt;T&gt; void getterSetterTests(final Class&lt;T&gt; clazz, final T instance, final LoadData loadData,
-            final String... skipThese) throws IntrospectionException {
-<span class="fc" id="L434">        final PropertyDescriptor[] props = Introspector.getBeanInfo(clazz).getPropertyDescriptors();</span>
-<span class="fc bfc" id="L435" title="All 2 branches covered.">        nextProp: for (final PropertyDescriptor prop : props) {</span>
-            // Check the list of properties that we don't want to test
-<span class="fc bfc" id="L437" title="All 2 branches covered.">            for (final String skipThis : skipThese) {</span>
-<span class="fc bfc" id="L438" title="All 2 branches covered.">                if (skipThis.equals(prop.getName())) {</span>
-<span class="fc" id="L439">                    continue nextProp;</span>
-                }
-            }
-<span class="fc" id="L442">            final Method getter = prop.getReadMethod();</span>
-<span class="fc" id="L443">            final Method setter = prop.getWriteMethod();</span>
-
-<span class="pc bpc" id="L445" title="1 of 4 branches missed.">            if (getter != null &amp;&amp; setter != null) {</span>
-                // We have both a get and set method for this property
-<span class="fc" id="L447">                final Class&lt;?&gt; returnType = getter.getReturnType();</span>
-<span class="fc" id="L448">                final Class&lt;?&gt;[] params = setter.getParameterTypes();</span>
-
-<span class="pc bpc" id="L450" title="2 of 4 branches missed.">                if (params.length == 1 &amp;&amp; params[0] == returnType) {</span>
-                    // The set method has 1 argument, which is of the same type as the return type of the get method, so
-                    // we can test this property
-                    try {
-                        // Build a value of the correct type to be passed to the set method
-<span class="fc" id="L455">                        final Object value = JavaBeanTester.buildValue(returnType, loadData, LoadType.STANDARD_DATA);</span>
-
-                        // Call the set method, then check the same value comes back out of the get method
-<span class="fc" id="L458">                        setter.invoke(instance, value);</span>
-
-<span class="fc" id="L460">                        final Object expectedValue = value;</span>
-<span class="fc" id="L461">                        final Object actualValue = getter.invoke(instance);</span>
-
-<span class="fc" id="L463">                        Assert.assertEquals(String.format(&quot;Failed while testing property %s&quot;, prop.getName()),</span>
-                                expectedValue, actualValue);
-
-<span class="nc" id="L466">                    } catch (final IllegalAccessException e) {</span>
-<span class="nc" id="L467">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
-                                prop.getName(), e.toString()));
-<span class="nc" id="L469">                    } catch (final IllegalArgumentException e) {</span>
-<span class="nc" id="L470">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
-                                prop.getName(), e.toString()));
-<span class="nc" id="L472">                    } catch (final InstantiationException e) {</span>
-<span class="nc" id="L473">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
-                                prop.getName(), e.toString()));
-<span class="nc" id="L475">                    } catch (final InvocationTargetException e) {</span>
-<span class="nc" id="L476">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
-                                prop.getName(), e.toString()));
-<span class="nc" id="L478">                    } catch (final SecurityException e) {</span>
-<span class="nc" id="L479">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
-                                prop.getName(), e.toString()));
-<span class="pc" id="L481">                    }</span>
-                }
-            }
+    @Deprecated
+    public static &lt;T, E&gt; void test(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension, final CanEquals checkEquals,
+            final LoadData loadData, final String... skipThese) throws IntrospectionException, InstantiationException,
+            IllegalAccessException {
+<span class="fc" id="L304">        JavaBeanTesterWorker&lt;T, E&gt; worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz, extension);</span>
+<span class="fc" id="L305">        worker.setCheckEquals(checkEquals);</span>
+<span class="fc" id="L306">        worker.setLoadData(loadData);</span>
+<span class="pc bpc" id="L307" title="1 of 2 branches missed.">        if (skipThese != null) {</span>
+<span class="fc" id="L308">            worker.setSkipThese(new HashSet&lt;String&gt;(Arrays.asList(skipThese)));</span>
         }
-<span class="fc" id="L485">    }</span>
+<span class="fc" id="L310">        worker.test();</span>
+<span class="fc" id="L311">    }</span>
 
     /**
-     * Set using alternate test values.
+     * Configure JavaBeanTester using Fluent API.
      *
      * @param &lt;T&gt;
-     *            the type parameter associated with the class under test.
+     *            the generic type
      * @param clazz
-     *            the class under test.
-     * @return Object the Object to use for test.
+     *            the clazz
+     * @return A builder implementing the fluent API to configure JavaBeanTester
      */
-    private static &lt;T&gt; Object setAlternateValues(final Class&lt;T&gt; clazz) {
-<span class="fc" id="L497">        return JavaBeanTester.setValues(clazz, &quot;ALT_VALUE&quot;, 1, Boolean.FALSE, Integer.valueOf(2), Long.valueOf(2),</span>
-                Double.valueOf(2.0), Float.valueOf(2.0F), Character.valueOf('N'), Byte.valueOf((byte) 2));
+    public static &lt;T&gt; JavaBeanTesterBuilder&lt;T, ?&gt; builder(Class&lt;T&gt; clazz) {
+<span class="fc" id="L323">        return new JavaBeanTesterBuilder&lt;T, Object&gt;(clazz, Object.class);</span>
     }
 
     /**
-     * Set using null test values.
+     * Configure JavaBeanTester using Fluent API.
      *
      * @param &lt;T&gt;
-     *            the type parameter associated with the class under test.
+     *            the generic type
+     * @param &lt;E&gt;
+     *            the element type
      * @param clazz
-     *            the class under test.
-     * @return Object the Object to use for test.
+     *            the clazz
+     * @param extension
+     *            the extension
+     * @return A builder implementing the fluent API to configure JavaBeanTester
      */
-    private static &lt;T&gt; Object setNullValues(final Class&lt;T&gt; clazz) {
-<span class="fc" id="L511">        return JavaBeanTester.setValues(clazz, null, 0, null, null, null, null, null, null, null);</span>
+    public static &lt;T, E&gt; JavaBeanTesterBuilder&lt;T, E&gt; builder(Class&lt;T&gt; clazz, Class&lt;E&gt; extension) {
+<span class="fc" id="L340">        return new JavaBeanTesterBuilder&lt;T, E&gt;(clazz, extension);</span>
     }
-
-    /**
-     * Set using standard test values.
-     *
-     * @param &lt;T&gt;
-     *            the type parameter associated with the class under test.
-     * @param clazz
-     *            the class under test.
-     * @return Object the Object to use for test.
-     */
-    private static &lt;T&gt; Object setStandardValues(final Class&lt;T&gt; clazz) {
-<span class="fc" id="L524">        return JavaBeanTester.setValues(clazz, &quot;TEST_VALUE&quot;, 1, Boolean.TRUE, Integer.valueOf(1), Long.valueOf(1),</span>
-                Double.valueOf(1.0), Float.valueOf(1.0F), Character.valueOf('Y'), Byte.valueOf((byte) 1));
-    }
-
-    /**
-     * Set Values for object.
-     *
-     * @param &lt;T&gt;
-     *            the type parameter associated with the class under test.
-     * @param clazz
-     *            the class instance under test.
-     * @param string
-     *            value of string object.
-     * @param arrayLength
-     *            amount of array objects to create.
-     * @param booleanValue
-     *            value of boolean object.
-     * @param integerValue
-     *            value of integer object.
-     * @param longValue
-     *            value of long object.
-     * @param doubleValue
-     *            value of double object.
-     * @param floatValue
-     *            value of float object.
-     * @param characterValue
-     *            value of character object.
-     * @param byteValue
-     *            value of character object.
-     * @return Object value determined by input class. If not found, returns null.
-     */
-    private static &lt;T&gt; Object setValues(final Class&lt;T&gt; clazz, final String string, final int arrayLength,
-            final Boolean booleanValue, final Integer integerValue, final Long longValue, final Double doubleValue,
-            final Float floatValue, final Character characterValue, final Byte byteValue) {
-<span class="fc bfc" id="L558" title="All 2 branches covered.">        if (clazz == String.class) {</span>
-<span class="fc" id="L559">            return string;</span>
-<span class="fc bfc" id="L560" title="All 2 branches covered.">        } else if (clazz.isArray()) {</span>
-<span class="fc" id="L561">            return Array.newInstance(clazz.getComponentType(), arrayLength);</span>
-<span class="fc bfc" id="L562" title="All 4 branches covered.">        } else if (clazz == boolean.class || clazz == Boolean.class) {</span>
-<span class="fc bfc" id="L563" title="All 4 branches covered.">            if (clazz == boolean.class &amp;&amp; booleanValue == null) {</span>
-<span class="fc" id="L564">                return Boolean.FALSE;</span>
-            }
-<span class="fc" id="L566">            return booleanValue;</span>
-<span class="fc bfc" id="L567" title="All 4 branches covered.">        } else if (clazz == int.class || clazz == Integer.class) {</span>
-<span class="fc bfc" id="L568" title="All 4 branches covered.">            if (clazz == int.class &amp;&amp; integerValue == null) {</span>
-<span class="fc" id="L569">                return Integer.valueOf(-1);</span>
-            }
-<span class="fc" id="L571">            return integerValue;</span>
-<span class="fc bfc" id="L572" title="All 4 branches covered.">        } else if (clazz == long.class || clazz == Long.class) {</span>
-<span class="fc bfc" id="L573" title="All 4 branches covered.">            if (clazz == long.class &amp;&amp; longValue == null) {</span>
-<span class="fc" id="L574">                return Long.valueOf(-1);</span>
-            }
-<span class="fc" id="L576">            return longValue;</span>
-<span class="fc bfc" id="L577" title="All 4 branches covered.">        } else if (clazz == double.class || clazz == Double.class) {</span>
-<span class="fc bfc" id="L578" title="All 4 branches covered.">            if (clazz == double.class &amp;&amp; doubleValue == null) {</span>
-<span class="fc" id="L579">                return Double.valueOf(-1.0);</span>
-            }
-<span class="fc" id="L581">            return doubleValue;</span>
-<span class="fc bfc" id="L582" title="All 4 branches covered.">        } else if (clazz == float.class || clazz == Float.class) {</span>
-<span class="fc bfc" id="L583" title="All 4 branches covered.">            if (clazz == float.class &amp;&amp; floatValue == null) {</span>
-<span class="fc" id="L584">                return Float.valueOf(-1.0F);</span>
-            }
-<span class="fc" id="L586">            return floatValue;</span>
-<span class="fc bfc" id="L587" title="All 4 branches covered.">        } else if (clazz == char.class || clazz == Character.class) {</span>
-<span class="fc bfc" id="L588" title="All 4 branches covered.">            if (clazz == char.class &amp;&amp; characterValue == null) {</span>
-<span class="fc" id="L589">                return Character.valueOf('\u0000');</span>
-            }
-<span class="fc" id="L591">            return characterValue;</span>
-<span class="fc bfc" id="L592" title="All 4 branches covered.">        } else if (clazz == byte.class || clazz == Byte.class) {</span>
-<span class="fc bfc" id="L593" title="All 4 branches covered.">            if (clazz == byte.class &amp;&amp; byteValue == null) {</span>
-<span class="fc" id="L594">                return Byte.valueOf((byte) -1);</span>
-            }
-<span class="fc" id="L596">            return byteValue;</span>
-        }
-<span class="fc" id="L598">        return null;</span>
-    }
-
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
