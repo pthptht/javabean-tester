@@ -261,10 +261,11 @@ public final class JavaBeanTester {
      * @deprecated in favor of builder method.
      */
     @Deprecated
-    public static <T, E> void test(final Class<T> clazz, final Class<E> extension, final CanEquals checkEquals,
+    public static <T, E> void test(final Class<T> clazz, final Class<E> extension, final boolean checkEquals,
             final boolean loadData, final String... skipThese) throws IntrospectionException, InstantiationException,
             IllegalAccessException {
-        JavaBeanTester.test(clazz, extension, checkEquals, loadData ? LoadData.ON : LoadData.OFF, skipThese);
+        JavaBeanTester.test(clazz, extension, checkEquals ? CanEquals.ON : CanEquals.OFF, loadData ? LoadData.ON
+                : LoadData.OFF, skipThese);
     }
 
     /**
