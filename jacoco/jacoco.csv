@@ -1,6 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 javabean-tester,com.codebox.bean,ValueBuilder,21,287,1,82,4,67,2,48,1,7
-javabean-tester,com.codebox.bean,JavaBeanTester,54,58,9,1,14,15,11,5,6,5
+javabean-tester,com.codebox.bean,JavaBeanTester,58,58,11,1,14,15,12,5,6,5
 javabean-tester,com.codebox.bean,ValueBuilder.new Object() {...},2,17,0,0,0,1,0,1,0,1
 javabean-tester,com.codebox.bean,JavaBeanTesterWorker,286,553,8,46,36,126,10,32,2,13
 javabean-tester,com.codebox.bean,JavaBeanTesterBuilder,26,66,3,5,9,15,7,8,4,7

@@ -269,85 +269,86 @@
 <a class="jxr_linenumber" name="L261" href="#L261">261</a> <em class="jxr_javadoccomment">     * @deprecated in favor of builder method.</em>
 <a class="jxr_linenumber" name="L262" href="#L262">262</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L263" href="#L263">263</a>     @Deprecated
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T, E&gt; <strong class="jxr_keyword">void</strong> test(<strong class="jxr_keyword">final</strong> Class&lt;T&gt; clazz, <strong class="jxr_keyword">final</strong> Class&lt;E&gt; extension, <strong class="jxr_keyword">final</strong> <a href="../../../com/codebox/enums/CanEquals.html">CanEquals</a> checkEquals,
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T, E&gt; <strong class="jxr_keyword">void</strong> test(<strong class="jxr_keyword">final</strong> Class&lt;T&gt; clazz, <strong class="jxr_keyword">final</strong> Class&lt;E&gt; extension, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> checkEquals,
 <a class="jxr_linenumber" name="L265" href="#L265">265</a>             <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> loadData, <strong class="jxr_keyword">final</strong> String... skipThese) <strong class="jxr_keyword">throws</strong> IntrospectionException, InstantiationException,
 <a class="jxr_linenumber" name="L266" href="#L266">266</a>             IllegalAccessException {
-<a class="jxr_linenumber" name="L267" href="#L267">267</a>         JavaBeanTester.test(clazz, extension, checkEquals, loadData ? LoadData.ON : LoadData.OFF, skipThese);
-<a class="jxr_linenumber" name="L268" href="#L268">268</a>     }
-<a class="jxr_linenumber" name="L269" href="#L269">269</a> 
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L271" href="#L271">271</a> <em class="jxr_javadoccomment">     * Tests the get/set/equals/hashCode/toString methods of the specified class.</em>
-<a class="jxr_linenumber" name="L272" href="#L272">272</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L273" href="#L273">273</a> <em class="jxr_javadoccomment">     * @param &lt;T&gt;</em>
-<a class="jxr_linenumber" name="L274" href="#L274">274</a> <em class="jxr_javadoccomment">     *            the type parameter associated with the class under test.</em>
-<a class="jxr_linenumber" name="L275" href="#L275">275</a> <em class="jxr_javadoccomment">     * @param &lt;E&gt;</em>
-<a class="jxr_linenumber" name="L276" href="#L276">276</a> <em class="jxr_javadoccomment">     *            the type parameter associated with the extension class under test.</em>
-<a class="jxr_linenumber" name="L277" href="#L277">277</a> <em class="jxr_javadoccomment">     * @param clazz</em>
-<a class="jxr_linenumber" name="L278" href="#L278">278</a> <em class="jxr_javadoccomment">     *            the class under test.</em>
-<a class="jxr_linenumber" name="L279" href="#L279">279</a> <em class="jxr_javadoccomment">     * @param extension</em>
-<a class="jxr_linenumber" name="L280" href="#L280">280</a> <em class="jxr_javadoccomment">     *            extension of class under test.</em>
-<a class="jxr_linenumber" name="L281" href="#L281">281</a> <em class="jxr_javadoccomment">     * @param checkEquals</em>
-<a class="jxr_linenumber" name="L282" href="#L282">282</a> <em class="jxr_javadoccomment">     *            should equals be checked (use true unless good reason not to).</em>
-<a class="jxr_linenumber" name="L283" href="#L283">283</a> <em class="jxr_javadoccomment">     * @param loadData</em>
-<a class="jxr_linenumber" name="L284" href="#L284">284</a> <em class="jxr_javadoccomment">     *            load recursively all underlying data objects.</em>
-<a class="jxr_linenumber" name="L285" href="#L285">285</a> <em class="jxr_javadoccomment">     * @param skipThese</em>
-<a class="jxr_linenumber" name="L286" href="#L286">286</a> <em class="jxr_javadoccomment">     *            the names of any properties that should not be tested.</em>
-<a class="jxr_linenumber" name="L287" href="#L287">287</a> <em class="jxr_javadoccomment">     * @throws IntrospectionException</em>
-<a class="jxr_linenumber" name="L288" href="#L288">288</a> <em class="jxr_javadoccomment">     *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest</em>
-<a class="jxr_linenumber" name="L289" href="#L289">289</a> <em class="jxr_javadoccomment">     *             method throws this exception for the class under test.</em>
-<a class="jxr_linenumber" name="L290" href="#L290">290</a> <em class="jxr_javadoccomment">     * @throws InstantiationException</em>
-<a class="jxr_linenumber" name="L291" href="#L291">291</a> <em class="jxr_javadoccomment">     *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest</em>
-<a class="jxr_linenumber" name="L292" href="#L292">292</a> <em class="jxr_javadoccomment">     *             method throws this exception for the class under test.</em>
-<a class="jxr_linenumber" name="L293" href="#L293">293</a> <em class="jxr_javadoccomment">     * @throws IllegalAccessException</em>
-<a class="jxr_linenumber" name="L294" href="#L294">294</a> <em class="jxr_javadoccomment">     *             thrown if the JavaBeanTester.getterSetterTests or clazz.newInstance() method throws this exception</em>
-<a class="jxr_linenumber" name="L295" href="#L295">295</a> <em class="jxr_javadoccomment">     *             for the class under test.</em>
-<a class="jxr_linenumber" name="L296" href="#L296">296</a> <em class="jxr_javadoccomment">     * @see JavaBeanTester#builder(Class)</em>
-<a class="jxr_linenumber" name="L297" href="#L297">297</a> <em class="jxr_javadoccomment">     * @see JavaBeanTesterBuilder#test()</em>
-<a class="jxr_linenumber" name="L298" href="#L298">298</a> <em class="jxr_javadoccomment">     * @deprecated in favor of builder method.</em>
-<a class="jxr_linenumber" name="L299" href="#L299">299</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>     @Deprecated
-<a class="jxr_linenumber" name="L301" href="#L301">301</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T, E&gt; <strong class="jxr_keyword">void</strong> test(<strong class="jxr_keyword">final</strong> Class&lt;T&gt; clazz, <strong class="jxr_keyword">final</strong> Class&lt;E&gt; extension, <strong class="jxr_keyword">final</strong> <a href="../../../com/codebox/enums/CanEquals.html">CanEquals</a> checkEquals,
-<a class="jxr_linenumber" name="L302" href="#L302">302</a>             <strong class="jxr_keyword">final</strong> <a href="../../../com/codebox/enums/LoadData.html">LoadData</a> loadData, <strong class="jxr_keyword">final</strong> String... skipThese) <strong class="jxr_keyword">throws</strong> IntrospectionException, InstantiationException,
-<a class="jxr_linenumber" name="L303" href="#L303">303</a>             IllegalAccessException {
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>         JavaBeanTesterWorker&lt;T, E&gt; worker = <strong class="jxr_keyword">new</strong> JavaBeanTesterWorker&lt;T, E&gt;(clazz, extension);
-<a class="jxr_linenumber" name="L305" href="#L305">305</a>         worker.setCheckEquals(checkEquals);
-<a class="jxr_linenumber" name="L306" href="#L306">306</a>         worker.setLoadData(loadData);
-<a class="jxr_linenumber" name="L307" href="#L307">307</a>         <strong class="jxr_keyword">if</strong> (skipThese != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L308" href="#L308">308</a>             worker.setSkipThese(<strong class="jxr_keyword">new</strong> HashSet&lt;String&gt;(Arrays.asList(skipThese)));
-<a class="jxr_linenumber" name="L309" href="#L309">309</a>         }
-<a class="jxr_linenumber" name="L310" href="#L310">310</a>         worker.test();
-<a class="jxr_linenumber" name="L311" href="#L311">311</a>     }
-<a class="jxr_linenumber" name="L312" href="#L312">312</a> 
-<a class="jxr_linenumber" name="L313" href="#L313">313</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L314" href="#L314">314</a> <em class="jxr_javadoccomment">     * Configure JavaBeanTester using Fluent API.</em>
-<a class="jxr_linenumber" name="L315" href="#L315">315</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L316" href="#L316">316</a> <em class="jxr_javadoccomment">     * @param &lt;T&gt;</em>
-<a class="jxr_linenumber" name="L317" href="#L317">317</a> <em class="jxr_javadoccomment">     *            the generic type</em>
-<a class="jxr_linenumber" name="L318" href="#L318">318</a> <em class="jxr_javadoccomment">     * @param clazz</em>
-<a class="jxr_linenumber" name="L319" href="#L319">319</a> <em class="jxr_javadoccomment">     *            the clazz</em>
-<a class="jxr_linenumber" name="L320" href="#L320">320</a> <em class="jxr_javadoccomment">     * @return A builder implementing the fluent API to configure JavaBeanTester</em>
-<a class="jxr_linenumber" name="L321" href="#L321">321</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L322" href="#L322">322</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; JavaBeanTesterBuilder&lt;T, ?&gt; builder(Class&lt;T&gt; clazz) {
-<a class="jxr_linenumber" name="L323" href="#L323">323</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> JavaBeanTesterBuilder&lt;T, Object&gt;(clazz, Object.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L324" href="#L324">324</a>     }
-<a class="jxr_linenumber" name="L325" href="#L325">325</a> 
-<a class="jxr_linenumber" name="L326" href="#L326">326</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L327" href="#L327">327</a> <em class="jxr_javadoccomment">     * Configure JavaBeanTester using Fluent API.</em>
-<a class="jxr_linenumber" name="L328" href="#L328">328</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L329" href="#L329">329</a> <em class="jxr_javadoccomment">     * @param &lt;T&gt;</em>
-<a class="jxr_linenumber" name="L330" href="#L330">330</a> <em class="jxr_javadoccomment">     *            the generic type</em>
-<a class="jxr_linenumber" name="L331" href="#L331">331</a> <em class="jxr_javadoccomment">     * @param &lt;E&gt;</em>
-<a class="jxr_linenumber" name="L332" href="#L332">332</a> <em class="jxr_javadoccomment">     *            the element type</em>
-<a class="jxr_linenumber" name="L333" href="#L333">333</a> <em class="jxr_javadoccomment">     * @param clazz</em>
-<a class="jxr_linenumber" name="L334" href="#L334">334</a> <em class="jxr_javadoccomment">     *            the clazz</em>
-<a class="jxr_linenumber" name="L335" href="#L335">335</a> <em class="jxr_javadoccomment">     * @param extension</em>
-<a class="jxr_linenumber" name="L336" href="#L336">336</a> <em class="jxr_javadoccomment">     *            the extension</em>
-<a class="jxr_linenumber" name="L337" href="#L337">337</a> <em class="jxr_javadoccomment">     * @return A builder implementing the fluent API to configure JavaBeanTester</em>
-<a class="jxr_linenumber" name="L338" href="#L338">338</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L339" href="#L339">339</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T, E&gt; JavaBeanTesterBuilder&lt;T, E&gt; builder(Class&lt;T&gt; clazz, Class&lt;E&gt; extension) {
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> JavaBeanTesterBuilder&lt;T, E&gt;(clazz, extension);
-<a class="jxr_linenumber" name="L341" href="#L341">341</a>     }
-<a class="jxr_linenumber" name="L342" href="#L342">342</a> }
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>         JavaBeanTester.test(clazz, extension, checkEquals ? CanEquals.ON : CanEquals.OFF, loadData ? LoadData.ON
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>                 : LoadData.OFF, skipThese);
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>     }
+<a class="jxr_linenumber" name="L270" href="#L270">270</a> 
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L272" href="#L272">272</a> <em class="jxr_javadoccomment">     * Tests the get/set/equals/hashCode/toString methods of the specified class.</em>
+<a class="jxr_linenumber" name="L273" href="#L273">273</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L274" href="#L274">274</a> <em class="jxr_javadoccomment">     * @param &lt;T&gt;</em>
+<a class="jxr_linenumber" name="L275" href="#L275">275</a> <em class="jxr_javadoccomment">     *            the type parameter associated with the class under test.</em>
+<a class="jxr_linenumber" name="L276" href="#L276">276</a> <em class="jxr_javadoccomment">     * @param &lt;E&gt;</em>
+<a class="jxr_linenumber" name="L277" href="#L277">277</a> <em class="jxr_javadoccomment">     *            the type parameter associated with the extension class under test.</em>
+<a class="jxr_linenumber" name="L278" href="#L278">278</a> <em class="jxr_javadoccomment">     * @param clazz</em>
+<a class="jxr_linenumber" name="L279" href="#L279">279</a> <em class="jxr_javadoccomment">     *            the class under test.</em>
+<a class="jxr_linenumber" name="L280" href="#L280">280</a> <em class="jxr_javadoccomment">     * @param extension</em>
+<a class="jxr_linenumber" name="L281" href="#L281">281</a> <em class="jxr_javadoccomment">     *            extension of class under test.</em>
+<a class="jxr_linenumber" name="L282" href="#L282">282</a> <em class="jxr_javadoccomment">     * @param checkEquals</em>
+<a class="jxr_linenumber" name="L283" href="#L283">283</a> <em class="jxr_javadoccomment">     *            should equals be checked (use true unless good reason not to).</em>
+<a class="jxr_linenumber" name="L284" href="#L284">284</a> <em class="jxr_javadoccomment">     * @param loadData</em>
+<a class="jxr_linenumber" name="L285" href="#L285">285</a> <em class="jxr_javadoccomment">     *            load recursively all underlying data objects.</em>
+<a class="jxr_linenumber" name="L286" href="#L286">286</a> <em class="jxr_javadoccomment">     * @param skipThese</em>
+<a class="jxr_linenumber" name="L287" href="#L287">287</a> <em class="jxr_javadoccomment">     *            the names of any properties that should not be tested.</em>
+<a class="jxr_linenumber" name="L288" href="#L288">288</a> <em class="jxr_javadoccomment">     * @throws IntrospectionException</em>
+<a class="jxr_linenumber" name="L289" href="#L289">289</a> <em class="jxr_javadoccomment">     *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest</em>
+<a class="jxr_linenumber" name="L290" href="#L290">290</a> <em class="jxr_javadoccomment">     *             method throws this exception for the class under test.</em>
+<a class="jxr_linenumber" name="L291" href="#L291">291</a> <em class="jxr_javadoccomment">     * @throws InstantiationException</em>
+<a class="jxr_linenumber" name="L292" href="#L292">292</a> <em class="jxr_javadoccomment">     *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest</em>
+<a class="jxr_linenumber" name="L293" href="#L293">293</a> <em class="jxr_javadoccomment">     *             method throws this exception for the class under test.</em>
+<a class="jxr_linenumber" name="L294" href="#L294">294</a> <em class="jxr_javadoccomment">     * @throws IllegalAccessException</em>
+<a class="jxr_linenumber" name="L295" href="#L295">295</a> <em class="jxr_javadoccomment">     *             thrown if the JavaBeanTester.getterSetterTests or clazz.newInstance() method throws this exception</em>
+<a class="jxr_linenumber" name="L296" href="#L296">296</a> <em class="jxr_javadoccomment">     *             for the class under test.</em>
+<a class="jxr_linenumber" name="L297" href="#L297">297</a> <em class="jxr_javadoccomment">     * @see JavaBeanTester#builder(Class)</em>
+<a class="jxr_linenumber" name="L298" href="#L298">298</a> <em class="jxr_javadoccomment">     * @see JavaBeanTesterBuilder#test()</em>
+<a class="jxr_linenumber" name="L299" href="#L299">299</a> <em class="jxr_javadoccomment">     * @deprecated in favor of builder method.</em>
+<a class="jxr_linenumber" name="L300" href="#L300">300</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>     @Deprecated
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T, E&gt; <strong class="jxr_keyword">void</strong> test(<strong class="jxr_keyword">final</strong> Class&lt;T&gt; clazz, <strong class="jxr_keyword">final</strong> Class&lt;E&gt; extension, <strong class="jxr_keyword">final</strong> <a href="../../../com/codebox/enums/CanEquals.html">CanEquals</a> checkEquals,
+<a class="jxr_linenumber" name="L303" href="#L303">303</a>             <strong class="jxr_keyword">final</strong> <a href="../../../com/codebox/enums/LoadData.html">LoadData</a> loadData, <strong class="jxr_keyword">final</strong> String... skipThese) <strong class="jxr_keyword">throws</strong> IntrospectionException, InstantiationException,
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>             IllegalAccessException {
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>         JavaBeanTesterWorker&lt;T, E&gt; worker = <strong class="jxr_keyword">new</strong> JavaBeanTesterWorker&lt;T, E&gt;(clazz, extension);
+<a class="jxr_linenumber" name="L306" href="#L306">306</a>         worker.setCheckEquals(checkEquals);
+<a class="jxr_linenumber" name="L307" href="#L307">307</a>         worker.setLoadData(loadData);
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>         <strong class="jxr_keyword">if</strong> (skipThese != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L309" href="#L309">309</a>             worker.setSkipThese(<strong class="jxr_keyword">new</strong> HashSet&lt;String&gt;(Arrays.asList(skipThese)));
+<a class="jxr_linenumber" name="L310" href="#L310">310</a>         }
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>         worker.test();
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>     }
+<a class="jxr_linenumber" name="L313" href="#L313">313</a> 
+<a class="jxr_linenumber" name="L314" href="#L314">314</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L315" href="#L315">315</a> <em class="jxr_javadoccomment">     * Configure JavaBeanTester using Fluent API.</em>
+<a class="jxr_linenumber" name="L316" href="#L316">316</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L317" href="#L317">317</a> <em class="jxr_javadoccomment">     * @param &lt;T&gt;</em>
+<a class="jxr_linenumber" name="L318" href="#L318">318</a> <em class="jxr_javadoccomment">     *            the generic type</em>
+<a class="jxr_linenumber" name="L319" href="#L319">319</a> <em class="jxr_javadoccomment">     * @param clazz</em>
+<a class="jxr_linenumber" name="L320" href="#L320">320</a> <em class="jxr_javadoccomment">     *            the clazz</em>
+<a class="jxr_linenumber" name="L321" href="#L321">321</a> <em class="jxr_javadoccomment">     * @return A builder implementing the fluent API to configure JavaBeanTester</em>
+<a class="jxr_linenumber" name="L322" href="#L322">322</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; JavaBeanTesterBuilder&lt;T, ?&gt; builder(Class&lt;T&gt; clazz) {
+<a class="jxr_linenumber" name="L324" href="#L324">324</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> JavaBeanTesterBuilder&lt;T, Object&gt;(clazz, Object.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L325" href="#L325">325</a>     }
+<a class="jxr_linenumber" name="L326" href="#L326">326</a> 
+<a class="jxr_linenumber" name="L327" href="#L327">327</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L328" href="#L328">328</a> <em class="jxr_javadoccomment">     * Configure JavaBeanTester using Fluent API.</em>
+<a class="jxr_linenumber" name="L329" href="#L329">329</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L330" href="#L330">330</a> <em class="jxr_javadoccomment">     * @param &lt;T&gt;</em>
+<a class="jxr_linenumber" name="L331" href="#L331">331</a> <em class="jxr_javadoccomment">     *            the generic type</em>
+<a class="jxr_linenumber" name="L332" href="#L332">332</a> <em class="jxr_javadoccomment">     * @param &lt;E&gt;</em>
+<a class="jxr_linenumber" name="L333" href="#L333">333</a> <em class="jxr_javadoccomment">     *            the element type</em>
+<a class="jxr_linenumber" name="L334" href="#L334">334</a> <em class="jxr_javadoccomment">     * @param clazz</em>
+<a class="jxr_linenumber" name="L335" href="#L335">335</a> <em class="jxr_javadoccomment">     *            the clazz</em>
+<a class="jxr_linenumber" name="L336" href="#L336">336</a> <em class="jxr_javadoccomment">     * @param extension</em>
+<a class="jxr_linenumber" name="L337" href="#L337">337</a> <em class="jxr_javadoccomment">     *            the extension</em>
+<a class="jxr_linenumber" name="L338" href="#L338">338</a> <em class="jxr_javadoccomment">     * @return A builder implementing the fluent API to configure JavaBeanTester</em>
+<a class="jxr_linenumber" name="L339" href="#L339">339</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T, E&gt; JavaBeanTesterBuilder&lt;T, E&gt; builder(Class&lt;T&gt; clazz, Class&lt;E&gt; extension) {
+<a class="jxr_linenumber" name="L341" href="#L341">341</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> JavaBeanTesterBuilder&lt;T, E&gt;(clazz, extension);
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>     }
+<a class="jxr_linenumber" name="L343" href="#L343">343</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2012&#x2013;2015 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>

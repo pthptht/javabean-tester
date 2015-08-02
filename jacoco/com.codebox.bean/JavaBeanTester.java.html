@@ -261,11 +261,12 @@ public final class JavaBeanTester {
      * @deprecated in favor of builder method.
      */
     @Deprecated
-    public static &lt;T, E&gt; void test(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension, final CanEquals checkEquals,
+    public static &lt;T, E&gt; void test(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension, final boolean checkEquals,
             final boolean loadData, final String... skipThese) throws IntrospectionException, InstantiationException,
             IllegalAccessException {
-<span class="nc bnc" id="L267" title="All 2 branches missed.">        JavaBeanTester.test(clazz, extension, checkEquals, loadData ? LoadData.ON : LoadData.OFF, skipThese);</span>
-<span class="nc" id="L268">    }</span>
+<span class="nc bnc" id="L267" title="All 4 branches missed.">        JavaBeanTester.test(clazz, extension, checkEquals ? CanEquals.ON : CanEquals.OFF, loadData ? LoadData.ON</span>
+                : LoadData.OFF, skipThese);
+<span class="nc" id="L269">    }</span>
 
     /**
      * Tests the get/set/equals/hashCode/toString methods of the specified class.
@@ -301,14 +302,14 @@ public final class JavaBeanTester {
     public static &lt;T, E&gt; void test(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension, final CanEquals checkEquals,
             final LoadData loadData, final String... skipThese) throws IntrospectionException, InstantiationException,
             IllegalAccessException {
-<span class="fc" id="L304">        JavaBeanTesterWorker&lt;T, E&gt; worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz, extension);</span>
-<span class="fc" id="L305">        worker.setCheckEquals(checkEquals);</span>
-<span class="fc" id="L306">        worker.setLoadData(loadData);</span>
-<span class="pc bpc" id="L307" title="1 of 2 branches missed.">        if (skipThese != null) {</span>
-<span class="fc" id="L308">            worker.setSkipThese(new HashSet&lt;String&gt;(Arrays.asList(skipThese)));</span>
+<span class="fc" id="L305">        JavaBeanTesterWorker&lt;T, E&gt; worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz, extension);</span>
+<span class="fc" id="L306">        worker.setCheckEquals(checkEquals);</span>
+<span class="fc" id="L307">        worker.setLoadData(loadData);</span>
+<span class="pc bpc" id="L308" title="1 of 2 branches missed.">        if (skipThese != null) {</span>
+<span class="fc" id="L309">            worker.setSkipThese(new HashSet&lt;String&gt;(Arrays.asList(skipThese)));</span>
         }
-<span class="fc" id="L310">        worker.test();</span>
-<span class="fc" id="L311">    }</span>
+<span class="fc" id="L311">        worker.test();</span>
+<span class="fc" id="L312">    }</span>
 
     /**
      * Configure JavaBeanTester using Fluent API.
@@ -320,7 +321,7 @@ public final class JavaBeanTester {
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
     public static &lt;T&gt; JavaBeanTesterBuilder&lt;T, ?&gt; builder(Class&lt;T&gt; clazz) {
-<span class="fc" id="L323">        return new JavaBeanTesterBuilder&lt;T, Object&gt;(clazz, Object.class);</span>
+<span class="fc" id="L324">        return new JavaBeanTesterBuilder&lt;T, Object&gt;(clazz, Object.class);</span>
     }
 
     /**
@@ -337,7 +338,7 @@ public final class JavaBeanTester {
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
     public static &lt;T, E&gt; JavaBeanTesterBuilder&lt;T, E&gt; builder(Class&lt;T&gt; clazz, Class&lt;E&gt; extension) {
-<span class="fc" id="L340">        return new JavaBeanTesterBuilder&lt;T, E&gt;(clazz, extension);</span>
+<span class="fc" id="L341">        return new JavaBeanTesterBuilder&lt;T, E&gt;(clazz, extension);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
