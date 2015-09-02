@@ -200,9 +200,9 @@ public final class JavaBeanTester {
      * @deprecated in favor of builder method.
      */
     @Deprecated
-    public static <T> void load(final Class<T> clazz, final T instance, final boolean loadUnderlyingData,
+    public static <T> void load(final Class<T> clazz, final T instance, final boolean loadData,
             final String... skipThese) throws IntrospectionException {
-        JavaBeanTester.load(clazz, instance, loadUnderlyingData ? LoadData.ON : LoadData.OFF, skipThese);
+        JavaBeanTester.load(clazz, instance, loadData ? LoadData.ON : LoadData.OFF, skipThese);
     }
 
     /**
