@@ -19,9 +19,9 @@ import com.codebox.enums.LoadData;
 import com.codebox.enums.LoadType;
 
 import lombok.Data;
+import net.sf.cglib.beans.BeanCopier;
 
 import org.junit.Assert;
-import org.mockito.cglib.beans.BeanCopier;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
