@@ -195,6 +195,9 @@ class JavaBeanTesterWorker<T, E> {
         }
     }
 
+    /**
+     * Constructors test.
+     */
     void constructorsTest() {
         for (Constructor<?> constructor : this.clazz.getConstructors()) {
             final Class<?>[] types = constructor.getParameterTypes();
