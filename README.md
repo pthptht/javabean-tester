@@ -14,3 +14,6 @@ Original maintainer [codebox](https://github.com/codebox) only intended for this
 changes to.  Over time, this copy has evolved into a full project and now is the primary project going forwards.  Issues has been opened up
 for use and pull requests are gladly appreciated.
 
+## Documentation Status
+
+Actively accepting pull requests for documentation of this library.  Focus will only be on new builder patter.  Vast majority of examples exist in the test package.
