@@ -60,7 +60,7 @@ public class ValueBuilder {
      * @throws InstantiationException
      *             the instantiation exception
      */
-    public <T> Object buildValue(Class<T> clazz, LoadType loadType) throws IllegalAccessException,
+    public <T> Object buildValue(final Class<T> clazz, final LoadType loadType) throws IllegalAccessException,
             InvocationTargetException, InstantiationException {
         // Next check for a no-arg constructor
         final Constructor<?>[] ctrs = clazz.getConstructors();

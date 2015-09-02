@@ -38,7 +38,7 @@ public class JavaBeanTesterBuilder<T, E> {
      * @param clazz
      *            the clazz
      */
-    JavaBeanTesterBuilder(Class<T> clazz) {
+    JavaBeanTesterBuilder(final Class<T> clazz) {
         this.worker = new JavaBeanTesterWorker<T, E>(clazz);
     }
 
@@ -50,7 +50,7 @@ public class JavaBeanTesterBuilder<T, E> {
      * @param extension
      *            the extension
      */
-    JavaBeanTesterBuilder(Class<T> clazz, Class<E> extension) {
+    JavaBeanTesterBuilder(final Class<T> clazz, final Class<E> extension) {
         this.worker = new JavaBeanTesterWorker<T, E>(clazz, extension);
     }
 
@@ -70,7 +70,7 @@ public class JavaBeanTesterBuilder<T, E> {
      *            the value
      * @return the java bean tester builder
      */
-    public JavaBeanTesterBuilder<T, E> checkEquals(boolean value) {
+    public JavaBeanTesterBuilder<T, E> checkEquals(final boolean value) {
         this.worker.setCheckEquals(value ? CanEquals.ON : CanEquals.OFF);
         return this;
     }
@@ -91,7 +91,7 @@ public class JavaBeanTesterBuilder<T, E> {
      *            the value
      * @return the java bean tester builder
      */
-    public JavaBeanTesterBuilder<T, E> loadData(boolean value) {
+    public JavaBeanTesterBuilder<T, E> loadData(final boolean value) {
         this.worker.setLoadData(value ? LoadData.ON : LoadData.OFF);
         return this;
     }
@@ -103,7 +103,7 @@ public class JavaBeanTesterBuilder<T, E> {
      *            the property names
      * @return the java bean tester builder
      */
-    public JavaBeanTesterBuilder<T, E> skip(String... propertyNames) {
+    public JavaBeanTesterBuilder<T, E> skip(final String... propertyNames) {
         if (propertyNames != null) {
             for (String propertyName : propertyNames) {
                 this.worker.getSkipThese().add(propertyName);
@@ -148,7 +148,7 @@ public class JavaBeanTesterBuilder<T, E> {
      * @throws IntrospectionException
      *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      */
-    public void testInstance(T instance) throws IntrospectionException {
+    public void testInstance(final T instance) throws IntrospectionException {
         this.worker.getterSetterTests(instance);
     }
 
@@ -162,7 +162,7 @@ public class JavaBeanTesterBuilder<T, E> {
      * @throws IntrospectionException
      *             the introspection exception
      */
-    public void testEquals(T instance, T expected) throws IntrospectionException {
+    public void testEquals(final T instance, final T expected) throws IntrospectionException {
         this.worker.equalsTests(instance, expected);
     }
 }

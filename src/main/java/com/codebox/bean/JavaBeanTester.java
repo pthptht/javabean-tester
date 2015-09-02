@@ -320,7 +320,7 @@ public final class JavaBeanTester {
      *            the clazz
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
-    public static <T> JavaBeanTesterBuilder<T, ?> builder(Class<T> clazz) {
+    public static <T> JavaBeanTesterBuilder<T, ?> builder(final Class<T> clazz) {
         return new JavaBeanTesterBuilder<T, Object>(clazz, Object.class);
     }
 
@@ -337,7 +337,7 @@ public final class JavaBeanTester {
      *            the extension
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
-    public static <T, E> JavaBeanTesterBuilder<T, E> builder(Class<T> clazz, Class<E> extension) {
+    public static <T, E> JavaBeanTesterBuilder<T, E> builder(final Class<T> clazz, final Class<E> extension) {
         return new JavaBeanTesterBuilder<T, E>(clazz, extension);
     }
 }

@@ -65,7 +65,7 @@ class JavaBeanTesterWorker<T, E> {
      * @param newClazz
      *            the clazz
      */
-    JavaBeanTesterWorker(Class<T> newClazz) {
+    JavaBeanTesterWorker(final Class<T> newClazz) {
         this.clazz = newClazz;
     }
 
@@ -77,7 +77,7 @@ class JavaBeanTesterWorker<T, E> {
      * @param newExtension
      *            the extension
      */
-    JavaBeanTesterWorker(Class<T> newClazz, Class<E> newExtension) {
+    JavaBeanTesterWorker(final Class<T> newClazz, final Class<E> newExtension) {
         this.clazz = newClazz;
         this.extension = newExtension;
     }
@@ -101,7 +101,7 @@ class JavaBeanTesterWorker<T, E> {
      */
     public static <L> JavaBeanTesterWorker<L, Object> load(final Class<L> clazz, final L instance,
             final LoadData loadData, final String... skipThese) throws IntrospectionException {
-        JavaBeanTesterWorker<L, Object> worker = new JavaBeanTesterWorker<L, Object>(clazz);
+        final JavaBeanTesterWorker<L, Object> worker = new JavaBeanTesterWorker<L, Object>(clazz);
 
         worker.setLoadData(loadData);
         if (skipThese != null) {
@@ -197,9 +197,9 @@ class JavaBeanTesterWorker<T, E> {
 
     void constructorsTest() {
         for (Constructor<?> constructor : this.clazz.getConstructors()) {
-            Class<?>[] types = constructor.getParameterTypes();
+            final Class<?>[] types = constructor.getParameterTypes();
 
-            Object[] values = new Object[constructor.getParameterTypes().length];
+            final Object[] values = new Object[constructor.getParameterTypes().length];
 
             for (int i = 0; i < values.length; i++) {
                 try {
@@ -250,9 +250,9 @@ class JavaBeanTesterWorker<T, E> {
      * @throws InvocationTargetException
      *             the invocation target exception
      */
-    private <R> Object buildValue(Class<R> returnType, LoadType loadType) throws InstantiationException,
+    private <R> Object buildValue(final Class<R> returnType, final LoadType loadType) throws InstantiationException,
             IllegalAccessException, InvocationTargetException {
-        ValueBuilder valueBuilder = new ValueBuilder();
+        final ValueBuilder valueBuilder = new ValueBuilder();
         valueBuilder.setLoadData(this.loadData);
         return valueBuilder.buildValue(returnType, loadType);
     }
