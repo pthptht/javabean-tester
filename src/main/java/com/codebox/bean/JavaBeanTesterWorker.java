@@ -62,24 +62,24 @@ class JavaBeanTesterWorker<T, E> {
     /**
      * Instantiates a new java bean tester worker.
      *
-     * @param clazz
+     * @param newClazz
      *            the clazz
      */
-    JavaBeanTesterWorker(Class<T> clazz) {
-        this.clazz = clazz;
+    JavaBeanTesterWorker(Class<T> newClazz) {
+        this.clazz = newClazz;
     }
 
     /**
      * Instantiates a new java bean tester worker.
      *
-     * @param clazz
+     * @param newClazz
      *            the clazz
-     * @param extension
+     * @param newExtension
      *            the extension
      */
-    JavaBeanTesterWorker(Class<T> clazz, Class<E> extension) {
-        this.clazz = clazz;
-        this.extension = extension;
+    JavaBeanTesterWorker(Class<T> newClazz, Class<E> newExtension) {
+        this.clazz = newClazz;
+        this.extension = newExtension;
     }
 
     /**
