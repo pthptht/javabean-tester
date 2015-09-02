@@ -16,6 +16,9 @@ package com.codebox.bean;
 
 import com.codebox.enums.LoadData;
 import com.codebox.enums.LoadType;
+
+import lombok.Data;
+
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,29 +37,11 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * Builds values from given type.
  */
+@Data
 public class ValueBuilder {
 
     /** The load data. */
     private LoadData loadData;
-
-    /**
-     * Sets the load data.
-     *
-     * @param loadData
-     *            the new load data
-     */
-    public void setLoadData(LoadData loadData) {
-        this.loadData = loadData;
-    }
-
-    /**
-     * Gets the load data.
-     *
-     * @return the load data
-     */
-    public LoadData getLoadData() {
-        return this.loadData;
-    }
 
     /**
      * Builds the value.

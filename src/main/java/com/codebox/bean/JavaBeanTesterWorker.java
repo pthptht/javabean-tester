@@ -17,6 +17,9 @@ package com.codebox.bean;
 import com.codebox.enums.CanEquals;
 import com.codebox.enums.LoadData;
 import com.codebox.enums.LoadType;
+
+import lombok.Data;
+
 import org.junit.Assert;
 import org.mockito.cglib.beans.BeanCopier;
 
@@ -38,6 +41,7 @@ import java.util.Set;
  * @param <E>
  *            the element type
  */
+@Data
 class JavaBeanTesterWorker<T, E> {
 
     /** The load data. */
@@ -106,63 +110,6 @@ class JavaBeanTesterWorker<T, E> {
         worker.getterSetterTests(instance);
 
         return worker;
-    }
-
-    /**
-     * Sets the load data.
-     *
-     * @param loadData
-     *            the new load data
-     */
-    public void setLoadData(LoadData loadData) {
-        this.loadData = loadData;
-    }
-
-    /**
-     * Gets the load data.
-     *
-     * @return the load data
-     */
-    public LoadData getLoadData() {
-        return this.loadData;
-    }
-
-    /**
-     * Sets the check equals.
-     *
-     * @param checkEquals
-     *            the new check equals
-     */
-    public void setCheckEquals(CanEquals checkEquals) {
-        this.checkEquals = checkEquals;
-    }
-
-    /**
-     * Gets the check equals.
-     *
-     * @return the check equals
-     */
-    public CanEquals getCheckEquals() {
-        return this.checkEquals;
-    }
-
-    /**
-     * Sets the skip these.
-     *
-     * @param skipThese
-     *            the new skip these
-     */
-    public void setSkipThese(Set<String> skipThese) {
-        this.skipThese = skipThese;
-    }
-
-    /**
-     * Gets the skip these.
-     *
-     * @return the skip these
-     */
-    public Set<String> getSkipThese() {
-        return this.skipThese;
     }
 
     /**
