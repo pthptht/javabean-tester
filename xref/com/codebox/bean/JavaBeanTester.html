@@ -208,9 +208,9 @@
 <a class="jxr_linenumber" name="L200" href="#L200">200</a> <em class="jxr_javadoccomment">     * @deprecated in favor of builder method.</em>
 <a class="jxr_linenumber" name="L201" href="#L201">201</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L202" href="#L202">202</a>     @Deprecated
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; <strong class="jxr_keyword">void</strong> load(<strong class="jxr_keyword">final</strong> Class&lt;T&gt; clazz, <strong class="jxr_keyword">final</strong> T instance, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> loadUnderlyingData,
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; <strong class="jxr_keyword">void</strong> load(<strong class="jxr_keyword">final</strong> Class&lt;T&gt; clazz, <strong class="jxr_keyword">final</strong> T instance, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> loadData,
 <a class="jxr_linenumber" name="L204" href="#L204">204</a>             <strong class="jxr_keyword">final</strong> String... skipThese) <strong class="jxr_keyword">throws</strong> IntrospectionException {
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>         JavaBeanTester.load(clazz, instance, loadUnderlyingData ? LoadData.ON : LoadData.OFF, skipThese);
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>         JavaBeanTester.load(clazz, instance, loadData ? LoadData.ON : LoadData.OFF, skipThese);
 <a class="jxr_linenumber" name="L206" href="#L206">206</a>     }
 <a class="jxr_linenumber" name="L207" href="#L207">207</a> 
 <a class="jxr_linenumber" name="L208" href="#L208">208</a>     <em class="jxr_javadoccomment">/**</em>
@@ -328,7 +328,7 @@
 <a class="jxr_linenumber" name="L320" href="#L320">320</a> <em class="jxr_javadoccomment">     *            the clazz</em>
 <a class="jxr_linenumber" name="L321" href="#L321">321</a> <em class="jxr_javadoccomment">     * @return A builder implementing the fluent API to configure JavaBeanTester</em>
 <a class="jxr_linenumber" name="L322" href="#L322">322</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L323" href="#L323">323</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; JavaBeanTesterBuilder&lt;T, ?&gt; builder(Class&lt;T&gt; clazz) {
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; JavaBeanTesterBuilder&lt;T, ?&gt; builder(<strong class="jxr_keyword">final</strong> Class&lt;T&gt; clazz) {
 <a class="jxr_linenumber" name="L324" href="#L324">324</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> JavaBeanTesterBuilder&lt;T, Object&gt;(clazz, Object.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L325" href="#L325">325</a>     }
 <a class="jxr_linenumber" name="L326" href="#L326">326</a> 
@@ -345,7 +345,7 @@
 <a class="jxr_linenumber" name="L337" href="#L337">337</a> <em class="jxr_javadoccomment">     *            the extension</em>
 <a class="jxr_linenumber" name="L338" href="#L338">338</a> <em class="jxr_javadoccomment">     * @return A builder implementing the fluent API to configure JavaBeanTester</em>
 <a class="jxr_linenumber" name="L339" href="#L339">339</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T, E&gt; JavaBeanTesterBuilder&lt;T, E&gt; builder(Class&lt;T&gt; clazz, Class&lt;E&gt; extension) {
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T, E&gt; JavaBeanTesterBuilder&lt;T, E&gt; builder(<strong class="jxr_keyword">final</strong> Class&lt;T&gt; clazz, <strong class="jxr_keyword">final</strong> Class&lt;E&gt; extension) {
 <a class="jxr_linenumber" name="L341" href="#L341">341</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> JavaBeanTesterBuilder&lt;T, E&gt;(clazz, extension);
 <a class="jxr_linenumber" name="L342" href="#L342">342</a>     }
 <a class="jxr_linenumber" name="L343" href="#L343">343</a> }

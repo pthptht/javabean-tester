@@ -200,9 +200,9 @@ public final class JavaBeanTester {
      * @deprecated in favor of builder method.
      */
     @Deprecated
-    public static &lt;T&gt; void load(final Class&lt;T&gt; clazz, final T instance, final boolean loadUnderlyingData,
+    public static &lt;T&gt; void load(final Class&lt;T&gt; clazz, final T instance, final boolean loadData,
             final String... skipThese) throws IntrospectionException {
-<span class="nc bnc" id="L205" title="All 2 branches missed.">        JavaBeanTester.load(clazz, instance, loadUnderlyingData ? LoadData.ON : LoadData.OFF, skipThese);</span>
+<span class="nc bnc" id="L205" title="All 2 branches missed.">        JavaBeanTester.load(clazz, instance, loadData ? LoadData.ON : LoadData.OFF, skipThese);</span>
 <span class="nc" id="L206">    }</span>
 
     /**
@@ -320,7 +320,7 @@ public final class JavaBeanTester {
      *            the clazz
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
-    public static &lt;T&gt; JavaBeanTesterBuilder&lt;T, ?&gt; builder(Class&lt;T&gt; clazz) {
+    public static &lt;T&gt; JavaBeanTesterBuilder&lt;T, ?&gt; builder(final Class&lt;T&gt; clazz) {
 <span class="fc" id="L324">        return new JavaBeanTesterBuilder&lt;T, Object&gt;(clazz, Object.class);</span>
     }
 
@@ -337,7 +337,7 @@ public final class JavaBeanTester {
      *            the extension
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
-    public static &lt;T, E&gt; JavaBeanTesterBuilder&lt;T, E&gt; builder(Class&lt;T&gt; clazz, Class&lt;E&gt; extension) {
+    public static &lt;T, E&gt; JavaBeanTesterBuilder&lt;T, E&gt; builder(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension) {
 <span class="fc" id="L341">        return new JavaBeanTesterBuilder&lt;T, E&gt;(clazz, extension);</span>
     }
 }

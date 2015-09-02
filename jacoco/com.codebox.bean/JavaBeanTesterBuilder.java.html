@@ -38,7 +38,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @param clazz
      *            the clazz
      */
-<span class="nc" id="L41">    JavaBeanTesterBuilder(Class&lt;T&gt; clazz) {</span>
+<span class="nc" id="L41">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz) {</span>
 <span class="nc" id="L42">        this.worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz);</span>
 <span class="nc" id="L43">    }</span>
 
@@ -50,7 +50,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @param extension
      *            the extension
      */
-<span class="fc" id="L53">    JavaBeanTesterBuilder(Class&lt;T&gt; clazz, Class&lt;E&gt; extension) {</span>
+<span class="fc" id="L53">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension) {</span>
 <span class="fc" id="L54">        this.worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz, extension);</span>
 <span class="fc" id="L55">    }</span>
 
@@ -70,7 +70,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *            the value
      * @return the java bean tester builder
      */
-    public JavaBeanTesterBuilder&lt;T, E&gt; checkEquals(boolean value) {
+    public JavaBeanTesterBuilder&lt;T, E&gt; checkEquals(final boolean value) {
 <span class="pc bpc" id="L74" title="1 of 2 branches missed.">        this.worker.setCheckEquals(value ? CanEquals.ON : CanEquals.OFF);</span>
 <span class="fc" id="L75">        return this;</span>
     }
@@ -91,7 +91,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *            the value
      * @return the java bean tester builder
      */
-    public JavaBeanTesterBuilder&lt;T, E&gt; loadData(boolean value) {
+    public JavaBeanTesterBuilder&lt;T, E&gt; loadData(final boolean value) {
 <span class="pc bpc" id="L95" title="1 of 2 branches missed.">        this.worker.setLoadData(value ? LoadData.ON : LoadData.OFF);</span>
 <span class="fc" id="L96">        return this;</span>
     }
@@ -103,7 +103,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *            the property names
      * @return the java bean tester builder
      */
-    public JavaBeanTesterBuilder&lt;T, E&gt; skip(String... propertyNames) {
+    public JavaBeanTesterBuilder&lt;T, E&gt; skip(final String... propertyNames) {
 <span class="pc bpc" id="L107" title="1 of 2 branches missed.">        if (propertyNames != null) {</span>
 <span class="fc bfc" id="L108" title="All 2 branches covered.">            for (String propertyName : propertyNames) {</span>
 <span class="fc" id="L109">                this.worker.getSkipThese().add(propertyName);</span>
@@ -148,7 +148,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @throws IntrospectionException
      *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      */
-    public void testInstance(T instance) throws IntrospectionException {
+    public void testInstance(final T instance) throws IntrospectionException {
 <span class="nc" id="L152">        this.worker.getterSetterTests(instance);</span>
 <span class="nc" id="L153">    }</span>
 
@@ -162,7 +162,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @throws IntrospectionException
      *             the introspection exception
      */
-    public void testEquals(T instance, T expected) throws IntrospectionException {
+    public void testEquals(final T instance, final T expected) throws IntrospectionException {
 <span class="nc" id="L166">        this.worker.equalsTests(instance, expected);</span>
 <span class="nc" id="L167">    }</span>
 }
