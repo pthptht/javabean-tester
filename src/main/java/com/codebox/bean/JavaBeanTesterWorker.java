@@ -126,10 +126,10 @@ class JavaBeanTesterWorker<T, E> {
      *             under test.
      */
     public void test() throws IntrospectionException, InstantiationException, IllegalAccessException {
-        getterSetterTests(this.clazz.newInstance());
-        constructorsTest();
+        this.getterSetterTests(this.clazz.newInstance());
+        this.constructorsTest();
         if (this.checkEquals == CanEquals.ON) {
-            equalsHashCodeToStringSymmetricTest();
+            this.equalsHashCodeToStringSymmetricTest();
         }
     }
 
@@ -196,7 +196,7 @@ class JavaBeanTesterWorker<T, E> {
     }
 
     void constructorsTest() {
-        for (Constructor<?> constructor : clazz.getConstructors()) {
+        for (Constructor<?> constructor : this.clazz.getConstructors()) {
             Class<?>[] types = constructor.getParameterTypes();
 
             Object[] values = new Object[constructor.getParameterTypes().length];
