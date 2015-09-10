@@ -96,11 +96,9 @@ class JavaBeanTesterWorker<T, E> {
      * @param skipThese
      *            the names of any properties that should not be tested.
      * @return the java bean tester worker
-     * @throws IntrospectionException
-     *             thrown if the getterSetterTests method throws this exception for the class under test.
      */
     public static <L> JavaBeanTesterWorker<L, Object> load(final Class<L> clazz, final L instance,
-            final LoadData loadData, final String... skipThese) throws IntrospectionException {
+            final LoadData loadData, final String... skipThese) {
         final JavaBeanTesterWorker<L, Object> worker = new JavaBeanTesterWorker<L, Object>(clazz);
 
         worker.setLoadData(loadData);
@@ -114,19 +112,9 @@ class JavaBeanTesterWorker<T, E> {
 
     /**
      * Tests the get/set/equals/hashCode/toString methods and constructors of the specified class.
-     *
-     * @throws IntrospectionException
-     *             thrown if the getterSetterTests or equalsHashCodeToSTringSymmetricTest method throws this exception
-     *             for the class under test.
-     * @throws InstantiationException
-     *             thrown if the getterSetterTests or equalsHashCodeToSTringSymmetricTest method throws this exception
-     *             for the class under test.
-     * @throws IllegalAccessException
-     *             thrown if the getterSetterTests or clazz.newInstance() method throws this exception for the class
-     *             under test.
      */
-    public void test() throws IntrospectionException, InstantiationException, IllegalAccessException {
-        this.getterSetterTests(this.clazz.newInstance());
+    public void test() {
+        this.getterSetterTests(new ClassInstance<T>().newInstance(this.clazz));
         this.constructorsTest();
         if (this.checkEquals == CanEquals.ON) {
             this.equalsHashCodeToStringSymmetricTest();
@@ -138,11 +126,17 @@ class JavaBeanTesterWorker<T, E> {
      *
      * @param instance
      *            the instance of class under test.
-     * @throws IntrospectionException
-     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
+     * @return the ter setter tests
      */
-    void getterSetterTests(final T instance) throws IntrospectionException {
-        final PropertyDescriptor[] props = Introspector.getBeanInfo(this.clazz).getPropertyDescriptors();
+    void getterSetterTests(final T instance) {
+        PropertyDescriptor[] props;
+        try {
+            props = Introspector.getBeanInfo(this.clazz).getPropertyDescriptors();
+        } catch (IntrospectionException e) {
+            Assert.fail(String.format("An exception was thrown while testing class %s: %s", this.clazz.getName(),
+                    e.toString()));
+            return;
+        }
         nextProp: for (final PropertyDescriptor prop : props) {
             // Check the list of properties that we don't want to test
             for (final String skipThis : this.skipThese) {
@@ -180,9 +174,6 @@ class JavaBeanTesterWorker<T, E> {
                     } catch (final IllegalArgumentException e) {
                         Assert.fail(String.format("An exception was thrown while testing the property %s: %s",
                                 prop.getName(), e.toString()));
-                    } catch (final InstantiationException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property %s: %s",
-                                prop.getName(), e.toString()));
                     } catch (final InvocationTargetException e) {
                         Assert.fail(String.format("An exception was thrown while testing the property %s: %s",
                                 prop.getName(), e.toString()));
@@ -205,18 +196,7 @@ class JavaBeanTesterWorker<T, E> {
             final Object[] values = new Object[constructor.getParameterTypes().length];
 
             for (int i = 0; i < values.length; i++) {
-                try {
-                    values[i] = buildValue(types[i], LoadType.STANDARD_DATA);
-                } catch (InstantiationException e) {
-                    Assert.fail(String.format("An exception was thrown while testing the constructor %s: %s",
-                            constructor.getName(), e.toString()));
-                } catch (IllegalAccessException e) {
-                    Assert.fail(String.format("An exception was thrown while testing the constructor %s: %s",
-                            constructor.getName(), e.toString()));
-                } catch (InvocationTargetException e) {
-                    Assert.fail(String.format("An exception was thrown while testing the constructor %s: %s",
-                            constructor.getName(), e.toString()));
-                }
+                values[i] = buildValue(types[i], LoadType.STANDARD_DATA);
             }
 
             try {
@@ -246,15 +226,8 @@ class JavaBeanTesterWorker<T, E> {
      * @param loadType
      *            the load type
      * @return the object
-     * @throws InstantiationException
-     *             the instantiation exception
-     * @throws IllegalAccessException
-     *             the illegal access exception
-     * @throws InvocationTargetException
-     *             the invocation target exception
      */
-    private <R> Object buildValue(final Class<R> returnType, final LoadType loadType) throws InstantiationException,
-            IllegalAccessException, InvocationTargetException {
+    private <R> Object buildValue(final Class<R> returnType, final LoadType loadType) {
         final ValueBuilder valueBuilder = new ValueBuilder();
         valueBuilder.setLoadData(this.loadData);
         return valueBuilder.buildValue(returnType, loadType);
@@ -262,16 +235,8 @@ class JavaBeanTesterWorker<T, E> {
 
     /**
      * Tests the equals/hashCode/toString methods of the specified class.
-     *
-     * @throws IntrospectionException
-     *             thrown if the load method throws this exception for the class under test.
-     * @throws InstantiationException
-     *             thrown if the clazz.newInstance() method throws this exception for the class under test.
-     * @throws IllegalAccessException
-     *             thrown if the clazz.newIntances() method throws this exception for the class under test.
      */
-    public void equalsHashCodeToStringSymmetricTest() throws IntrospectionException, InstantiationException,
-            IllegalAccessException {
+    public void equalsHashCodeToStringSymmetricTest() {
         // Create Instances
         final T x = this.clazz.newInstance();
         final T y = this.clazz.newInstance();
@@ -362,10 +327,8 @@ class JavaBeanTesterWorker<T, E> {
      *            the class instance under test.
      * @param expected
      *            the instance expected for tests.
-     * @throws IntrospectionException
-     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      */
-    void equalsTests(final T instance, final T expected) throws IntrospectionException {
+    void equalsTests(final T instance, final T expected) {
 
         // Perform hashCode test dependent on data coming in
         // Assert.assertEquals(expected.hashCode(), instance.hashCode());
@@ -378,7 +341,14 @@ class JavaBeanTesterWorker<T, E> {
         ValueBuilder valueBuilder = new ValueBuilder();
         valueBuilder.setLoadData(this.loadData);
 
-        final PropertyDescriptor[] props = Introspector.getBeanInfo(instance.getClass()).getPropertyDescriptors();
+        PropertyDescriptor[] props;
+        try {
+            props = Introspector.getBeanInfo(instance.getClass()).getPropertyDescriptors();
+        } catch (IntrospectionException e) {
+            Assert.fail(String.format("An exception occurred during introspection of %s: %s", instance.getClass()
+                    .getName(), e.toString()));
+            return;
+        }
         for (final PropertyDescriptor prop : props) {
             final Method getter = prop.getReadMethod();
             final Method setter = prop.getWriteMethod();
@@ -428,9 +398,6 @@ class JavaBeanTesterWorker<T, E> {
                         Assert.fail(String.format("An exception was thrown while testing the property %s: %s",
                                 prop.getName(), e.toString()));
                     } catch (final IllegalArgumentException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property %s: %s",
-                                prop.getName(), e.toString()));
-                    } catch (final InstantiationException e) {
                         Assert.fail(String.format("An exception was thrown while testing the property %s: %s",
                                 prop.getName(), e.toString()));
                     } catch (final InvocationTargetException e) {

@@ -19,14 +19,11 @@ import com.codebox.enums.LoadType;
 
 import lombok.Data;
 
-import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.beans.IntrospectionException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,29 +50,17 @@ public class ValueBuilder {
      * @param loadType
      *            the load type
      * @return the object
-     * @throws IllegalAccessException
-     *             the illegal access exception
-     * @throws InvocationTargetException
-     *             the invocation target exception
-     * @throws InstantiationException
-     *             the instantiation exception
      */
-    public <T> Object buildValue(final Class<T> clazz, final LoadType loadType) throws IllegalAccessException,
-            InvocationTargetException, InstantiationException {
+    public <T> Object buildValue(final Class<T> clazz, final LoadType loadType) {
         // Next check for a no-arg constructor
         final Constructor<?>[] ctrs = clazz.getConstructors();
         for (final Constructor<?> ctr : ctrs) {
             if (ctr.getParameterTypes().length == 0 && clazz != String.class) {
                 if (this.loadData == LoadData.ON) {
                     // Load Underlying Data
-                    try {
-                        JavaBeanTesterWorker<T, Object> beanTesterWorker = new JavaBeanTesterWorker<T, Object>(clazz);
-                        beanTesterWorker.setLoadData(this.loadData);
-                        beanTesterWorker.getterSetterTests(clazz.newInstance());
-                    } catch (final IntrospectionException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the clazz %s: %s",
-                                clazz.getName(), e.toString()));
-                    }
+                    JavaBeanTesterWorker<T, Object> beanTesterWorker = new JavaBeanTesterWorker<T, Object>(clazz);
+                    beanTesterWorker.setLoadData(this.loadData);
+                    beanTesterWorker.getterSetterTests(new ClassInstance<T>().newInstance(clazz));
                     return null;
                 }
                 // The class has a no-arg constructor, so just call it

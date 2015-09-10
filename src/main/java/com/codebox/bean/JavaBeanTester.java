@@ -17,7 +17,6 @@ package com.codebox.bean;
 import com.codebox.enums.CanEquals;
 import com.codebox.enums.LoadData;
 
-import java.beans.IntrospectionException;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -88,19 +87,13 @@ public final class JavaBeanTester {
      *            extension of class under test.
      * @param loadData
      *            load underlying data with values.
-     * @throws IntrospectionException
-     *             thrown if the JavaBeanTester.load method throws this exception for the class under test.
-     * @throws InstantiationException
-     *             thrown if the clazz.newInstance() method throws this exception for the class under test.
-     * @throws IllegalAccessException
-     *             thrown if the clazz.newIntances() method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testObjectMethods()
      * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static <T, E> void equalsHashCodeToStringSymmetricTest(final Class<T> clazz, final Class<E> extension,
-            final boolean loadData) throws IntrospectionException, InstantiationException, IllegalAccessException {
+            final boolean loadData) {
         JavaBeanTester.equalsHashCodeToStringSymmetricTest(clazz, extension, loadData ? LoadData.ON : LoadData.OFF);
     }
 
@@ -117,19 +110,13 @@ public final class JavaBeanTester {
      *            extension of class under test.
      * @param loadData
      *            load underlying data with values.
-     * @throws IntrospectionException
-     *             thrown if the JavaBeanTester.load method throws this exception for the class under test.
-     * @throws InstantiationException
-     *             thrown if the clazz.newInstance() method throws this exception for the class under test.
-     * @throws IllegalAccessException
-     *             thrown if the clazz.newIntances() method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testObjectMethods()
      * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static <T, E> void equalsHashCodeToStringSymmetricTest(final Class<T> clazz, final Class<E> extension,
-            final LoadData loadData) throws IntrospectionException, InstantiationException, IllegalAccessException {
+            final LoadData loadData) {
         JavaBeanTesterWorker<T, E> worker = new JavaBeanTesterWorker<T, E>(clazz, extension);
         worker.setLoadData(loadData);
         worker.equalsHashCodeToStringSymmetricTest();
@@ -147,15 +134,12 @@ public final class JavaBeanTester {
      *            the instance expected for tests.
      * @param loadData
      *            load underlying data with values.
-     * @throws IntrospectionException
-     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testEquals(Object, Object)
      * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
-    public static <T> void equalsTests(final T instance, final T expected, final boolean loadData)
-            throws IntrospectionException {
+    public static <T> void equalsTests(final T instance, final T expected, final boolean loadData) {
         JavaBeanTester.equalsTests(instance, expected, loadData ? LoadData.ON : LoadData.OFF);
     }
 
@@ -171,15 +155,12 @@ public final class JavaBeanTester {
      *            the instance expected for tests.
      * @param loadData
      *            load underlying data with values.
-     * @throws IntrospectionException
-     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testEquals(Object, Object)
      * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
-    public static <T> void equalsTests(final T instance, final T expected, final LoadData loadData)
-            throws IntrospectionException {
+    public static <T> void equalsTests(final T instance, final T expected, final LoadData loadData) {
 
         @SuppressWarnings("unchecked")
         JavaBeanTesterWorker<T, Object> worker = new JavaBeanTesterWorker<T, Object>((Class<T>) instance.getClass(),
@@ -201,15 +182,13 @@ public final class JavaBeanTester {
      *            load recursively all underlying data objects.
      * @param skipThese
      *            the names of any properties that should not be tested.
-     * @throws IntrospectionException
-     *             thrown if the JavaBeanTester.getterSetterTests method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testInstance(Object)
      * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static <T> void load(final Class<T> clazz, final T instance, final boolean loadData,
-            final String... skipThese) throws IntrospectionException {
+            final String... skipThese) {
         JavaBeanTester.load(clazz, instance, loadData ? LoadData.ON : LoadData.OFF, skipThese);
     }
 
@@ -226,15 +205,13 @@ public final class JavaBeanTester {
      *            load recursively all underlying data objects.
      * @param skipThese
      *            the names of any properties that should not be tested.
-     * @throws IntrospectionException
-     *             thrown if the JavaBeanTester.getterSetterTests method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testInstance(Object)
      * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static <T> void load(final Class<T> clazz, final T instance, final LoadData loadData,
-            final String... skipThese) throws IntrospectionException {
+            final String... skipThese) {
         JavaBeanTesterWorker.load(clazz, instance, loadData, skipThese);
     }
 
@@ -255,23 +232,13 @@ public final class JavaBeanTester {
      *            load recursively all underlying data objects.
      * @param skipThese
      *            the names of any properties that should not be tested.
-     * @throws IntrospectionException
-     *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest
-     *             method throws this exception for the class under test.
-     * @throws InstantiationException
-     *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest
-     *             method throws this exception for the class under test.
-     * @throws IllegalAccessException
-     *             thrown if the JavaBeanTester.getterSetterTests or clazz.newInstance() method throws this exception
-     *             for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#test()
      * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static <T, E> void test(final Class<T> clazz, final Class<E> extension, final boolean checkEquals,
-            final boolean loadData, final String... skipThese) throws IntrospectionException, InstantiationException,
-            IllegalAccessException {
+            final boolean loadData, final String... skipThese) {
         JavaBeanTester.test(clazz, extension, checkEquals ? CanEquals.ON : CanEquals.OFF, loadData ? LoadData.ON
                 : LoadData.OFF, skipThese);
     }
@@ -293,23 +260,13 @@ public final class JavaBeanTester {
      *            load recursively all underlying data objects.
      * @param skipThese
      *            the names of any properties that should not be tested.
-     * @throws IntrospectionException
-     *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest
-     *             method throws this exception for the class under test.
-     * @throws InstantiationException
-     *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest
-     *             method throws this exception for the class under test.
-     * @throws IllegalAccessException
-     *             thrown if the JavaBeanTester.getterSetterTests or clazz.newInstance() method throws this exception
-     *             for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#test()
      * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static <T, E> void test(final Class<T> clazz, final Class<E> extension, final CanEquals checkEquals,
-            final LoadData loadData, final String... skipThese) throws IntrospectionException, InstantiationException,
-            IllegalAccessException {
+            final LoadData loadData, final String... skipThese) {
         JavaBeanTesterWorker<T, E> worker = new JavaBeanTesterWorker<T, E>(clazz, extension);
         worker.setCheckEquals(checkEquals);
         worker.setLoadData(loadData);

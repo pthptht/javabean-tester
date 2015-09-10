@@ -17,7 +17,6 @@ package com.codebox.bean;
 import com.codebox.enums.CanEquals;
 import com.codebox.enums.LoadData;
 
-import java.beans.IntrospectionException;
 
 /**
  * The Class JavaBeanTesterBuilder.
@@ -114,29 +113,15 @@ public class JavaBeanTesterBuilder<T, E> {
 
     /**
      * Test.
-     *
-     * @throws IllegalAccessException
-     *             the illegal access exception
-     * @throws IntrospectionException
-     *             the introspection exception
-     * @throws InstantiationException
-     *             the instantiation exception
      */
-    public void test() throws IllegalAccessException, IntrospectionException, InstantiationException {
+    public void test() {
         this.worker.test();
     }
 
     /**
      * Tests the equals/hashCode/toString methods of the specified class.
-     *
-     * @throws IllegalAccessException
-     *             thrown if the clazz.newIntances() method throws this exception for the class under test.
-     * @throws IntrospectionException
-     *             thrown if the load method throws this exception for the class under test.
-     * @throws InstantiationException
-     *             thrown if the clazz.newInstance() method throws this exception for the class under test.
      */
-    public void testObjectMethods() throws IllegalAccessException, IntrospectionException, InstantiationException {
+    public void testObjectMethods() {
         this.worker.equalsHashCodeToStringSymmetricTest();
     }
 
@@ -145,10 +130,8 @@ public class JavaBeanTesterBuilder<T, E> {
      *
      * @param instance
      *            the instance of class under test.
-     * @throws IntrospectionException
-     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      */
-    public void testInstance(final T instance) throws IntrospectionException {
+    public void testInstance(final T instance) {
         this.worker.getterSetterTests(instance);
     }
 
@@ -159,10 +142,8 @@ public class JavaBeanTesterBuilder<T, E> {
      *            the instance
      * @param expected
      *            the expected
-     * @throws IntrospectionException
-     *             the introspection exception
      */
-    public void testEquals(final T instance, final T expected) throws IntrospectionException {
+    public void testEquals(final T instance, final T expected) {
         this.worker.equalsTests(instance, expected);
     }
 }
