@@ -34,6 +34,8 @@ public final class JavaBeanTester {
      * PERFORM_CAN_EQUALS is boolean value that is passed into static methods to determine if can equals should be
      * performed. Generally this will be true except for cases for it otherwise fails due to missing support within this
      * library.
+     * 
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static final boolean PERFORM_CAN_EQUALS        = true;
@@ -42,6 +44,8 @@ public final class JavaBeanTester {
      * LOAD_UNDERLYING_DATA is boolean value that is passed into static methods to determine if underlying object data
      * should be populated. Generally this will be true except for cases for it otherwise fails due to missing support
      * within this library.
+     * 
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static final boolean LOAD_UNDERLYING_DATA      = true;
@@ -49,6 +53,8 @@ public final class JavaBeanTester {
     /**
      * SKIP_CAN_EQUALS is boolean value that is passed into static methods to determine if can equals should be
      * performed. Use this in cases where it otherwise fails due to missing support within this library.
+     * 
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static final boolean SKIP_CAN_EQUALS           = false;
@@ -56,6 +62,8 @@ public final class JavaBeanTester {
     /**
      * SKIP_LOAD_UNDERLYING_DATA is boolean value that is passed into static methods to determine if underlying object
      * data should be populated. Use this in cases where it otherwise fails due to missing support within this library.
+     * 
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static final boolean SKIP_LOAD_UNDERLYING_DATA = true;
@@ -88,7 +96,7 @@ public final class JavaBeanTester {
      *             thrown if the clazz.newIntances() method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testObjectMethods()
-     * @deprecated in favor of builder method.
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static <T, E> void equalsHashCodeToStringSymmetricTest(final Class<T> clazz, final Class<E> extension,
@@ -117,7 +125,7 @@ public final class JavaBeanTester {
      *             thrown if the clazz.newIntances() method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testObjectMethods()
-     * @deprecated in favor of builder method.
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static <T, E> void equalsHashCodeToStringSymmetricTest(final Class<T> clazz, final Class<E> extension,
@@ -143,7 +151,7 @@ public final class JavaBeanTester {
      *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testEquals(Object, Object)
-     * @deprecated in favor of builder method.
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static <T> void equalsTests(final T instance, final T expected, final boolean loadData)
@@ -167,7 +175,7 @@ public final class JavaBeanTester {
      *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testEquals(Object, Object)
-     * @deprecated in favor of builder method.
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static <T> void equalsTests(final T instance, final T expected, final LoadData loadData)
@@ -197,7 +205,7 @@ public final class JavaBeanTester {
      *             thrown if the JavaBeanTester.getterSetterTests method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testInstance(Object)
-     * @deprecated in favor of builder method.
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static <T> void load(final Class<T> clazz, final T instance, final boolean loadData,
@@ -222,7 +230,7 @@ public final class JavaBeanTester {
      *             thrown if the JavaBeanTester.getterSetterTests method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testInstance(Object)
-     * @deprecated in favor of builder method.
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static <T> void load(final Class<T> clazz, final T instance, final LoadData loadData,
@@ -258,7 +266,7 @@ public final class JavaBeanTester {
      *             for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#test()
-     * @deprecated in favor of builder method.
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static <T, E> void test(final Class<T> clazz, final Class<E> extension, final boolean checkEquals,
@@ -296,7 +304,7 @@ public final class JavaBeanTester {
      *             for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#test()
-     * @deprecated in favor of builder method.
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static <T, E> void test(final Class<T> clazz, final Class<E> extension, final CanEquals checkEquals,
