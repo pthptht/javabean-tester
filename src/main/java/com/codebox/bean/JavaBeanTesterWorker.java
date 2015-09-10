@@ -259,6 +259,15 @@ class JavaBeanTesterWorker<T, E> {
         } catch (final IOException e) {
             Assert.fail(String.format("An exception was thrown while serializing the class %s: %s,", object.getClass()
                     .getName(), e.toString()));
+        } finally {
+            if (output != null) {
+                try {
+                    output.close();
+                } catch (IOException e) {
+                    Assert.fail(String.format("An exception was thrown while closing stream for class %s: %s,", object
+                            .getClass().getName(), e.toString()));
+                }
+            }
         }
     }
 
