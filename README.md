@@ -16,4 +16,9 @@ for use and pull requests are gladly appreciated.
 
 ## Documentation Status
 
-Actively accepting pull requests for documentation of this library.  Focus will only be on new builder patter.  Vast majority of examples exist in the test package.
+Actively accepting pull requests for documentation of this library.  Focus will only be on new builder pattern.  Vast majority of examples exist in the test package.
+
+## Example Usage
+```java
+JavaBeanTester.build().checkEquals().checkSerializable().loadData().test();
+```
