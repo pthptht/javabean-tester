@@ -26,6 +26,11 @@ import org.junit.Assert;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.io.ByteArrayOutputStream;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -44,20 +49,23 @@ import java.util.Set;
 @Data
 class JavaBeanTesterWorker<T, E> {
 
+    /** The serializable. */
+    private CanSerialize        checkSerializable;
+
     /** The load data. */
-    private LoadData    loadData;
+    private LoadData            loadData;
 
     /** The check equals. */
-    private CanEquals   checkEquals;
+    private CanEquals           checkEquals;
 
     /** The clazz. */
-    private Class<T>    clazz;
+    private Class<T>            clazz;
 
     /** The extension. */
-    private Class<E>    extension;
+    private Class<E>            extension;
 
     /** The skip these. */
-    private Set<String> skipThese = new HashSet<String>();
+    private Set<String>         skipThese = new HashSet<String>();
 
     /**
      * Instantiates a new java bean tester worker.
@@ -116,6 +124,9 @@ class JavaBeanTesterWorker<T, E> {
     public void test() {
         this.getterSetterTests(new ClassInstance<T>().newInstance(this.clazz));
         this.constructorsTest();
+        if (this.checkSerializable == CanSerialize.ON) {
+            this.checkSerializableTest();
+        }
         if (this.checkEquals == CanEquals.ON) {
             this.equalsHashCodeToStringSymmetricTest();
         }
@@ -213,6 +224,33 @@ class JavaBeanTesterWorker<T, E> {
             }
 
             // TODO: Add checking of new object properties
+        }
+    }
+
+    /**
+     * Check Serializable test.
+     */
+    void checkSerializableTest() {
+        T object = new ClassInstance<T>().newInstance(this.clazz);
+        if (this.implementsSerializable(object)) {
+            this.canSerialize(object);
+            return;
+        }
+        Assert.fail(String.format("Class is not serializable %s", object.getClass().getName()));
+    }
+
+    boolean implementsSerializable(final T object) {
+        return object instanceof Serializable || object instanceof Externalizable;
+    }
+
+    void canSerialize(final T object) {
+        ObjectOutputStream output = null;
+        try {
+            output = new ObjectOutputStream(new ByteArrayOutputStream());
+            output.writeObject(object);
+        } catch (final IOException e) {
+            Assert.fail(String.format("An exception was thrown while serializing the class %s: %s,", object.getClass()
+                    .getName(), e.toString()));
         }
     }
 

@@ -170,4 +170,19 @@ public class JavaBeanTesterTest {
         JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).loadData().test();
     }
 
+    /**
+     * Test_serializable.
+     */
+    @Test
+    public void test_serializable() {
+        JavaBeanTester.builder(SerializableBean.class).checkSerializable().test();
+    }
+
+    /**
+     * Test_non serializable.
+     */
+    @Test
+    public void test_nonSerializable() {
+        JavaBeanTester.builder(NonSerializableBean.class).checkSerializable().test();
+    }
 }

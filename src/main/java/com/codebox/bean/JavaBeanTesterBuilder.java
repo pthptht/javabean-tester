@@ -16,6 +16,7 @@ package com.codebox.bean;
 
 import com.codebox.enums.CanEquals;
 import com.codebox.enums.LoadData;
+import com.codebox.enums.CanSerialize;
 
 
 /**
@@ -96,6 +97,27 @@ public class JavaBeanTesterBuilder<T, E> {
     }
 
     /**
+     * Check Serializable.
+     *
+     * @return the java bean tester builder
+     */
+    public JavaBeanTesterBuilder<T, E> checkSerializable() {
+        return checkSerializable(true);
+    }
+
+    /**
+     * Check Serializable.
+     *
+     * @param value
+     *            the value
+     * @return the java bean tester builder
+     */
+    public JavaBeanTesterBuilder<T, E> checkSerializable(final boolean value) {
+        this.worker.setCheckSerializable(value ? CanSerialize.ON : CanSerialize.OFF);
+        return this;
+    }
+
+    /**
      * Skip.
      *
      * @param propertyNames
@@ -146,4 +168,5 @@ public class JavaBeanTesterBuilder<T, E> {
     public void testEquals(final T instance, final T expected) {
         this.worker.equalsTests(instance, expected);
     }
+
 }
