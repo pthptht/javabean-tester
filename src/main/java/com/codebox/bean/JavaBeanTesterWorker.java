@@ -25,6 +25,9 @@ import net.sf.cglib.beans.BeanCopier;
 
 import org.junit.Assert;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -50,6 +53,9 @@ import java.util.Set;
  */
 @Data
 class JavaBeanTesterWorker<T, E> {
+
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER    = LoggerFactory.getLogger(JavaBeanTesterWorker.class);
 
     /** The serializable. */
     private CanSerialize        checkSerializable;
@@ -355,7 +361,7 @@ class JavaBeanTesterWorker<T, E> {
                 Assert.assertEquals(e2, ext);
             }
         } catch (final Exception e) {
-            // Do nothing class is not mutable
+            JavaBeanTesterWorker.LOGGER.trace("Do nothing class is not mutable", e.toString());
         }
     }
 
