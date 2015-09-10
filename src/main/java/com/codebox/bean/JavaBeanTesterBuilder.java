@@ -18,6 +18,7 @@ import com.codebox.enums.CanEquals;
 import com.codebox.enums.LoadData;
 import com.codebox.enums.CanSerialize;
 
+import java.util.Arrays;
 
 /**
  * The Class JavaBeanTesterBuilder.
@@ -126,9 +127,7 @@ public class JavaBeanTesterBuilder<T, E> {
      */
     public JavaBeanTesterBuilder<T, E> skip(final String... propertyNames) {
         if (propertyNames != null) {
-            for (String propertyName : propertyNames) {
-                this.worker.getSkipThese().add(propertyName);
-            }
+            this.worker.getSkipThese().addAll(Arrays.asList(propertyNames));
         }
         return this;
     }
