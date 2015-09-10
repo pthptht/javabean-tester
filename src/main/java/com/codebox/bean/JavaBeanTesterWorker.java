@@ -17,6 +17,8 @@ package com.codebox.bean;
 import com.codebox.enums.CanEquals;
 import com.codebox.enums.LoadData;
 import com.codebox.enums.LoadType;
+import com.codebox.instance.ClassInstance;
+import com.codebox.enums.CanSerialize;
 
 import lombok.Data;
 import net.sf.cglib.beans.BeanCopier;
@@ -276,11 +278,11 @@ class JavaBeanTesterWorker<T, E> {
      */
     public void equalsHashCodeToStringSymmetricTest() {
         // Create Instances
-        final T x = this.clazz.newInstance();
-        final T y = this.clazz.newInstance();
+        final T x = new ClassInstance<T>().newInstance(this.clazz);
+        final T y = new ClassInstance<T>().newInstance(this.clazz);
         E ext = null;
         if (this.extension != null) {
-            ext = this.extension.newInstance();
+            ext = new ClassInstance<E>().newInstance(this.extension);
         }
 
         // Test Empty Equals, HashCode, and ToString
@@ -342,13 +344,13 @@ class JavaBeanTesterWorker<T, E> {
         // Create Immutable Instance
         try {
             BeanCopier clazzBeanCopier = BeanCopier.create(this.clazz, this.clazz, false);
-            final T e = this.clazz.newInstance();
+            final T e = new ClassInstance<T>().newInstance(this.clazz);
             clazzBeanCopier.copy(x, e, null);
             Assert.assertEquals(e, x);
 
             if (this.extension != null) {
                 BeanCopier extensionBeanCopier = BeanCopier.create(this.extension, this.extension, false);
-                final E e2 = this.extension.newInstance();
+                final E e2 = new ClassInstance<E>().newInstance(this.extension);
                 extensionBeanCopier.copy(ext, e2, null);
                 Assert.assertEquals(e2, ext);
             }

@@ -16,6 +16,8 @@ package com.codebox.bean;
 
 import com.codebox.enums.LoadData;
 import com.codebox.enums.LoadType;
+import com.codebox.instance.ClassInstance;
+import com.codebox.instance.ConstructorInstance;
 
 import lombok.Data;
 
@@ -64,7 +66,7 @@ public class ValueBuilder {
                     return null;
                 }
                 // The class has a no-arg constructor, so just call it
-                return ctr.newInstance();
+                return new ConstructorInstance().newInstance(ctr);
             }
         }
 
