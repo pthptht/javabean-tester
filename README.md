@@ -20,5 +20,13 @@ Actively accepting pull requests for documentation of this library.  Focus will 
 
 ## Example Usage
 ```java
-JavaBeanTester.build().checkEquals().checkSerializable().loadData().test();
+JavaBeanTester.builder(Test.class, Extension.class).checkEquals().checkSerializable().loadData().skip("FieldToSkip", "AnotherFieldToSkip").test();
 ```
+
+Check Equals will perform equality checks.  This applies when hashcode, toString, and equals/canEqual are setup.
+
+Check Serializable will perform a serialization check.  This ensures that just because a class is marked as serializable that it really is serializable including children.
+
+Load Data will load underlying data as best possible for basic java types.
+
+Skip will skip all included elements from underlying getter/setter checks.
