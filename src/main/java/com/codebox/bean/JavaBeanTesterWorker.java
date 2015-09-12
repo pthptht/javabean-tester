@@ -132,9 +132,7 @@ class JavaBeanTesterWorker<T, E> {
     public void test() {
         this.getterSetterTests(new ClassInstance<T>().newInstance(this.clazz));
         this.constructorsTest();
-        if (this.checkSerializable == CanSerialize.ON) {
-            this.checkSerializableTest();
-        }
+        this.checkSerializableTest();
         if (this.checkEquals == CanEquals.ON) {
             this.equalsHashCodeToStringSymmetricTest();
         }
@@ -244,7 +242,9 @@ class JavaBeanTesterWorker<T, E> {
             this.canSerialize(object);
             return;
         }
-        Assert.fail(String.format("Class is not serializable %s", object.getClass().getName()));
+        if (this.checkSerializable == CanSerialize.ON) {
+            Assert.fail(String.format("Class is not serializable %s", object.getClass().getName()));
+        }
     }
 
     boolean implementsSerializable(final T object) {
