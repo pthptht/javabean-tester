@@ -47,4 +47,17 @@ public class ConstructorInstance {
         return null;
     }
 
+    /**
+     * Constructor inaccessibility test.
+     */
+    public final void inaccessible(final Class<?> clazz) {
+        final Constructor<?>[] ctors = clazz.getDeclaredConstructors();
+        Assert.assertEquals("Utility class should only have one constructor", 1, ctors.length);
+        final Constructor<?> ctor = ctors[0];
+        Assert.assertFalse("Utility class constructor should be inaccessible", ctor.isAccessible());
+        // Make accessible in order to test following assert.
+        ctor.setAccessible(true);
+        Assert.assertEquals("You would expect the constructor to return the expected type", clazz,
+                this.newInstance(ctor).getClass());
+    }
 }

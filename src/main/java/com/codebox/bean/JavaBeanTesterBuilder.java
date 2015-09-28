@@ -16,6 +16,7 @@ package com.codebox.bean;
 
 import com.codebox.enums.CanEquals;
 import com.codebox.enums.LoadData;
+import com.codebox.instance.ConstructorInstance;
 import com.codebox.enums.CanSerialize;
 
 import java.util.Arrays;
@@ -137,6 +138,16 @@ public class JavaBeanTesterBuilder<T, E> {
      */
     public void test() {
         this.worker.test();
+    }
+
+    /**
+     * Private Constructor Test.
+     *
+     * @param instance
+     *            the instance of class under test.
+     */
+    public void testPrivateConstructor() {
+        new ConstructorInstance().inaccessible(this.worker.getClazz());
     }
 
     /**
