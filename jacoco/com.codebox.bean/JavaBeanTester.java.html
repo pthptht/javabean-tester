@@ -17,7 +17,6 @@ package com.codebox.bean;
 import com.codebox.enums.CanEquals;
 import com.codebox.enums.LoadData;
 
-import java.beans.IntrospectionException;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -34,6 +33,8 @@ public final class JavaBeanTester {
      * PERFORM_CAN_EQUALS is boolean value that is passed into static methods to determine if can equals should be
      * performed. Generally this will be true except for cases for it otherwise fails due to missing support within this
      * library.
+     * 
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static final boolean PERFORM_CAN_EQUALS        = true;
@@ -42,6 +43,8 @@ public final class JavaBeanTester {
      * LOAD_UNDERLYING_DATA is boolean value that is passed into static methods to determine if underlying object data
      * should be populated. Generally this will be true except for cases for it otherwise fails due to missing support
      * within this library.
+     * 
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static final boolean LOAD_UNDERLYING_DATA      = true;
@@ -49,6 +52,8 @@ public final class JavaBeanTester {
     /**
      * SKIP_CAN_EQUALS is boolean value that is passed into static methods to determine if can equals should be
      * performed. Use this in cases where it otherwise fails due to missing support within this library.
+     * 
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static final boolean SKIP_CAN_EQUALS           = false;
@@ -56,6 +61,8 @@ public final class JavaBeanTester {
     /**
      * SKIP_LOAD_UNDERLYING_DATA is boolean value that is passed into static methods to determine if underlying object
      * data should be populated. Use this in cases where it otherwise fails due to missing support within this library.
+     * 
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static final boolean SKIP_LOAD_UNDERLYING_DATA = true;
@@ -63,9 +70,9 @@ public final class JavaBeanTester {
     /**
      * JavaBeanTester constructor is private to prevent instantiation of object.
      */
-<span class="nc" id="L66">    private JavaBeanTester() {</span>
+<span class="nc" id="L73">    private JavaBeanTester() {</span>
         // Hide constructor of static class.
-<span class="nc" id="L68">    }</span>
+<span class="nc" id="L75">    }</span>
 
     /**
      * Tests the equals/hashCode/toString methods of the specified class.
@@ -80,21 +87,15 @@ public final class JavaBeanTester {
      *            extension of class under test.
      * @param loadData
      *            load underlying data with values.
-     * @throws IntrospectionException
-     *             thrown if the JavaBeanTester.load method throws this exception for the class under test.
-     * @throws InstantiationException
-     *             thrown if the clazz.newInstance() method throws this exception for the class under test.
-     * @throws IllegalAccessException
-     *             thrown if the clazz.newIntances() method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testObjectMethods()
-     * @deprecated in favor of builder method.
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static &lt;T, E&gt; void equalsHashCodeToStringSymmetricTest(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension,
-            final boolean loadData) throws IntrospectionException, InstantiationException, IllegalAccessException {
-<span class="nc bnc" id="L96" title="All 2 branches missed.">        JavaBeanTester.equalsHashCodeToStringSymmetricTest(clazz, extension, loadData ? LoadData.ON : LoadData.OFF);</span>
-<span class="nc" id="L97">    }</span>
+            final boolean loadData) {
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        JavaBeanTester.equalsHashCodeToStringSymmetricTest(clazz, extension, loadData ? LoadData.ON : LoadData.OFF);</span>
+<span class="nc" id="L98">    }</span>
 
     /**
      * Tests the equals/hashCode/toString methods of the specified class.
@@ -109,23 +110,17 @@ public final class JavaBeanTester {
      *            extension of class under test.
      * @param loadData
      *            load underlying data with values.
-     * @throws IntrospectionException
-     *             thrown if the JavaBeanTester.load method throws this exception for the class under test.
-     * @throws InstantiationException
-     *             thrown if the clazz.newInstance() method throws this exception for the class under test.
-     * @throws IllegalAccessException
-     *             thrown if the clazz.newIntances() method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testObjectMethods()
-     * @deprecated in favor of builder method.
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static &lt;T, E&gt; void equalsHashCodeToStringSymmetricTest(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension,
-            final LoadData loadData) throws IntrospectionException, InstantiationException, IllegalAccessException {
-<span class="nc" id="L125">        JavaBeanTesterWorker&lt;T, E&gt; worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz, extension);</span>
-<span class="nc" id="L126">        worker.setLoadData(loadData);</span>
-<span class="nc" id="L127">        worker.equalsHashCodeToStringSymmetricTest();</span>
-<span class="nc" id="L128">    }</span>
+            final LoadData loadData) {
+<span class="nc" id="L120">        JavaBeanTesterWorker&lt;T, E&gt; worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz, extension);</span>
+<span class="nc" id="L121">        worker.setLoadData(loadData);</span>
+<span class="nc" id="L122">        worker.equalsHashCodeToStringSymmetricTest();</span>
+<span class="nc" id="L123">    }</span>
 
     /**
      * Equals Tests will traverse one object changing values until all have been tested against another object. This is
@@ -139,17 +134,14 @@ public final class JavaBeanTester {
      *            the instance expected for tests.
      * @param loadData
      *            load underlying data with values.
-     * @throws IntrospectionException
-     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testEquals(Object, Object)
-     * @deprecated in favor of builder method.
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
-    public static &lt;T&gt; void equalsTests(final T instance, final T expected, final boolean loadData)
-            throws IntrospectionException {
-<span class="nc bnc" id="L151" title="All 2 branches missed.">        JavaBeanTester.equalsTests(instance, expected, loadData ? LoadData.ON : LoadData.OFF);</span>
-<span class="nc" id="L152">    }</span>
+    public static &lt;T&gt; void equalsTests(final T instance, final T expected, final boolean loadData) {
+<span class="nc bnc" id="L143" title="All 2 branches missed.">        JavaBeanTester.equalsTests(instance, expected, loadData ? LoadData.ON : LoadData.OFF);</span>
+<span class="nc" id="L144">    }</span>
 
     /**
      * Equals Tests will traverse one object changing values until all have been tested against another object. This is
@@ -163,22 +155,19 @@ public final class JavaBeanTester {
      *            the instance expected for tests.
      * @param loadData
      *            load underlying data with values.
-     * @throws IntrospectionException
-     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testEquals(Object, Object)
-     * @deprecated in favor of builder method.
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
-    public static &lt;T&gt; void equalsTests(final T instance, final T expected, final LoadData loadData)
-            throws IntrospectionException {
+    public static &lt;T&gt; void equalsTests(final T instance, final T expected, final LoadData loadData) {
 
         @SuppressWarnings(&quot;unchecked&quot;)
-<span class="fc" id="L177">        JavaBeanTesterWorker&lt;T, Object&gt; worker = new JavaBeanTesterWorker&lt;T, Object&gt;((Class&lt;T&gt;) instance.getClass(),</span>
+<span class="fc" id="L166">        JavaBeanTesterWorker&lt;T, Object&gt; worker = new JavaBeanTesterWorker&lt;T, Object&gt;((Class&lt;T&gt;) instance.getClass(),</span>
                 Object.class);
-<span class="fc" id="L179">        worker.setLoadData(loadData);</span>
-<span class="fc" id="L180">        worker.equalsTests(instance, expected);</span>
-<span class="fc" id="L181">    }</span>
+<span class="fc" id="L168">        worker.setLoadData(loadData);</span>
+<span class="fc" id="L169">        worker.equalsTests(instance, expected);</span>
+<span class="fc" id="L170">    }</span>
 
     /**
      * Tests the load methods of the specified class.
@@ -193,17 +182,15 @@ public final class JavaBeanTester {
      *            load recursively all underlying data objects.
      * @param skipThese
      *            the names of any properties that should not be tested.
-     * @throws IntrospectionException
-     *             thrown if the JavaBeanTester.getterSetterTests method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testInstance(Object)
-     * @deprecated in favor of builder method.
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static &lt;T&gt; void load(final Class&lt;T&gt; clazz, final T instance, final boolean loadData,
-            final String... skipThese) throws IntrospectionException {
-<span class="nc bnc" id="L205" title="All 2 branches missed.">        JavaBeanTester.load(clazz, instance, loadData ? LoadData.ON : LoadData.OFF, skipThese);</span>
-<span class="nc" id="L206">    }</span>
+            final String... skipThese) {
+<span class="nc bnc" id="L192" title="All 2 branches missed.">        JavaBeanTester.load(clazz, instance, loadData ? LoadData.ON : LoadData.OFF, skipThese);</span>
+<span class="nc" id="L193">    }</span>
 
     /**
      * Tests the load methods of the specified class.
@@ -218,17 +205,15 @@ public final class JavaBeanTester {
      *            load recursively all underlying data objects.
      * @param skipThese
      *            the names of any properties that should not be tested.
-     * @throws IntrospectionException
-     *             thrown if the JavaBeanTester.getterSetterTests method throws this exception for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#testInstance(Object)
-     * @deprecated in favor of builder method.
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static &lt;T&gt; void load(final Class&lt;T&gt; clazz, final T instance, final LoadData loadData,
-            final String... skipThese) throws IntrospectionException {
-<span class="fc" id="L230">        JavaBeanTesterWorker.load(clazz, instance, loadData, skipThese);</span>
-<span class="fc" id="L231">    }</span>
+            final String... skipThese) {
+<span class="fc" id="L215">        JavaBeanTesterWorker.load(clazz, instance, loadData, skipThese);</span>
+<span class="fc" id="L216">    }</span>
 
     /**
      * Tests the get/set/equals/hashCode/toString methods of the specified class.
@@ -247,26 +232,16 @@ public final class JavaBeanTester {
      *            load recursively all underlying data objects.
      * @param skipThese
      *            the names of any properties that should not be tested.
-     * @throws IntrospectionException
-     *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest
-     *             method throws this exception for the class under test.
-     * @throws InstantiationException
-     *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest
-     *             method throws this exception for the class under test.
-     * @throws IllegalAccessException
-     *             thrown if the JavaBeanTester.getterSetterTests or clazz.newInstance() method throws this exception
-     *             for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#test()
-     * @deprecated in favor of builder method.
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static &lt;T, E&gt; void test(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension, final boolean checkEquals,
-            final boolean loadData, final String... skipThese) throws IntrospectionException, InstantiationException,
-            IllegalAccessException {
-<span class="nc bnc" id="L267" title="All 4 branches missed.">        JavaBeanTester.test(clazz, extension, checkEquals ? CanEquals.ON : CanEquals.OFF, loadData ? LoadData.ON</span>
+            final boolean loadData, final String... skipThese) {
+<span class="nc bnc" id="L242" title="All 4 branches missed.">        JavaBeanTester.test(clazz, extension, checkEquals ? CanEquals.ON : CanEquals.OFF, loadData ? LoadData.ON</span>
                 : LoadData.OFF, skipThese);
-<span class="nc" id="L269">    }</span>
+<span class="nc" id="L244">    }</span>
 
     /**
      * Tests the get/set/equals/hashCode/toString methods of the specified class.
@@ -285,31 +260,21 @@ public final class JavaBeanTester {
      *            load recursively all underlying data objects.
      * @param skipThese
      *            the names of any properties that should not be tested.
-     * @throws IntrospectionException
-     *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest
-     *             method throws this exception for the class under test.
-     * @throws InstantiationException
-     *             thrown if the JavaBeanTester.getterSetterTests or JavaBeanTester.equalsHashCodeToSTringSymmetricTest
-     *             method throws this exception for the class under test.
-     * @throws IllegalAccessException
-     *             thrown if the JavaBeanTester.getterSetterTests or clazz.newInstance() method throws this exception
-     *             for the class under test.
      * @see JavaBeanTester#builder(Class)
      * @see JavaBeanTesterBuilder#test()
-     * @deprecated in favor of builder method.
+     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
      */
     @Deprecated
     public static &lt;T, E&gt; void test(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension, final CanEquals checkEquals,
-            final LoadData loadData, final String... skipThese) throws IntrospectionException, InstantiationException,
-            IllegalAccessException {
-<span class="fc" id="L305">        JavaBeanTesterWorker&lt;T, E&gt; worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz, extension);</span>
-<span class="fc" id="L306">        worker.setCheckEquals(checkEquals);</span>
-<span class="fc" id="L307">        worker.setLoadData(loadData);</span>
-<span class="pc bpc" id="L308" title="1 of 2 branches missed.">        if (skipThese != null) {</span>
-<span class="fc" id="L309">            worker.setSkipThese(new HashSet&lt;String&gt;(Arrays.asList(skipThese)));</span>
+            final LoadData loadData, final String... skipThese) {
+<span class="fc" id="L270">        JavaBeanTesterWorker&lt;T, E&gt; worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz, extension);</span>
+<span class="fc" id="L271">        worker.setCheckEquals(checkEquals);</span>
+<span class="fc" id="L272">        worker.setLoadData(loadData);</span>
+<span class="pc bpc" id="L273" title="1 of 2 branches missed.">        if (skipThese != null) {</span>
+<span class="fc" id="L274">            worker.setSkipThese(new HashSet&lt;String&gt;(Arrays.asList(skipThese)));</span>
         }
-<span class="fc" id="L311">        worker.test();</span>
-<span class="fc" id="L312">    }</span>
+<span class="fc" id="L276">        worker.test();</span>
+<span class="fc" id="L277">    }</span>
 
     /**
      * Configure JavaBeanTester using Fluent API.
@@ -321,7 +286,7 @@ public final class JavaBeanTester {
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
     public static &lt;T&gt; JavaBeanTesterBuilder&lt;T, ?&gt; builder(final Class&lt;T&gt; clazz) {
-<span class="fc" id="L324">        return new JavaBeanTesterBuilder&lt;T, Object&gt;(clazz, Object.class);</span>
+<span class="fc" id="L289">        return new JavaBeanTesterBuilder&lt;T, Object&gt;(clazz, Object.class);</span>
     }
 
     /**
@@ -338,7 +303,7 @@ public final class JavaBeanTester {
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
     public static &lt;T, E&gt; JavaBeanTesterBuilder&lt;T, E&gt; builder(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension) {
-<span class="fc" id="L341">        return new JavaBeanTesterBuilder&lt;T, E&gt;(clazz, extension);</span>
+<span class="fc" id="L306">        return new JavaBeanTesterBuilder&lt;T, E&gt;(clazz, extension);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

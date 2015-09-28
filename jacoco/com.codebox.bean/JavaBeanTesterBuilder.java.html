@@ -16,8 +16,10 @@ package com.codebox.bean;
 
 import com.codebox.enums.CanEquals;
 import com.codebox.enums.LoadData;
+import com.codebox.instance.ConstructorInstance;
+import com.codebox.enums.CanSerialize;
 
-import java.beans.IntrospectionException;
+import java.util.Arrays;
 
 /**
  * The Class JavaBeanTesterBuilder.
@@ -38,9 +40,9 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @param clazz
      *            the clazz
      */
-<span class="nc" id="L41">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz) {</span>
-<span class="nc" id="L42">        this.worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz);</span>
-<span class="nc" id="L43">    }</span>
+<span class="nc" id="L43">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz) {</span>
+<span class="nc" id="L44">        this.worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz);</span>
+<span class="nc" id="L45">    }</span>
 
     /**
      * Instantiates a new java bean tester builder.
@@ -50,9 +52,9 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @param extension
      *            the extension
      */
-<span class="fc" id="L53">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension) {</span>
-<span class="fc" id="L54">        this.worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz, extension);</span>
-<span class="fc" id="L55">    }</span>
+<span class="fc" id="L55">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension) {</span>
+<span class="fc" id="L56">        this.worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz, extension);</span>
+<span class="fc" id="L57">    }</span>
 
     /**
      * Check equals.
@@ -60,7 +62,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkEquals() {
-<span class="fc" id="L63">        return checkEquals(true);</span>
+<span class="fc" id="L65">        return checkEquals(true);</span>
     }
 
     /**
@@ -71,8 +73,8 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkEquals(final boolean value) {
-<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        this.worker.setCheckEquals(value ? CanEquals.ON : CanEquals.OFF);</span>
-<span class="fc" id="L75">        return this;</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        this.worker.setCheckEquals(value ? CanEquals.ON : CanEquals.OFF);</span>
+<span class="fc" id="L77">        return this;</span>
     }
 
     /**
@@ -81,7 +83,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; loadData() {
-<span class="fc" id="L84">        return loadData(true);</span>
+<span class="fc" id="L86">        return loadData(true);</span>
     }
 
     /**
@@ -92,8 +94,29 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; loadData(final boolean value) {
-<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        this.worker.setLoadData(value ? LoadData.ON : LoadData.OFF);</span>
-<span class="fc" id="L96">        return this;</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        this.worker.setLoadData(value ? LoadData.ON : LoadData.OFF);</span>
+<span class="fc" id="L98">        return this;</span>
+    }
+
+    /**
+     * Check Serializable.
+     *
+     * @return the java bean tester builder
+     */
+    public JavaBeanTesterBuilder&lt;T, E&gt; checkSerializable() {
+<span class="fc" id="L107">        return checkSerializable(true);</span>
+    }
+
+    /**
+     * Check Serializable.
+     *
+     * @param value
+     *            the value
+     * @return the java bean tester builder
+     */
+    public JavaBeanTesterBuilder&lt;T, E&gt; checkSerializable(final boolean value) {
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">        this.worker.setCheckSerializable(value ? CanSerialize.ON : CanSerialize.OFF);</span>
+<span class="fc" id="L119">        return this;</span>
     }
 
     /**
@@ -104,53 +127,45 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; skip(final String... propertyNames) {
-<span class="pc bpc" id="L107" title="1 of 2 branches missed.">        if (propertyNames != null) {</span>
-<span class="fc bfc" id="L108" title="All 2 branches covered.">            for (String propertyName : propertyNames) {</span>
-<span class="fc" id="L109">                this.worker.getSkipThese().add(propertyName);</span>
-            }
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">        if (propertyNames != null) {</span>
+<span class="fc" id="L131">            this.worker.getSkipThese().addAll(Arrays.asList(propertyNames));</span>
         }
-<span class="fc" id="L112">        return this;</span>
+<span class="fc" id="L133">        return this;</span>
     }
 
     /**
      * Test.
-     *
-     * @throws IllegalAccessException
-     *             the illegal access exception
-     * @throws IntrospectionException
-     *             the introspection exception
-     * @throws InstantiationException
-     *             the instantiation exception
      */
-    public void test() throws IllegalAccessException, IntrospectionException, InstantiationException {
-<span class="fc" id="L126">        this.worker.test();</span>
-<span class="fc" id="L127">    }</span>
+    public void test() {
+<span class="fc" id="L140">        this.worker.test();</span>
+<span class="fc" id="L141">    }</span>
+
+    /**
+     * Private Constructor Test.
+     *
+     * @param instance
+     *            the instance of class under test.
+     */
+    public void testPrivateConstructor() {
+<span class="fc" id="L150">        new ConstructorInstance().inaccessible(this.worker.getClazz());</span>
+<span class="fc" id="L151">    }</span>
 
     /**
      * Tests the equals/hashCode/toString methods of the specified class.
-     *
-     * @throws IllegalAccessException
-     *             thrown if the clazz.newIntances() method throws this exception for the class under test.
-     * @throws IntrospectionException
-     *             thrown if the load method throws this exception for the class under test.
-     * @throws InstantiationException
-     *             thrown if the clazz.newInstance() method throws this exception for the class under test.
      */
-    public void testObjectMethods() throws IllegalAccessException, IntrospectionException, InstantiationException {
-<span class="nc" id="L140">        this.worker.equalsHashCodeToStringSymmetricTest();</span>
-<span class="nc" id="L141">    }</span>
+    public void testObjectMethods() {
+<span class="nc" id="L157">        this.worker.equalsHashCodeToStringSymmetricTest();</span>
+<span class="nc" id="L158">    }</span>
 
     /**
      * Getter Setter Tests.
      *
      * @param instance
      *            the instance of class under test.
-     * @throws IntrospectionException
-     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      */
-    public void testInstance(final T instance) throws IntrospectionException {
-<span class="nc" id="L152">        this.worker.getterSetterTests(instance);</span>
-<span class="nc" id="L153">    }</span>
+    public void testInstance(final T instance) {
+<span class="nc" id="L167">        this.worker.getterSetterTests(instance);</span>
+<span class="nc" id="L168">    }</span>
 
     /**
      * Test equals.
@@ -159,11 +174,10 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *            the instance
      * @param expected
      *            the expected
-     * @throws IntrospectionException
-     *             the introspection exception
      */
-    public void testEquals(final T instance, final T expected) throws IntrospectionException {
-<span class="nc" id="L166">        this.worker.equalsTests(instance, expected);</span>
-<span class="nc" id="L167">    }</span>
+    public void testEquals(final T instance, final T expected) {
+<span class="nc" id="L179">        this.worker.equalsTests(instance, expected);</span>
+<span class="nc" id="L180">    }</span>
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

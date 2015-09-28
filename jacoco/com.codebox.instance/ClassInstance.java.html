@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ClassInstance.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">javabean-tester</a> &gt; <a href="index.source.html" class="el_package">com.codebox.instance</a> &gt; <span class="el_source">ClassInstance.java</span></div><h1>ClassInstance.java</h1><pre class="source lang-java linenums">/**
+ * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
+ *
+ * Copyright (c) 2012 - 2015 Hazendaz.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of The Apache Software License,
+ * Version 2.0 which accompanies this distribution, and is available at
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ *
+ * Contributors:
+ *     CodeBox (Rob Dawson).
+ *     Hazendaz (Jeremy Landis).
+ */
+package com.codebox.instance;
+
+import org.junit.Assert;
+
+/**
+ * The Class Instance.
+ *
+ * @param &lt;T&gt;
+ *            the element type
+ */
+<span class="fc" id="L25">public class ClassInstance&lt;T&gt; {</span>
+
+    /**
+     * New instance.
+     *
+     * @param clazz
+     *            the class
+     * @return the t
+     */
+    public final T newInstance(final Class&lt;T&gt; clazz) {
+        try {
+<span class="fc" id="L36">            return clazz.newInstance();</span>
+<span class="nc" id="L37">        } catch (InstantiationException e) {</span>
+<span class="nc" id="L38">            Assert.fail(String.format(&quot;An exception was thrown while testing the class %s: %s&quot;, clazz.getName(),</span>
+                    e.toString()));
+<span class="nc" id="L40">        } catch (IllegalAccessException e) {</span>
+<span class="nc" id="L41">            Assert.fail(String.format(&quot;An exception was thrown while testing the class %s: %s&quot;, clazz.getName(),</span>
+                    e.toString()));
+<span class="nc" id="L43">        }</span>
+<span class="nc" id="L44">        return null;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
