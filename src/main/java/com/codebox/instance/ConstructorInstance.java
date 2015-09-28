@@ -20,10 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.junit.Assert;
 
 /**
- * The Class Instance.
- *
- * @param <T>
- *            the element type
+ * The Constructor Instance.
  */
 public class ConstructorInstance {
 
