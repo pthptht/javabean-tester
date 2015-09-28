@@ -596,11 +596,6 @@
                         <id>attach-javadocs</id>
                         <goals>
                             <goal>jar</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>attach-test-javadocs</id>
-                        <goals>
                             <goal>test-jar</goal>
                         </goals>
                     </execution>
@@ -633,11 +628,6 @@
                         <id>attach-sources</id>
                         <goals>
                             <goal>jar</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>attach-test-sources</id>
-                        <goals>
                             <goal>test-jar</goal>
                         </goals>
                     </execution>
