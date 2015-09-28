@@ -1,6 +1,7 @@
 javabean-tester
 ===============
 [![Build Status](https://travis-ci.org/hazendaz/javabean-tester.svg?branch=master)](https://travis-ci.org/hazendaz/javabean-tester)
+[![Dependency Status](https://www.versioneye.com/user/projects/5608ad895a262f001e000436/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5608ad895a262f001e000436)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz/javabean-tester/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz/javabean-tester)
 [![Apache 2](http://img.shields.io/badge/license-Apache%202-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
@@ -21,6 +22,14 @@ Actively accepting pull requests for documentation of this library.  Focus will 
 ## Example Usage
 ```java
 JavaBeanTester.builder(Test.class, Extension.class).checkEquals().checkSerializable().loadData().skip("FieldToSkip", "AnotherFieldToSkip").test();
+```
+
+```java
+JavaBeanTester.builder(Test.class).loadData().testEquals(instance1, instance2);
+```
+
+```java
+JavaBeanTester.builder(Test.class).testPrivateConstructor();
 ```
 
 Check Equals will perform equality checks.  This applies when hashcode, toString, and equals/canEqual are setup.
