@@ -93,17 +93,18 @@
         <url>https://travis-ci.org/hazendaz/javabean-tester/</url>
         <notifiers>
             <notifier>
-            <type>mail</type>
-            <sendOnError>true</sendOnError>
-            <sendOnFailure>true</sendOnFailure>
-            <sendOnSuccess>false</sendOnSuccess>
-            <sendOnWarning>false</sendOnWarning>
-            <configuration>
-                <address>jeremylandis@hotmail.com</address>
-            </configuration>
-        </notifier>
-    </notifiers>
+                <type>mail</type>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnSuccess>false</sendOnSuccess>
+                <sendOnWarning>false</sendOnWarning>
+                <configuration>
+                    <address>jeremylandis@hotmail.com</address>
+                </configuration>
+            </notifier>
+        </notifiers>
     </ciManagement>
+
     <distributionManagement>
         <site>
             <id>gh-pages</id>
@@ -197,7 +198,7 @@
                     <configuration>
                         <!-- Slightly faster builds, see https://issues.apache.org/jira/browse/MCOMPILER-209 -->
                         <useIncrementalCompilation>false</useIncrementalCompilation>
-                      </configuration>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
