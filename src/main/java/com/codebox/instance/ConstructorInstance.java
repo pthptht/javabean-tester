@@ -29,7 +29,7 @@ public class ConstructorInstance {
      *
      * @param constructor
      *            the instance
-     * @return the t
+     * @return the Object
      */
     public final Object newInstance(final Constructor<?> constructor) {
         try {
@@ -49,6 +49,8 @@ public class ConstructorInstance {
 
     /**
      * Constructor inaccessibility test.
+     *
+     * @param clazz the clazz
      */
     public final void inaccessible(final Class<?> clazz) {
         final Constructor<?>[] ctors = clazz.getDeclaredConstructors();

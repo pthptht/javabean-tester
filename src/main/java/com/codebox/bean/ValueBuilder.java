@@ -79,6 +79,7 @@ public class ValueBuilder {
             case NULL_DATA:
                 returnObject = setNullValues(clazz);
                 break;
+            case STANDARD_DATA:
             default:
                 returnObject = setStandardValues(clazz);
                 break;

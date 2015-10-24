@@ -142,9 +142,6 @@ public class JavaBeanTesterBuilder<T, E> {
 
     /**
      * Private Constructor Test.
-     *
-     * @param instance
-     *            the instance of class under test.
      */
     public void testPrivateConstructor() {
         new ConstructorInstance().inaccessible(this.worker.getClazz());
