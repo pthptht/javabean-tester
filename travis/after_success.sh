@@ -28,9 +28,11 @@ echo "Java detected: ${VER}"
 
 if [ "$upstream_repo" == "https://github.com/hazendaz/javabean-tester.git" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
   if [ $VER == "18" ]; then
+    # Send snapshots to sonatype
     mvn clean deploy -q --settings ./travis/settings.xml
     echo -e "Successfully deployed SNAPSHOT artifacts to Sonatype under Travis job ${TRAVIS_JOB_NUMBER}"
   elif [ $VER == "17" ]; then
+	# Send coverate to coveralls
     mvn clean test jacoco:report coveralls:report -q
     echo -e "Successfully ran coveralls under Travis job ${TRAVIS_JOB_NUMBER}"
 	# various issues exist currently in building this so comment for now
