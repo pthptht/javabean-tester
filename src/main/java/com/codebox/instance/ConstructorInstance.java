@@ -50,7 +50,8 @@ public class ConstructorInstance {
     /**
      * Constructor inaccessibility test.
      *
-     * @param clazz the clazz
+     * @param clazz
+     *            the clazz
      */
     public final void inaccessible(final Class<?> clazz) {
         final Constructor<?>[] ctors = clazz.getDeclaredConstructors();
