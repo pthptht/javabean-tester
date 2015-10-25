@@ -14,12 +14,6 @@
  */
 package com.codebox.bean;
 
-import com.codebox.enums.CanEquals;
-import com.codebox.enums.LoadData;
-
-import java.util.Arrays;
-import java.util.HashSet;
-
 /**
  * This helper class can be used to unit test the get/set/equals/canEqual/toString/hashCode methods of JavaBean-style
  * Value Objects.
@@ -27,254 +21,10 @@ import java.util.HashSet;
  * @author rob.dawson
  * @author jeremy.landis
  */
-public final class JavaBeanTester {
+public enum JavaBeanTester {
 
-    /**
-     * PERFORM_CAN_EQUALS is boolean value that is passed into static methods to determine if can equals should be
-     * performed. Generally this will be true except for cases for it otherwise fails due to missing support within this
-     * library.
-     * 
-     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
-     */
-    @Deprecated
-    public static final boolean PERFORM_CAN_EQUALS        = true;
-
-    /**
-     * LOAD_UNDERLYING_DATA is boolean value that is passed into static methods to determine if underlying object data
-     * should be populated. Generally this will be true except for cases for it otherwise fails due to missing support
-     * within this library.
-     * 
-     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
-     */
-    @Deprecated
-    public static final boolean LOAD_UNDERLYING_DATA      = true;
-
-    /**
-     * SKIP_CAN_EQUALS is boolean value that is passed into static methods to determine if can equals should be
-     * performed. Use this in cases where it otherwise fails due to missing support within this library.
-     * 
-     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
-     */
-    @Deprecated
-    public static final boolean SKIP_CAN_EQUALS           = false;
-
-    /**
-     * SKIP_LOAD_UNDERLYING_DATA is boolean value that is passed into static methods to determine if underlying object
-     * data should be populated. Use this in cases where it otherwise fails due to missing support within this library.
-     * 
-     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
-     */
-    @Deprecated
-    public static final boolean SKIP_LOAD_UNDERLYING_DATA = true;
-
-    /**
-     * JavaBeanTester constructor is private to prevent instantiation of object.
-     */
-    private JavaBeanTester() {
-        // Hide constructor of static class.
-    }
-
-    /**
-     * Tests the equals/hashCode/toString methods of the specified class.
-     *
-     * @param <T>
-     *            the type parameter associated with the class under test.
-     * @param <E>
-     *            the type parameter associated with the extension class under test.
-     * @param clazz
-     *            the class under test.
-     * @param extension
-     *            extension of class under test.
-     * @param loadData
-     *            load underlying data with values.
-     * @see JavaBeanTester#builder(Class)
-     * @see JavaBeanTesterBuilder#testObjectMethods()
-     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
-     */
-    @Deprecated
-    public static <T, E> void equalsHashCodeToStringSymmetricTest(final Class<T> clazz, final Class<E> extension,
-            final boolean loadData) {
-        JavaBeanTester.equalsHashCodeToStringSymmetricTest(clazz, extension, loadData ? LoadData.ON : LoadData.OFF);
-    }
-
-    /**
-     * Tests the equals/hashCode/toString methods of the specified class.
-     *
-     * @param <T>
-     *            the type parameter associated with the class under test.
-     * @param <E>
-     *            the type parameter associated with the extension class under test.
-     * @param clazz
-     *            the class under test.
-     * @param extension
-     *            extension of class under test.
-     * @param loadData
-     *            load underlying data with values.
-     * @see JavaBeanTester#builder(Class)
-     * @see JavaBeanTesterBuilder#testObjectMethods()
-     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
-     */
-    @Deprecated
-    public static <T, E> void equalsHashCodeToStringSymmetricTest(final Class<T> clazz, final Class<E> extension,
-            final LoadData loadData) {
-        JavaBeanTesterWorker<T, E> worker = new JavaBeanTesterWorker<T, E>(clazz, extension);
-        worker.setLoadData(loadData);
-        worker.equalsHashCodeToStringSymmetricTest();
-    }
-
-    /**
-     * Equals Tests will traverse one object changing values until all have been tested against another object. This is
-     * done to effectively test all paths through equals.
-     *
-     * @param <T>
-     *            the type parameter associated with the class under test.
-     * @param instance
-     *            the class instance under test.
-     * @param expected
-     *            the instance expected for tests.
-     * @param loadData
-     *            load underlying data with values.
-     * @see JavaBeanTester#builder(Class)
-     * @see JavaBeanTesterBuilder#testEquals(Object, Object)
-     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
-     */
-    @Deprecated
-    public static <T> void equalsTests(final T instance, final T expected, final boolean loadData) {
-        JavaBeanTester.equalsTests(instance, expected, loadData ? LoadData.ON : LoadData.OFF);
-    }
-
-    /**
-     * Equals Tests will traverse one object changing values until all have been tested against another object. This is
-     * done to effectively test all paths through equals.
-     *
-     * @param <T>
-     *            the type parameter associated with the class under test.
-     * @param instance
-     *            the class instance under test.
-     * @param expected
-     *            the instance expected for tests.
-     * @param loadData
-     *            load underlying data with values.
-     * @see JavaBeanTester#builder(Class)
-     * @see JavaBeanTesterBuilder#testEquals(Object, Object)
-     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
-     */
-    @Deprecated
-    public static <T> void equalsTests(final T instance, final T expected, final LoadData loadData) {
-
-        @SuppressWarnings("unchecked")
-        JavaBeanTesterWorker<T, Object> worker = new JavaBeanTesterWorker<T, Object>((Class<T>) instance.getClass(),
-                Object.class);
-        worker.setLoadData(loadData);
-        worker.equalsTests(instance, expected);
-    }
-
-    /**
-     * Tests the load methods of the specified class.
-     *
-     * @param <T>
-     *            the type parameter associated with the class under test.
-     * @param clazz
-     *            the class under test.
-     * @param instance
-     *            the instance of class under test.
-     * @param loadData
-     *            load recursively all underlying data objects.
-     * @param skipThese
-     *            the names of any properties that should not be tested.
-     * @see JavaBeanTester#builder(Class)
-     * @see JavaBeanTesterBuilder#testInstance(Object)
-     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
-     */
-    @Deprecated
-    public static <T> void load(final Class<T> clazz, final T instance, final boolean loadData,
-            final String... skipThese) {
-        JavaBeanTester.load(clazz, instance, loadData ? LoadData.ON : LoadData.OFF, skipThese);
-    }
-
-    /**
-     * Tests the load methods of the specified class.
-     *
-     * @param <T>
-     *            the type parameter associated with the class under test.
-     * @param clazz
-     *            the class under test.
-     * @param instance
-     *            the instance of class under test.
-     * @param loadData
-     *            load recursively all underlying data objects.
-     * @param skipThese
-     *            the names of any properties that should not be tested.
-     * @see JavaBeanTester#builder(Class)
-     * @see JavaBeanTesterBuilder#testInstance(Object)
-     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
-     */
-    @Deprecated
-    public static <T> void load(final Class<T> clazz, final T instance, final LoadData loadData,
-            final String... skipThese) {
-        JavaBeanTesterWorker.load(clazz, instance, loadData, skipThese);
-    }
-
-    /**
-     * Tests the get/set/equals/hashCode/toString methods of the specified class.
-     *
-     * @param <T>
-     *            the type parameter associated with the class under test.
-     * @param <E>
-     *            the type parameter associated with the extension class under test.
-     * @param clazz
-     *            the class under test.
-     * @param extension
-     *            extension of class under test.
-     * @param checkEquals
-     *            should equals be checked (use true unless good reason not to).
-     * @param loadData
-     *            load recursively all underlying data objects.
-     * @param skipThese
-     *            the names of any properties that should not be tested.
-     * @see JavaBeanTester#builder(Class)
-     * @see JavaBeanTesterBuilder#test()
-     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
-     */
-    @Deprecated
-    public static <T, E> void test(final Class<T> clazz, final Class<E> extension, final boolean checkEquals,
-            final boolean loadData, final String... skipThese) {
-        JavaBeanTester.test(clazz, extension, checkEquals ? CanEquals.ON : CanEquals.OFF, loadData ? LoadData.ON
-                : LoadData.OFF, skipThese);
-    }
-
-    /**
-     * Tests the get/set/equals/hashCode/toString methods of the specified class.
-     *
-     * @param <T>
-     *            the type parameter associated with the class under test.
-     * @param <E>
-     *            the type parameter associated with the extension class under test.
-     * @param clazz
-     *            the class under test.
-     * @param extension
-     *            extension of class under test.
-     * @param checkEquals
-     *            should equals be checked (use true unless good reason not to).
-     * @param loadData
-     *            load recursively all underlying data objects.
-     * @param skipThese
-     *            the names of any properties that should not be tested.
-     * @see JavaBeanTester#builder(Class)
-     * @see JavaBeanTesterBuilder#test()
-     * @deprecated in favor of builder method. Will be removed after 12/31/2015.
-     */
-    @Deprecated
-    public static <T, E> void test(final Class<T> clazz, final Class<E> extension, final CanEquals checkEquals,
-            final LoadData loadData, final String... skipThese) {
-        JavaBeanTesterWorker<T, E> worker = new JavaBeanTesterWorker<T, E>(clazz, extension);
-        worker.setCheckEquals(checkEquals);
-        worker.setLoadData(loadData);
-        if (skipThese != null) {
-            worker.setSkipThese(new HashSet<String>(Arrays.asList(skipThese)));
-        }
-        worker.test();
-    }
+    // Private Usage
+    ;
 
     /**
      * Configure JavaBeanTester using Fluent API.
@@ -301,7 +51,11 @@ public final class JavaBeanTester {
      * @param extension
      *            the extension
      * @return A builder implementing the fluent API to configure JavaBeanTester
+     * 
+     * @deprecated Extension class is now internally handled via javassist. This method will be removed 2/1/2016 in
+     *             version 1.5.0. Use the standard builder instead.
      */
+    @Deprecated
     public static <T, E> JavaBeanTesterBuilder<T, E> builder(final Class<T> clazz, final Class<E> extension) {
         return new JavaBeanTesterBuilder<T, E>(clazz, extension);
     }
