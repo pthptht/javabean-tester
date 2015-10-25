@@ -14,10 +14,15 @@
  */
 package com.codebox.bean;
 
+import com.codebox.builders.ExtensionBuilder;
 import com.codebox.enums.CanEquals;
 import com.codebox.enums.LoadData;
 import com.codebox.enums.LoadType;
 import com.codebox.instance.ClassInstance;
+
+import javassist.CannotCompileException;
+import javassist.NotFoundException;
+
 import com.codebox.enums.CanSerialize;
 
 import lombok.Data;
@@ -297,7 +302,14 @@ class JavaBeanTesterWorker<T, E> {
         final T y = new ClassInstance<T>().newInstance(this.clazz);
         E ext = null;
         if (this.extension != null) {
-            ext = new ClassInstance<E>().newInstance(this.extension);
+            try {
+                ext = (E) new ExtensionBuilder().generate(this.clazz);
+                this.extension = (Class<E>) ext.getClass();
+            } catch (NotFoundException e) {
+                Assert.fail(e.getMessage());
+            } catch (CannotCompileException e) {
+                Assert.fail(e.getMessage());
+            }
         }
 
         // Test Empty Equals, HashCode, and ToString
