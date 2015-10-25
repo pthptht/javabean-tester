@@ -18,9 +18,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.codebox.enums.CanEquals;
-import com.codebox.enums.LoadData;
-
 /**
  * The Class JavaBeanTesterTest.
  */
@@ -47,7 +44,7 @@ public class JavaBeanTesterTest {
      */
     @Test
     public void load_fullBean() {
-        JavaBeanTester.load(SampleBean.class, this.sampleBean, LoadData.ON);
+        JavaBeanTester.builder(SampleBean.class).loadData().testInstance(this.sampleBean);
         Assert.assertNotNull(this.sampleBean.getDoubleWrapper());
     }
 
@@ -56,17 +53,17 @@ public class JavaBeanTesterTest {
      */
     @Test
     public void load_fullBeanEquals() {
-        JavaBeanTester.load(SampleBean.class, this.sampleBean, LoadData.ON);
-        JavaBeanTester.load(SampleBean.class, this.expectedBean, LoadData.ON);
+        JavaBeanTester.builder(SampleBean.class).loadData().testInstance(this.sampleBean);
+        JavaBeanTester.builder(SampleBean.class).loadData().testInstance(this.expectedBean);
 
         this.sampleBean.setSampleDepthBean(new SampleDepthBean());
         this.expectedBean.setSampleDepthBean(new SampleDepthBean());
         this.sampleBean.setEmptyBean(new EmptyBean());
         this.expectedBean.setEmptyBean(new EmptyBean());
-        JavaBeanTester.load(SampleDepthBean.class, this.sampleBean.getSampleDepthBean(), LoadData.ON);
-        JavaBeanTester.load(SampleDepthBean.class, this.expectedBean.getSampleDepthBean(), LoadData.ON);
+        JavaBeanTester.builder(SampleDepthBean.class).loadData().testInstance(this.sampleBean.getSampleDepthBean());
+        JavaBeanTester.builder(SampleDepthBean.class).loadData().testInstance(this.expectedBean.getSampleDepthBean());
 
-        JavaBeanTester.equalsTests(this.sampleBean, this.expectedBean, LoadData.ON);
+        JavaBeanTester.builder(SampleBean.class).loadData().testEquals(this.sampleBean, this.expectedBean);
     }
 
     /**
@@ -74,9 +71,9 @@ public class JavaBeanTesterTest {
      */
     @Test
     public void load_fullBeanEqualsShort() {
-        JavaBeanTester.load(SampleBean.class, this.sampleBean, LoadData.ON);
-        JavaBeanTester.load(SampleBean.class, this.expectedBean, LoadData.ON);
-        JavaBeanTester.equalsTests(this.sampleBean, this.expectedBean, LoadData.ON);
+        JavaBeanTester.builder(SampleBean.class).loadData().testInstance(this.sampleBean);
+        JavaBeanTester.builder(SampleBean.class).loadData().testInstance(this.expectedBean);
+        JavaBeanTester.builder(SampleBean.class).loadData().testEquals(this.sampleBean, this.expectedBean);
     }
 
     /**
@@ -84,9 +81,9 @@ public class JavaBeanTesterTest {
      */
     @Test
     public void load_fullBeanEqualsSkipUnderlying() {
-        JavaBeanTester.load(SampleBean.class, this.sampleBean, LoadData.OFF);
-        JavaBeanTester.load(SampleBean.class, this.expectedBean, LoadData.OFF);
-        JavaBeanTester.equalsTests(this.sampleBean, this.expectedBean, LoadData.OFF);
+        JavaBeanTester.builder(SampleBean.class).testInstance(this.sampleBean);
+        JavaBeanTester.builder(SampleBean.class).testInstance(this.expectedBean);
+        JavaBeanTester.builder(SampleBean.class).testEquals(this.sampleBean, this.expectedBean);
     }
 
     /**
@@ -94,7 +91,7 @@ public class JavaBeanTesterTest {
      */
     @Test
     public void load_fullBeanSkipUnderlyingData() {
-        JavaBeanTester.load(SampleBean.class, this.sampleBean, LoadData.OFF);
+        JavaBeanTester.builder(SampleBean.class).testInstance(this.sampleBean);
         Assert.assertNotNull(this.sampleBean.getDoubleWrapper());
     }
 
@@ -103,15 +100,15 @@ public class JavaBeanTesterTest {
      */
     @Test
     public void load_partialBeanEquals() {
-        JavaBeanTester.load(SampleBean.class, this.sampleBean, LoadData.ON);
-        JavaBeanTester.load(SampleBean.class, this.expectedBean, LoadData.ON);
+        JavaBeanTester.builder(SampleBean.class).loadData().testInstance(this.sampleBean);
+        JavaBeanTester.builder(SampleBean.class).loadData().testInstance(this.expectedBean);
 
         this.sampleBean.setSampleDepthBean(new SampleDepthBean());
         this.expectedBean.setSampleDepthBean(new SampleDepthBean());
-        JavaBeanTester.load(SampleDepthBean.class, this.sampleBean.getSampleDepthBean(), LoadData.ON);
-        JavaBeanTester.load(SampleDepthBean.class, this.expectedBean.getSampleDepthBean(), LoadData.ON);
+        JavaBeanTester.builder(SampleDepthBean.class).loadData().testInstance(this.sampleBean.getSampleDepthBean());
+        JavaBeanTester.builder(SampleDepthBean.class).loadData().testInstance(this.expectedBean.getSampleDepthBean());
 
-        JavaBeanTester.equalsTests(this.sampleBean, this.expectedBean, LoadData.ON);
+        JavaBeanTester.builder(SampleBean.class).loadData().testEquals(this.sampleBean, this.expectedBean);
     }
 
     /**
@@ -119,7 +116,7 @@ public class JavaBeanTesterTest {
      */
     @Test
     public void load_skipBeanProperties() {
-        JavaBeanTester.load(SampleBean.class, this.sampleBean, LoadData.ON, "string");
+        JavaBeanTester.builder(SampleBean.class).loadData().skip("string").testInstance(this.sampleBean);
         Assert.assertNotNull(this.sampleBean.getDoubleWrapper());
         Assert.assertNull(this.sampleBean.getString());
     }
@@ -129,7 +126,6 @@ public class JavaBeanTesterTest {
      */
     @Test
     public void test_fullBean() {
-        JavaBeanTester.test(SampleBean.class, SampleExtensionBean.class, CanEquals.ON, LoadData.ON);
         JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().loadData().test();
     }
 
@@ -138,7 +134,6 @@ public class JavaBeanTesterTest {
      */
     @Test
     public void test_fullBeanNullExt() {
-        JavaBeanTester.test(SampleBean.class, null, CanEquals.ON, LoadData.ON);
         JavaBeanTester.builder(SampleBean.class).checkEquals().loadData().test();
     }
 
@@ -147,7 +142,6 @@ public class JavaBeanTesterTest {
      */
     @Test
     public void test_fullBeanSkipUnderlyingData() {
-        JavaBeanTester.test(SampleBean.class, SampleExtensionBean.class, CanEquals.ON, LoadData.OFF);
         JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().test();
     }
 
@@ -156,7 +150,6 @@ public class JavaBeanTesterTest {
      */
     @Test
     public void test_skipBeanProperties() {
-        JavaBeanTester.test(SampleBean.class, SampleExtensionBean.class, CanEquals.ON, LoadData.ON, "string");
         JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().loadData().skip("string")
                 .test();
     }
@@ -166,7 +159,6 @@ public class JavaBeanTesterTest {
      */
     @Test
     public void test_skipCanEquals() {
-        JavaBeanTester.test(SampleBean.class, SampleExtensionBean.class, CanEquals.OFF, LoadData.ON);
         JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).loadData().test();
     }
 
