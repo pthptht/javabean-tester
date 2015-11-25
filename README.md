@@ -8,7 +8,7 @@ javabean-tester
 
 [site-page](http://hazendaz.github.io/javabean-tester/)
 
-Javabean Tester is a reflection based library for testing java beans.  Effectively test getters/setters, hashcode, toString, equals, and serializable are correct.
+Javabean Tester is a reflection based library for testing java beans.  Effectively test constructors, getters/setters, hashcode, toString, equals, and serializable are correct.
 
 ## Left Codebox
 
