@@ -314,37 +314,29 @@ class JavaBeanTesterWorker<T, E> {
         Assert.assertEquals(x.hashCode(), y.hashCode());
         Assert.assertEquals(x.toString(), y.toString());
 
-        // Test Empty Equals, HashCode, and ToString
-        if (ext != null) {
-            Assert.assertNotEquals(ext, y);
-            Assert.assertNotEquals(ext.hashCode(), y.hashCode());
-        }
+        // Test Extension Empty Equals, HashCode, and ToString
+        Assert.assertNotEquals(ext, y);
+        Assert.assertNotEquals(ext.hashCode(), y.hashCode());
 
         // Test Empty One Sided Tests
         Assert.assertNotEquals(x, null);
         Assert.assertEquals(x, x);
 
-        // Test Empty One Sided Tests
-        if (ext != null) {
-            Assert.assertNotEquals(ext, null);
-            Assert.assertEquals(ext, ext);
-        }
+        // Test Extension Empty One Sided Tests
+        Assert.assertNotEquals(ext, null);
+        Assert.assertEquals(ext, ext);
 
         // Populate Side X
         load(this.clazz, x, this.loadData);
 
-        // Populate Side E
-        if (ext != null) {
-            load(this.extension, ext, this.loadData);
-        }
+        // Populate Extension Side E
+        load(this.extension, ext, this.loadData);
 
         // ReTest Equals (flip)
         Assert.assertNotEquals(y, x);
 
-        // ReTest Equals (flip)
-        if (ext != null) {
-            Assert.assertNotEquals(y, ext);
-        }
+        // ReTest Extension Equals (flip)
+        Assert.assertNotEquals(y, ext);
 
         // Populate Size Y
         load(this.clazz, y, this.loadData);
@@ -358,12 +350,10 @@ class JavaBeanTesterWorker<T, E> {
             Assert.assertNotEquals(x.hashCode(), y.hashCode());
         }
 
-        // ReTest Equals and HashCode
-        if (ext != null) {
-            Assert.assertNotEquals(ext, y);
-            Assert.assertNotEquals(ext.hashCode(), y.hashCode());
-            Assert.assertNotEquals(ext.toString(), y.toString());
-        }
+        // ReTest Extension Equals and HashCode
+        Assert.assertNotEquals(ext, y);
+        Assert.assertNotEquals(ext.hashCode(), y.hashCode());
+        Assert.assertNotEquals(ext.toString(), y.toString());
 
         // Create Immutable Instance
         try {
@@ -371,13 +361,16 @@ class JavaBeanTesterWorker<T, E> {
             final T e = new ClassInstance<T>().newInstance(this.clazz);
             clazzBeanCopier.copy(x, e, null);
             Assert.assertEquals(e, x);
+        } catch (final Exception e) {
+            JavaBeanTesterWorker.LOGGER.trace("Do nothing class is not mutable", e.toString());
+        }
 
-            if (this.extension != null) {
-                BeanCopier extensionBeanCopier = BeanCopier.create(this.extension, this.extension, false);
-                final E e2 = new ClassInstance<E>().newInstance(this.extension);
-                extensionBeanCopier.copy(ext, e2, null);
-                Assert.assertEquals(e2, ext);
-            }
+        // Create Extension Immutable Instance
+        try {
+            BeanCopier extensionBeanCopier = BeanCopier.create(this.extension, this.extension, false);
+            final E e2 = new ClassInstance<E>().newInstance(this.extension);
+            extensionBeanCopier.copy(ext, e2, null);
+            Assert.assertEquals(e2, ext);
         } catch (final Exception e) {
             JavaBeanTesterWorker.LOGGER.trace("Do nothing class is not mutable", e.toString());
         }
