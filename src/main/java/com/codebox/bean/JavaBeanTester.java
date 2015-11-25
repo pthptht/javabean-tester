@@ -36,6 +36,7 @@ public enum JavaBeanTester {
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
     public static <T> JavaBeanTesterBuilder<T, ?> builder(final Class<T> clazz) {
+        // TODO For now push in Object.class as we eventually will internalize setup
         return new JavaBeanTesterBuilder<T, Object>(clazz, Object.class);
     }
 
@@ -51,11 +52,7 @@ public enum JavaBeanTester {
      * @param extension
      *            the extension
      * @return A builder implementing the fluent API to configure JavaBeanTester
-     * 
-     * @deprecated Extension class is now internally handled via javassist. This method will be removed 2/1/2016 in
-     *             version 1.5.0. Use the standard builder instead.
      */
-    @Deprecated
     public static <T, E> JavaBeanTesterBuilder<T, E> builder(final Class<T> clazz, final Class<E> extension) {
         return new JavaBeanTesterBuilder<T, E>(clazz, extension);
     }

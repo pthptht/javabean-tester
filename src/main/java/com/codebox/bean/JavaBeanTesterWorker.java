@@ -14,14 +14,10 @@
  */
 package com.codebox.bean;
 
-import com.codebox.builders.ExtensionBuilder;
 import com.codebox.enums.CanEquals;
 import com.codebox.enums.LoadData;
 import com.codebox.enums.LoadType;
 import com.codebox.instance.ClassInstance;
-
-import javassist.CannotCompileException;
-import javassist.NotFoundException;
 
 import com.codebox.enums.CanSerialize;
 
@@ -300,17 +296,18 @@ class JavaBeanTesterWorker<T, E> {
         // Create Instances
         final T x = new ClassInstance<T>().newInstance(this.clazz);
         final T y = new ClassInstance<T>().newInstance(this.clazz);
-        E ext = null;
-        if (this.extension != null) {
-            try {
-                ext = (E) new ExtensionBuilder().generate(this.clazz);
-                this.extension = (Class<E>) ext.getClass();
-            } catch (NotFoundException e) {
-                Assert.fail(e.getMessage());
-            } catch (CannotCompileException e) {
-                Assert.fail(e.getMessage());
-            }
+
+        // TODO Internalize extension will require canEquals, equals, hashcode, and toString overrides.
+        /**
+        try {
+            this.extension = (Class<E>) new ExtensionBuilder<T>().generate(this.clazz);
+        } catch (NotFoundException e) {
+            Assert.fail(e.getMessage());
+        } catch (CannotCompileException e) {
+            Assert.fail(e.getMessage());
         }
+        **/
+        final E ext = new ClassInstance<E>().newInstance(this.extension);
 
         // Test Empty Equals, HashCode, and ToString
         Assert.assertEquals(x, y);
