@@ -81,7 +81,7 @@ public class ExtensionBuilder<T> {
     }
 
     private static CtClass resolveCtClass(Class<?> clazz) throws NotFoundException {
-        ClassPool pool = ClassPool.getDefault();
+        final ClassPool pool = ClassPool.getDefault();
         return pool.get(clazz.getName());
     }
 
