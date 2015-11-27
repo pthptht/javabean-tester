@@ -18,10 +18,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import mockit.Deencapsulation;
+
 /**
  * The Class JavaBeanTesterTest.
  */
-@SuppressWarnings("deprecation")
 public class JavaBeanTesterTest {
 
     /** The sample bean. */
@@ -163,6 +164,15 @@ public class JavaBeanTesterTest {
     }
 
     /**
+     * Test_skip all as false.
+     */
+    @Test
+    public void test_skipCanEqualsFalse() {
+        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals(false).checkSerializable(false)
+                .loadData(false).test();
+    }
+
+    /**
      * Test_serializable.
      */
     @Test
@@ -177,4 +187,16 @@ public class JavaBeanTesterTest {
     public void test_nonSerializable() {
         JavaBeanTester.builder(NonSerializableBean.class).checkSerializable().test();
     }
+
+    /**
+     * Test_temporary single mode.
+     */
+    // TODO 11/26/15 Temporary until we start using internalized extension logic
+    @Test
+    public void test_temporarySingleMode() {
+        JavaBeanTesterBuilder<String, Object> builder = new JavaBeanTesterBuilder<String, Object>(String.class);
+        JavaBeanTesterWorker<String, Object> worker = Deencapsulation.getField(builder, "worker");
+        Assert.assertEquals(String.class, worker.getClazz());
+    }
+
 }
