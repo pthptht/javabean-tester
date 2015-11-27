@@ -248,10 +248,23 @@ class JavaBeanTesterWorker<T, E> {
         }
     }
 
+    /**
+     * Implements serializable.
+     *
+     * @param object
+     *            the object
+     * @return true, if successful
+     */
     boolean implementsSerializable(final T object) {
         return object instanceof Serializable || object instanceof Externalizable;
     }
 
+    /**
+     * Can serialize.
+     *
+     * @param object
+     *            the object
+     */
     void canSerialize(final T object) {
         ObjectOutputStream output = null;
         try {

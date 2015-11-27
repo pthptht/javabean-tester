@@ -25,8 +25,25 @@ import javassist.CtField;
 import javassist.CtMethod;
 import javassist.NotFoundException;
 
+/**
+ * The Class ExtensionBuilder.
+ *
+ * @param <T>
+ *            the generic type
+ */
 public class ExtensionBuilder<T> {
 
+    /**
+     * Generate.
+     *
+     * @param clazz
+     *            the clazz
+     * @return the class
+     * @throws NotFoundException
+     *             the not found exception
+     * @throws CannotCompileException
+     *             the cannot compile exception
+     */
     public Class<?> generate(Class<T> clazz) throws NotFoundException, CannotCompileException {
         try {
             // If extension already recreated, return it
@@ -62,6 +79,19 @@ public class ExtensionBuilder<T> {
         return cc.toClass();
     }
 
+    /**
+     * Generate getter.
+     *
+     * @param declaringClass
+     *            the declaring class
+     * @param fieldName
+     *            the field name
+     * @param fieldClass
+     *            the field class
+     * @return the ct method
+     * @throws CannotCompileException
+     *             the cannot compile exception
+     */
     private static CtMethod generateGetter(CtClass declaringClass, String fieldName, Class<?> fieldClass)
             throws CannotCompileException {
         final StringBuilder sb = new StringBuilder();
@@ -71,6 +101,19 @@ public class ExtensionBuilder<T> {
         return CtMethod.make(sb.toString(), declaringClass);
     }
 
+    /**
+     * Generate setter.
+     *
+     * @param declaringClass
+     *            the declaring class
+     * @param fieldName
+     *            the field name
+     * @param fieldClass
+     *            the field class
+     * @return the ct method
+     * @throws CannotCompileException
+     *             the cannot compile exception
+     */
     private static CtMethod generateSetter(CtClass declaringClass, String fieldName, Class<?> fieldClass)
             throws CannotCompileException {
         final StringBuilder sb = new StringBuilder();
@@ -80,6 +123,15 @@ public class ExtensionBuilder<T> {
         return CtMethod.make(sb.toString(), declaringClass);
     }
 
+    /**
+     * Resolve ct class.
+     *
+     * @param clazz
+     *            the clazz
+     * @return the ct class
+     * @throws NotFoundException
+     *             the not found exception
+     */
     private static CtClass resolveCtClass(Class<?> clazz) throws NotFoundException {
         final ClassPool pool = ClassPool.getDefault();
         return pool.get(clazz.getName());
