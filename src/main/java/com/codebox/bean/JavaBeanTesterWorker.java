@@ -299,14 +299,9 @@ class JavaBeanTesterWorker<T, E> {
 
         // TODO Internalize extension will require canEquals, equals, hashcode, and toString overrides.
         /**
-        try {
-            this.extension = (Class<E>) new ExtensionBuilder<T>().generate(this.clazz);
-        } catch (NotFoundException e) {
-            Assert.fail(e.getMessage());
-        } catch (CannotCompileException e) {
-            Assert.fail(e.getMessage());
-        }
-        **/
+         * try { this.extension = (Class<E>) new ExtensionBuilder<T>().generate(this.clazz); } catch (NotFoundException
+         * e) { Assert.fail(e.getMessage()); } catch (CannotCompileException e) { Assert.fail(e.getMessage()); }
+         */
         final E ext = new ClassInstance<E>().newInstance(this.extension);
 
         // Test Empty Equals, HashCode, and ToString
