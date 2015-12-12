@@ -79,24 +79,25 @@ public class ValueBuilder {
             case NULL_DATA:
 <span class="fc" id="L80">                returnObject = setNullValues(clazz);</span>
 <span class="fc" id="L81">                break;</span>
+            case STANDARD_DATA:
             default:
-<span class="fc" id="L83">                returnObject = setStandardValues(clazz);</span>
-<span class="fc" id="L84">                break;</span>
+<span class="fc" id="L84">                returnObject = setStandardValues(clazz);</span>
+<span class="fc" id="L85">                break;</span>
         }
-<span class="fc bfc" id="L86" title="All 4 branches covered.">        if (returnObject != null || loadType == LoadType.NULL_DATA) {</span>
-<span class="fc" id="L87">            return returnObject;</span>
+<span class="fc bfc" id="L87" title="All 4 branches covered.">        if (returnObject != null || loadType == LoadType.NULL_DATA) {</span>
+<span class="fc" id="L88">            return returnObject;</span>
 
-<span class="fc bfc" id="L89" title="All 2 branches covered.">        } else if (clazz.isAssignableFrom(List.class)) {</span>
-<span class="fc" id="L90">            return new ArrayList&lt;Object&gt;();</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        } else if (clazz.isAssignableFrom(List.class)) {</span>
+<span class="fc" id="L91">            return new ArrayList&lt;Object&gt;();</span>
 
-<span class="fc bfc" id="L92" title="All 2 branches covered.">        } else if (clazz.isAssignableFrom(Map.class)) {</span>
-<span class="fc" id="L93">            return new HashMap&lt;Object, Object&gt;();</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        } else if (clazz.isAssignableFrom(Map.class)) {</span>
+<span class="fc" id="L94">            return new HashMap&lt;Object, Object&gt;();</span>
 
-<span class="fc bfc" id="L95" title="All 2 branches covered.">        } else if (clazz.isAssignableFrom(ConcurrentMap.class)) {</span>
-<span class="fc" id="L96">            return new ConcurrentHashMap&lt;Object, Object&gt;();</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        } else if (clazz.isAssignableFrom(ConcurrentMap.class)) {</span>
+<span class="fc" id="L97">            return new ConcurrentHashMap&lt;Object, Object&gt;();</span>
 
-<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        } else if (clazz == Logger.class) {</span>
-<span class="fc" id="L99">            return LoggerFactory.getLogger(clazz);</span>
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">        } else if (clazz == Logger.class) {</span>
+<span class="fc" id="L100">            return LoggerFactory.getLogger(clazz);</span>
 
             // XXX Add additional rules here
 
@@ -106,7 +107,7 @@ public class ValueBuilder {
             // Assert.fail(String.format(
             // &quot;Unable to build an instance of class %s, please add some code to the %s class to do this.&quot;,
             // clazz.getName(), JavaBeanTester.class.getName()));
-<span class="nc" id="L109">            return null;</span>
+<span class="nc" id="L110">            return null;</span>
         }
     }
 
@@ -120,7 +121,7 @@ public class ValueBuilder {
      * @return Object the Object to use for test.
      */
     private static &lt;T&gt; Object setAlternateValues(final Class&lt;T&gt; clazz) {
-<span class="fc" id="L123">        return setValues(clazz, &quot;ALT_VALUE&quot;, 1, Boolean.FALSE, Integer.valueOf(2), Long.valueOf(2),</span>
+<span class="fc" id="L124">        return setValues(clazz, &quot;ALT_VALUE&quot;, 1, Boolean.FALSE, Integer.valueOf(2), Long.valueOf(2),</span>
                 Double.valueOf(2.0), Float.valueOf(2.0F), Character.valueOf('N'), Byte.valueOf((byte) 2));
     }
 
@@ -134,7 +135,7 @@ public class ValueBuilder {
      * @return Object the Object to use for test.
      */
     private static &lt;T&gt; Object setNullValues(final Class&lt;T&gt; clazz) {
-<span class="fc" id="L137">        return setValues(clazz, null, 0, null, null, null, null, null, null, null);</span>
+<span class="fc" id="L138">        return setValues(clazz, null, 0, null, null, null, null, null, null, null);</span>
     }
 
     /**
@@ -147,7 +148,7 @@ public class ValueBuilder {
      * @return Object the Object to use for test.
      */
     private static &lt;T&gt; Object setStandardValues(final Class&lt;T&gt; clazz) {
-<span class="fc" id="L150">        return setValues(clazz, &quot;TEST_VALUE&quot;, 1, Boolean.TRUE, Integer.valueOf(1), Long.valueOf(1),</span>
+<span class="fc" id="L151">        return setValues(clazz, &quot;TEST_VALUE&quot;, 1, Boolean.TRUE, Integer.valueOf(1), Long.valueOf(1),</span>
                 Double.valueOf(1.0), Float.valueOf(1.0F), Character.valueOf('Y'), Byte.valueOf((byte) 1));
     }
 
@@ -181,47 +182,47 @@ public class ValueBuilder {
     private static &lt;T&gt; Object setValues(final Class&lt;T&gt; clazz, final String string, final int arrayLength,
             final Boolean booleanValue, final Integer integerValue, final Long longValue, final Double doubleValue,
             final Float floatValue, final Character characterValue, final Byte byteValue) {
-<span class="fc bfc" id="L184" title="All 2 branches covered.">        if (clazz == String.class) {</span>
-<span class="fc" id="L185">            return string;</span>
-<span class="fc bfc" id="L186" title="All 2 branches covered.">        } else if (clazz.isArray()) {</span>
-<span class="fc" id="L187">            return Array.newInstance(clazz.getComponentType(), arrayLength);</span>
-<span class="fc bfc" id="L188" title="All 4 branches covered.">        } else if (clazz == boolean.class || clazz == Boolean.class) {</span>
-<span class="fc bfc" id="L189" title="All 4 branches covered.">            if (clazz == boolean.class &amp;&amp; booleanValue == null) {</span>
-<span class="fc" id="L190">                return Boolean.FALSE;</span>
+<span class="fc bfc" id="L185" title="All 2 branches covered.">        if (clazz == String.class) {</span>
+<span class="fc" id="L186">            return string;</span>
+<span class="fc bfc" id="L187" title="All 2 branches covered.">        } else if (clazz.isArray()) {</span>
+<span class="fc" id="L188">            return Array.newInstance(clazz.getComponentType(), arrayLength);</span>
+<span class="fc bfc" id="L189" title="All 4 branches covered.">        } else if (clazz == boolean.class || clazz == Boolean.class) {</span>
+<span class="fc bfc" id="L190" title="All 4 branches covered.">            if (clazz == boolean.class &amp;&amp; booleanValue == null) {</span>
+<span class="fc" id="L191">                return Boolean.FALSE;</span>
             }
-<span class="fc" id="L192">            return booleanValue;</span>
-<span class="fc bfc" id="L193" title="All 4 branches covered.">        } else if (clazz == int.class || clazz == Integer.class) {</span>
-<span class="fc bfc" id="L194" title="All 4 branches covered.">            if (clazz == int.class &amp;&amp; integerValue == null) {</span>
-<span class="fc" id="L195">                return Integer.valueOf(-1);</span>
+<span class="fc" id="L193">            return booleanValue;</span>
+<span class="fc bfc" id="L194" title="All 4 branches covered.">        } else if (clazz == int.class || clazz == Integer.class) {</span>
+<span class="fc bfc" id="L195" title="All 4 branches covered.">            if (clazz == int.class &amp;&amp; integerValue == null) {</span>
+<span class="fc" id="L196">                return Integer.valueOf(-1);</span>
             }
-<span class="fc" id="L197">            return integerValue;</span>
-<span class="fc bfc" id="L198" title="All 4 branches covered.">        } else if (clazz == long.class || clazz == Long.class) {</span>
-<span class="fc bfc" id="L199" title="All 4 branches covered.">            if (clazz == long.class &amp;&amp; longValue == null) {</span>
-<span class="fc" id="L200">                return Long.valueOf(-1);</span>
+<span class="fc" id="L198">            return integerValue;</span>
+<span class="fc bfc" id="L199" title="All 4 branches covered.">        } else if (clazz == long.class || clazz == Long.class) {</span>
+<span class="fc bfc" id="L200" title="All 4 branches covered.">            if (clazz == long.class &amp;&amp; longValue == null) {</span>
+<span class="fc" id="L201">                return Long.valueOf(-1);</span>
             }
-<span class="fc" id="L202">            return longValue;</span>
-<span class="fc bfc" id="L203" title="All 4 branches covered.">        } else if (clazz == double.class || clazz == Double.class) {</span>
-<span class="fc bfc" id="L204" title="All 4 branches covered.">            if (clazz == double.class &amp;&amp; doubleValue == null) {</span>
-<span class="fc" id="L205">                return Double.valueOf(-1.0);</span>
+<span class="fc" id="L203">            return longValue;</span>
+<span class="fc bfc" id="L204" title="All 4 branches covered.">        } else if (clazz == double.class || clazz == Double.class) {</span>
+<span class="fc bfc" id="L205" title="All 4 branches covered.">            if (clazz == double.class &amp;&amp; doubleValue == null) {</span>
+<span class="fc" id="L206">                return Double.valueOf(-1.0);</span>
             }
-<span class="fc" id="L207">            return doubleValue;</span>
-<span class="fc bfc" id="L208" title="All 4 branches covered.">        } else if (clazz == float.class || clazz == Float.class) {</span>
-<span class="fc bfc" id="L209" title="All 4 branches covered.">            if (clazz == float.class &amp;&amp; floatValue == null) {</span>
-<span class="fc" id="L210">                return Float.valueOf(-1.0F);</span>
+<span class="fc" id="L208">            return doubleValue;</span>
+<span class="fc bfc" id="L209" title="All 4 branches covered.">        } else if (clazz == float.class || clazz == Float.class) {</span>
+<span class="fc bfc" id="L210" title="All 4 branches covered.">            if (clazz == float.class &amp;&amp; floatValue == null) {</span>
+<span class="fc" id="L211">                return Float.valueOf(-1.0F);</span>
             }
-<span class="fc" id="L212">            return floatValue;</span>
-<span class="fc bfc" id="L213" title="All 4 branches covered.">        } else if (clazz == char.class || clazz == Character.class) {</span>
-<span class="fc bfc" id="L214" title="All 4 branches covered.">            if (clazz == char.class &amp;&amp; characterValue == null) {</span>
-<span class="fc" id="L215">                return Character.valueOf('\u0000');</span>
+<span class="fc" id="L213">            return floatValue;</span>
+<span class="fc bfc" id="L214" title="All 4 branches covered.">        } else if (clazz == char.class || clazz == Character.class) {</span>
+<span class="fc bfc" id="L215" title="All 4 branches covered.">            if (clazz == char.class &amp;&amp; characterValue == null) {</span>
+<span class="fc" id="L216">                return Character.valueOf('\u0000');</span>
             }
-<span class="fc" id="L217">            return characterValue;</span>
-<span class="fc bfc" id="L218" title="All 4 branches covered.">        } else if (clazz == byte.class || clazz == Byte.class) {</span>
-<span class="fc bfc" id="L219" title="All 4 branches covered.">            if (clazz == byte.class &amp;&amp; byteValue == null) {</span>
-<span class="fc" id="L220">                return Byte.valueOf((byte) -1);</span>
+<span class="fc" id="L218">            return characterValue;</span>
+<span class="fc bfc" id="L219" title="All 4 branches covered.">        } else if (clazz == byte.class || clazz == Byte.class) {</span>
+<span class="fc bfc" id="L220" title="All 4 branches covered.">            if (clazz == byte.class &amp;&amp; byteValue == null) {</span>
+<span class="fc" id="L221">                return Byte.valueOf((byte) -1);</span>
             }
-<span class="fc" id="L222">            return byteValue;</span>
+<span class="fc" id="L223">            return byteValue;</span>
         }
-<span class="fc" id="L224">        return null;</span>
+<span class="fc" id="L225">        return null;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

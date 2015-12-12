@@ -40,9 +40,9 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @param clazz
      *            the clazz
      */
-<span class="nc" id="L43">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz) {</span>
-<span class="nc" id="L44">        this.worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz);</span>
-<span class="nc" id="L45">    }</span>
+<span class="fc" id="L43">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz) {</span>
+<span class="fc" id="L44">        this.worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz);</span>
+<span class="fc" id="L45">    }</span>
 
     /**
      * Instantiates a new java bean tester builder.
@@ -73,7 +73,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkEquals(final boolean value) {
-<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        this.worker.setCheckEquals(value ? CanEquals.ON : CanEquals.OFF);</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        this.worker.setCheckEquals(value ? CanEquals.ON : CanEquals.OFF);</span>
 <span class="fc" id="L77">        return this;</span>
     }
 
@@ -94,7 +94,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; loadData(final boolean value) {
-<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        this.worker.setLoadData(value ? LoadData.ON : LoadData.OFF);</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        this.worker.setLoadData(value ? LoadData.ON : LoadData.OFF);</span>
 <span class="fc" id="L98">        return this;</span>
     }
 
@@ -115,7 +115,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkSerializable(final boolean value) {
-<span class="pc bpc" id="L118" title="1 of 2 branches missed.">        this.worker.setCheckSerializable(value ? CanSerialize.ON : CanSerialize.OFF);</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">        this.worker.setCheckSerializable(value ? CanSerialize.ON : CanSerialize.OFF);</span>
 <span class="fc" id="L119">        return this;</span>
     }
 
@@ -142,20 +142,17 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
 
     /**
      * Private Constructor Test.
-     *
-     * @param instance
-     *            the instance of class under test.
      */
     public void testPrivateConstructor() {
-<span class="fc" id="L150">        new ConstructorInstance().inaccessible(this.worker.getClazz());</span>
-<span class="fc" id="L151">    }</span>
+<span class="fc" id="L147">        new ConstructorInstance().inaccessible(this.worker.getClazz());</span>
+<span class="fc" id="L148">    }</span>
 
     /**
      * Tests the equals/hashCode/toString methods of the specified class.
      */
     public void testObjectMethods() {
-<span class="nc" id="L157">        this.worker.equalsHashCodeToStringSymmetricTest();</span>
-<span class="nc" id="L158">    }</span>
+<span class="fc" id="L154">        this.worker.equalsHashCodeToStringSymmetricTest();</span>
+<span class="fc" id="L155">    }</span>
 
     /**
      * Getter Setter Tests.
@@ -164,8 +161,8 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *            the instance of class under test.
      */
     public void testInstance(final T instance) {
-<span class="nc" id="L167">        this.worker.getterSetterTests(instance);</span>
-<span class="nc" id="L168">    }</span>
+<span class="fc" id="L164">        this.worker.getterSetterTests(instance);</span>
+<span class="fc" id="L165">    }</span>
 
     /**
      * Test equals.
@@ -176,8 +173,8 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *            the expected
      */
     public void testEquals(final T instance, final T expected) {
-<span class="nc" id="L179">        this.worker.equalsTests(instance, expected);</span>
-<span class="nc" id="L180">    }</span>
+<span class="fc" id="L176">        this.worker.equalsTests(instance, expected);</span>
+<span class="fc" id="L177">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
