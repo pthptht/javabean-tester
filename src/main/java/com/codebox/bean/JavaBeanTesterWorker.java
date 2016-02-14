@@ -151,7 +151,7 @@ class JavaBeanTesterWorker<T, E> {
         try {
             props = Introspector.getBeanInfo(this.clazz).getPropertyDescriptors();
         } catch (IntrospectionException e) {
-            Assert.fail(String.format("An exception was thrown while testing class %s: %s", this.clazz.getName(),
+            Assert.fail(String.format("An exception was thrown while testing class '%s': '%s'", this.clazz.getName(),
                     e.toString()));
             return;
         }
@@ -187,16 +187,16 @@ class JavaBeanTesterWorker<T, E> {
                                 expectedValue, actualValue);
 
                     } catch (final IllegalAccessException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property %s: %s",
+                        Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
                                 prop.getName(), e.toString()));
                     } catch (final IllegalArgumentException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property %s: %s",
+                        Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
                                 prop.getName(), e.toString()));
                     } catch (final InvocationTargetException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property %s: %s",
+                        Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
                                 prop.getName(), e.toString()));
                     } catch (final SecurityException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property %s: %s",
+                        Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
                                 prop.getName(), e.toString()));
                     }
                 }
@@ -220,13 +220,13 @@ class JavaBeanTesterWorker<T, E> {
             try {
                 constructor.newInstance(values);
             } catch (InstantiationException e) {
-                Assert.fail(String.format("An exception was thrown while testing the constructor %s: %s",
+                Assert.fail(String.format("An exception was thrown while testing the constructor '%s': '%s'",
                         constructor.getName(), e.toString()));
             } catch (IllegalAccessException e) {
-                Assert.fail(String.format("An exception was thrown while testing the constructor %s: %s",
+                Assert.fail(String.format("An exception was thrown while testing the constructor '%s': '%s'",
                         constructor.getName(), e.toString()));
             } catch (InvocationTargetException e) {
-                Assert.fail(String.format("An exception was thrown while testing the constructor %s: %s",
+                Assert.fail(String.format("An exception was thrown while testing the constructor '%s': '%s'",
                         constructor.getName(), e.toString()));
             }
 
@@ -244,7 +244,7 @@ class JavaBeanTesterWorker<T, E> {
             return;
         }
         if (this.checkSerializable == CanSerialize.ON) {
-            Assert.fail(String.format("Class is not serializable %s", object.getClass().getName()));
+            Assert.fail(String.format("Class is not serializable '%s'", object.getClass().getName()));
         }
     }
 
@@ -271,15 +271,15 @@ class JavaBeanTesterWorker<T, E> {
             output = new ObjectOutputStream(new ByteArrayOutputStream());
             output.writeObject(object);
         } catch (final IOException e) {
-            Assert.fail(String.format("An exception was thrown while serializing the class %s: %s,", object.getClass()
-                    .getName(), e.toString()));
+            Assert.fail(String.format("An exception was thrown while serializing the class '%s': '%s',", object
+                    .getClass().getName(), e.toString()));
         } finally {
             if (output != null) {
                 try {
                     output.close();
                 } catch (IOException e) {
-                    Assert.fail(String.format("An exception was thrown while closing stream for class %s: %s,", object
-                            .getClass().getName(), e.toString()));
+                    Assert.fail(String.format("An exception was thrown while closing stream for class '%s': '%s',",
+                            object.getClass().getName(), e.toString()));
                 }
             }
         }
@@ -410,7 +410,7 @@ class JavaBeanTesterWorker<T, E> {
         try {
             props = Introspector.getBeanInfo(instance.getClass()).getPropertyDescriptors();
         } catch (IntrospectionException e) {
-            Assert.fail(String.format("An exception occurred during introspection of %s: %s", instance.getClass()
+            Assert.fail(String.format("An exception occurred during introspection of '%s': '%s'", instance.getClass()
                     .getName(), e.toString()));
             return;
         }
@@ -460,16 +460,16 @@ class JavaBeanTesterWorker<T, E> {
                         setter.invoke(instance, original);
 
                     } catch (final IllegalAccessException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property %s: %s",
+                        Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
                                 prop.getName(), e.toString()));
                     } catch (final IllegalArgumentException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property %s: %s",
+                        Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
                                 prop.getName(), e.toString()));
                     } catch (final InvocationTargetException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property %s: %s",
+                        Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
                                 prop.getName(), e.toString()));
                     } catch (final SecurityException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property %s: %s",
+                        Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
                                 prop.getName(), e.toString()));
                     }
                 }
