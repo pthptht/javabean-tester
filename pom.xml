@@ -254,10 +254,11 @@
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.4</version>
                     <dependencies>
+                        <!-- Drop back to 1.6 until issues can be resolved -->
                         <dependency>
                             <groupId>org.apache.maven.doxia</groupId>
                             <artifactId>doxia-module-markdown</artifactId>
-                            <version>1.7</version>
+                            <version>1.6</version>
                         </dependency>
                         <dependency>
                             <groupId>net.trajano.wagon</groupId>
