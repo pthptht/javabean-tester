@@ -144,7 +144,7 @@ public class JavaBeanTesterBuilder<T, E> {
      * Private Constructor Test.
      */
     public void testPrivateConstructor() {
-        new ConstructorInstance().inaccessible(this.worker.getClazz());
+        ConstructorInstance.inaccessible(this.worker.getClazz());
     }
 
     /**

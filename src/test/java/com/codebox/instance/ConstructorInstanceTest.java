@@ -65,7 +65,7 @@ public class ConstructorInstanceTest {
                 this.result = new InstantiationException();
             }
         });
-        this.constructorInstance.newInstance(this.mockConstructor);
+        ConstructorInstance.newInstance(this.mockConstructor);
     }
 
     /**
@@ -87,7 +87,7 @@ public class ConstructorInstanceTest {
                 this.result = new IllegalAccessException();
             }
         });
-        this.constructorInstance.newInstance(this.mockConstructor);
+        ConstructorInstance.newInstance(this.mockConstructor);
     }
 
     /**
@@ -109,7 +109,7 @@ public class ConstructorInstanceTest {
                 this.result = new InvocationTargetException(this.withInstanceOf(Exception.class));
             }
         });
-        this.constructorInstance.newInstance(this.mockConstructor);
+        ConstructorInstance.newInstance(this.mockConstructor);
     }
 
 }

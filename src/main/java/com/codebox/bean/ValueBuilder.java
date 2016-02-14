@@ -66,7 +66,7 @@ public class ValueBuilder {
                     return null;
                 }
                 // The class has a no-arg constructor, so just call it
-                return new ConstructorInstance().newInstance(ctr);
+                return ConstructorInstance.newInstance(ctr);
             }
         }
 

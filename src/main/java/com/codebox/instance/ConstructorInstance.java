@@ -31,7 +31,7 @@ public class ConstructorInstance {
      *            the instance
      * @return the Object
      */
-    public final Object newInstance(final Constructor<?> constructor) {
+    public final static Object newInstance(final Constructor<?> constructor) {
         try {
             return constructor.newInstance();
         } catch (InstantiationException e) {
@@ -53,14 +53,14 @@ public class ConstructorInstance {
      * @param clazz
      *            the clazz
      */
-    public final void inaccessible(final Class<?> clazz) {
+    public final static void inaccessible(final Class<?> clazz) {
         final Constructor<?>[] ctors = clazz.getDeclaredConstructors();
         Assert.assertEquals("Utility class should only have one constructor", 1, ctors.length);
         final Constructor<?> ctor = ctors[0];
         Assert.assertFalse("Utility class constructor should be inaccessible", ctor.isAccessible());
         // Make accessible in order to test following assert.
         ctor.setAccessible(true);
-        Assert.assertEquals("You would expect the constructor to return the expected type", clazz,
-                this.newInstance(ctor).getClass());
+        Assert.assertEquals("You would expect the constructor to return the expected type", clazz, ConstructorInstance
+                .newInstance(ctor).getClass());
     }
 }
