@@ -97,4 +97,14 @@ public class SampleBean {
     /** The byte primitive. */
     private byte                          bytePrimitive;
 
+    /**
+     * Instantiates a new sample bean. Causes JVM to not create a default no-arg constructor
+     *
+     * @param newString
+     *            the new string
+     */
+    public SampleBean(final String newString) {
+        this.string = newString;
+    }
+
 }

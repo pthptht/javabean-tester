@@ -26,4 +26,14 @@ public class SampleExtensionBean extends SampleBean {
 
     /** The extension. */
     private String extension;
+
+    /**
+     * Instantiates a new sample bean. Causes JVM to not create a default no-arg constructor
+     *
+     * @param newString
+     *            the new string
+     */
+    public SampleExtensionBean(final String newString) {
+        super(newString);
+    }
 }

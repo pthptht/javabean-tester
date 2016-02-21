@@ -14,7 +14,14 @@
  */
 package com.codebox.instance;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import org.junit.Assert;
+
+import com.codebox.bean.ValueBuilder;
+import com.codebox.enums.LoadData;
+import com.codebox.enums.LoadType;
 
 /**
  * The Class Instance.
@@ -25,23 +32,55 @@ import org.junit.Assert;
 public class ClassInstance<T> {
 
     /**
-     * New instance.
+     * New instance. This will get the first available constructor to run the test on. This allows for instances where
+     * there is intentionally not a no-arg constructor.
      *
      * @param clazz
      *            the class
      * @return the t
      */
+    @SuppressWarnings("unchecked")
     public final T newInstance(final Class<T> clazz) {
-        try {
-            return clazz.newInstance();
-        } catch (InstantiationException e) {
-            Assert.fail(String.format("An exception was thrown while testing the class '%s': '%s'", clazz.getName(),
-                    e.toString()));
-        } catch (IllegalAccessException e) {
-            Assert.fail(String.format("An exception was thrown while testing the class '%s': '%s'", clazz.getName(),
-                    e.toString()));
+        for (Constructor<?> constructor : clazz.getConstructors()) {
+            final Class<?>[] types = constructor.getParameterTypes();
+
+            final Object[] values = new Object[constructor.getParameterTypes().length];
+
+            for (int i = 0; i < values.length; i++) {
+                values[i] = buildValue(types[i], LoadType.STANDARD_DATA);
+            }
+
+            try {
+                return (T) constructor.newInstance(values);
+            } catch (InstantiationException e) {
+                Assert.fail(String.format("An exception was thrown while testing the class '%s': '%s'",
+                        constructor.getName(), e.toString()));
+            } catch (IllegalAccessException e) {
+                Assert.fail(String.format("An exception was thrown while testing the class '%s': '%s'",
+                        constructor.getName(), e.toString()));
+            } catch (InvocationTargetException e) {
+                Assert.fail(String.format("An exception was thrown while testing the class '%s': '%s'",
+                        constructor.getName(), e.toString()));
+            }
         }
         return null;
+    }
+
+    /**
+     * Builds the value.
+     *
+     * @param <R>
+     *            the generic type
+     * @param returnType
+     *            the return type
+     * @param loadType
+     *            the load type
+     * @return the object
+     */
+    public <R> Object buildValue(final Class<R> returnType, final LoadType loadType) {
+        final ValueBuilder valueBuilder = new ValueBuilder();
+        valueBuilder.setLoadData(LoadData.ON);
+        return valueBuilder.buildValue(returnType, loadType);
     }
 
 }

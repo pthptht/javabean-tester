@@ -36,8 +36,8 @@ public class JavaBeanTesterTest {
      */
     @Before
     public void init() {
-        this.sampleBean = new SampleBean();
-        this.expectedBean = new SampleBean();
+        this.sampleBean = new SampleBean(null);
+        this.expectedBean = new SampleBean(null);
     }
 
     /**
