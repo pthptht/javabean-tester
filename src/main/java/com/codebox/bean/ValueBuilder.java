@@ -105,7 +105,7 @@ public class ValueBuilder {
 
             // XXX Don't fail this...until alternative solution is determined
             // Assert.fail(String.format(
-            // "Unable to build an instance of class %s, please add some code to the %s class to do this.",
+            // "Unable to build an instance of class '%s', please add some code to the '%s' class to do this.",
             // clazz.getName(), JavaBeanTester.class.getName()));
             return null;
         }

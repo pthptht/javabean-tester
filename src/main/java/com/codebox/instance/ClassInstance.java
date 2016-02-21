@@ -35,10 +35,10 @@ public class ClassInstance<T> {
         try {
             return clazz.newInstance();
         } catch (InstantiationException e) {
-            Assert.fail(String.format("An exception was thrown while testing the class %s: %s", clazz.getName(),
+            Assert.fail(String.format("An exception was thrown while testing the class '%s': '%s'", clazz.getName(),
                     e.toString()));
         } catch (IllegalAccessException e) {
-            Assert.fail(String.format("An exception was thrown while testing the class %s: %s", clazz.getName(),
+            Assert.fail(String.format("An exception was thrown while testing the class '%s': '%s'", clazz.getName(),
                     e.toString()));
         }
         return null;

@@ -183,7 +183,7 @@ class JavaBeanTesterWorker<T, E> {
                         final Object expectedValue = value;
                         final Object actualValue = getter.invoke(instance);
 
-                        Assert.assertEquals(String.format("Failed while testing property %s", prop.getName()),
+                        Assert.assertEquals(String.format("Failed while testing property '%s'", prop.getName()),
                                 expectedValue, actualValue);
 
                     } catch (final IllegalAccessException e) {
