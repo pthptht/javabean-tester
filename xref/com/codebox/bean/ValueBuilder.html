@@ -74,7 +74,7 @@
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>                      <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>                  }
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>                  <em class="jxr_comment">// The class has a no-arg constructor, so just call it</em>
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>                  <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../com/codebox/instance/ConstructorInstance.html">ConstructorInstance</a>().newInstance(ctr);
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>                  <strong class="jxr_keyword">return</strong> ConstructorInstance.newInstance(ctr);
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>              }
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          }
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  
@@ -113,7 +113,7 @@
 <a class="jxr_linenumber" name="L105" href="#L105">105</a> 
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>             <em class="jxr_comment">// XXX Don't fail this...until alternative solution is determined</em>
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>             <em class="jxr_comment">// Assert.fail(String.format(</em>
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>             <em class="jxr_comment">// "Unable to build an instance of class %s, please add some code to the %s class to do this.",</em>
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>             <em class="jxr_comment">// "Unable to build an instance of class '%s', please add some code to the '%s' class to do this.",</em>
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>             <em class="jxr_comment">// clazz.getName(), JavaBeanTester.class.getName()));</em>
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>         }
@@ -235,6 +235,6 @@
 <a class="jxr_linenumber" name="L227" href="#L227">227</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2012&#x2013;2015 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2012&#x2013;2016 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
 </body>
 </html>

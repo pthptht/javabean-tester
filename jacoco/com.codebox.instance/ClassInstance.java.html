@@ -14,7 +14,14 @@
  */
 package com.codebox.instance;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import org.junit.Assert;
+
+import com.codebox.bean.ValueBuilder;
+import com.codebox.enums.LoadData;
+import com.codebox.enums.LoadType;
 
 /**
  * The Class Instance.
@@ -22,27 +29,59 @@ import org.junit.Assert;
  * @param &lt;T&gt;
  *            the element type
  */
-<span class="fc" id="L25">public class ClassInstance&lt;T&gt; {</span>
+<span class="fc" id="L32">public class ClassInstance&lt;T&gt; {</span>
 
     /**
-     * New instance.
+     * New instance. This will get the first available constructor to run the test on. This allows for instances where
+     * there is intentionally not a no-arg constructor.
      *
      * @param clazz
      *            the class
      * @return the t
      */
+    @SuppressWarnings(&quot;unchecked&quot;)
     public final T newInstance(final Class&lt;T&gt; clazz) {
-        try {
-<span class="fc" id="L36">            return clazz.newInstance();</span>
-<span class="nc" id="L37">        } catch (InstantiationException e) {</span>
-<span class="nc" id="L38">            Assert.fail(String.format(&quot;An exception was thrown while testing the class %s: %s&quot;, clazz.getName(),</span>
-                    e.toString()));
-<span class="nc" id="L40">        } catch (IllegalAccessException e) {</span>
-<span class="nc" id="L41">            Assert.fail(String.format(&quot;An exception was thrown while testing the class %s: %s&quot;, clazz.getName(),</span>
-                    e.toString()));
-<span class="nc" id="L43">        }</span>
-<span class="nc" id="L44">        return null;</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        for (Constructor&lt;?&gt; constructor : clazz.getConstructors()) {</span>
+<span class="fc" id="L45">            final Class&lt;?&gt;[] types = constructor.getParameterTypes();</span>
+
+<span class="fc" id="L47">            final Object[] values = new Object[constructor.getParameterTypes().length];</span>
+
+<span class="fc bfc" id="L49" title="All 2 branches covered.">            for (int i = 0; i &lt; values.length; i++) {</span>
+<span class="fc" id="L50">                values[i] = buildValue(types[i], LoadType.STANDARD_DATA);</span>
+            }
+
+            try {
+<span class="fc" id="L54">                return (T) constructor.newInstance(values);</span>
+<span class="nc" id="L55">            } catch (InstantiationException e) {</span>
+<span class="nc" id="L56">                Assert.fail(String.format(&quot;An exception was thrown while testing the class '%s': '%s'&quot;,</span>
+                        constructor.getName(), e.toString()));
+<span class="nc" id="L58">            } catch (IllegalAccessException e) {</span>
+<span class="nc" id="L59">                Assert.fail(String.format(&quot;An exception was thrown while testing the class '%s': '%s'&quot;,</span>
+                        constructor.getName(), e.toString()));
+<span class="nc" id="L61">            } catch (InvocationTargetException e) {</span>
+<span class="nc" id="L62">                Assert.fail(String.format(&quot;An exception was thrown while testing the class '%s': '%s'&quot;,</span>
+                        constructor.getName(), e.toString()));
+<span class="nc" id="L64">            }</span>
+        }
+<span class="nc" id="L66">        return null;</span>
+    }
+
+    /**
+     * Builds the value.
+     *
+     * @param &lt;R&gt;
+     *            the generic type
+     * @param returnType
+     *            the return type
+     * @param loadType
+     *            the load type
+     * @return the object
+     */
+    public &lt;R&gt; Object buildValue(final Class&lt;R&gt; returnType, final LoadType loadType) {
+<span class="fc" id="L81">        final ValueBuilder valueBuilder = new ValueBuilder();</span>
+<span class="fc" id="L82">        valueBuilder.setLoadData(LoadData.ON);</span>
+<span class="fc" id="L83">        return valueBuilder.buildValue(returnType, loadType);</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

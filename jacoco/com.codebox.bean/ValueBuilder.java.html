@@ -66,7 +66,7 @@ public class ValueBuilder {
 <span class="fc" id="L66">                    return null;</span>
                 }
                 // The class has a no-arg constructor, so just call it
-<span class="fc" id="L69">                return new ConstructorInstance().newInstance(ctr);</span>
+<span class="fc" id="L69">                return ConstructorInstance.newInstance(ctr);</span>
             }
         }
 
@@ -105,7 +105,7 @@ public class ValueBuilder {
 
             // XXX Don't fail this...until alternative solution is determined
             // Assert.fail(String.format(
-            // &quot;Unable to build an instance of class %s, please add some code to the %s class to do this.&quot;,
+            // &quot;Unable to build an instance of class '%s', please add some code to the '%s' class to do this.&quot;,
             // clazz.getName(), JavaBeanTester.class.getName()));
 <span class="nc" id="L110">            return null;</span>
         }
@@ -225,4 +225,4 @@ public class ValueBuilder {
 <span class="fc" id="L225">        return null;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

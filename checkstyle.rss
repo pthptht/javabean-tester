@@ -23,10 +23,10 @@ under the License.
     <link>https://github.com/hazendaz/javabean-tester</link>
     <description>javabean-tester - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2012 - 2015 hazendaz</copyright>
+    <copyright>&#169;2012 - 2016 hazendaz</copyright>
     <item>
       <title>File: 15,
-             Errors: 116,
+             Errors: 124,
              Warnings: 0,
              Infos: 0
       </title>
@@ -97,7 +97,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
+                  7
                 </td>
               </tr>
                           <tr>
@@ -237,7 +237,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  6
+                  9
                 </td>
               </tr>
                           <tr>

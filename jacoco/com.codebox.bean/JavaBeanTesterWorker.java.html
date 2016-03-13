@@ -151,7 +151,7 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
         try {
 <span class="fc" id="L152">            props = Introspector.getBeanInfo(this.clazz).getPropertyDescriptors();</span>
 <span class="nc" id="L153">        } catch (IntrospectionException e) {</span>
-<span class="nc" id="L154">            Assert.fail(String.format(&quot;An exception was thrown while testing class %s: %s&quot;, this.clazz.getName(),</span>
+<span class="nc" id="L154">            Assert.fail(String.format(&quot;An exception was thrown while testing class '%s': '%s'&quot;, this.clazz.getName(),</span>
                     e.toString()));
 <span class="nc" id="L156">            return;</span>
 <span class="fc" id="L157">        }</span>
@@ -183,20 +183,20 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 <span class="fc" id="L183">                        final Object expectedValue = value;</span>
 <span class="fc" id="L184">                        final Object actualValue = getter.invoke(instance);</span>
 
-<span class="fc" id="L186">                        Assert.assertEquals(String.format(&quot;Failed while testing property %s&quot;, prop.getName()),</span>
+<span class="fc" id="L186">                        Assert.assertEquals(String.format(&quot;Failed while testing property '%s'&quot;, prop.getName()),</span>
                                 expectedValue, actualValue);
 
 <span class="nc" id="L189">                    } catch (final IllegalAccessException e) {</span>
-<span class="nc" id="L190">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
+<span class="nc" id="L190">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
                                 prop.getName(), e.toString()));
 <span class="nc" id="L192">                    } catch (final IllegalArgumentException e) {</span>
-<span class="nc" id="L193">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
+<span class="nc" id="L193">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
                                 prop.getName(), e.toString()));
 <span class="nc" id="L195">                    } catch (final InvocationTargetException e) {</span>
-<span class="nc" id="L196">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
+<span class="nc" id="L196">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
                                 prop.getName(), e.toString()));
 <span class="nc" id="L198">                    } catch (final SecurityException e) {</span>
-<span class="nc" id="L199">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
+<span class="nc" id="L199">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
                                 prop.getName(), e.toString()));
 <span class="pc" id="L201">                    }</span>
                 }
@@ -213,20 +213,20 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 
 <span class="fc" id="L214">            final Object[] values = new Object[constructor.getParameterTypes().length];</span>
 
-<span class="pc bpc" id="L216" title="1 of 2 branches missed.">            for (int i = 0; i &lt; values.length; i++) {</span>
-<span class="nc" id="L217">                values[i] = buildValue(types[i], LoadType.STANDARD_DATA);</span>
+<span class="fc bfc" id="L216" title="All 2 branches covered.">            for (int i = 0; i &lt; values.length; i++) {</span>
+<span class="fc" id="L217">                values[i] = buildValue(types[i], LoadType.STANDARD_DATA);</span>
             }
 
             try {
 <span class="fc" id="L221">                constructor.newInstance(values);</span>
 <span class="nc" id="L222">            } catch (InstantiationException e) {</span>
-<span class="nc" id="L223">                Assert.fail(String.format(&quot;An exception was thrown while testing the constructor %s: %s&quot;,</span>
+<span class="nc" id="L223">                Assert.fail(String.format(&quot;An exception was thrown while testing the constructor '%s': '%s'&quot;,</span>
                         constructor.getName(), e.toString()));
 <span class="nc" id="L225">            } catch (IllegalAccessException e) {</span>
-<span class="nc" id="L226">                Assert.fail(String.format(&quot;An exception was thrown while testing the constructor %s: %s&quot;,</span>
+<span class="nc" id="L226">                Assert.fail(String.format(&quot;An exception was thrown while testing the constructor '%s': '%s'&quot;,</span>
                         constructor.getName(), e.toString()));
 <span class="nc" id="L228">            } catch (InvocationTargetException e) {</span>
-<span class="nc" id="L229">                Assert.fail(String.format(&quot;An exception was thrown while testing the constructor %s: %s&quot;,</span>
+<span class="nc" id="L229">                Assert.fail(String.format(&quot;An exception was thrown while testing the constructor '%s': '%s'&quot;,</span>
                         constructor.getName(), e.toString()));
 <span class="pc" id="L231">            }</span>
 
@@ -244,7 +244,7 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 <span class="fc" id="L244">            return;</span>
         }
 <span class="pc bpc" id="L246" title="1 of 2 branches missed.">        if (this.checkSerializable == CanSerialize.ON) {</span>
-<span class="nc" id="L247">            Assert.fail(String.format(&quot;Class is not serializable %s&quot;, object.getClass().getName()));</span>
+<span class="nc" id="L247">            Assert.fail(String.format(&quot;Class is not serializable '%s'&quot;, object.getClass().getName()));</span>
         }
 <span class="fc" id="L249">    }</span>
 
@@ -271,15 +271,15 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 <span class="fc" id="L271">            output = new ObjectOutputStream(new ByteArrayOutputStream());</span>
 <span class="fc" id="L272">            output.writeObject(object);</span>
 <span class="nc" id="L273">        } catch (final IOException e) {</span>
-<span class="nc" id="L274">            Assert.fail(String.format(&quot;An exception was thrown while serializing the class %s: %s,&quot;, object.getClass()</span>
-                    .getName(), e.toString()));
+<span class="nc" id="L274">            Assert.fail(String.format(&quot;An exception was thrown while serializing the class '%s': '%s',&quot;, object</span>
+                    .getClass().getName(), e.toString()));
         } finally {
 <span class="pc bpc" id="L277" title="5 of 6 branches missed.">            if (output != null) {</span>
                 try {
 <span class="pc" id="L279">                    output.close();</span>
 <span class="nc" id="L280">                } catch (IOException e) {</span>
-<span class="nc" id="L281">                    Assert.fail(String.format(&quot;An exception was thrown while closing stream for class %s: %s,&quot;, object</span>
-                            .getClass().getName(), e.toString()));
+<span class="nc" id="L281">                    Assert.fail(String.format(&quot;An exception was thrown while closing stream for class '%s': '%s',&quot;,</span>
+                            object.getClass().getName(), e.toString()));
 <span class="pc" id="L283">                }</span>
             }
         }
@@ -410,7 +410,7 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
         try {
 <span class="fc" id="L411">            props = Introspector.getBeanInfo(instance.getClass()).getPropertyDescriptors();</span>
 <span class="nc" id="L412">        } catch (IntrospectionException e) {</span>
-<span class="nc" id="L413">            Assert.fail(String.format(&quot;An exception occurred during introspection of %s: %s&quot;, instance.getClass()</span>
+<span class="nc" id="L413">            Assert.fail(String.format(&quot;An exception occurred during introspection of '%s': '%s'&quot;, instance.getClass()</span>
                     .getName(), e.toString()));
 <span class="nc" id="L415">            return;</span>
 <span class="fc" id="L416">        }</span>
@@ -460,16 +460,16 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 <span class="fc" id="L460">                        setter.invoke(instance, original);</span>
 
 <span class="nc" id="L462">                    } catch (final IllegalAccessException e) {</span>
-<span class="nc" id="L463">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
+<span class="nc" id="L463">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
                                 prop.getName(), e.toString()));
 <span class="nc" id="L465">                    } catch (final IllegalArgumentException e) {</span>
-<span class="nc" id="L466">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
+<span class="nc" id="L466">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
                                 prop.getName(), e.toString()));
 <span class="nc" id="L468">                    } catch (final InvocationTargetException e) {</span>
-<span class="nc" id="L469">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
+<span class="nc" id="L469">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
                                 prop.getName(), e.toString()));
 <span class="nc" id="L471">                    } catch (final SecurityException e) {</span>
-<span class="nc" id="L472">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property %s: %s&quot;,</span>
+<span class="nc" id="L472">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
                                 prop.getName(), e.toString()));
 <span class="pc" id="L474">                    }</span>
                 }
@@ -478,4 +478,4 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 <span class="fc" id="L478">    }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
