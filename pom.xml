@@ -436,7 +436,7 @@
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
                             <artifactId>plexus-utils</artifactId>
-                            <version>3.0.23</version>
+                            <version>3.0.24</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -494,7 +494,7 @@
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
                             <artifactId>plexus-utils</artifactId>
-                            <version>3.0.23</version>
+                            <version>3.0.24</version>
                         </dependency>
                     </dependencies>
                 </plugin>
