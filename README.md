@@ -7,6 +7,7 @@ javabean-tester
 [![Apache 2](http://img.shields.io/badge/license-Apache%202-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
 [site-page](http://hazendaz.github.io/javabean-tester/)
+[sonarqube](https://sonarqube.com/dashboard/index?id=com.github.hazendaz:javabean-tester)
 
 Javabean Tester is a reflection based library for testing java beans.  Effectively test constructors, getters/setters, hashcode, toString, equals, and serializable are correct.
 
