@@ -4,7 +4,7 @@
 
     <groupId>com.github.hazendaz</groupId>
     <artifactId>javabean-tester</artifactId>
-    <version>1.4.2-SNAPSHOT</version>
+    <version>1.4.2</version>
     <packaging>jar</packaging>
 
     <name>javabean-tester</name>
@@ -82,7 +82,7 @@
         <connection>scm:git:ssh://git@github.com/hazendaz/javabean-tester.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/hazendaz/javabean-tester.git</developerConnection>
         <url>https://github.com/hazendaz/javabean-tester</url>
-        <tag>HEAD</tag>
+        <tag>javabean-tester-1.4.2</tag>
     </scm>
     <issueManagement>
         <system>Github</system>
