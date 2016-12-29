@@ -4,6 +4,7 @@ javabean-tester
 [![Coverage Status](https://coveralls.io/repos/hazendaz/javabean-tester/badge.svg?branch=master&service=github)](https://coveralls.io/github/hazendaz/javabean-tester?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/5608ad895a262f001e000436/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5608ad895a262f001e000436)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz/javabean-tester/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz/javabean-tester)
+[![Project Stats](https://www.openhub.net/p/javabean-tester/widgets/project_thin_badge.gif)](https://www.openhub.net/p/javabean-tester)
 [![Apache 2](http://img.shields.io/badge/license-Apache%202-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
 Sites
