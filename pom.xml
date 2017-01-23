@@ -150,7 +150,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator-annotation-processor</artifactId>
-            <version>5.3.4.Final</version>
+            <version>5.4.0.CR1</version>
             <scope>provided</scope>
         </dependency>
 
