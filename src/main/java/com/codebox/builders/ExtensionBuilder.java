@@ -95,9 +95,9 @@ public class ExtensionBuilder<T> {
     private static CtMethod generateGetter(CtClass declaringClass, String fieldName, Class<?> fieldClass)
             throws CannotCompileException {
         final StringBuilder sb = new StringBuilder();
-        sb.append("public ").append(fieldClass.getName()).append(" get")
-                .append(fieldName.substring(0, 1).toUpperCase()).append(fieldName.substring(1)).append("(){")
-                .append("return this.").append(fieldName).append(";").append("}");
+        sb.append("public ").append(fieldClass.getName()).append(" get").append(fieldName.substring(0, 1).toUpperCase())
+                .append(fieldName.substring(1)).append("(){").append("return this.").append(fieldName).append(";")
+                .append("}");
         return CtMethod.make(sb.toString(), declaringClass);
     }
 

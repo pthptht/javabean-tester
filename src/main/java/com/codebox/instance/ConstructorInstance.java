@@ -60,7 +60,7 @@ public class ConstructorInstance {
         Assert.assertFalse("Utility class constructor should be inaccessible", ctor.isAccessible());
         // Make accessible in order to test following assert.
         ctor.setAccessible(true);
-        Assert.assertEquals("You would expect the constructor to return the expected type", clazz, ConstructorInstance
-                .newInstance(ctor).getClass());
+        Assert.assertEquals("You would expect the constructor to return the expected type", clazz,
+                ConstructorInstance.newInstance(ctor).getClass());
     }
 }

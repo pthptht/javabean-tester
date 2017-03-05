@@ -271,8 +271,8 @@ class JavaBeanTesterWorker<T, E> {
             output = new ObjectOutputStream(new ByteArrayOutputStream());
             output.writeObject(object);
         } catch (final IOException e) {
-            Assert.fail(String.format("An exception was thrown while serializing the class '%s': '%s',", object
-                    .getClass().getName(), e.toString()));
+            Assert.fail(String.format("An exception was thrown while serializing the class '%s': '%s',",
+                    object.getClass().getName(), e.toString()));
         } finally {
             if (output != null) {
                 try {
@@ -410,8 +410,8 @@ class JavaBeanTesterWorker<T, E> {
         try {
             props = Introspector.getBeanInfo(instance.getClass()).getPropertyDescriptors();
         } catch (IntrospectionException e) {
-            Assert.fail(String.format("An exception occurred during introspection of '%s': '%s'", instance.getClass()
-                    .getName(), e.toString()));
+            Assert.fail(String.format("An exception occurred during introspection of '%s': '%s'",
+                    instance.getClass().getName(), e.toString()));
             return;
         }
         for (final PropertyDescriptor prop : props) {

@@ -121,8 +121,8 @@ public class ValueBuilder {
      * @return Object the Object to use for test.
      */
     private static <T> Object setAlternateValues(final Class<T> clazz) {
-        return setValues(clazz, "ALT_VALUE", 1, Boolean.FALSE, Integer.valueOf(2), Long.valueOf(2),
-                Double.valueOf(2.0), Float.valueOf(2.0F), Character.valueOf('N'), Byte.valueOf((byte) 2));
+        return setValues(clazz, "ALT_VALUE", 1, Boolean.FALSE, Integer.valueOf(2), Long.valueOf(2), Double.valueOf(2.0),
+                Float.valueOf(2.0F), Character.valueOf('N'), Byte.valueOf((byte) 2));
     }
 
     /**
@@ -148,8 +148,8 @@ public class ValueBuilder {
      * @return Object the Object to use for test.
      */
     private static <T> Object setStandardValues(final Class<T> clazz) {
-        return setValues(clazz, "TEST_VALUE", 1, Boolean.TRUE, Integer.valueOf(1), Long.valueOf(1),
-                Double.valueOf(1.0), Float.valueOf(1.0F), Character.valueOf('Y'), Byte.valueOf((byte) 1));
+        return setValues(clazz, "TEST_VALUE", 1, Boolean.TRUE, Integer.valueOf(1), Long.valueOf(1), Double.valueOf(1.0),
+                Float.valueOf(1.0F), Character.valueOf('Y'), Byte.valueOf((byte) 1));
     }
 
     /**
