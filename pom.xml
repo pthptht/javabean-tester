@@ -181,7 +181,7 @@
         <dependency>
             <groupId>org.jmockit</groupId>
             <artifactId>jmockit</artifactId>
-            <version>1.29</version>
+            <version>1.29</version> <!-- TODO: Figure out why upgrade breaks code -->
             <scope>test</scope>
         </dependency>
         <dependency>
