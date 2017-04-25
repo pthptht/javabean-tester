@@ -74,10 +74,6 @@
         </contributor>
     </contributors>
 
-    <prerequisites>
-        <maven>${maven.min-version}</maven>
-    </prerequisites>
-
     <scm>
         <connection>scm:git:ssh://git@github.com/hazendaz/javabean-tester.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/hazendaz/javabean-tester.git</developerConnection>
@@ -121,7 +117,7 @@
     </distributionManagement>
 
     <properties>
-        <copyright>2016</copyright>
+        <copyright>2017</copyright>
         <github.global.server>github</github.global.server>
 
         <!-- Remember to adjust this up as you add unit tests -->
@@ -131,7 +127,7 @@
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.testSource>1.8</maven.compiler.testSource>
         <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
-        <maven.min-version>3.3.9</maven.min-version>
+        <maven.min-version>3.5.0</maven.min-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
