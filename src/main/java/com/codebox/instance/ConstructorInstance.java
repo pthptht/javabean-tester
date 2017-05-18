@@ -22,7 +22,14 @@ import org.junit.Assert;
 /**
  * The Constructor Instance.
  */
-public class ConstructorInstance {
+public final class ConstructorInstance {
+
+    /**
+     * Prevent Instantiation of a new constructor instance.
+     */
+    private ConstructorInstance() {
+        // Prevent Instantiation
+    }
 
     /**
      * New instance.
