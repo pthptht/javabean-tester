@@ -18,7 +18,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import mockit.Expectations;
@@ -34,21 +33,11 @@ public class ConstructorInstanceTest {
     @Tested
     ConstructorInstance constructorInstance;
 
-    /** The mock constructor. */
-    @Mocked
-    Constructor<?>      mockConstructor;
-
-    /**
-     * Inits the.
-     */
-    @Before
-    public void init() {
-        this.constructorInstance = new ConstructorInstance();
-    }
-
     /**
      * New instance instantiation exception.
      *
+     * @param mockConstructor
+     *            the mock constructor
      * @throws InstantiationException
      *             the instantiation exception
      * @throws IllegalAccessException
@@ -57,20 +46,22 @@ public class ConstructorInstanceTest {
      *             the invocation target exception
      */
     @Test(expected = AssertionError.class)
-    public void newInstanceInstantiationException()
+    public void newInstanceInstantiationException(@Mocked Constructor<?> mockConstructor)
             throws InstantiationException, IllegalAccessException, InvocationTargetException {
         Assert.assertNotNull(new Expectations() {
             {
-                ConstructorInstanceTest.this.mockConstructor.newInstance();
+                mockConstructor.newInstance();
                 this.result = new InstantiationException();
             }
         });
-        ConstructorInstance.newInstance(this.mockConstructor);
+        ConstructorInstance.newInstance(mockConstructor);
     }
 
     /**
      * New instance illegal access exception.
      *
+     * @param mockConstructor
+     *            the mock constructor
      * @throws InstantiationException
      *             the instantiation exception
      * @throws IllegalAccessException
@@ -79,20 +70,22 @@ public class ConstructorInstanceTest {
      *             the invocation target exception
      */
     @Test(expected = AssertionError.class)
-    public void newInstanceIllegalAccessException()
+    public void newInstanceIllegalAccessException(@Mocked Constructor<?> mockConstructor)
             throws InstantiationException, IllegalAccessException, InvocationTargetException {
         Assert.assertNotNull(new Expectations() {
             {
-                ConstructorInstanceTest.this.mockConstructor.newInstance();
+                mockConstructor.newInstance();
                 this.result = new IllegalAccessException();
             }
         });
-        ConstructorInstance.newInstance(this.mockConstructor);
+        ConstructorInstance.newInstance(mockConstructor);
     }
 
     /**
      * New instance invocation target exception.
      *
+     * @param mockConstructor
+     *            the mock constructor
      * @throws InstantiationException
      *             the instantiation exception
      * @throws IllegalAccessException
@@ -101,15 +94,15 @@ public class ConstructorInstanceTest {
      *             the invocation target exception
      */
     @Test(expected = AssertionError.class)
-    public void newInstanceInvocationTargetException()
+    public void newInstanceInvocationTargetException(@Mocked Constructor<?> mockConstructor)
             throws InstantiationException, IllegalAccessException, InvocationTargetException {
         Assert.assertNotNull(new Expectations() {
             {
-                ConstructorInstanceTest.this.mockConstructor.newInstance();
+                mockConstructor.newInstance();
                 this.result = new InvocationTargetException(this.withInstanceOf(Exception.class));
             }
         });
-        ConstructorInstance.newInstance(this.mockConstructor);
+        ConstructorInstance.newInstance(mockConstructor);
     }
 
 }
