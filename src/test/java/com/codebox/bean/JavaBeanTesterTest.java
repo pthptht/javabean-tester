@@ -194,7 +194,7 @@ public class JavaBeanTesterTest {
     // TODO 11/26/15 Temporary until we start using internalized extension logic
     @Test
     public void test_temporarySingleMode() {
-        JavaBeanTesterBuilder<String, Object> builder = new JavaBeanTesterBuilder<String, Object>(String.class);
+        JavaBeanTesterBuilder<String, Object> builder = new JavaBeanTesterBuilder<>(String.class);
         JavaBeanTesterWorker<String, Object> worker = Deencapsulation.getField(builder, "worker");
         Assert.assertEquals(String.class, worker.getClazz());
     }
