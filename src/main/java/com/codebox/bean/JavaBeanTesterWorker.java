@@ -32,9 +32,11 @@ import org.slf4j.LoggerFactory;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Externalizable;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
@@ -240,7 +242,7 @@ class JavaBeanTesterWorker<T, E> {
     void checkSerializableTest() {
         T object = new ClassInstance<T>().newInstance(this.clazz);
         if (this.implementsSerializable(object)) {
-            this.canSerialize(object);
+            Assert.assertEquals(object, this.canSerialize(object));
             return;
         }
         if (this.checkSerializable == CanSerialize.ON) {
@@ -264,25 +266,31 @@ class JavaBeanTesterWorker<T, E> {
      *
      * @param object
      *            the object
+     * @return object read after serialization
      */
-    void canSerialize(final T object) {
-        ObjectOutputStream output = null;
+    <T> T canSerialize(final T object) {
+        // Serialize data
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
-            output = new ObjectOutputStream(new ByteArrayOutputStream());
-            output.writeObject(object);
+            new ObjectOutputStream(baos).writeObject(object);
         } catch (final IOException e) {
             Assert.fail(String.format("An exception was thrown while serializing the class '%s': '%s',",
                     object.getClass().getName(), e.toString()));
-        } finally {
-            if (output != null) {
-                try {
-                    output.close();
-                } catch (IOException e) {
-                    Assert.fail(String.format("An exception was thrown while closing stream for class '%s': '%s',",
-                            object.getClass().getName(), e.toString()));
-                }
-            }
+            return null;
         }
+
+        // Deserialize Data
+        final ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        try {
+            return (T) new ObjectInputStream(bais).readObject();
+        } catch (final ClassNotFoundException e) {
+            Assert.fail(String.format("An exception was thrown while deserializing the class '%s': '%s',",
+                    object.getClass().getName(), e.toString()));
+        } catch (final IOException e) {
+            Assert.fail(String.format("An exception was thrown while deserializing the class '%s': '%s',",
+                    object.getClass().getName(), e.toString()));
+        }
+        return null;
     }
 
     /**
