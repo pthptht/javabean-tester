@@ -16,6 +16,7 @@ package com.codebox.bean;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import mockit.Deencapsulation;
@@ -184,7 +185,7 @@ public class JavaBeanTesterTest {
      * Test_non serializable.
      */
     @Test
-    public void test_nonSerializable() {
+    public void test_nonSerializableInternallyFails() {
         JavaBeanTester.builder(NonSerializableBean.class).checkSerializable().test();
     }
 

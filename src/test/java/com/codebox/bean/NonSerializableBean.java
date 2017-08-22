@@ -19,7 +19,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * The Class SerializableBean.
+ * The Class NonSerializableBean.
  */
 @Data
 public class NonSerializableBean implements Serializable {
@@ -29,5 +29,12 @@ public class NonSerializableBean implements Serializable {
 
     /** The empty bean which is not serializable. */
     private EmptyBean         emptyBean;
+
+    /**
+     * Make bean non serializable.
+     */
+    public NonSerializableBean() {
+        emptyBean = new EmptyBean();
+    }
 
 }
