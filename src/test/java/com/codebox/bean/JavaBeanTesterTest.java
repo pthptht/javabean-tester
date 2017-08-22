@@ -203,7 +203,7 @@ public class JavaBeanTesterTest {
      * @throws Exception
      *             generic exception.
      */
-    @Test (expected = NotSerializableException.class)
+    @Test(expected = NotSerializableException.class)
     public void test_nonSerializable() throws Exception {
         final NonDeserializableBean bean = new NonDeserializableBean();
         bean.getList().add(new Object());
@@ -228,5 +228,5 @@ public class JavaBeanTesterTest {
         ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
         return (T) new ObjectInputStream(bais).readObject();
     }
-    
+
 }
