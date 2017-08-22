@@ -14,6 +14,12 @@
  */
 package com.codebox.bean;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -184,9 +190,24 @@ public class JavaBeanTesterTest {
     /**
      * Test_non serializable.
      */
+    // Disable this test to confirm serialization fails internally
+    @Ignore
     @Test
     public void test_nonSerializableInternallyFails() {
         JavaBeanTester.builder(NonSerializableBean.class).checkSerializable().test();
+    }
+
+    /**
+     * Test_non deserializable.
+     *
+     * @throws Exception
+     *             generic exception.
+     */
+    @Test (expected = NotSerializableException.class)
+    public void test_nonSerializable() throws Exception {
+        final NonDeserializableBean bean = new NonDeserializableBean();
+        bean.getList().add(new Object());
+        JavaBeanTesterTest.serialize(bean);
     }
 
     /**
@@ -200,4 +221,12 @@ public class JavaBeanTesterTest {
         Assert.assertEquals(String.class, worker.getClazz());
     }
 
+    private static <T> T serialize(T object) throws Exception {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        new ObjectOutputStream(baos).writeObject(object);
+
+        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        return (T) new ObjectInputStream(bais).readObject();
+    }
+    
 }
