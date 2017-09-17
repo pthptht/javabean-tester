@@ -38,7 +38,7 @@ public final class ConstructorInstance {
      *            the instance
      * @return the Object
      */
-    public final static Object newInstance(final Constructor<?> constructor) {
+    public static Object newInstance(final Constructor<?> constructor) {
         try {
             return constructor.newInstance();
         } catch (InstantiationException e) {
@@ -60,7 +60,7 @@ public final class ConstructorInstance {
      * @param clazz
      *            the clazz
      */
-    public final static void inaccessible(final Class<?> clazz) {
+    public static void inaccessible(final Class<?> clazz) {
         final Constructor<?>[] ctors = clazz.getDeclaredConstructors();
         Assert.assertEquals("Utility class should only have one constructor", 1, ctors.length);
         final Constructor<?> ctor = ctors[0];

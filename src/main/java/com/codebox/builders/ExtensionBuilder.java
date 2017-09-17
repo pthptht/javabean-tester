@@ -18,6 +18,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -32,6 +35,9 @@ import javassist.NotFoundException;
  *            the generic type
  */
 public class ExtensionBuilder<T> {
+
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER    = LoggerFactory.getLogger(ExtensionBuilder.class);
 
     /**
      * Generate.
@@ -48,8 +54,9 @@ public class ExtensionBuilder<T> {
         try {
             // If extension already recreated, return it
             return Class.forName(clazz.getName() + "Extension");
-        } catch (@SuppressWarnings("unused") ClassNotFoundException e) {
+        } catch (final ClassNotFoundException e) {
             // No extension exists, so create it
+            ExtensionBuilder.LOGGER.trace("No extension exists, so create it", e);
         }
 
         final ClassPool pool = ClassPool.getDefault();
