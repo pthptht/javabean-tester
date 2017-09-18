@@ -20,8 +20,6 @@ import com.codebox.enums.LoadData;
 import com.codebox.enums.LoadType;
 import com.codebox.instance.ClassInstance;
 
-import lombok.Data;
-
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -38,6 +36,8 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
+import lombok.Data;
 
 import net.sf.cglib.beans.BeanCopier;
 
