@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ValueBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">javabean-tester</a> &gt; <a href="index.source.html" class="el_package">com.codebox.bean</a> &gt; <span class="el_source">ValueBuilder.java</span></div><h1>ValueBuilder.java</h1><pre class="source lang-java linenums">/**
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright (c) 2012 - 2015 Hazendaz.
+ * Copyright (c) 2012 - 2017 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -19,11 +19,6 @@ import com.codebox.enums.LoadType;
 import com.codebox.instance.ClassInstance;
 import com.codebox.instance.ConstructorInstance;
 
-import lombok.Data;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -32,6 +27,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+
+import lombok.Data;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Builds values from given type.
@@ -121,8 +121,8 @@ public class ValueBuilder {
      * @return Object the Object to use for test.
      */
     private static &lt;T&gt; Object setAlternateValues(final Class&lt;T&gt; clazz) {
-<span class="fc" id="L124">        return setValues(clazz, &quot;ALT_VALUE&quot;, 1, Boolean.FALSE, Integer.valueOf(2), Long.valueOf(2),</span>
-<span class="fc" id="L125">                Double.valueOf(2.0), Float.valueOf(2.0F), Character.valueOf('N'), Byte.valueOf((byte) 2));</span>
+<span class="fc" id="L124">        return setValues(clazz, &quot;ALT_VALUE&quot;, 1, Boolean.FALSE, Integer.valueOf(2), Long.valueOf(2), Double.valueOf(2.0),</span>
+<span class="fc" id="L125">                Float.valueOf(2.0F), Character.valueOf('N'), Byte.valueOf((byte) 2));</span>
     }
 
     /**
@@ -148,8 +148,8 @@ public class ValueBuilder {
      * @return Object the Object to use for test.
      */
     private static &lt;T&gt; Object setStandardValues(final Class&lt;T&gt; clazz) {
-<span class="fc" id="L151">        return setValues(clazz, &quot;TEST_VALUE&quot;, 1, Boolean.TRUE, Integer.valueOf(1), Long.valueOf(1),</span>
-<span class="fc" id="L152">                Double.valueOf(1.0), Float.valueOf(1.0F), Character.valueOf('Y'), Byte.valueOf((byte) 1));</span>
+<span class="fc" id="L151">        return setValues(clazz, &quot;TEST_VALUE&quot;, 1, Boolean.TRUE, Integer.valueOf(1), Long.valueOf(1), Double.valueOf(1.0),</span>
+<span class="fc" id="L152">                Float.valueOf(1.0F), Character.valueOf('Y'), Byte.valueOf((byte) 1));</span>
     }
 
     /**
@@ -225,4 +225,4 @@ public class ValueBuilder {
 <span class="fc" id="L225">        return null;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

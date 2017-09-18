@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JavaBeanTesterWorker.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">javabean-tester</a> &gt; <a href="index.source.html" class="el_package">com.codebox.bean</a> &gt; <span class="el_source">JavaBeanTesterWorker.java</span></div><h1>JavaBeanTesterWorker.java</h1><pre class="source lang-java linenums">/**
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright (c) 2012 - 2015 Hazendaz.
+ * Copyright (c) 2012 - 2017 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -15,26 +15,19 @@
 package com.codebox.bean;
 
 import com.codebox.enums.CanEquals;
+import com.codebox.enums.CanSerialize;
 import com.codebox.enums.LoadData;
 import com.codebox.enums.LoadType;
 import com.codebox.instance.ClassInstance;
 
-import com.codebox.enums.CanSerialize;
-
-import lombok.Data;
-import net.sf.cglib.beans.BeanCopier;
-
-import org.junit.Assert;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Externalizable;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
@@ -44,6 +37,14 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import lombok.Data;
+
+import net.sf.cglib.beans.BeanCopier;
+
+import org.junit.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * The Class JavaBeanTesterWorker.
  *
@@ -52,29 +53,29 @@ import java.util.Set;
  * @param &lt;E&gt;
  *            the element type
  */
-<span class="pc bnc" id="L55" title="All 54 branches missed.">@Data</span>
+<span class="pc bnc" id="L56" title="All 54 branches missed.">@Data</span>
 class JavaBeanTesterWorker&lt;T, E&gt; {
 
     /** The Constant LOGGER. */
-<span class="fc" id="L59">    private static final Logger LOGGER    = LoggerFactory.getLogger(JavaBeanTesterWorker.class);</span>
+<span class="fc" id="L60">    private static final Logger LOGGER    = LoggerFactory.getLogger(JavaBeanTesterWorker.class);</span>
 
     /** The serializable. */
-<span class="nc" id="L62">    private CanSerialize        checkSerializable;</span>
+<span class="nc" id="L63">    private CanSerialize        checkSerializable;</span>
 
     /** The load data. */
-<span class="nc" id="L65">    private LoadData            loadData;</span>
+<span class="nc" id="L66">    private LoadData            loadData;</span>
 
     /** The check equals. */
-<span class="nc" id="L68">    private CanEquals           checkEquals;</span>
+<span class="nc" id="L69">    private CanEquals           checkEquals;</span>
 
     /** The clazz. */
-<span class="fc" id="L71">    private Class&lt;T&gt;            clazz;</span>
+<span class="fc" id="L72">    private Class&lt;T&gt;            clazz;</span>
 
     /** The extension. */
-<span class="nc" id="L74">    private Class&lt;E&gt;            extension;</span>
+<span class="nc" id="L75">    private Class&lt;E&gt;            extension;</span>
 
     /** The skip these. */
-<span class="fc" id="L77">    private Set&lt;String&gt;         skipThese = new HashSet&lt;String&gt;();</span>
+<span class="fc" id="L78">    private Set&lt;String&gt;         skipThese = new HashSet&lt;String&gt;();</span>
 
     /**
      * Instantiates a new java bean tester worker.
@@ -82,9 +83,9 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
      * @param newClazz
      *            the clazz
      */
-<span class="fc" id="L85">    JavaBeanTesterWorker(final Class&lt;T&gt; newClazz) {</span>
-<span class="fc" id="L86">        this.clazz = newClazz;</span>
-<span class="fc" id="L87">    }</span>
+<span class="fc" id="L86">    JavaBeanTesterWorker(final Class&lt;T&gt; newClazz) {</span>
+<span class="fc" id="L87">        this.clazz = newClazz;</span>
+<span class="fc" id="L88">    }</span>
 
     /**
      * Instantiates a new java bean tester worker.
@@ -94,10 +95,10 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
      * @param newExtension
      *            the extension
      */
-<span class="fc" id="L97">    JavaBeanTesterWorker(final Class&lt;T&gt; newClazz, final Class&lt;E&gt; newExtension) {</span>
-<span class="fc" id="L98">        this.clazz = newClazz;</span>
-<span class="fc" id="L99">        this.extension = newExtension;</span>
-<span class="fc" id="L100">    }</span>
+<span class="fc" id="L98">    JavaBeanTesterWorker(final Class&lt;T&gt; newClazz, final Class&lt;E&gt; newExtension) {</span>
+<span class="fc" id="L99">        this.clazz = newClazz;</span>
+<span class="fc" id="L100">        this.extension = newExtension;</span>
+<span class="fc" id="L101">    }</span>
 
     /**
      * Tests the load methods of the specified class.
@@ -116,28 +117,28 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
      */
     public static &lt;L&gt; JavaBeanTesterWorker&lt;L, Object&gt; load(final Class&lt;L&gt; clazz, final L instance,
             final LoadData loadData, final String... skipThese) {
-<span class="fc" id="L119">        final JavaBeanTesterWorker&lt;L, Object&gt; worker = new JavaBeanTesterWorker&lt;L, Object&gt;(clazz);</span>
+<span class="fc" id="L120">        final JavaBeanTesterWorker&lt;L, Object&gt; worker = new JavaBeanTesterWorker&lt;L, Object&gt;(clazz);</span>
 
-<span class="fc" id="L121">        worker.setLoadData(loadData);</span>
-<span class="pc bpc" id="L122" title="1 of 2 branches missed.">        if (skipThese != null) {</span>
-<span class="fc" id="L123">            worker.setSkipThese(new HashSet&lt;String&gt;(Arrays.asList(skipThese)));</span>
+<span class="fc" id="L122">        worker.setLoadData(loadData);</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">        if (skipThese != null) {</span>
+<span class="fc" id="L124">            worker.setSkipThese(new HashSet&lt;String&gt;(Arrays.asList(skipThese)));</span>
         }
-<span class="fc" id="L125">        worker.getterSetterTests(instance);</span>
+<span class="fc" id="L126">        worker.getterSetterTests(instance);</span>
 
-<span class="fc" id="L127">        return worker;</span>
+<span class="fc" id="L128">        return worker;</span>
     }
 
     /**
      * Tests the get/set/equals/hashCode/toString methods and constructors of the specified class.
      */
     public void test() {
-<span class="fc" id="L134">        this.getterSetterTests(new ClassInstance&lt;T&gt;().newInstance(this.clazz));</span>
-<span class="fc" id="L135">        this.constructorsTest();</span>
-<span class="fc" id="L136">        this.checkSerializableTest();</span>
-<span class="fc bfc" id="L137" title="All 2 branches covered.">        if (this.checkEquals == CanEquals.ON) {</span>
-<span class="fc" id="L138">            this.equalsHashCodeToStringSymmetricTest();</span>
+<span class="fc" id="L135">        this.getterSetterTests(new ClassInstance&lt;T&gt;().newInstance(this.clazz));</span>
+<span class="fc" id="L136">        this.constructorsTest();</span>
+<span class="fc" id="L137">        this.checkSerializableTest();</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        if (this.checkEquals == CanEquals.ON) {</span>
+<span class="fc" id="L139">            this.equalsHashCodeToStringSymmetricTest();</span>
         }
-<span class="fc" id="L140">    }</span>
+<span class="fc" id="L141">    }</span>
 
     /**
      * Getter Setter Tests.
@@ -149,104 +150,104 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
     void getterSetterTests(final T instance) {
         PropertyDescriptor[] props;
         try {
-<span class="fc" id="L152">            props = Introspector.getBeanInfo(this.clazz).getPropertyDescriptors();</span>
-<span class="nc" id="L153">        } catch (IntrospectionException e) {</span>
-<span class="nc" id="L154">            Assert.fail(String.format(&quot;An exception was thrown while testing class '%s': '%s'&quot;, this.clazz.getName(),</span>
-<span class="nc" id="L155">                    e.toString()));</span>
-<span class="nc" id="L156">            return;</span>
-<span class="fc" id="L157">        }</span>
-<span class="fc bfc" id="L158" title="All 2 branches covered.">        nextProp: for (final PropertyDescriptor prop : props) {</span>
+<span class="fc" id="L153">            props = Introspector.getBeanInfo(this.clazz).getPropertyDescriptors();</span>
+<span class="nc" id="L154">        } catch (IntrospectionException e) {</span>
+<span class="nc" id="L155">            Assert.fail(String.format(&quot;An exception was thrown while testing class '%s': '%s'&quot;, this.clazz.getName(),</span>
+<span class="nc" id="L156">                    e.toString()));</span>
+<span class="nc" id="L157">            return;</span>
+<span class="fc" id="L158">        }</span>
+<span class="fc bfc" id="L159" title="All 2 branches covered.">        nextProp: for (final PropertyDescriptor prop : props) {</span>
             // Check the list of properties that we don't want to test
-<span class="fc bfc" id="L160" title="All 2 branches covered.">            for (final String skipThis : this.skipThese) {</span>
-<span class="fc bfc" id="L161" title="All 2 branches covered.">                if (skipThis.equals(prop.getName())) {</span>
-<span class="fc" id="L162">                    continue nextProp;</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">            for (final String skipThis : this.skipThese) {</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">                if (skipThis.equals(prop.getName())) {</span>
+<span class="fc" id="L163">                    continue nextProp;</span>
                 }
-<span class="fc" id="L164">            }</span>
-<span class="fc" id="L165">            final Method getter = prop.getReadMethod();</span>
-<span class="fc" id="L166">            final Method setter = prop.getWriteMethod();</span>
+<span class="fc" id="L165">            }</span>
+<span class="fc" id="L166">            final Method getter = prop.getReadMethod();</span>
+<span class="fc" id="L167">            final Method setter = prop.getWriteMethod();</span>
 
-<span class="pc bpc" id="L168" title="1 of 4 branches missed.">            if (getter != null &amp;&amp; setter != null) {</span>
+<span class="pc bpc" id="L169" title="1 of 4 branches missed.">            if (getter != null &amp;&amp; setter != null) {</span>
                 // We have both a get and set method for this property
-<span class="fc" id="L170">                final Class&lt;?&gt; returnType = getter.getReturnType();</span>
-<span class="fc" id="L171">                final Class&lt;?&gt;[] params = setter.getParameterTypes();</span>
+<span class="fc" id="L171">                final Class&lt;?&gt; returnType = getter.getReturnType();</span>
+<span class="fc" id="L172">                final Class&lt;?&gt;[] params = setter.getParameterTypes();</span>
 
-<span class="pc bpc" id="L173" title="2 of 4 branches missed.">                if (params.length == 1 &amp;&amp; params[0] == returnType) {</span>
+<span class="pc bpc" id="L174" title="2 of 4 branches missed.">                if (params.length == 1 &amp;&amp; params[0] == returnType) {</span>
                     // The set method has 1 argument, which is of the same type as the return type of the get method, so
                     // we can test this property
                     try {
                         // Build a value of the correct type to be passed to the set method
-<span class="fc" id="L178">                        final Object value = buildValue(returnType, LoadType.STANDARD_DATA);</span>
+<span class="fc" id="L179">                        final Object value = buildValue(returnType, LoadType.STANDARD_DATA);</span>
 
                         // Call the set method, then check the same value comes back out of the get method
-<span class="fc" id="L181">                        setter.invoke(instance, value);</span>
+<span class="fc" id="L182">                        setter.invoke(instance, value);</span>
 
-<span class="fc" id="L183">                        final Object expectedValue = value;</span>
-<span class="fc" id="L184">                        final Object actualValue = getter.invoke(instance);</span>
+<span class="fc" id="L184">                        final Object expectedValue = value;</span>
+<span class="fc" id="L185">                        final Object actualValue = getter.invoke(instance);</span>
 
-<span class="fc" id="L186">                        Assert.assertEquals(String.format(&quot;Failed while testing property '%s'&quot;, prop.getName()),</span>
+<span class="fc" id="L187">                        Assert.assertEquals(String.format(&quot;Failed while testing property '%s'&quot;, prop.getName()),</span>
                                 expectedValue, actualValue);
 
-<span class="nc" id="L189">                    } catch (final IllegalAccessException e) {</span>
-<span class="nc" id="L190">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
-<span class="nc" id="L191">                                prop.getName(), e.toString()));</span>
-<span class="nc" id="L192">                    } catch (final IllegalArgumentException e) {</span>
-<span class="nc" id="L193">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
-<span class="nc" id="L194">                                prop.getName(), e.toString()));</span>
-<span class="nc" id="L195">                    } catch (final InvocationTargetException e) {</span>
-<span class="nc" id="L196">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
-<span class="nc" id="L197">                                prop.getName(), e.toString()));</span>
-<span class="nc" id="L198">                    } catch (final SecurityException e) {</span>
-<span class="nc" id="L199">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
-<span class="nc" id="L200">                                prop.getName(), e.toString()));</span>
-<span class="pc" id="L201">                    }</span>
+<span class="nc" id="L190">                    } catch (final IllegalAccessException e) {</span>
+<span class="nc" id="L191">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
+<span class="nc" id="L192">                                prop.getName(), e.toString()));</span>
+<span class="nc" id="L193">                    } catch (final IllegalArgumentException e) {</span>
+<span class="nc" id="L194">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
+<span class="nc" id="L195">                                prop.getName(), e.toString()));</span>
+<span class="nc" id="L196">                    } catch (final InvocationTargetException e) {</span>
+<span class="nc" id="L197">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
+<span class="nc" id="L198">                                prop.getName(), e.toString()));</span>
+<span class="nc" id="L199">                    } catch (final SecurityException e) {</span>
+<span class="nc" id="L200">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
+<span class="nc" id="L201">                                prop.getName(), e.toString()));</span>
+<span class="pc" id="L202">                    }</span>
                 }
             }
         }
-<span class="fc" id="L205">    }</span>
+<span class="fc" id="L206">    }</span>
 
     /**
      * Constructors test.
      */
     void constructorsTest() {
-<span class="fc bfc" id="L211" title="All 2 branches covered.">        for (Constructor&lt;?&gt; constructor : this.clazz.getConstructors()) {</span>
-<span class="fc" id="L212">            final Class&lt;?&gt;[] types = constructor.getParameterTypes();</span>
+<span class="fc bfc" id="L212" title="All 2 branches covered.">        for (Constructor&lt;?&gt; constructor : this.clazz.getConstructors()) {</span>
+<span class="fc" id="L213">            final Class&lt;?&gt;[] types = constructor.getParameterTypes();</span>
 
-<span class="fc" id="L214">            final Object[] values = new Object[constructor.getParameterTypes().length];</span>
+<span class="fc" id="L215">            final Object[] values = new Object[constructor.getParameterTypes().length];</span>
 
-<span class="fc bfc" id="L216" title="All 2 branches covered.">            for (int i = 0; i &lt; values.length; i++) {</span>
-<span class="fc" id="L217">                values[i] = buildValue(types[i], LoadType.STANDARD_DATA);</span>
+<span class="fc bfc" id="L217" title="All 2 branches covered.">            for (int i = 0; i &lt; values.length; i++) {</span>
+<span class="fc" id="L218">                values[i] = buildValue(types[i], LoadType.STANDARD_DATA);</span>
             }
 
             try {
-<span class="fc" id="L221">                constructor.newInstance(values);</span>
-<span class="nc" id="L222">            } catch (InstantiationException e) {</span>
-<span class="nc" id="L223">                Assert.fail(String.format(&quot;An exception was thrown while testing the constructor '%s': '%s'&quot;,</span>
-<span class="nc" id="L224">                        constructor.getName(), e.toString()));</span>
-<span class="nc" id="L225">            } catch (IllegalAccessException e) {</span>
-<span class="nc" id="L226">                Assert.fail(String.format(&quot;An exception was thrown while testing the constructor '%s': '%s'&quot;,</span>
-<span class="nc" id="L227">                        constructor.getName(), e.toString()));</span>
-<span class="nc" id="L228">            } catch (InvocationTargetException e) {</span>
-<span class="nc" id="L229">                Assert.fail(String.format(&quot;An exception was thrown while testing the constructor '%s': '%s'&quot;,</span>
-<span class="nc" id="L230">                        constructor.getName(), e.toString()));</span>
-<span class="pc" id="L231">            }</span>
+<span class="fc" id="L222">                constructor.newInstance(values);</span>
+<span class="nc" id="L223">            } catch (InstantiationException e) {</span>
+<span class="nc" id="L224">                Assert.fail(String.format(&quot;An exception was thrown while testing the constructor '%s': '%s'&quot;,</span>
+<span class="nc" id="L225">                        constructor.getName(), e.toString()));</span>
+<span class="nc" id="L226">            } catch (IllegalAccessException e) {</span>
+<span class="nc" id="L227">                Assert.fail(String.format(&quot;An exception was thrown while testing the constructor '%s': '%s'&quot;,</span>
+<span class="nc" id="L228">                        constructor.getName(), e.toString()));</span>
+<span class="nc" id="L229">            } catch (InvocationTargetException e) {</span>
+<span class="nc" id="L230">                Assert.fail(String.format(&quot;An exception was thrown while testing the constructor '%s': '%s'&quot;,</span>
+<span class="nc" id="L231">                        constructor.getName(), e.toString()));</span>
+<span class="pc" id="L232">            }</span>
 
             // TODO: Add checking of new object properties
         }
-<span class="fc" id="L235">    }</span>
+<span class="fc" id="L236">    }</span>
 
     /**
      * Check Serializable test.
      */
     void checkSerializableTest() {
-<span class="fc" id="L241">        T object = new ClassInstance&lt;T&gt;().newInstance(this.clazz);</span>
-<span class="fc bfc" id="L242" title="All 2 branches covered.">        if (this.implementsSerializable(object)) {</span>
-<span class="fc" id="L243">            this.canSerialize(object);</span>
-<span class="fc" id="L244">            return;</span>
+<span class="fc" id="L242">        T object = new ClassInstance&lt;T&gt;().newInstance(this.clazz);</span>
+<span class="fc bfc" id="L243" title="All 2 branches covered.">        if (this.implementsSerializable(object)) {</span>
+<span class="fc" id="L244">            Assert.assertEquals(object, this.canSerialize(object));</span>
+<span class="fc" id="L245">            return;</span>
         }
-<span class="pc bpc" id="L246" title="1 of 2 branches missed.">        if (this.checkSerializable == CanSerialize.ON) {</span>
-<span class="nc" id="L247">            Assert.fail(String.format(&quot;Class is not serializable '%s'&quot;, object.getClass().getName()));</span>
+<span class="pc bpc" id="L247" title="1 of 2 branches missed.">        if (this.checkSerializable == CanSerialize.ON) {</span>
+<span class="nc" id="L248">            Assert.fail(String.format(&quot;Class is not serializable '%s'&quot;, object.getClass().getName()));</span>
         }
-<span class="fc" id="L249">    }</span>
+<span class="fc" id="L250">    }</span>
 
     /**
      * Implements serializable.
@@ -256,7 +257,7 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
      * @return true, if successful
      */
     boolean implementsSerializable(final T object) {
-<span class="pc bpc" id="L259" title="1 of 4 branches missed.">        return object instanceof Serializable || object instanceof Externalizable;</span>
+<span class="pc bpc" id="L260" title="1 of 4 branches missed.">        return object instanceof Serializable || object instanceof Externalizable;</span>
     }
 
     /**
@@ -264,26 +265,32 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
      *
      * @param object
      *            the object
+     * @return object read after serialization
      */
-    void canSerialize(final T object) {
-<span class="fc" id="L269">        ObjectOutputStream output = null;</span>
+    &lt;T&gt; T canSerialize(final T object) {
+        // Serialize data
+<span class="fc" id="L272">        final ByteArrayOutputStream baos = new ByteArrayOutputStream();</span>
         try {
-<span class="fc" id="L271">            output = new ObjectOutputStream(new ByteArrayOutputStream());</span>
-<span class="fc" id="L272">            output.writeObject(object);</span>
-<span class="nc" id="L273">        } catch (final IOException e) {</span>
-<span class="nc" id="L274">            Assert.fail(String.format(&quot;An exception was thrown while serializing the class '%s': '%s',&quot;, object</span>
-<span class="nc" id="L275">                    .getClass().getName(), e.toString()));</span>
-        } finally {
-<span class="pc bpc" id="L277" title="5 of 6 branches missed.">            if (output != null) {</span>
-                try {
-<span class="pc" id="L279">                    output.close();</span>
-<span class="nc" id="L280">                } catch (IOException e) {</span>
-<span class="nc" id="L281">                    Assert.fail(String.format(&quot;An exception was thrown while closing stream for class '%s': '%s',&quot;,</span>
-<span class="nc" id="L282">                            object.getClass().getName(), e.toString()));</span>
-<span class="pc" id="L283">                }</span>
-            }
-        }
-<span class="fc" id="L286">    }</span>
+<span class="fc" id="L274">            new ObjectOutputStream(baos).writeObject(object);</span>
+<span class="nc" id="L275">        } catch (final IOException e) {</span>
+<span class="nc" id="L276">            Assert.fail(String.format(&quot;An exception was thrown while serializing the class '%s': '%s',&quot;,</span>
+<span class="nc" id="L277">                    object.getClass().getName(), e.toString()));</span>
+<span class="nc" id="L278">            return null;</span>
+<span class="fc" id="L279">        }</span>
+
+        // Deserialize Data
+<span class="fc" id="L282">        final ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());</span>
+        try {
+<span class="fc" id="L284">            return (T) new ObjectInputStream(bais).readObject();</span>
+<span class="nc" id="L285">        } catch (final ClassNotFoundException e) {</span>
+<span class="nc" id="L286">            Assert.fail(String.format(&quot;An exception was thrown while deserializing the class '%s': '%s',&quot;,</span>
+<span class="nc" id="L287">                    object.getClass().getName(), e.toString()));</span>
+<span class="nc" id="L288">        } catch (final IOException e) {</span>
+<span class="nc" id="L289">            Assert.fail(String.format(&quot;An exception was thrown while deserializing the class '%s': '%s',&quot;,</span>
+<span class="nc" id="L290">                    object.getClass().getName(), e.toString()));</span>
+<span class="nc" id="L291">        }</span>
+<span class="nc" id="L292">        return null;</span>
+    }
 
     /**
      * Builds the value.
@@ -297,9 +304,9 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
      * @return the object
      */
     private &lt;R&gt; Object buildValue(final Class&lt;R&gt; returnType, final LoadType loadType) {
-<span class="fc" id="L300">        final ValueBuilder valueBuilder = new ValueBuilder();</span>
-<span class="fc" id="L301">        valueBuilder.setLoadData(this.loadData);</span>
-<span class="fc" id="L302">        return valueBuilder.buildValue(returnType, loadType);</span>
+<span class="fc" id="L307">        final ValueBuilder valueBuilder = new ValueBuilder();</span>
+<span class="fc" id="L308">        valueBuilder.setLoadData(this.loadData);</span>
+<span class="fc" id="L309">        return valueBuilder.buildValue(returnType, loadType);</span>
     }
 
     /**
@@ -307,82 +314,82 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
      */
     public void equalsHashCodeToStringSymmetricTest() {
         // Create Instances
-<span class="fc" id="L310">        final T x = new ClassInstance&lt;T&gt;().newInstance(this.clazz);</span>
-<span class="fc" id="L311">        final T y = new ClassInstance&lt;T&gt;().newInstance(this.clazz);</span>
+<span class="fc" id="L317">        final T x = new ClassInstance&lt;T&gt;().newInstance(this.clazz);</span>
+<span class="fc" id="L318">        final T y = new ClassInstance&lt;T&gt;().newInstance(this.clazz);</span>
 
         // TODO Internalize extension will require canEquals, equals, hashcode, and toString overrides.
-        /**
+        /*
          * try { this.extension = (Class&lt;E&gt;) new ExtensionBuilder&lt;T&gt;().generate(this.clazz); } catch (NotFoundException
          * e) { Assert.fail(e.getMessage()); } catch (CannotCompileException e) { Assert.fail(e.getMessage()); }
          */
-<span class="fc" id="L318">        final E ext = new ClassInstance&lt;E&gt;().newInstance(this.extension);</span>
+<span class="fc" id="L325">        final E ext = new ClassInstance&lt;E&gt;().newInstance(this.extension);</span>
 
         // Test Empty Equals, HashCode, and ToString
-<span class="fc" id="L321">        Assert.assertEquals(x, y);</span>
-<span class="fc" id="L322">        Assert.assertEquals(x.hashCode(), y.hashCode());</span>
-<span class="fc" id="L323">        Assert.assertEquals(x.toString(), y.toString());</span>
+<span class="fc" id="L328">        Assert.assertEquals(x, y);</span>
+<span class="fc" id="L329">        Assert.assertEquals(x.hashCode(), y.hashCode());</span>
+<span class="fc" id="L330">        Assert.assertEquals(x.toString(), y.toString());</span>
 
         // Test Extension Empty Equals, HashCode, and ToString
-<span class="fc" id="L326">        Assert.assertNotEquals(ext, y);</span>
-<span class="fc" id="L327">        Assert.assertNotEquals(ext.hashCode(), y.hashCode());</span>
+<span class="fc" id="L333">        Assert.assertNotEquals(ext, y);</span>
+<span class="fc" id="L334">        Assert.assertNotEquals(ext.hashCode(), y.hashCode());</span>
 
         // Test Empty One Sided Tests
-<span class="fc" id="L330">        Assert.assertNotEquals(x, null);</span>
-<span class="fc" id="L331">        Assert.assertEquals(x, x);</span>
+<span class="fc" id="L337">        Assert.assertNotEquals(x, null);</span>
+<span class="fc" id="L338">        Assert.assertEquals(x, x);</span>
 
         // Test Extension Empty One Sided Tests
-<span class="fc" id="L334">        Assert.assertNotEquals(ext, null);</span>
-<span class="fc" id="L335">        Assert.assertEquals(ext, ext);</span>
+<span class="fc" id="L341">        Assert.assertNotEquals(ext, null);</span>
+<span class="fc" id="L342">        Assert.assertEquals(ext, ext);</span>
 
         // Populate Side X
-<span class="fc" id="L338">        load(this.clazz, x, this.loadData);</span>
+<span class="fc" id="L345">        load(this.clazz, x, this.loadData);</span>
 
         // Populate Extension Side E
-<span class="fc" id="L341">        load(this.extension, ext, this.loadData);</span>
+<span class="fc" id="L348">        load(this.extension, ext, this.loadData);</span>
 
         // ReTest Equals (flip)
-<span class="fc" id="L344">        Assert.assertNotEquals(y, x);</span>
+<span class="fc" id="L351">        Assert.assertNotEquals(y, x);</span>
 
         // ReTest Extension Equals (flip)
-<span class="fc" id="L347">        Assert.assertNotEquals(y, ext);</span>
+<span class="fc" id="L354">        Assert.assertNotEquals(y, ext);</span>
 
         // Populate Size Y
-<span class="fc" id="L350">        load(this.clazz, y, this.loadData);</span>
+<span class="fc" id="L357">        load(this.clazz, y, this.loadData);</span>
 
         // ReTest Equals and HashCode
-<span class="fc bfc" id="L353" title="All 2 branches covered.">        if (this.loadData == LoadData.ON) {</span>
-<span class="fc" id="L354">            Assert.assertEquals(x, y);</span>
-<span class="fc" id="L355">            Assert.assertEquals(x.hashCode(), y.hashCode());</span>
+<span class="fc bfc" id="L360" title="All 2 branches covered.">        if (this.loadData == LoadData.ON) {</span>
+<span class="fc" id="L361">            Assert.assertEquals(x, y);</span>
+<span class="fc" id="L362">            Assert.assertEquals(x.hashCode(), y.hashCode());</span>
         } else {
-<span class="fc" id="L357">            Assert.assertNotEquals(x, y);</span>
-<span class="fc" id="L358">            Assert.assertNotEquals(x.hashCode(), y.hashCode());</span>
+<span class="fc" id="L364">            Assert.assertNotEquals(x, y);</span>
+<span class="fc" id="L365">            Assert.assertNotEquals(x.hashCode(), y.hashCode());</span>
         }
 
         // ReTest Extension Equals and HashCode
-<span class="fc" id="L362">        Assert.assertNotEquals(ext, y);</span>
-<span class="fc" id="L363">        Assert.assertNotEquals(ext.hashCode(), y.hashCode());</span>
-<span class="fc" id="L364">        Assert.assertNotEquals(ext.toString(), y.toString());</span>
+<span class="fc" id="L369">        Assert.assertNotEquals(ext, y);</span>
+<span class="fc" id="L370">        Assert.assertNotEquals(ext.hashCode(), y.hashCode());</span>
+<span class="fc" id="L371">        Assert.assertNotEquals(ext.toString(), y.toString());</span>
 
         // Create Immutable Instance
         try {
-<span class="fc" id="L368">            BeanCopier clazzBeanCopier = BeanCopier.create(this.clazz, this.clazz, false);</span>
-<span class="fc" id="L369">            final T e = new ClassInstance&lt;T&gt;().newInstance(this.clazz);</span>
-<span class="fc" id="L370">            clazzBeanCopier.copy(x, e, null);</span>
-<span class="fc" id="L371">            Assert.assertEquals(e, x);</span>
-<span class="nc" id="L372">        } catch (final Exception e) {</span>
-<span class="nc" id="L373">            JavaBeanTesterWorker.LOGGER.trace(&quot;Do nothing class is not mutable&quot;, e.toString());</span>
-<span class="fc" id="L374">        }</span>
+<span class="fc" id="L375">            BeanCopier clazzBeanCopier = BeanCopier.create(this.clazz, this.clazz, false);</span>
+<span class="fc" id="L376">            final T e = new ClassInstance&lt;T&gt;().newInstance(this.clazz);</span>
+<span class="fc" id="L377">            clazzBeanCopier.copy(x, e, null);</span>
+<span class="fc" id="L378">            Assert.assertEquals(e, x);</span>
+<span class="nc" id="L379">        } catch (final Exception e) {</span>
+<span class="nc" id="L380">            JavaBeanTesterWorker.LOGGER.trace(&quot;Do nothing class is not mutable&quot;, e.toString());</span>
+<span class="fc" id="L381">        }</span>
 
         // Create Extension Immutable Instance
         try {
-<span class="fc" id="L378">            BeanCopier extensionBeanCopier = BeanCopier.create(this.extension, this.extension, false);</span>
-<span class="fc" id="L379">            final E e2 = new ClassInstance&lt;E&gt;().newInstance(this.extension);</span>
-<span class="fc" id="L380">            extensionBeanCopier.copy(ext, e2, null);</span>
-<span class="fc" id="L381">            Assert.assertEquals(e2, ext);</span>
-<span class="fc" id="L382">        } catch (final Exception e) {</span>
-<span class="fc" id="L383">            JavaBeanTesterWorker.LOGGER.trace(&quot;Do nothing class is not mutable&quot;, e.toString());</span>
-<span class="fc" id="L384">        }</span>
-<span class="fc" id="L385">    }</span>
+<span class="fc" id="L385">            BeanCopier extensionBeanCopier = BeanCopier.create(this.extension, this.extension, false);</span>
+<span class="fc" id="L386">            final E e2 = new ClassInstance&lt;E&gt;().newInstance(this.extension);</span>
+<span class="fc" id="L387">            extensionBeanCopier.copy(ext, e2, null);</span>
+<span class="fc" id="L388">            Assert.assertEquals(e2, ext);</span>
+<span class="fc" id="L389">        } catch (final Exception e) {</span>
+<span class="fc" id="L390">            JavaBeanTesterWorker.LOGGER.trace(&quot;Do nothing class is not mutable&quot;, e.toString());</span>
+<span class="fc" id="L391">        }</span>
+<span class="fc" id="L392">    }</span>
 
     /**
      * Equals Tests will traverse one object changing values until all have been tested against another object. This is
@@ -397,85 +404,85 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 
         // Perform hashCode test dependent on data coming in
         // Assert.assertEquals(expected.hashCode(), instance.hashCode());
-<span class="fc bfc" id="L400" title="All 2 branches covered.">        if (expected.hashCode() == instance.hashCode()) {</span>
-<span class="fc" id="L401">            Assert.assertEquals(expected.hashCode(), instance.hashCode());</span>
+<span class="fc bfc" id="L407" title="All 2 branches covered.">        if (expected.hashCode() == instance.hashCode()) {</span>
+<span class="fc" id="L408">            Assert.assertEquals(expected.hashCode(), instance.hashCode());</span>
         } else {
-<span class="fc" id="L403">            Assert.assertNotEquals(expected.hashCode(), instance.hashCode());</span>
+<span class="fc" id="L410">            Assert.assertNotEquals(expected.hashCode(), instance.hashCode());</span>
         }
 
-<span class="fc" id="L406">        ValueBuilder valueBuilder = new ValueBuilder();</span>
-<span class="fc" id="L407">        valueBuilder.setLoadData(this.loadData);</span>
+<span class="fc" id="L413">        ValueBuilder valueBuilder = new ValueBuilder();</span>
+<span class="fc" id="L414">        valueBuilder.setLoadData(this.loadData);</span>
 
         PropertyDescriptor[] props;
         try {
-<span class="fc" id="L411">            props = Introspector.getBeanInfo(instance.getClass()).getPropertyDescriptors();</span>
-<span class="nc" id="L412">        } catch (IntrospectionException e) {</span>
-<span class="nc" id="L413">            Assert.fail(String.format(&quot;An exception occurred during introspection of '%s': '%s'&quot;, instance.getClass()</span>
-<span class="nc" id="L414">                    .getName(), e.toString()));</span>
-<span class="nc" id="L415">            return;</span>
-<span class="fc" id="L416">        }</span>
-<span class="fc bfc" id="L417" title="All 2 branches covered.">        for (final PropertyDescriptor prop : props) {</span>
-<span class="fc" id="L418">            final Method getter = prop.getReadMethod();</span>
-<span class="fc" id="L419">            final Method setter = prop.getWriteMethod();</span>
+<span class="fc" id="L418">            props = Introspector.getBeanInfo(instance.getClass()).getPropertyDescriptors();</span>
+<span class="nc" id="L419">        } catch (IntrospectionException e) {</span>
+<span class="nc" id="L420">            Assert.fail(String.format(&quot;An exception occurred during introspection of '%s': '%s'&quot;,</span>
+<span class="nc" id="L421">                    instance.getClass().getName(), e.toString()));</span>
+<span class="nc" id="L422">            return;</span>
+<span class="fc" id="L423">        }</span>
+<span class="fc bfc" id="L424" title="All 2 branches covered.">        for (final PropertyDescriptor prop : props) {</span>
+<span class="fc" id="L425">            final Method getter = prop.getReadMethod();</span>
+<span class="fc" id="L426">            final Method setter = prop.getWriteMethod();</span>
 
-<span class="pc bpc" id="L421" title="1 of 4 branches missed.">            if (getter != null &amp;&amp; setter != null) {</span>
+<span class="pc bpc" id="L428" title="1 of 4 branches missed.">            if (getter != null &amp;&amp; setter != null) {</span>
                 // We have both a get and set method for this property
-<span class="fc" id="L423">                final Class&lt;?&gt; returnType = getter.getReturnType();</span>
-<span class="fc" id="L424">                final Class&lt;?&gt;[] params = setter.getParameterTypes();</span>
+<span class="fc" id="L430">                final Class&lt;?&gt; returnType = getter.getReturnType();</span>
+<span class="fc" id="L431">                final Class&lt;?&gt;[] params = setter.getParameterTypes();</span>
 
-<span class="pc bpc" id="L426" title="2 of 4 branches missed.">                if (params.length == 1 &amp;&amp; params[0] == returnType) {</span>
+<span class="pc bpc" id="L433" title="2 of 4 branches missed.">                if (params.length == 1 &amp;&amp; params[0] == returnType) {</span>
                     // The set method has 1 argument, which is of the same type as the return type of the get method, so
                     // we can test this property
                     try {
                         // Save original value
-<span class="fc" id="L431">                        final Object original = getter.invoke(instance);</span>
+<span class="fc" id="L438">                        final Object original = getter.invoke(instance);</span>
 
                         // Build a value of the correct type to be passed to the set method using alternate test
-<span class="fc" id="L434">                        Object value = valueBuilder.buildValue(returnType, LoadType.ALTERNATE_DATA);</span>
+<span class="fc" id="L441">                        Object value = valueBuilder.buildValue(returnType, LoadType.ALTERNATE_DATA);</span>
 
                         // Call the set method, then check the same value comes back out of the get method
-<span class="fc" id="L437">                        setter.invoke(instance, value);</span>
+<span class="fc" id="L444">                        setter.invoke(instance, value);</span>
 
                         // Check equals depending on data
-<span class="fc bfc" id="L440" title="All 2 branches covered.">                        if (instance.equals(expected)) {</span>
-<span class="fc" id="L441">                            Assert.assertEquals(expected, instance);</span>
+<span class="fc bfc" id="L447" title="All 2 branches covered.">                        if (instance.equals(expected)) {</span>
+<span class="fc" id="L448">                            Assert.assertEquals(expected, instance);</span>
                         } else {
-<span class="fc" id="L443">                            Assert.assertNotEquals(expected, instance);</span>
+<span class="fc" id="L450">                            Assert.assertNotEquals(expected, instance);</span>
                         }
 
                         // Build a value of the correct type to be passed to the set method using null test
-<span class="fc" id="L447">                        value = valueBuilder.buildValue(returnType, LoadType.NULL_DATA);</span>
+<span class="fc" id="L454">                        value = valueBuilder.buildValue(returnType, LoadType.NULL_DATA);</span>
 
                         // Call the set method, then check the same value comes back out of the get method
-<span class="fc" id="L450">                        setter.invoke(instance, value);</span>
+<span class="fc" id="L457">                        setter.invoke(instance, value);</span>
 
                         // Check equals depending on data
-<span class="fc bfc" id="L453" title="All 2 branches covered.">                        if (instance.equals(expected)) {</span>
-<span class="fc" id="L454">                            Assert.assertEquals(expected, instance);</span>
+<span class="fc bfc" id="L460" title="All 2 branches covered.">                        if (instance.equals(expected)) {</span>
+<span class="fc" id="L461">                            Assert.assertEquals(expected, instance);</span>
                         } else {
-<span class="fc" id="L456">                            Assert.assertNotEquals(expected, instance);</span>
+<span class="fc" id="L463">                            Assert.assertNotEquals(expected, instance);</span>
                         }
 
                         // Reset to original value
-<span class="fc" id="L460">                        setter.invoke(instance, original);</span>
+<span class="fc" id="L467">                        setter.invoke(instance, original);</span>
 
-<span class="nc" id="L462">                    } catch (final IllegalAccessException e) {</span>
-<span class="nc" id="L463">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
-<span class="nc" id="L464">                                prop.getName(), e.toString()));</span>
-<span class="nc" id="L465">                    } catch (final IllegalArgumentException e) {</span>
-<span class="nc" id="L466">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
-<span class="nc" id="L467">                                prop.getName(), e.toString()));</span>
-<span class="nc" id="L468">                    } catch (final InvocationTargetException e) {</span>
-<span class="nc" id="L469">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
-<span class="nc" id="L470">                                prop.getName(), e.toString()));</span>
-<span class="nc" id="L471">                    } catch (final SecurityException e) {</span>
-<span class="nc" id="L472">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
-<span class="nc" id="L473">                                prop.getName(), e.toString()));</span>
-<span class="pc" id="L474">                    }</span>
+<span class="nc" id="L469">                    } catch (final IllegalAccessException e) {</span>
+<span class="nc" id="L470">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
+<span class="nc" id="L471">                                prop.getName(), e.toString()));</span>
+<span class="nc" id="L472">                    } catch (final IllegalArgumentException e) {</span>
+<span class="nc" id="L473">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
+<span class="nc" id="L474">                                prop.getName(), e.toString()));</span>
+<span class="nc" id="L475">                    } catch (final InvocationTargetException e) {</span>
+<span class="nc" id="L476">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
+<span class="nc" id="L477">                                prop.getName(), e.toString()));</span>
+<span class="nc" id="L478">                    } catch (final SecurityException e) {</span>
+<span class="nc" id="L479">                        Assert.fail(String.format(&quot;An exception was thrown while testing the property '%s': '%s'&quot;,</span>
+<span class="nc" id="L480">                                prop.getName(), e.toString()));</span>
+<span class="pc" id="L481">                    }</span>
                 }
             }
         }
-<span class="fc" id="L478">    }</span>
+<span class="fc" id="L485">    }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
