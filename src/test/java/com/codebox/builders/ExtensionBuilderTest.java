@@ -14,12 +14,12 @@
  */
 package com.codebox.builders;
 
+import com.codebox.bean.SampleBean;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import com.codebox.bean.SampleBean;
 
 import javassist.CannotCompileException;
 import javassist.NotFoundException;

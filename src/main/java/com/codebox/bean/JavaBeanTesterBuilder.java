@@ -15,9 +15,9 @@
 package com.codebox.bean;
 
 import com.codebox.enums.CanEquals;
+import com.codebox.enums.CanSerialize;
 import com.codebox.enums.LoadData;
 import com.codebox.instance.ConstructorInstance;
-import com.codebox.enums.CanSerialize;
 
 import java.util.Arrays;
 

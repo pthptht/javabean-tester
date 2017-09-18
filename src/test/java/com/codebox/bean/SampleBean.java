@@ -18,9 +18,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
-import lombok.Data;
-
 import org.slf4j.Logger;
+
+import lombok.Data;
 
 /**
  * Instantiates a new sample bean.

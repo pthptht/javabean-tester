@@ -14,14 +14,14 @@
  */
 package com.codebox.instance;
 
+import com.codebox.bean.ValueBuilder;
+import com.codebox.enums.LoadData;
+import com.codebox.enums.LoadType;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import org.junit.Assert;
-
-import com.codebox.bean.ValueBuilder;
-import com.codebox.enums.LoadData;
-import com.codebox.enums.LoadType;
 
 /**
  * The Class Instance.

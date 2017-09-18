@@ -15,19 +15,10 @@
 package com.codebox.bean;
 
 import com.codebox.enums.CanEquals;
+import com.codebox.enums.CanSerialize;
 import com.codebox.enums.LoadData;
 import com.codebox.enums.LoadType;
 import com.codebox.instance.ClassInstance;
-
-import com.codebox.enums.CanSerialize;
-
-import lombok.Data;
-import net.sf.cglib.beans.BeanCopier;
-
-import org.junit.Assert;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -45,6 +36,13 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.junit.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import lombok.Data;
+import net.sf.cglib.beans.BeanCopier;
 
 /**
  * The Class JavaBeanTesterWorker.
