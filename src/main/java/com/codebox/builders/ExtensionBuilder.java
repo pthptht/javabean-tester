@@ -37,7 +37,7 @@ import javassist.NotFoundException;
 public class ExtensionBuilder<T> {
 
     /** The Constant LOGGER. */
-    private static final Logger LOGGER    = LoggerFactory.getLogger(ExtensionBuilder.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExtensionBuilder.class);
 
     /**
      * Generate.
