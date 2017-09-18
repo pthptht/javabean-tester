@@ -16,13 +16,13 @@ package com.codebox.builders;
 
 import com.codebox.bean.SampleBean;
 
+import javassist.CannotCompileException;
+import javassist.NotFoundException;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import javassist.CannotCompileException;
-import javassist.NotFoundException;
 
 /**
  * The Class ExtensionBuilderTest.
