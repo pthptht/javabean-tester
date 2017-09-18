@@ -14,11 +14,11 @@
  */
 package com.codebox.bean;
 
+import lombok.Data;
+
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
-
-import lombok.Data;
 
 /**
  * Instantiates a new sample depth bean.
