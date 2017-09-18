@@ -39,11 +39,11 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.sf.cglib.beans.BeanCopier;
+
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.cglib.beans.BeanCopier;
 
 /**
  * The Class JavaBeanTesterWorker.
