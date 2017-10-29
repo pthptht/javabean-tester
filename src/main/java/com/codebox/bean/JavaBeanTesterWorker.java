@@ -18,6 +18,7 @@ import com.codebox.enums.CanEquals;
 import com.codebox.enums.CanSerialize;
 import com.codebox.enums.LoadData;
 import com.codebox.enums.LoadType;
+import com.codebox.enums.SkipStrictSerialize;
 import com.codebox.instance.ClassInstance;
 
 import java.beans.IntrospectionException;
@@ -61,6 +62,9 @@ class JavaBeanTesterWorker<T, E> {
 
     /** The serializable. */
     private CanSerialize        checkSerializable;
+
+    /** The skip strict serialize. */
+    private SkipStrictSerialize     skipStrictSerializable;
 
     /** The load data. */
     private LoadData            loadData;
@@ -241,7 +245,12 @@ class JavaBeanTesterWorker<T, E> {
     void checkSerializableTest() {
         T object = new ClassInstance<T>().newInstance(this.clazz);
         if (this.implementsSerializable(object)) {
-            Assert.assertEquals(object, this.canSerialize(object));
+            T newObject = this.canSerialize(object);
+            if (this.skipStrictSerializable != SkipStrictSerialize.ON) {
+                Assert.assertEquals(object, newObject);
+            } else {
+                Assert.assertNotEquals(object, newObject);
+            }
             return;
         }
         if (this.checkSerializable == CanSerialize.ON) {

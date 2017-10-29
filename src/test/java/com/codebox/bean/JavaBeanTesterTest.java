@@ -190,11 +190,9 @@ public class JavaBeanTesterTest {
     /**
      * Test_non serializable.
      */
-    // Disable this test to confirm serialization fails internally
-    @Ignore
     @Test
     public void test_nonSerializableInternallyFails() {
-        JavaBeanTester.builder(NonSerializableBean.class).checkSerializable().test();
+        JavaBeanTester.builder(NonSerializableBean.class).checkSerializable().skipStrictSerializable().test();
     }
 
     /**

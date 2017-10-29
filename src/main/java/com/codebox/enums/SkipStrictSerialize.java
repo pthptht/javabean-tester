@@ -12,18 +12,17 @@
  *     CodeBox (Rob Dawson).
  *     Hazendaz (Jeremy Landis).
  */
-package com.codebox.bean;
-
-import java.io.Serializable;
+package com.codebox.enums;
 
 /**
- * The Class EmptyBean.
+ * The Enum Serializable.
  */
-public class EmptyBean implements Serializable {
+public enum SkipStrictSerialize {
 
-    /** The Constant serialVersionUID. */
-    private static final long serialVersionUID = 1L;
+    /** The on. */
+    ON,
 
-    // Empty bean for testing
+    /** The off. */
+    OFF;
 
 }

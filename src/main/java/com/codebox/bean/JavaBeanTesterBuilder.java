@@ -17,6 +17,7 @@ package com.codebox.bean;
 import com.codebox.enums.CanEquals;
 import com.codebox.enums.CanSerialize;
 import com.codebox.enums.LoadData;
+import com.codebox.enums.SkipStrictSerialize;
 import com.codebox.instance.ConstructorInstance;
 
 import java.util.Arrays;
@@ -116,6 +117,22 @@ public class JavaBeanTesterBuilder<T, E> {
      */
     public JavaBeanTesterBuilder<T, E> checkSerializable(final boolean value) {
         this.worker.setCheckSerializable(value ? CanSerialize.ON : CanSerialize.OFF);
+        return this;
+    }
+
+    /**
+     * Skip Strict Serializable is intended to relax strict check on serializable objects.
+     * For complex objects, strict checking will result in issues with equals check.
+     * Testing has shown this to be generally not a normal use case of javabean tester
+     * as it is normally used with POJOs only.  In such a case, caller will get an error
+     * and if there is not actually a code problem they should turn this skip on.
+     *
+     * @param value
+     *            the value
+     * @return the java bean tester builder
+     */
+    public JavaBeanTesterBuilder<T, E> skipStrictSerializable() {
+        this.worker.setSkipStrictSerializable(SkipStrictSerialize.ON);
         return this;
     }
 
