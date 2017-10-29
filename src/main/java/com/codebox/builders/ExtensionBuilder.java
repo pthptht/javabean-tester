@@ -102,9 +102,16 @@ public class ExtensionBuilder<T> {
     private static CtMethod generateGetter(CtClass declaringClass, String fieldName, Class<?> fieldClass)
             throws CannotCompileException {
         final StringBuilder sb = new StringBuilder();
-        sb.append("public ").append(fieldClass.getName()).append(" get").append(fieldName.substring(0, 1).toUpperCase())
-                .append(fieldName.substring(1)).append("(){").append("return this.").append(fieldName).append(";")
-                .append("}");
+        sb.append("public ");
+        sb.append(fieldClass.getName());
+        sb.append(" get");
+        sb.append(fieldName.substring(0, 1).toUpperCase());
+        sb.append(fieldName.substring(1));
+        sb.append("(){");
+        sb.append("return this.");
+        sb.append(fieldName);
+        sb.append(";");
+        sb.append("}");
         return CtMethod.make(sb.toString(), declaringClass);
     }
 
@@ -124,9 +131,21 @@ public class ExtensionBuilder<T> {
     private static CtMethod generateSetter(CtClass declaringClass, String fieldName, Class<?> fieldClass)
             throws CannotCompileException {
         final StringBuilder sb = new StringBuilder();
-        sb.append("public void set").append(fieldName.substring(0, 1).toUpperCase()).append(fieldName.substring(1))
-                .append("(").append(fieldClass.getName()).append(" ").append(fieldName).append(")").append("{")
-                .append("this.").append(fieldName).append("=").append(fieldName).append(";").append("}");
+        sb.append("public void set");
+        sb.append(fieldName.substring(0, 1).toUpperCase());
+        sb.append(fieldName.substring(1));
+        sb.append("(");
+        sb.append(fieldClass.getName());
+        sb.append(" ");
+        sb.append(fieldName);
+        sb.append(")");
+        sb.append("{");
+        sb.append("this.");
+        sb.append(fieldName);
+        sb.append("=");
+        sb.append(fieldName);
+        sb.append(";");
+        sb.append("}");
         return CtMethod.make(sb.toString(), declaringClass);
     }
 
@@ -140,8 +159,7 @@ public class ExtensionBuilder<T> {
      *             the not found exception
      */
     private static CtClass resolveCtClass(Class<?> clazz) throws NotFoundException {
-        final ClassPool pool = ClassPool.getDefault();
-        return pool.get(clazz.getName());
+        return ClassPool.getDefault().get(clazz.getName());
     }
 
 }
