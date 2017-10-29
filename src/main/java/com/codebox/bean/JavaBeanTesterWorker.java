@@ -64,7 +64,7 @@ class JavaBeanTesterWorker<T, E> {
     private CanSerialize        checkSerializable;
 
     /** The skip strict serialize. */
-    private SkipStrictSerialize     skipStrictSerializable;
+    private SkipStrictSerialize skipStrictSerializable;
 
     /** The load data. */
     private LoadData            loadData;
