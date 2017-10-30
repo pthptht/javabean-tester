@@ -102,10 +102,17 @@ import org.slf4j.LoggerFactory;
     private static CtMethod generateGetter(CtClass declaringClass, String fieldName, Class&lt;?&gt; fieldClass)
             throws CannotCompileException {
 <span class="nc" id="L104">        final StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L105">        sb.append(&quot;public &quot;).append(fieldClass.getName()).append(&quot; get&quot;).append(fieldName.substring(0, 1).toUpperCase())</span>
-<span class="nc" id="L106">                .append(fieldName.substring(1)).append(&quot;(){&quot;).append(&quot;return this.&quot;).append(fieldName).append(&quot;;&quot;)</span>
-<span class="nc" id="L107">                .append(&quot;}&quot;);</span>
-<span class="nc" id="L108">        return CtMethod.make(sb.toString(), declaringClass);</span>
+<span class="nc" id="L105">        sb.append(&quot;public &quot;);</span>
+<span class="nc" id="L106">        sb.append(fieldClass.getName());</span>
+<span class="nc" id="L107">        sb.append(&quot; get&quot;);</span>
+<span class="nc" id="L108">        sb.append(fieldName.substring(0, 1).toUpperCase());</span>
+<span class="nc" id="L109">        sb.append(fieldName.substring(1));</span>
+<span class="nc" id="L110">        sb.append(&quot;(){&quot;);</span>
+<span class="nc" id="L111">        sb.append(&quot;return this.&quot;);</span>
+<span class="nc" id="L112">        sb.append(fieldName);</span>
+<span class="nc" id="L113">        sb.append(&quot;;&quot;);</span>
+<span class="nc" id="L114">        sb.append(&quot;}&quot;);</span>
+<span class="nc" id="L115">        return CtMethod.make(sb.toString(), declaringClass);</span>
     }
 
     /**
@@ -123,11 +130,23 @@ import org.slf4j.LoggerFactory;
      */
     private static CtMethod generateSetter(CtClass declaringClass, String fieldName, Class&lt;?&gt; fieldClass)
             throws CannotCompileException {
-<span class="nc" id="L126">        final StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L127">        sb.append(&quot;public void set&quot;).append(fieldName.substring(0, 1).toUpperCase()).append(fieldName.substring(1))</span>
-<span class="nc" id="L128">                .append(&quot;(&quot;).append(fieldClass.getName()).append(&quot; &quot;).append(fieldName).append(&quot;)&quot;).append(&quot;{&quot;)</span>
-<span class="nc" id="L129">                .append(&quot;this.&quot;).append(fieldName).append(&quot;=&quot;).append(fieldName).append(&quot;;&quot;).append(&quot;}&quot;);</span>
-<span class="nc" id="L130">        return CtMethod.make(sb.toString(), declaringClass);</span>
+<span class="nc" id="L133">        final StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L134">        sb.append(&quot;public void set&quot;);</span>
+<span class="nc" id="L135">        sb.append(fieldName.substring(0, 1).toUpperCase());</span>
+<span class="nc" id="L136">        sb.append(fieldName.substring(1));</span>
+<span class="nc" id="L137">        sb.append(&quot;(&quot;);</span>
+<span class="nc" id="L138">        sb.append(fieldClass.getName());</span>
+<span class="nc" id="L139">        sb.append(&quot; &quot;);</span>
+<span class="nc" id="L140">        sb.append(fieldName);</span>
+<span class="nc" id="L141">        sb.append(&quot;)&quot;);</span>
+<span class="nc" id="L142">        sb.append(&quot;{&quot;);</span>
+<span class="nc" id="L143">        sb.append(&quot;this.&quot;);</span>
+<span class="nc" id="L144">        sb.append(fieldName);</span>
+<span class="nc" id="L145">        sb.append(&quot;=&quot;);</span>
+<span class="nc" id="L146">        sb.append(fieldName);</span>
+<span class="nc" id="L147">        sb.append(&quot;;&quot;);</span>
+<span class="nc" id="L148">        sb.append(&quot;}&quot;);</span>
+<span class="nc" id="L149">        return CtMethod.make(sb.toString(), declaringClass);</span>
     }
 
     /**
@@ -140,8 +159,7 @@ import org.slf4j.LoggerFactory;
      *             the not found exception
      */
     private static CtClass resolveCtClass(Class&lt;?&gt; clazz) throws NotFoundException {
-<span class="nc" id="L143">        final ClassPool pool = ClassPool.getDefault();</span>
-<span class="nc" id="L144">        return pool.get(clazz.getName());</span>
+<span class="nc" id="L162">        return ClassPool.getDefault().get(clazz.getName());</span>
     }
 
 }

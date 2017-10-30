@@ -17,6 +17,7 @@ package com.codebox.bean;
 import com.codebox.enums.CanEquals;
 import com.codebox.enums.CanSerialize;
 import com.codebox.enums.LoadData;
+import com.codebox.enums.SkipStrictSerialize;
 import com.codebox.instance.ConstructorInstance;
 
 import java.util.Arrays;
@@ -40,9 +41,9 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @param clazz
      *            the clazz
      */
-<span class="fc" id="L43">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz) {</span>
-<span class="fc" id="L44">        this.worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz);</span>
-<span class="fc" id="L45">    }</span>
+<span class="fc" id="L44">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz) {</span>
+<span class="fc" id="L45">        this.worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz);</span>
+<span class="fc" id="L46">    }</span>
 
     /**
      * Instantiates a new java bean tester builder.
@@ -52,9 +53,9 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @param extension
      *            the extension
      */
-<span class="fc" id="L55">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension) {</span>
-<span class="fc" id="L56">        this.worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz, extension);</span>
-<span class="fc" id="L57">    }</span>
+<span class="fc" id="L56">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension) {</span>
+<span class="fc" id="L57">        this.worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz, extension);</span>
+<span class="fc" id="L58">    }</span>
 
     /**
      * Check equals.
@@ -62,7 +63,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkEquals() {
-<span class="fc" id="L65">        return checkEquals(true);</span>
+<span class="fc" id="L66">        return checkEquals(true);</span>
     }
 
     /**
@@ -73,8 +74,8 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkEquals(final boolean value) {
-<span class="fc bfc" id="L76" title="All 2 branches covered.">        this.worker.setCheckEquals(value ? CanEquals.ON : CanEquals.OFF);</span>
-<span class="fc" id="L77">        return this;</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        this.worker.setCheckEquals(value ? CanEquals.ON : CanEquals.OFF);</span>
+<span class="fc" id="L78">        return this;</span>
     }
 
     /**
@@ -83,7 +84,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; loadData() {
-<span class="fc" id="L86">        return loadData(true);</span>
+<span class="fc" id="L87">        return loadData(true);</span>
     }
 
     /**
@@ -94,8 +95,8 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; loadData(final boolean value) {
-<span class="fc bfc" id="L97" title="All 2 branches covered.">        this.worker.setLoadData(value ? LoadData.ON : LoadData.OFF);</span>
-<span class="fc" id="L98">        return this;</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        this.worker.setLoadData(value ? LoadData.ON : LoadData.OFF);</span>
+<span class="fc" id="L99">        return this;</span>
     }
 
     /**
@@ -104,7 +105,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkSerializable() {
-<span class="fc" id="L107">        return checkSerializable(true);</span>
+<span class="fc" id="L108">        return checkSerializable(true);</span>
     }
 
     /**
@@ -115,8 +116,21 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkSerializable(final boolean value) {
-<span class="fc bfc" id="L118" title="All 2 branches covered.">        this.worker.setCheckSerializable(value ? CanSerialize.ON : CanSerialize.OFF);</span>
-<span class="fc" id="L119">        return this;</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        this.worker.setCheckSerializable(value ? CanSerialize.ON : CanSerialize.OFF);</span>
+<span class="fc" id="L120">        return this;</span>
+    }
+
+    /**
+     * Skip Strict Serializable is intended to relax strict check on serializable objects. For complex objects, strict
+     * checking will result in issues with equals check. Testing has shown this to be generally not a normal use case of
+     * javabean tester as it is normally used with POJOs only. In such a case, caller will get an error and if there is
+     * not actually a code problem they should turn this skip on.
+     *
+     * @return the java bean tester builder
+     */
+    public JavaBeanTesterBuilder&lt;T, E&gt; skipStrictSerializable() {
+<span class="fc" id="L132">        this.worker.setSkipStrictSerializable(SkipStrictSerialize.ON);</span>
+<span class="fc" id="L133">        return this;</span>
     }
 
     /**
@@ -127,32 +141,32 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; skip(final String... propertyNames) {
-<span class="pc bpc" id="L130" title="1 of 2 branches missed.">        if (propertyNames != null) {</span>
-<span class="fc" id="L131">            this.worker.getSkipThese().addAll(Arrays.asList(propertyNames));</span>
+<span class="pc bpc" id="L144" title="1 of 2 branches missed.">        if (propertyNames != null) {</span>
+<span class="fc" id="L145">            this.worker.getSkipThese().addAll(Arrays.asList(propertyNames));</span>
         }
-<span class="fc" id="L133">        return this;</span>
+<span class="fc" id="L147">        return this;</span>
     }
 
     /**
      * Test.
      */
     public void test() {
-<span class="fc" id="L140">        this.worker.test();</span>
-<span class="fc" id="L141">    }</span>
+<span class="fc" id="L154">        this.worker.test();</span>
+<span class="fc" id="L155">    }</span>
 
     /**
      * Private Constructor Test.
      */
     public void testPrivateConstructor() {
-<span class="fc" id="L147">        ConstructorInstance.inaccessible(this.worker.getClazz());</span>
-<span class="fc" id="L148">    }</span>
+<span class="fc" id="L161">        ConstructorInstance.inaccessible(this.worker.getClazz());</span>
+<span class="fc" id="L162">    }</span>
 
     /**
      * Tests the equals/hashCode/toString methods of the specified class.
      */
     public void testObjectMethods() {
-<span class="fc" id="L154">        this.worker.equalsHashCodeToStringSymmetricTest();</span>
-<span class="fc" id="L155">    }</span>
+<span class="fc" id="L168">        this.worker.equalsHashCodeToStringSymmetricTest();</span>
+<span class="fc" id="L169">    }</span>
 
     /**
      * Getter Setter Tests.
@@ -161,8 +175,8 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *            the instance of class under test.
      */
     public void testInstance(final T instance) {
-<span class="fc" id="L164">        this.worker.getterSetterTests(instance);</span>
-<span class="fc" id="L165">    }</span>
+<span class="fc" id="L178">        this.worker.getterSetterTests(instance);</span>
+<span class="fc" id="L179">    }</span>
 
     /**
      * Test equals.
@@ -173,8 +187,8 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *            the expected
      */
     public void testEquals(final T instance, final T expected) {
-<span class="fc" id="L176">        this.worker.equalsTests(instance, expected);</span>
-<span class="fc" id="L177">    }</span>
+<span class="fc" id="L190">        this.worker.equalsTests(instance, expected);</span>
+<span class="fc" id="L191">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
