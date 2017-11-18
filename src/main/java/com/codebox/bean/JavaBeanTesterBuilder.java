@@ -42,7 +42,7 @@ public class JavaBeanTesterBuilder<T, E> {
      *            the clazz
      */
     JavaBeanTesterBuilder(final Class<T> clazz) {
-        this.worker = new JavaBeanTesterWorker<T, E>(clazz);
+        this.worker = new JavaBeanTesterWorker<>(clazz);
     }
 
     /**
@@ -54,7 +54,7 @@ public class JavaBeanTesterBuilder<T, E> {
      *            the extension
      */
     JavaBeanTesterBuilder(final Class<T> clazz, final Class<E> extension) {
-        this.worker = new JavaBeanTesterWorker<T, E>(clazz, extension);
+        this.worker = new JavaBeanTesterWorker<>(clazz, extension);
     }
 
     /**

@@ -65,7 +65,7 @@ public class ExtensionBuilder<T> {
         // add super class
         cc.setSuperclass(resolveCtClass(clazz));
 
-        final Map<String, Class<?>> properties = new HashMap<String, Class<?>>();
+        final Map<String, Class<?>> properties = new HashMap<>();
         properties.put("jbExtension1", String.class);
         properties.put("jbExtension2", String.class);
         properties.put("jbExtension3", String.class);

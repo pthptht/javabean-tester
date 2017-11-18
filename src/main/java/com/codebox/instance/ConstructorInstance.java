@@ -41,13 +41,7 @@ public final class ConstructorInstance {
     public static Object newInstance(final Constructor<?> constructor) {
         try {
             return constructor.newInstance();
-        } catch (InstantiationException e) {
-            Assert.fail(String.format("An exception was thrown while testing the constructor '%s': '%s'",
-                    constructor.getName(), e.toString()));
-        } catch (IllegalAccessException e) {
-            Assert.fail(String.format("An exception was thrown while testing the constructor '%s': '%s'",
-                    constructor.getName(), e.toString()));
-        } catch (InvocationTargetException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             Assert.fail(String.format("An exception was thrown while testing the constructor '%s': '%s'",
                     constructor.getName(), e.toString()));
         }

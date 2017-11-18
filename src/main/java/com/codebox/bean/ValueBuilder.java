@@ -60,7 +60,7 @@ public class ValueBuilder {
             if (ctr.getParameterTypes().length == 0 && clazz != String.class) {
                 if (this.loadData == LoadData.ON) {
                     // Load Underlying Data
-                    JavaBeanTesterWorker<T, Object> beanTesterWorker = new JavaBeanTesterWorker<T, Object>(clazz);
+                    JavaBeanTesterWorker<T, Object> beanTesterWorker = new JavaBeanTesterWorker<>(clazz);
                     beanTesterWorker.setLoadData(this.loadData);
                     beanTesterWorker.getterSetterTests(new ClassInstance<T>().newInstance(clazz));
                     return null;
@@ -88,13 +88,13 @@ public class ValueBuilder {
             return returnObject;
 
         } else if (clazz.isAssignableFrom(List.class)) {
-            return new ArrayList<Object>();
+            return new ArrayList<>();
 
         } else if (clazz.isAssignableFrom(Map.class)) {
-            return new HashMap<Object, Object>();
+            return new HashMap<>();
 
         } else if (clazz.isAssignableFrom(ConcurrentMap.class)) {
-            return new ConcurrentHashMap<Object, Object>();
+            return new ConcurrentHashMap<>();
 
         } else if (clazz == Logger.class) {
             return LoggerFactory.getLogger(clazz);

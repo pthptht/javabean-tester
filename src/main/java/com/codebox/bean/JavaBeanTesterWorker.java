@@ -79,7 +79,7 @@ class JavaBeanTesterWorker<T, E> {
     private Class<E>            extension;
 
     /** The skip these. */
-    private Set<String>         skipThese = new HashSet<String>();
+    private Set<String>         skipThese = new HashSet<>();
 
     /**
      * Instantiates a new java bean tester worker.
@@ -121,11 +121,11 @@ class JavaBeanTesterWorker<T, E> {
      */
     public static <L> JavaBeanTesterWorker<L, Object> load(final Class<L> clazz, final L instance,
             final LoadData loadData, final String... skipThese) {
-        final JavaBeanTesterWorker<L, Object> worker = new JavaBeanTesterWorker<L, Object>(clazz);
+        final JavaBeanTesterWorker<L, Object> worker = new JavaBeanTesterWorker<>(clazz);
 
         worker.setLoadData(loadData);
         if (skipThese != null) {
-            worker.setSkipThese(new HashSet<String>(Arrays.asList(skipThese)));
+            worker.setSkipThese(new HashSet<>(Arrays.asList(skipThese)));
         }
         worker.getterSetterTests(instance);
 
@@ -191,16 +191,7 @@ class JavaBeanTesterWorker<T, E> {
                         Assert.assertEquals(String.format("Failed while testing property '%s'", prop.getName()),
                                 expectedValue, actualValue);
 
-                    } catch (final IllegalAccessException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
-                                prop.getName(), e.toString()));
-                    } catch (final IllegalArgumentException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
-                                prop.getName(), e.toString()));
-                    } catch (final InvocationTargetException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
-                                prop.getName(), e.toString()));
-                    } catch (final SecurityException e) {
+                    } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e) {
                         Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
                                 prop.getName(), e.toString()));
                     }
@@ -224,13 +215,7 @@ class JavaBeanTesterWorker<T, E> {
 
             try {
                 constructor.newInstance(values);
-            } catch (InstantiationException e) {
-                Assert.fail(String.format("An exception was thrown while testing the constructor '%s': '%s'",
-                        constructor.getName(), e.toString()));
-            } catch (IllegalAccessException e) {
-                Assert.fail(String.format("An exception was thrown while testing the constructor '%s': '%s'",
-                        constructor.getName(), e.toString()));
-            } catch (InvocationTargetException e) {
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 Assert.fail(String.format("An exception was thrown while testing the constructor '%s': '%s'",
                         constructor.getName(), e.toString()));
             }
@@ -475,16 +460,7 @@ class JavaBeanTesterWorker<T, E> {
                         // Reset to original value
                         setter.invoke(instance, original);
 
-                    } catch (final IllegalAccessException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
-                                prop.getName(), e.toString()));
-                    } catch (final IllegalArgumentException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
-                                prop.getName(), e.toString()));
-                    } catch (final InvocationTargetException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
-                                prop.getName(), e.toString()));
-                    } catch (final SecurityException e) {
+                    } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e) {
                         Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
                                 prop.getName(), e.toString()));
                     }

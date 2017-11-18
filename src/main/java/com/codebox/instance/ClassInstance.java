@@ -52,13 +52,7 @@ public class ClassInstance<T> {
 
             try {
                 return (T) constructor.newInstance(values);
-            } catch (InstantiationException e) {
-                Assert.fail(String.format("An exception was thrown while testing the class '%s': '%s'",
-                        constructor.getName(), e.toString()));
-            } catch (IllegalAccessException e) {
-                Assert.fail(String.format("An exception was thrown while testing the class '%s': '%s'",
-                        constructor.getName(), e.toString()));
-            } catch (InvocationTargetException e) {
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 Assert.fail(String.format("An exception was thrown while testing the class '%s': '%s'",
                         constructor.getName(), e.toString()));
             }
