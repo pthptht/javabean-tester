@@ -191,7 +191,8 @@ class JavaBeanTesterWorker<T, E> {
                         Assert.assertEquals(String.format("Failed while testing property '%s'", prop.getName()),
                                 expectedValue, actualValue);
 
-                    } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e) {
+                    } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                            | SecurityException e) {
                         Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
                                 prop.getName(), e.toString()));
                     }
@@ -460,7 +461,8 @@ class JavaBeanTesterWorker<T, E> {
                         // Reset to original value
                         setter.invoke(instance, original);
 
-                    } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e) {
+                    } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                            | SecurityException e) {
                         Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
                                 prop.getName(), e.toString()));
                     }
