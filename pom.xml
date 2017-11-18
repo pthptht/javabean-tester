@@ -991,7 +991,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>net.revelc.code.formatter</groupId>
                                                 <artifactId>formatter-maven-plugin</artifactId>
-                                                <versionRange>[2.0.1,)</versionRange>
+                                                <versionRange>[2.7.0,)</versionRange>
                                                 <goals>
                                                     <goal>format</goal>
                                                 </goals>
@@ -1004,7 +1004,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>org.apache.maven.plugins</groupId>
                                                 <artifactId>maven-enforcer-plugin</artifactId>
-                                                <versionRange>[1.4.1,)</versionRange>
+                                                <versionRange>[3.0.0-M1,)</versionRange>
                                                 <goals>
                                                     <goal>enforce</goal>
                                                 </goals>
