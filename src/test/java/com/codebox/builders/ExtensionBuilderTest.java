@@ -19,16 +19,13 @@ import com.codebox.bean.SampleBean;
 import javassist.CannotCompileException;
 import javassist.NotFoundException;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class ExtensionBuilderTest.
  */
-// TODO 11/26/15 For some reason this fails on travis-ci java 7 only even though real code worked days ago.
-@Ignore
 public class ExtensionBuilderTest {
 
     /** The class. */
@@ -40,8 +37,8 @@ public class ExtensionBuilderTest {
     /**
      * Inits the.
      */
-    @Before
-    public void init() {
+    @BeforeEach
+    void init() {
         this.clazz = SampleBean.class;
         this.extension = SampleBean.class;
     }
@@ -56,8 +53,8 @@ public class ExtensionBuilderTest {
      */
     @SuppressWarnings("unchecked")
     @Test
-    public void extensionBuilder() throws NotFoundException, CannotCompileException {
+    void extensionBuilder() throws NotFoundException, CannotCompileException {
         this.extension = (Class<SampleBean>) new ExtensionBuilder<SampleBean>().generate(this.clazz);
-        Assert.assertNotEquals(this.clazz, this.extension);
+        Assertions.assertNotEquals(this.clazz, this.extension);
     }
 }

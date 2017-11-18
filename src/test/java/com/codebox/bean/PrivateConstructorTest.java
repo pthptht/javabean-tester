@@ -14,7 +14,7 @@
  */
 package com.codebox.bean;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class PrivateConstructorTest.
@@ -25,7 +25,7 @@ public class PrivateConstructorTest {
      * Private constructor.
      */
     @Test
-    public void privateConstructor() {
+    void privateConstructor() {
         JavaBeanTester.builder(PrivateConstructor.class).testPrivateConstructor();
     }
 

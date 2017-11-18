@@ -20,11 +20,11 @@ import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
 import mockit.Deencapsulation;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class JavaBeanTesterTest.
@@ -40,8 +40,8 @@ public class JavaBeanTesterTest {
     /**
      * Inits the.
      */
-    @Before
-    public void init() {
+    @BeforeEach
+    void init() {
         this.sampleBean = new SampleBean(null);
         this.expectedBean = new SampleBean(null);
     }
@@ -50,16 +50,16 @@ public class JavaBeanTesterTest {
      * Load_full bean.
      */
     @Test
-    public void load_fullBean() {
+    void load_fullBean() {
         JavaBeanTester.builder(SampleBean.class).loadData().testInstance(this.sampleBean);
-        Assert.assertNotNull(this.sampleBean.getDoubleWrapper());
+        Assertions.assertNotNull(this.sampleBean.getDoubleWrapper());
     }
 
     /**
      * Load_full bean equals.
      */
     @Test
-    public void load_fullBeanEquals() {
+    void load_fullBeanEquals() {
         JavaBeanTester.builder(SampleBean.class).loadData().testInstance(this.sampleBean);
         JavaBeanTester.builder(SampleBean.class).loadData().testInstance(this.expectedBean);
 
@@ -77,7 +77,7 @@ public class JavaBeanTesterTest {
      * Load_full bean equals short.
      */
     @Test
-    public void load_fullBeanEqualsShort() {
+    void load_fullBeanEqualsShort() {
         JavaBeanTester.builder(SampleBean.class).loadData().testInstance(this.sampleBean);
         JavaBeanTester.builder(SampleBean.class).loadData().testInstance(this.expectedBean);
         JavaBeanTester.builder(SampleBean.class).loadData().testEquals(this.sampleBean, this.expectedBean);
@@ -87,7 +87,7 @@ public class JavaBeanTesterTest {
      * Load_full bean equals skip underlying.
      */
     @Test
-    public void load_fullBeanEqualsSkipUnderlying() {
+    void load_fullBeanEqualsSkipUnderlying() {
         JavaBeanTester.builder(SampleBean.class).testInstance(this.sampleBean);
         JavaBeanTester.builder(SampleBean.class).testInstance(this.expectedBean);
         JavaBeanTester.builder(SampleBean.class).testEquals(this.sampleBean, this.expectedBean);
@@ -97,16 +97,16 @@ public class JavaBeanTesterTest {
      * Load_full bean skip underlying data.
      */
     @Test
-    public void load_fullBeanSkipUnderlyingData() {
+    void load_fullBeanSkipUnderlyingData() {
         JavaBeanTester.builder(SampleBean.class).testInstance(this.sampleBean);
-        Assert.assertNotNull(this.sampleBean.getDoubleWrapper());
+        Assertions.assertNotNull(this.sampleBean.getDoubleWrapper());
     }
 
     /**
      * Load_partial bean equals.
      */
     @Test
-    public void load_partialBeanEquals() {
+    void load_partialBeanEquals() {
         JavaBeanTester.builder(SampleBean.class).loadData().testInstance(this.sampleBean);
         JavaBeanTester.builder(SampleBean.class).loadData().testInstance(this.expectedBean);
 
@@ -122,17 +122,17 @@ public class JavaBeanTesterTest {
      * Load_skip bean properties.
      */
     @Test
-    public void load_skipBeanProperties() {
+    void load_skipBeanProperties() {
         JavaBeanTester.builder(SampleBean.class).loadData().skip("string").testInstance(this.sampleBean);
-        Assert.assertNotNull(this.sampleBean.getDoubleWrapper());
-        Assert.assertNull(this.sampleBean.getString());
+        Assertions.assertNotNull(this.sampleBean.getDoubleWrapper());
+        Assertions.assertNull(this.sampleBean.getString());
     }
 
     /**
      * Test_full bean.
      */
     @Test
-    public void test_fullBean() {
+    void test_fullBean() {
         JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().loadData().test();
     }
 
@@ -140,7 +140,7 @@ public class JavaBeanTesterTest {
      * Test_full bean null ext.
      */
     @Test
-    public void test_fullBeanNullExt() {
+    void test_fullBeanNullExt() {
         JavaBeanTester.builder(SampleBean.class).checkEquals().loadData().test();
     }
 
@@ -148,7 +148,7 @@ public class JavaBeanTesterTest {
      * Test_full bean skip underlying data.
      */
     @Test
-    public void test_fullBeanSkipUnderlyingData() {
+    void test_fullBeanSkipUnderlyingData() {
         JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().test();
     }
 
@@ -156,7 +156,7 @@ public class JavaBeanTesterTest {
      * Test_skip bean properties.
      */
     @Test
-    public void test_skipBeanProperties() {
+    void test_skipBeanProperties() {
         JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().loadData().skip("string")
                 .test();
     }
@@ -165,7 +165,7 @@ public class JavaBeanTesterTest {
      * Test_skip can equals.
      */
     @Test
-    public void test_skipCanEquals() {
+    void test_skipCanEquals() {
         JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).loadData().test();
     }
 
@@ -173,7 +173,7 @@ public class JavaBeanTesterTest {
      * Test_skip all as false.
      */
     @Test
-    public void test_skipCanEqualsFalse() {
+    void test_skipCanEqualsFalse() {
         JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals(false).checkSerializable(false)
                 .loadData(false).test();
     }
@@ -182,7 +182,7 @@ public class JavaBeanTesterTest {
      * Test_serializable.
      */
     @Test
-    public void test_serializable() {
+    void test_serializable() {
         JavaBeanTester.builder(SerializableBean.class).checkSerializable().test();
     }
 
@@ -200,11 +200,14 @@ public class JavaBeanTesterTest {
      * @throws Exception
      *             generic exception.
      */
-    @Test(expected = NotSerializableException.class)
-    public void test_nonSerializable() throws Exception {
+    @Test
+    void test_nonSerializable() throws Exception {
         final NonDeserializableBean bean = new NonDeserializableBean();
         bean.getList().add(new Object());
-        JavaBeanTesterTest.serialize(bean);
+
+        Assertions.assertThrows(NotSerializableException.class, () -> {
+            JavaBeanTesterTest.serialize(bean);
+        });
     }
 
     /**
@@ -212,10 +215,10 @@ public class JavaBeanTesterTest {
      */
     // TODO 11/26/15 Temporary until we start using internalized extension logic
     @Test
-    public void test_temporarySingleMode() {
+    void test_temporarySingleMode() {
         JavaBeanTesterBuilder<String, Object> builder = new JavaBeanTesterBuilder<>(String.class);
         JavaBeanTesterWorker<String, Object> worker = Deencapsulation.getField(builder, "worker");
-        Assert.assertEquals(String.class, worker.getClazz());
+        Assertions.assertEquals(String.class, worker.getClazz());
     }
 
     private static <T> T serialize(T object) throws Exception {

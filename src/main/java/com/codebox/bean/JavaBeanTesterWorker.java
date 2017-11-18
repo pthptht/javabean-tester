@@ -42,7 +42,7 @@ import lombok.Data;
 
 import net.sf.cglib.beans.BeanCopier;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -156,8 +156,8 @@ class JavaBeanTesterWorker<T, E> {
         try {
             props = Introspector.getBeanInfo(this.clazz).getPropertyDescriptors();
         } catch (IntrospectionException e) {
-            Assert.fail(String.format("An exception was thrown while testing class '%s': '%s'", this.clazz.getName(),
-                    e.toString()));
+            Assertions.fail(String.format("An exception was thrown while testing class '%s': '%s'",
+                    this.clazz.getName(), e.toString()));
             return;
         }
         nextProp: for (final PropertyDescriptor prop : props) {
@@ -188,12 +188,12 @@ class JavaBeanTesterWorker<T, E> {
                         final Object expectedValue = value;
                         final Object actualValue = getter.invoke(instance);
 
-                        Assert.assertEquals(String.format("Failed while testing property '%s'", prop.getName()),
-                                expectedValue, actualValue);
+                        Assertions.assertEquals(expectedValue, actualValue,
+                                String.format("Failed while testing property '%s'", prop.getName()));
 
                     } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException
                             | SecurityException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
+                        Assertions.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
                                 prop.getName(), e.toString()));
                     }
                 }
@@ -217,7 +217,7 @@ class JavaBeanTesterWorker<T, E> {
             try {
                 constructor.newInstance(values);
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                Assert.fail(String.format("An exception was thrown while testing the constructor '%s': '%s'",
+                Assertions.fail(String.format("An exception was thrown while testing the constructor '%s': '%s'",
                         constructor.getName(), e.toString()));
             }
 
@@ -233,14 +233,14 @@ class JavaBeanTesterWorker<T, E> {
         if (this.implementsSerializable(object)) {
             T newObject = this.canSerialize(object);
             if (this.skipStrictSerializable != SkipStrictSerialize.ON) {
-                Assert.assertEquals(object, newObject);
+                Assertions.assertEquals(object, newObject);
             } else {
-                Assert.assertNotEquals(object, newObject);
+                Assertions.assertNotEquals(object, newObject);
             }
             return;
         }
         if (this.checkSerializable == CanSerialize.ON) {
-            Assert.fail(String.format("Class is not serializable '%s'", object.getClass().getName()));
+            Assertions.fail(String.format("Class is not serializable '%s'", object.getClass().getName()));
         }
     }
 
@@ -268,7 +268,7 @@ class JavaBeanTesterWorker<T, E> {
         try {
             new ObjectOutputStream(baos).writeObject(object);
         } catch (final IOException e) {
-            Assert.fail(String.format("An exception was thrown while serializing the class '%s': '%s',",
+            Assertions.fail(String.format("An exception was thrown while serializing the class '%s': '%s',",
                     object.getClass().getName(), e.toString()));
             return null;
         }
@@ -278,10 +278,10 @@ class JavaBeanTesterWorker<T, E> {
         try {
             return (T) new ObjectInputStream(bais).readObject();
         } catch (final ClassNotFoundException e) {
-            Assert.fail(String.format("An exception was thrown while deserializing the class '%s': '%s',",
+            Assertions.fail(String.format("An exception was thrown while deserializing the class '%s': '%s',",
                     object.getClass().getName(), e.toString()));
         } catch (final IOException e) {
-            Assert.fail(String.format("An exception was thrown while deserializing the class '%s': '%s',",
+            Assertions.fail(String.format("An exception was thrown while deserializing the class '%s': '%s',",
                     object.getClass().getName(), e.toString()));
         }
         return null;
@@ -320,21 +320,21 @@ class JavaBeanTesterWorker<T, E> {
         final E ext = new ClassInstance<E>().newInstance(this.extension);
 
         // Test Empty Equals, HashCode, and ToString
-        Assert.assertEquals(x, y);
-        Assert.assertEquals(x.hashCode(), y.hashCode());
-        Assert.assertEquals(x.toString(), y.toString());
+        Assertions.assertEquals(x, y);
+        Assertions.assertEquals(x.hashCode(), y.hashCode());
+        Assertions.assertEquals(x.toString(), y.toString());
 
         // Test Extension Empty Equals, HashCode, and ToString
-        Assert.assertNotEquals(ext, y);
-        Assert.assertNotEquals(ext.hashCode(), y.hashCode());
+        Assertions.assertNotEquals(ext, y);
+        Assertions.assertNotEquals(ext.hashCode(), y.hashCode());
 
         // Test Empty One Sided Tests
-        Assert.assertNotEquals(x, null);
-        Assert.assertEquals(x, x);
+        Assertions.assertNotEquals(x, null);
+        Assertions.assertEquals(x, x);
 
         // Test Extension Empty One Sided Tests
-        Assert.assertNotEquals(ext, null);
-        Assert.assertEquals(ext, ext);
+        Assertions.assertNotEquals(ext, null);
+        Assertions.assertEquals(ext, ext);
 
         // Populate Side X
         load(this.clazz, x, this.loadData);
@@ -343,34 +343,34 @@ class JavaBeanTesterWorker<T, E> {
         load(this.extension, ext, this.loadData);
 
         // ReTest Equals (flip)
-        Assert.assertNotEquals(y, x);
+        Assertions.assertNotEquals(y, x);
 
         // ReTest Extension Equals (flip)
-        Assert.assertNotEquals(y, ext);
+        Assertions.assertNotEquals(y, ext);
 
         // Populate Size Y
         load(this.clazz, y, this.loadData);
 
         // ReTest Equals and HashCode
         if (this.loadData == LoadData.ON) {
-            Assert.assertEquals(x, y);
-            Assert.assertEquals(x.hashCode(), y.hashCode());
+            Assertions.assertEquals(x, y);
+            Assertions.assertEquals(x.hashCode(), y.hashCode());
         } else {
-            Assert.assertNotEquals(x, y);
-            Assert.assertNotEquals(x.hashCode(), y.hashCode());
+            Assertions.assertNotEquals(x, y);
+            Assertions.assertNotEquals(x.hashCode(), y.hashCode());
         }
 
         // ReTest Extension Equals and HashCode
-        Assert.assertNotEquals(ext, y);
-        Assert.assertNotEquals(ext.hashCode(), y.hashCode());
-        Assert.assertNotEquals(ext.toString(), y.toString());
+        Assertions.assertNotEquals(ext, y);
+        Assertions.assertNotEquals(ext.hashCode(), y.hashCode());
+        Assertions.assertNotEquals(ext.toString(), y.toString());
 
         // Create Immutable Instance
         try {
             BeanCopier clazzBeanCopier = BeanCopier.create(this.clazz, this.clazz, false);
             final T e = new ClassInstance<T>().newInstance(this.clazz);
             clazzBeanCopier.copy(x, e, null);
-            Assert.assertEquals(e, x);
+            Assertions.assertEquals(e, x);
         } catch (final Exception e) {
             JavaBeanTesterWorker.LOGGER.trace("Do nothing class is not mutable", e.toString());
         }
@@ -380,7 +380,7 @@ class JavaBeanTesterWorker<T, E> {
             BeanCopier extensionBeanCopier = BeanCopier.create(this.extension, this.extension, false);
             final E e2 = new ClassInstance<E>().newInstance(this.extension);
             extensionBeanCopier.copy(ext, e2, null);
-            Assert.assertEquals(e2, ext);
+            Assertions.assertEquals(e2, ext);
         } catch (final Exception e) {
             JavaBeanTesterWorker.LOGGER.trace("Do nothing class is not mutable", e.toString());
         }
@@ -400,9 +400,9 @@ class JavaBeanTesterWorker<T, E> {
         // Perform hashCode test dependent on data coming in
         // Assert.assertEquals(expected.hashCode(), instance.hashCode());
         if (expected.hashCode() == instance.hashCode()) {
-            Assert.assertEquals(expected.hashCode(), instance.hashCode());
+            Assertions.assertEquals(expected.hashCode(), instance.hashCode());
         } else {
-            Assert.assertNotEquals(expected.hashCode(), instance.hashCode());
+            Assertions.assertNotEquals(expected.hashCode(), instance.hashCode());
         }
 
         ValueBuilder valueBuilder = new ValueBuilder();
@@ -412,7 +412,7 @@ class JavaBeanTesterWorker<T, E> {
         try {
             props = Introspector.getBeanInfo(instance.getClass()).getPropertyDescriptors();
         } catch (IntrospectionException e) {
-            Assert.fail(String.format("An exception occurred during introspection of '%s': '%s'",
+            Assertions.fail(String.format("An exception occurred during introspection of '%s': '%s'",
                     instance.getClass().getName(), e.toString()));
             return;
         }
@@ -440,9 +440,9 @@ class JavaBeanTesterWorker<T, E> {
 
                         // Check equals depending on data
                         if (instance.equals(expected)) {
-                            Assert.assertEquals(expected, instance);
+                            Assertions.assertEquals(expected, instance);
                         } else {
-                            Assert.assertNotEquals(expected, instance);
+                            Assertions.assertNotEquals(expected, instance);
                         }
 
                         // Build a value of the correct type to be passed to the set method using null test
@@ -453,9 +453,9 @@ class JavaBeanTesterWorker<T, E> {
 
                         // Check equals depending on data
                         if (instance.equals(expected)) {
-                            Assert.assertEquals(expected, instance);
+                            Assertions.assertEquals(expected, instance);
                         } else {
-                            Assert.assertNotEquals(expected, instance);
+                            Assertions.assertNotEquals(expected, instance);
                         }
 
                         // Reset to original value
@@ -463,7 +463,7 @@ class JavaBeanTesterWorker<T, E> {
 
                     } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException
                             | SecurityException e) {
-                        Assert.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
+                        Assertions.fail(String.format("An exception was thrown while testing the property '%s': '%s'",
                                 prop.getName(), e.toString()));
                     }
                 }

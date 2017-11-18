@@ -14,7 +14,7 @@
  */
 package com.codebox.bean;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class ObjectMethodsTest.
@@ -25,7 +25,7 @@ public class ObjectMethodsTest {
      * Object methods.
      */
     @Test
-    public void objectMethods() {
+    void objectMethods() {
         JavaBeanTester.builder(SampleBean.class).testObjectMethods();
     }
 

@@ -14,19 +14,19 @@
  */
 package com.codebox.instance;
 
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
 import mockit.Expectations;
 import mockit.Mocked;
 import mockit.Tested;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class ClassInstanceTest.
  */
 // TODO 11/26/15 Class is not mockable
-@Ignore
+@Disabled
 public class ClassInstanceTest {
 
     /** The class instance. */
@@ -46,8 +46,8 @@ public class ClassInstanceTest {
      *             the illegal access exception
      */
     @Test
-    public void newInstanceInstantiationException() throws InstantiationException, IllegalAccessException {
-        Assert.assertNotNull(new Expectations() {
+    void newInstanceInstantiationException() throws InstantiationException, IllegalAccessException {
+        Assertions.assertNotNull(new Expectations() {
             {
                 ClassInstanceTest.this.mockClazz.newInstance();
                 this.result = new InstantiationException();
@@ -65,8 +65,8 @@ public class ClassInstanceTest {
      *             the illegal access exception
      */
     @Test
-    public void newInstanceIllegalAccessException() throws InstantiationException, IllegalAccessException {
-        Assert.assertNotNull(new Expectations() {
+    void newInstanceIllegalAccessException() throws InstantiationException, IllegalAccessException {
+        Assertions.assertNotNull(new Expectations() {
             {
                 ClassInstanceTest.this.mockClazz.newInstance();
                 this.result = new IllegalAccessException();

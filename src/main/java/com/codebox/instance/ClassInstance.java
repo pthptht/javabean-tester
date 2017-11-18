@@ -21,7 +21,7 @@ import com.codebox.enums.LoadType;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * The Class Instance.
@@ -53,7 +53,7 @@ public class ClassInstance<T> {
             try {
                 return (T) constructor.newInstance(values);
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                Assert.fail(String.format("An exception was thrown while testing the class '%s': '%s'",
+                Assertions.fail(String.format("An exception was thrown while testing the class '%s': '%s'",
                         constructor.getName(), e.toString()));
             }
         }

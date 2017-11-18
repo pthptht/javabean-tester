@@ -17,7 +17,7 @@ package com.codebox.instance;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * The Constructor Instance.
@@ -42,7 +42,7 @@ public final class ConstructorInstance {
         try {
             return constructor.newInstance();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            Assert.fail(String.format("An exception was thrown while testing the constructor '%s': '%s'",
+            Assertions.fail(String.format("An exception was thrown while testing the constructor '%s': '%s'",
                     constructor.getName(), e.toString()));
         }
         return null;
@@ -56,13 +56,13 @@ public final class ConstructorInstance {
      */
     public static void inaccessible(final Class<?> clazz) {
         final Constructor<?>[] ctors = clazz.getDeclaredConstructors();
-        Assert.assertEquals("Utility class should only have one constructor", 1, ctors.length);
+        Assertions.assertEquals(1, ctors.length, "Utility class should only have one constructor");
         final Constructor<?> ctor = ctors[0];
-        Assert.assertFalse("Utility class constructor should be inaccessible", ctor.isAccessible());
+        Assertions.assertFalse(ctor.isAccessible(), "Utility class constructor should be inaccessible");
         // Make accessible in order to test following assert.
         ctor.setAccessible(true);
         final Object object = ConstructorInstance.newInstance(ctor);
-        Assert.assertEquals("You would expect the constructor to return the expected type", clazz,
-                object == null ? "null" : object.getClass());
+        Assertions.assertEquals(clazz, object == null ? "null" : object.getClass(),
+                "You would expect the constructor to return the expected type");
     }
 }
