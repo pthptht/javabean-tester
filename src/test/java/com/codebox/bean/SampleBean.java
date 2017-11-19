@@ -14,6 +14,7 @@
  */
 package com.codebox.bean;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
@@ -96,6 +97,9 @@ public class SampleBean {
 
     /** The byte primitive. */
     private byte bytePrimitive;
+
+    /** The date. */
+    private Date date;
 
     /**
      * Instantiates a new sample bean. Causes JVM to not create a default no-arg constructor

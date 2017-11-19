@@ -14,6 +14,7 @@
  */
 package com.codebox.bean;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
@@ -85,5 +86,8 @@ public class SampleDepthBean {
 
     /** The byte primitive. */
     private byte bytePrimitive;
+
+    /** The date. */
+    private Date date;
 
 }
