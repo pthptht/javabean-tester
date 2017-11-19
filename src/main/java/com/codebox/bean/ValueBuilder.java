@@ -21,6 +21,7 @@ import com.codebox.instance.ConstructorInstance;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +36,10 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Builds values from given type.
+ */
+
+/**
+ * Instantiates a new value builder.
  */
 @Data
 public class ValueBuilder {
@@ -95,6 +100,9 @@ public class ValueBuilder {
 
         } else if (clazz.isAssignableFrom(ConcurrentMap.class)) {
             return new ConcurrentHashMap<>();
+
+        } else if (clazz.isAssignableFrom(Date.class)) {
+            return new Date(System.currentTimeMillis());
 
         } else if (clazz == Logger.class) {
             return LoggerFactory.getLogger(clazz);
