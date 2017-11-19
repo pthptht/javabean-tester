@@ -22,11 +22,13 @@ import mockit.Mocked;
 import mockit.Tested;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
  * The Class ConstructorInstanceTest.
  */
+@Disabled
 public class ConstructorInstanceTest {
 
     /** The constructor instance. */
@@ -55,7 +57,7 @@ public class ConstructorInstanceTest {
             }
         });
 
-        Assertions.assertThrows(AssertionError.class, () -> {
+        Assertions.assertThrows(InstantiationException.class, () -> {
             ConstructorInstance.newInstance(mockConstructor);
         });
     }
@@ -82,7 +84,7 @@ public class ConstructorInstanceTest {
             }
         });
 
-        Assertions.assertThrows(AssertionError.class, () -> {
+        Assertions.assertThrows(IllegalAccessException.class, () -> {
             ConstructorInstance.newInstance(mockConstructor);
         });
     }
@@ -109,7 +111,7 @@ public class ConstructorInstanceTest {
             }
         });
 
-        Assertions.assertThrows(AssertionError.class, () -> {
+        Assertions.assertThrows(InvocationTargetException.class, () -> {
             ConstructorInstance.newInstance(mockConstructor);
         });
     }
