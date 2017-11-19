@@ -221,6 +221,7 @@ public class JavaBeanTesterTest {
         Assertions.assertEquals(String.class, worker.getClazz());
     }
 
+    @SuppressWarnings("unchecked")
     private static <T> T serialize(T object) throws Exception {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         new ObjectOutputStream(baos).writeObject(object);
