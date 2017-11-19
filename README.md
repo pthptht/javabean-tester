@@ -13,22 +13,23 @@ Sites
 * [site-page](http://hazendaz.github.io/javabean-tester/)
 * [sonarqube](https://sonarqube.com/dashboard/index?id=com.github.hazendaz:javabean-tester)
 
-Javabean Tester is a reflection based library for testing java beans.  Effectively test constructors, getters/setters, hashcode, toString, equals, and serializable are correct.
+Javabean Tester is a reflection based library for testing java beans.  Effectively test constructors, clear, getters/setters, hashcode, toString, equals, and serializable are correct.
 
 ## Left Codebox
 
 Original maintainer [codebox](https://github.com/codebox) only intended for this project to be a simple class that users would make additional
 changes to.  Over time, this copy has evolved into a full project and now is the primary project going forwards.  Issues has been opened up
-for use and pull requests are gladly appreciated.
+for use and pull requests are gladly appreciated.  Original maintainer has now made his version gradle enabled build but it still lacks additional features found here.
 
 ## Documentation Status
 
 Actively accepting pull requests for documentation of this library.  Focus will only be on new builder pattern.  Vast majority of examples exist in the test package.
 
 ## Example Usage
+
 ```java
 JavaBeanTester.builder(Test.class, Extension.class).checkEquals().checkSerializable()
-		.loadData().skip("FieldToSkip", "AnotherFieldToSkip").test();
+		.loadData().skipStrictSerializable().skip("FieldToSkip", "AnotherFieldToSkip").test();
 ```
 
 ```java
@@ -44,5 +45,7 @@ Check Equals will perform equality checks.  This applies when hashcode, toString
 Check Serializable will perform a serialization check.  This ensures that just because a class is marked as serializable that it really is serializable including children.
 
 Load Data will load underlying data as best possible for basic java types.
+
+Skip Strict Serializable will not perform a serialization check as this is only valid for POJOs currently.
 
 Skip will skip all included elements from underlying getter/setter checks.
