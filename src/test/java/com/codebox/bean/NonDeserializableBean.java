@@ -29,7 +29,7 @@ public class NonDeserializableBean implements Serializable {
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
-    /** The array which can somethings not be serializable. */
+    /** The array which can sometimes not be serializable. */
     private List<Object>      list;
 
     /**
