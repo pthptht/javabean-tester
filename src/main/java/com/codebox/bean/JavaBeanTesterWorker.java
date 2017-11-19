@@ -58,28 +58,28 @@ import org.slf4j.LoggerFactory;
 class JavaBeanTesterWorker<T, E> {
 
     /** The Constant LOGGER. */
-    private static final Logger LOGGER    = LoggerFactory.getLogger(JavaBeanTesterWorker.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JavaBeanTesterWorker.class);
 
     /** The serializable. */
-    private CanSerialize        checkSerializable;
+    private CanSerialize checkSerializable;
 
     /** The skip strict serialize. */
     private SkipStrictSerialize skipStrictSerializable;
 
     /** The load data. */
-    private LoadData            loadData;
+    private LoadData loadData;
 
     /** The check equals. */
-    private CanEquals           checkEquals;
+    private CanEquals checkEquals;
 
     /** The clazz. */
-    private Class<T>            clazz;
+    private Class<T> clazz;
 
     /** The extension. */
-    private Class<E>            extension;
+    private Class<E> extension;
 
     /** The skip these. */
-    private Set<String>         skipThese = new HashSet<>();
+    private Set<String> skipThese = new HashSet<>();
 
     /**
      * Instantiates a new java bean tester worker.

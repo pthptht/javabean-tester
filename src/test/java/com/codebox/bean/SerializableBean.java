@@ -28,6 +28,6 @@ public class SerializableBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** The string. */
-    private String            string;
+    private String string;
 
 }

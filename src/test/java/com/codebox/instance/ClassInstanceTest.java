@@ -35,7 +35,7 @@ public class ClassInstanceTest {
 
     /** The mock clazz. */
     @Mocked
-    Class<Object>         mockClazz;
+    Class<Object> mockClazz;
 
     /**
      * New instance instantiation exception.
