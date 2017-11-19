@@ -263,6 +263,7 @@ class JavaBeanTesterWorker<T, E> {
      *            the object
      * @return object read after serialization
      */
+    @SuppressWarnings("unchecked")
     T canSerialize(final T object) {
         // Serialize data
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
