@@ -382,7 +382,7 @@
                     <artifactId>impsort-maven-plugin</artifactId>
                     <version>1.0.1</version>
                     <configuration>
-                        <groups>com,java,javax,mockit,org</groups>
+                        <groups>com,java,javax,lombok,mockit,net,org</groups>
                         <staticGroups>java,*</staticGroups>
                     </configuration>
                 </plugin>

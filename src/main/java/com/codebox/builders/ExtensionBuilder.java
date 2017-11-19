@@ -17,7 +17,6 @@ package com.codebox.builders;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
