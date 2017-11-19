@@ -111,4 +111,11 @@ public class SampleBean {
         this.string = newString;
     }
 
+    /**
+     * Clear.
+     */
+    public void clear() {
+        // Do nothing so this is the as class setup
+    }
+
 }

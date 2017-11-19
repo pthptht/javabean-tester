@@ -137,6 +137,7 @@ class JavaBeanTesterWorker<T, E> {
      */
     public void test() {
         this.getterSetterTests(new ClassInstance<T>().newInstance(this.clazz));
+        this.clearTest();
         this.constructorsTest();
         this.checkSerializableTest();
         if (this.checkEquals == CanEquals.ON) {
@@ -197,6 +198,27 @@ class JavaBeanTesterWorker<T, E> {
                                 "An exception was thrown while testing the property (getter/setter) '%s': '%s'",
                                 prop.getName(), e.toString()));
                     }
+                }
+            }
+        }
+    }
+
+    /**
+     * Clear test.
+     */
+    void clearTest() {
+        final Method[] methods = this.clazz.getDeclaredMethods();
+        for (final Method method : methods) {
+            if (method.getName().equals("clear")) {
+                final T newClass = new ClassInstance<T>().newInstance(this.clazz);
+                try {
+                    newClass.getClass().getMethod("clear").invoke(newClass);
+                    Assertions.assertEquals(new ClassInstance<T>().newInstance(this.clazz), newClass,
+                            String.format("Clear method does not match new object '%s'", this.clazz));
+                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                        | NoSuchMethodException | SecurityException e) {
+                    Assertions.fail(String.format("An exception was thrown while testing the Clear method '%s' : '%s'",
+                            this.clazz.getName(), e.toString()));
                 }
             }
         }
