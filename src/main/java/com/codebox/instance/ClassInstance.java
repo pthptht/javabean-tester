@@ -41,11 +41,18 @@ public class ClassInstance<T> {
      */
     @SuppressWarnings("unchecked")
     public final T newInstance(final Class<T> clazz) {
-        for (Constructor<?> constructor : clazz.getConstructors()) {
+        for (final Constructor<?> constructor : clazz.getConstructors()) {
+
+            // Skip deprecated constructors
+            if (constructor.isAnnotationPresent(Deprecated.class)) {
+                continue;
+            }
+
             final Class<?>[] types = constructor.getParameterTypes();
 
             final Object[] values = new Object[constructor.getParameterTypes().length];
 
+            // Load Data
             for (int i = 0; i < values.length; i++) {
                 values[i] = buildValue(types[i], LoadType.STANDARD_DATA);
             }

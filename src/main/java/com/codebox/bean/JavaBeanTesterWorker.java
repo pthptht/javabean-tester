@@ -213,11 +213,18 @@ class JavaBeanTesterWorker<T, E> {
      * Constructors test.
      */
     void constructorsTest() {
-        for (Constructor<?> constructor : this.clazz.getConstructors()) {
+        for (final Constructor<?> constructor : this.clazz.getConstructors()) {
+
+            // Skip deprecated constructors
+            if (constructor.isAnnotationPresent(Deprecated.class)) {
+                continue;
+            }
+
             final Class<?>[] types = constructor.getParameterTypes();
 
             final Object[] values = new Object[constructor.getParameterTypes().length];
 
+            // Load Data
             for (int i = 0; i < values.length; i++) {
                 values[i] = buildValue(types[i], LoadType.STANDARD_DATA);
             }
