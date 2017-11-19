@@ -218,8 +218,9 @@ class JavaBeanTesterWorker<T, E> {
             try {
                 constructor.newInstance(values);
             } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                Assertions.fail(String.format("An exception was thrown while testing the constructor(s) '%s': '%s'",
-                        constructor.getName(), e.toString()));
+                Assertions.fail(
+                        String.format("An exception was thrown while testing the constructor(s) '%s' with '%s': '%s'",
+                                constructor.getName(), Arrays.toString(values), e.toString()));
             }
 
             // TODO: Add checking of new object properties

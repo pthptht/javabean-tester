@@ -20,6 +20,7 @@ import com.codebox.enums.LoadType;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Assertions;
 
@@ -53,9 +54,9 @@ public class ClassInstance<T> {
             try {
                 return (T) constructor.newInstance(values);
             } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                Assertions
-                        .fail(String.format("An exception was thrown while testing the class (new instance) '%s': '%s'",
-                                constructor.getName(), e.toString()));
+                Assertions.fail(String.format(
+                        "An exception was thrown while testing the class (new instance) '%s' with '%s': '%s'",
+                        constructor.getName(), Arrays.toString(values), e.toString()));
             }
         }
         return null;
