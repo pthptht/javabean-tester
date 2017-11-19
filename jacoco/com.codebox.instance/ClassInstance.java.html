@@ -20,8 +20,9 @@ import com.codebox.enums.LoadType;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * The Class Instance.
@@ -29,7 +30,7 @@ import org.junit.Assert;
  * @param &lt;T&gt;
  *            the element type
  */
-<span class="fc" id="L32">public class ClassInstance&lt;T&gt; {</span>
+<span class="fc" id="L33">public class ClassInstance&lt;T&gt; {</span>
 
     /**
      * New instance. This will get the first available constructor to run the test on. This allows for instances where
@@ -41,29 +42,31 @@ import org.junit.Assert;
      */
     @SuppressWarnings(&quot;unchecked&quot;)
     public final T newInstance(final Class&lt;T&gt; clazz) {
-<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        for (Constructor&lt;?&gt; constructor : clazz.getConstructors()) {</span>
-<span class="fc" id="L45">            final Class&lt;?&gt;[] types = constructor.getParameterTypes();</span>
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">        for (final Constructor&lt;?&gt; constructor : clazz.getConstructors()) {</span>
 
-<span class="fc" id="L47">            final Object[] values = new Object[constructor.getParameterTypes().length];</span>
+            // Skip deprecated constructors
+<span class="fc bfc" id="L48" title="All 2 branches covered.">            if (constructor.isAnnotationPresent(Deprecated.class)) {</span>
+<span class="fc" id="L49">                continue;</span>
+            }
 
-<span class="fc bfc" id="L49" title="All 2 branches covered.">            for (int i = 0; i &lt; values.length; i++) {</span>
-<span class="fc" id="L50">                values[i] = buildValue(types[i], LoadType.STANDARD_DATA);</span>
+<span class="fc" id="L52">            final Class&lt;?&gt;[] types = constructor.getParameterTypes();</span>
+
+<span class="fc" id="L54">            final Object[] values = new Object[constructor.getParameterTypes().length];</span>
+
+            // Load Data
+<span class="fc bfc" id="L57" title="All 2 branches covered.">            for (int i = 0; i &lt; values.length; i++) {</span>
+<span class="fc" id="L58">                values[i] = this.buildValue(types[i], LoadType.STANDARD_DATA);</span>
             }
 
             try {
-<span class="fc" id="L54">                return (T) constructor.newInstance(values);</span>
-<span class="nc" id="L55">            } catch (InstantiationException e) {</span>
-<span class="nc" id="L56">                Assert.fail(String.format(&quot;An exception was thrown while testing the class '%s': '%s'&quot;,</span>
-<span class="nc" id="L57">                        constructor.getName(), e.toString()));</span>
-<span class="nc" id="L58">            } catch (IllegalAccessException e) {</span>
-<span class="nc" id="L59">                Assert.fail(String.format(&quot;An exception was thrown while testing the class '%s': '%s'&quot;,</span>
-<span class="nc" id="L60">                        constructor.getName(), e.toString()));</span>
-<span class="nc" id="L61">            } catch (InvocationTargetException e) {</span>
-<span class="nc" id="L62">                Assert.fail(String.format(&quot;An exception was thrown while testing the class '%s': '%s'&quot;,</span>
-<span class="nc" id="L63">                        constructor.getName(), e.toString()));</span>
-<span class="nc" id="L64">            }</span>
+<span class="fc" id="L62">                return (T) constructor.newInstance(values);</span>
+<span class="nc" id="L63">            } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {</span>
+<span class="nc" id="L64">                Assertions.fail(String.format(</span>
+                        &quot;An exception was thrown while testing the class (new instance) '%s' with '%s': '%s'&quot;,
+<span class="nc" id="L66">                        constructor.getName(), Arrays.toString(values), e.toString()));</span>
+            }
         }
-<span class="nc" id="L66">        return null;</span>
+<span class="nc" id="L69">        return null;</span>
     }
 
     /**
@@ -78,9 +81,9 @@ import org.junit.Assert;
      * @return the object
      */
     public &lt;R&gt; Object buildValue(final Class&lt;R&gt; returnType, final LoadType loadType) {
-<span class="fc" id="L81">        final ValueBuilder valueBuilder = new ValueBuilder();</span>
-<span class="fc" id="L82">        valueBuilder.setLoadData(LoadData.ON);</span>
-<span class="fc" id="L83">        return valueBuilder.buildValue(returnType, loadType);</span>
+<span class="fc" id="L84">        final ValueBuilder valueBuilder = new ValueBuilder();</span>
+<span class="fc" id="L85">        valueBuilder.setLoadData(LoadData.ON);</span>
+<span class="fc" id="L86">        return valueBuilder.buildValue(returnType, loadType);</span>
     }
 
 }

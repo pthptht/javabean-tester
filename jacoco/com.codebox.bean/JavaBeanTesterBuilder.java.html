@@ -33,7 +33,7 @@ import java.util.Arrays;
 public class JavaBeanTesterBuilder&lt;T, E&gt; {
 
     /** The worker. */
-    private JavaBeanTesterWorker&lt;T, E&gt; worker;
+    private final JavaBeanTesterWorker&lt;T, E&gt; worker;
 
     /**
      * Instantiates a new java bean tester builder.
@@ -42,7 +42,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *            the clazz
      */
 <span class="fc" id="L44">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz) {</span>
-<span class="fc" id="L45">        this.worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz);</span>
+<span class="fc" id="L45">        this.worker = new JavaBeanTesterWorker&lt;&gt;(clazz);</span>
 <span class="fc" id="L46">    }</span>
 
     /**
@@ -54,7 +54,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *            the extension
      */
 <span class="fc" id="L56">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension) {</span>
-<span class="fc" id="L57">        this.worker = new JavaBeanTesterWorker&lt;T, E&gt;(clazz, extension);</span>
+<span class="fc" id="L57">        this.worker = new JavaBeanTesterWorker&lt;&gt;(clazz, extension);</span>
 <span class="fc" id="L58">    }</span>
 
     /**
@@ -63,7 +63,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkEquals() {
-<span class="fc" id="L66">        return checkEquals(true);</span>
+<span class="fc" id="L66">        return this.checkEquals(true);</span>
     }
 
     /**
@@ -84,7 +84,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; loadData() {
-<span class="fc" id="L87">        return loadData(true);</span>
+<span class="fc" id="L87">        return this.loadData(true);</span>
     }
 
     /**
@@ -105,7 +105,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkSerializable() {
-<span class="fc" id="L108">        return checkSerializable(true);</span>
+<span class="fc" id="L108">        return this.checkSerializable(true);</span>
     }
 
     /**
