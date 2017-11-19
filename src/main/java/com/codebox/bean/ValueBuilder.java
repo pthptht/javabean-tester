@@ -187,41 +187,147 @@ public class ValueBuilder {
         } else if (clazz.isArray()) {
             return Array.newInstance(clazz.getComponentType(), arrayLength);
         } else if (clazz == boolean.class || clazz == Boolean.class) {
-            if (clazz == boolean.class && booleanValue == null) {
-                return Boolean.FALSE;
-            }
-            return booleanValue;
+            return initializeBoolean(clazz, booleanValue);
         } else if (clazz == int.class || clazz == Integer.class) {
-            if (clazz == int.class && integerValue == null) {
-                return Integer.valueOf(-1);
-            }
-            return integerValue;
+            return initializeInteger(clazz, integerValue);
         } else if (clazz == long.class || clazz == Long.class) {
-            if (clazz == long.class && longValue == null) {
-                return Long.valueOf(-1);
-            }
-            return longValue;
+            return initializeLong(clazz, longValue);
         } else if (clazz == double.class || clazz == Double.class) {
-            if (clazz == double.class && doubleValue == null) {
-                return Double.valueOf(-1.0);
-            }
-            return doubleValue;
+            return initializeDouble(clazz, doubleValue);
         } else if (clazz == float.class || clazz == Float.class) {
-            if (clazz == float.class && floatValue == null) {
-                return Float.valueOf(-1.0F);
-            }
-            return floatValue;
+            return initializeFloat(clazz, floatValue);
         } else if (clazz == char.class || clazz == Character.class) {
-            if (clazz == char.class && characterValue == null) {
-                return Character.valueOf('\u0000');
-            }
-            return characterValue;
+            return initializeCharacter(clazz, characterValue);
         } else if (clazz == byte.class || clazz == Byte.class) {
-            if (clazz == byte.class && byteValue == null) {
-                return Byte.valueOf((byte) -1);
-            }
-            return byteValue;
+            return initializeByte(clazz, byteValue);
         }
         return null;
     }
+
+    /**
+     * Initialize boolean.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param booleanValue
+     *            the boolean value
+     * @return the object
+     */
+    private static <T> Object initializeBoolean(final Class<T> clazz, final Boolean booleanValue) {
+        if (clazz == boolean.class && booleanValue == null) {
+            return Boolean.FALSE;
+        }
+        return booleanValue;
+    }
+
+    /**
+     * Initialize integer.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param integerValue
+     *            the integer value
+     * @return the object
+     */
+    private static <T> Object initializeInteger(final Class<T> clazz, final Integer integerValue) {
+        if (clazz == int.class && integerValue == null) {
+            return Integer.valueOf(-1);
+        }
+        return integerValue;
+    }
+
+    /**
+     * Initialize long.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param longValue
+     *            the long value
+     * @return the object
+     */
+    private static <T> Object initializeLong(final Class<T> clazz, final Long longValue) {
+        if (clazz == long.class && longValue == null) {
+            return Long.valueOf(-1);
+        }
+        return longValue;
+    }
+
+    /**
+     * Initialize double.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param doubleValue
+     *            the double value
+     * @return the object
+     */
+    private static <T> Object initializeDouble(final Class<T> clazz, final Double doubleValue) {
+        if (clazz == double.class && doubleValue == null) {
+            return Double.valueOf(-1.0);
+        }
+        return doubleValue;
+    }
+
+    /**
+     * Initialize float.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param floatValue
+     *            the float value
+     * @return the object
+     */
+    private static <T> Object initializeFloat(final Class<T> clazz, final Float floatValue) {
+        if (clazz == float.class && floatValue == null) {
+            return Float.valueOf(-1.0F);
+        }
+        return floatValue;
+    }
+
+    /**
+     * Initialize character.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param characterValue
+     *            the character value
+     * @return the object
+     */
+    private static <T> Object initializeCharacter(final Class<T> clazz, final Character characterValue) {
+        if (clazz == char.class && characterValue == null) {
+            return Character.valueOf('\u0000');
+        }
+        return characterValue;
+    }
+
+    /**
+     * Initialize byte.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param byteValue
+     *            the byte value
+     * @return the object
+     */
+    private static <T> Object initializeByte(final Class<T> clazz, final Byte byteValue) {
+        if (clazz == byte.class && byteValue == null) {
+            return Byte.valueOf((byte) -1);
+        }
+        return byteValue;
+    }
+
 }
