@@ -33,7 +33,7 @@ import java.util.Arrays;
 public class JavaBeanTesterBuilder<T, E> {
 
     /** The worker. */
-    private JavaBeanTesterWorker<T, E> worker;
+    private final JavaBeanTesterWorker<T, E> worker;
 
     /**
      * Instantiates a new java bean tester builder.
@@ -63,7 +63,7 @@ public class JavaBeanTesterBuilder<T, E> {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder<T, E> checkEquals() {
-        return checkEquals(true);
+        return this.checkEquals(true);
     }
 
     /**
@@ -84,7 +84,7 @@ public class JavaBeanTesterBuilder<T, E> {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder<T, E> loadData() {
-        return loadData(true);
+        return this.loadData(true);
     }
 
     /**
@@ -105,7 +105,7 @@ public class JavaBeanTesterBuilder<T, E> {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder<T, E> checkSerializable() {
-        return checkSerializable(true);
+        return this.checkSerializable(true);
     }
 
     /**

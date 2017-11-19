@@ -36,7 +36,7 @@ public class NonDeserializableBean implements Serializable {
      * Make bean non deserializable
      */
     public NonDeserializableBean() {
-        list = new ArrayList<>();
+        this.list = new ArrayList<>();
     }
 
 }

@@ -34,7 +34,7 @@ public class NonSerializableBean implements Serializable {
      * Make bean non serializable.
      */
     public NonSerializableBean() {
-        emptyBean = new EmptyBean();
+        this.emptyBean = new EmptyBean();
     }
 
 }

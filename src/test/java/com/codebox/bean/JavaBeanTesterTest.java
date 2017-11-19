@@ -216,17 +216,17 @@ public class JavaBeanTesterTest {
     // TODO 11/26/15 Temporary until we start using internalized extension logic
     @Test
     void test_temporarySingleMode() {
-        JavaBeanTesterBuilder<String, Object> builder = new JavaBeanTesterBuilder<>(String.class);
-        JavaBeanTesterWorker<String, Object> worker = Deencapsulation.getField(builder, "worker");
+        final JavaBeanTesterBuilder<String, Object> builder = new JavaBeanTesterBuilder<>(String.class);
+        final JavaBeanTesterWorker<String, Object> worker = Deencapsulation.getField(builder, "worker");
         Assertions.assertEquals(String.class, worker.getClazz());
     }
 
     @SuppressWarnings("unchecked")
-    private static <T> T serialize(T object) throws Exception {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    private static <T> T serialize(final T object) throws Exception {
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         new ObjectOutputStream(baos).writeObject(object);
 
-        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        final ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
         return (T) new ObjectInputStream(bais).readObject();
     }
 

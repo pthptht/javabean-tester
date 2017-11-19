@@ -155,7 +155,7 @@ class JavaBeanTesterWorker<T, E> {
         PropertyDescriptor[] props;
         try {
             props = Introspector.getBeanInfo(this.clazz).getPropertyDescriptors();
-        } catch (IntrospectionException e) {
+        } catch (final IntrospectionException e) {
             Assertions.fail(String.format("An exception was thrown while testing class '%s': '%s'",
                     this.clazz.getName(), e.toString()));
             return;
@@ -180,7 +180,7 @@ class JavaBeanTesterWorker<T, E> {
                     // we can test this property
                     try {
                         // Build a value of the correct type to be passed to the set method
-                        final Object value = buildValue(returnType, LoadType.STANDARD_DATA);
+                        final Object value = this.buildValue(returnType, LoadType.STANDARD_DATA);
 
                         // Call the set method, then check the same value comes back out of the get method
                         setter.invoke(instance, value);
@@ -205,18 +205,18 @@ class JavaBeanTesterWorker<T, E> {
      * Constructors test.
      */
     void constructorsTest() {
-        for (Constructor<?> constructor : this.clazz.getConstructors()) {
+        for (final Constructor<?> constructor : this.clazz.getConstructors()) {
             final Class<?>[] types = constructor.getParameterTypes();
 
             final Object[] values = new Object[constructor.getParameterTypes().length];
 
             for (int i = 0; i < values.length; i++) {
-                values[i] = buildValue(types[i], LoadType.STANDARD_DATA);
+                values[i] = this.buildValue(types[i], LoadType.STANDARD_DATA);
             }
 
             try {
                 constructor.newInstance(values);
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 Assertions.fail(String.format("An exception was thrown while testing the constructor '%s': '%s'",
                         constructor.getName(), e.toString()));
             }
@@ -229,9 +229,9 @@ class JavaBeanTesterWorker<T, E> {
      * Check Serializable test.
      */
     void checkSerializableTest() {
-        T object = new ClassInstance<T>().newInstance(this.clazz);
+        final T object = new ClassInstance<T>().newInstance(this.clazz);
         if (this.implementsSerializable(object)) {
-            T newObject = this.canSerialize(object);
+            final T newObject = this.canSerialize(object);
             if (this.skipStrictSerializable != SkipStrictSerialize.ON) {
                 Assertions.assertEquals(object, newObject);
             } else {
@@ -337,10 +337,10 @@ class JavaBeanTesterWorker<T, E> {
         Assertions.assertEquals(ext, ext);
 
         // Populate Side X
-        load(this.clazz, x, this.loadData);
+        JavaBeanTesterWorker.load(this.clazz, x, this.loadData);
 
         // Populate Extension Side E
-        load(this.extension, ext, this.loadData);
+        JavaBeanTesterWorker.load(this.extension, ext, this.loadData);
 
         // ReTest Equals (flip)
         Assertions.assertNotEquals(y, x);
@@ -349,7 +349,7 @@ class JavaBeanTesterWorker<T, E> {
         Assertions.assertNotEquals(y, ext);
 
         // Populate Size Y
-        load(this.clazz, y, this.loadData);
+        JavaBeanTesterWorker.load(this.clazz, y, this.loadData);
 
         // ReTest Equals and HashCode
         if (this.loadData == LoadData.ON) {
@@ -367,7 +367,7 @@ class JavaBeanTesterWorker<T, E> {
 
         // Create Immutable Instance
         try {
-            BeanCopier clazzBeanCopier = BeanCopier.create(this.clazz, this.clazz, false);
+            final BeanCopier clazzBeanCopier = BeanCopier.create(this.clazz, this.clazz, false);
             final T e = new ClassInstance<T>().newInstance(this.clazz);
             clazzBeanCopier.copy(x, e, null);
             Assertions.assertEquals(e, x);
@@ -377,7 +377,7 @@ class JavaBeanTesterWorker<T, E> {
 
         // Create Extension Immutable Instance
         try {
-            BeanCopier extensionBeanCopier = BeanCopier.create(this.extension, this.extension, false);
+            final BeanCopier extensionBeanCopier = BeanCopier.create(this.extension, this.extension, false);
             final E e2 = new ClassInstance<E>().newInstance(this.extension);
             extensionBeanCopier.copy(ext, e2, null);
             Assertions.assertEquals(e2, ext);
@@ -405,13 +405,13 @@ class JavaBeanTesterWorker<T, E> {
             Assertions.assertNotEquals(expected.hashCode(), instance.hashCode());
         }
 
-        ValueBuilder valueBuilder = new ValueBuilder();
+        final ValueBuilder valueBuilder = new ValueBuilder();
         valueBuilder.setLoadData(this.loadData);
 
         PropertyDescriptor[] props;
         try {
             props = Introspector.getBeanInfo(instance.getClass()).getPropertyDescriptors();
-        } catch (IntrospectionException e) {
+        } catch (final IntrospectionException e) {
             Assertions.fail(String.format("An exception occurred during introspection of '%s': '%s'",
                     instance.getClass().getName(), e.toString()));
             return;

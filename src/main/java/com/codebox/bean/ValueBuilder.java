@@ -60,7 +60,7 @@ public class ValueBuilder {
             if (ctr.getParameterTypes().length == 0 && clazz != String.class) {
                 if (this.loadData == LoadData.ON) {
                     // Load Underlying Data
-                    JavaBeanTesterWorker<T, Object> beanTesterWorker = new JavaBeanTesterWorker<>(clazz);
+                    final JavaBeanTesterWorker<T, Object> beanTesterWorker = new JavaBeanTesterWorker<>(clazz);
                     beanTesterWorker.setLoadData(this.loadData);
                     beanTesterWorker.getterSetterTests(new ClassInstance<T>().newInstance(clazz));
                     return null;
@@ -74,14 +74,14 @@ public class ValueBuilder {
         Object returnObject = null;
         switch (loadType) {
             case ALTERNATE_DATA:
-                returnObject = setAlternateValues(clazz);
+                returnObject = ValueBuilder.setAlternateValues(clazz);
                 break;
             case NULL_DATA:
-                returnObject = setNullValues(clazz);
+                returnObject = ValueBuilder.setNullValues(clazz);
                 break;
             case STANDARD_DATA:
             default:
-                returnObject = setStandardValues(clazz);
+                returnObject = ValueBuilder.setStandardValues(clazz);
                 break;
         }
         if (returnObject != null || loadType == LoadType.NULL_DATA) {
@@ -121,8 +121,8 @@ public class ValueBuilder {
      * @return Object the Object to use for test.
      */
     private static <T> Object setAlternateValues(final Class<T> clazz) {
-        return setValues(clazz, "ALT_VALUE", 1, Boolean.FALSE, Integer.valueOf(2), Long.valueOf(2), Double.valueOf(2.0),
-                Float.valueOf(2.0F), Character.valueOf('N'), Byte.valueOf((byte) 2));
+        return ValueBuilder.setValues(clazz, "ALT_VALUE", 1, Boolean.FALSE, Integer.valueOf(2), Long.valueOf(2),
+                Double.valueOf(2.0), Float.valueOf(2.0F), Character.valueOf('N'), Byte.valueOf((byte) 2));
     }
 
     /**
@@ -135,7 +135,7 @@ public class ValueBuilder {
      * @return Object the Object to use for test.
      */
     private static <T> Object setNullValues(final Class<T> clazz) {
-        return setValues(clazz, null, 0, null, null, null, null, null, null, null);
+        return ValueBuilder.setValues(clazz, null, 0, null, null, null, null, null, null, null);
     }
 
     /**
@@ -148,8 +148,8 @@ public class ValueBuilder {
      * @return Object the Object to use for test.
      */
     private static <T> Object setStandardValues(final Class<T> clazz) {
-        return setValues(clazz, "TEST_VALUE", 1, Boolean.TRUE, Integer.valueOf(1), Long.valueOf(1), Double.valueOf(1.0),
-                Float.valueOf(1.0F), Character.valueOf('Y'), Byte.valueOf((byte) 1));
+        return ValueBuilder.setValues(clazz, "TEST_VALUE", 1, Boolean.TRUE, Integer.valueOf(1), Long.valueOf(1),
+                Double.valueOf(1.0), Float.valueOf(1.0F), Character.valueOf('Y'), Byte.valueOf((byte) 1));
     }
 
     /**

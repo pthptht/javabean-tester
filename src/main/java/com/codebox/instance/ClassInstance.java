@@ -41,18 +41,18 @@ public class ClassInstance<T> {
      */
     @SuppressWarnings("unchecked")
     public final T newInstance(final Class<T> clazz) {
-        for (Constructor<?> constructor : clazz.getConstructors()) {
+        for (final Constructor<?> constructor : clazz.getConstructors()) {
             final Class<?>[] types = constructor.getParameterTypes();
 
             final Object[] values = new Object[constructor.getParameterTypes().length];
 
             for (int i = 0; i < values.length; i++) {
-                values[i] = buildValue(types[i], LoadType.STANDARD_DATA);
+                values[i] = this.buildValue(types[i], LoadType.STANDARD_DATA);
             }
 
             try {
                 return (T) constructor.newInstance(values);
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 Assertions.fail(String.format("An exception was thrown while testing the class '%s': '%s'",
                         constructor.getName(), e.toString()));
             }
