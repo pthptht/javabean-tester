@@ -842,6 +842,14 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <!-- select non-aggregate reports -->
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
             <!-- This plugin will fail if any POM is marked as Byte Order 
                 Mark is UTF-8 (BOM). If this occurs, create a new POM and move the contents 
