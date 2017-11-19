@@ -218,7 +218,7 @@ class JavaBeanTesterWorker<T, E> {
             try {
                 constructor.newInstance(values);
             } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                Assertions.fail(String.format("An exception was thrown while testing the constructor '%s': '%s'",
+                Assertions.fail(String.format("An exception was thrown while testing the constructor(s) '%s': '%s'",
                         constructor.getName(), e.toString()));
             }
 
