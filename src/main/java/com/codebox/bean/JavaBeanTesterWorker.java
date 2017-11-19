@@ -278,10 +278,7 @@ class JavaBeanTesterWorker<T, E> {
         final ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
         try {
             return (T) new ObjectInputStream(bais).readObject();
-        } catch (final ClassNotFoundException e) {
-            Assertions.fail(String.format("An exception was thrown while deserializing the class '%s': '%s',",
-                    object.getClass().getName(), e.toString()));
-        } catch (final IOException e) {
+        } catch (final ClassNotFoundException | IOException e) {
             Assertions.fail(String.format("An exception was thrown while deserializing the class '%s': '%s',",
                     object.getClass().getName(), e.toString()));
         }
