@@ -162,6 +162,15 @@ public class JavaBeanTesterTest {
     }
 
     /**
+     * Test_skip bean properties null just ignores the skipping.
+     */
+    @Test
+    void test_skipBeanPropertiesNull() {
+        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().loadData().skip((String[]) null)
+                .test();
+    }
+
+    /**
      * Test_skip can equals.
      */
     @Test
