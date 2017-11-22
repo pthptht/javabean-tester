@@ -26,6 +26,9 @@ public enum LoadType {
     ALTERNATE_DATA,
 
     /** The null data. */
-    NULL_DATA;
+    NULL_DATA,
+
+    /** The custom data. */
+    CUSTOM_DATA; // TODO 11/22/17 Placeholder for customizing data load
 
 }
