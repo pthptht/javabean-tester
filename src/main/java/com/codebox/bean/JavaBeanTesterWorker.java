@@ -146,6 +146,8 @@ class JavaBeanTesterWorker<T, E> {
      * Tests the get/set/equals/hashCode/toString methods and constructors of the specified class.
      */
     public void test() {
+
+        // Test Getter/Setter
         this.getterSetterTests(new ClassInstance<T>().newInstance(this.clazz));
 
         // Test Clear
