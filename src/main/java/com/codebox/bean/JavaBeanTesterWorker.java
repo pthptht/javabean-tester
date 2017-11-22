@@ -76,9 +76,6 @@ class JavaBeanTesterWorker<T, E> {
     /** The check serializable. */
     private CheckSerialize checkSerializable;
 
-    /** The skip strict serialize. */
-    private SkipStrictSerialize skipStrictSerializable;
-
     /** The load data. */
     private LoadData loadData;
 
@@ -87,6 +84,9 @@ class JavaBeanTesterWorker<T, E> {
 
     /** The extension. */
     private Class<E> extension;
+
+    /** The skip strict serialize. */
+    private SkipStrictSerialize skipStrictSerializable;
 
     /** The skip these. */
     private Set<String> skipThese = new HashSet<>();
@@ -143,7 +143,8 @@ class JavaBeanTesterWorker<T, E> {
     }
 
     /**
-     * Tests the get/set/equals/hashCode/toString methods and constructors of the specified class.
+     * Tests the clear, get, set, equals, hashCode, toString, serializable, and constructor(s) methods of the specified
+     * class.
      */
     public void test() {
 
