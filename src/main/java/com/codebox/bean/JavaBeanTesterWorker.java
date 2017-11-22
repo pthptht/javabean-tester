@@ -14,7 +14,7 @@
  */
 package com.codebox.bean;
 
-import com.codebox.enums.CanEquals;
+import com.codebox.enums.CheckEquals;
 import com.codebox.enums.CanSerialize;
 import com.codebox.enums.LoadData;
 import com.codebox.enums.LoadType;
@@ -65,14 +65,15 @@ class JavaBeanTesterWorker<T, E> {
     /** The serializable. */
     private CanSerialize checkSerializable;
 
+    /** The check equals. */
+    private CheckEquals checkEquals;
+
+
     /** The skip strict serialize. */
     private SkipStrictSerialize skipStrictSerializable;
 
     /** The load data. */
     private LoadData loadData;
-
-    /** The check equals. */
-    private CanEquals checkEquals;
 
     /** The clazz. */
     private Class<T> clazz;
@@ -142,9 +143,12 @@ class JavaBeanTesterWorker<T, E> {
         this.clearTest();
         this.constructorsTest();
         this.checkSerializableTest();
-        if (this.checkEquals == CanEquals.ON) {
+
+        // Test Equals
+        if (this.checkEquals == CheckEquals.ON) {
             this.equalsHashCodeToStringSymmetricTest();
         }
+
     }
 
     /**

@@ -14,7 +14,7 @@
  */
 package com.codebox.bean;
 
-import com.codebox.enums.CanEquals;
+import com.codebox.enums.CheckEquals;
 import com.codebox.enums.CanSerialize;
 import com.codebox.enums.LoadData;
 import com.codebox.enums.SkipStrictSerialize;
@@ -74,7 +74,7 @@ public class JavaBeanTesterBuilder<T, E> {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder<T, E> checkEquals(final boolean value) {
-        this.worker.setCheckEquals(value ? CanEquals.ON : CanEquals.OFF);
+        this.worker.setCheckEquals(value ? CheckEquals.ON : CheckEquals.OFF);
         return this;
     }
 

@@ -15,9 +15,9 @@
 package com.codebox.enums;
 
 /**
- * The Enum CanEquals.
+ * The Enum CheckEquals.
  */
-public enum CanEquals {
+public enum CheckEquals {
 
     /** The on. */
     ON,
