@@ -152,12 +152,12 @@ class JavaBeanTesterWorker<T, E> {
         this.getterSetterTests(new ClassInstance<T>().newInstance(this.clazz));
 
         // Test Clear
-        if (this.checkClear == CheckClear.ON) {
+        if (this.checkClear != CheckClear.OFF) {
             this.clearTest();
         }
 
         // Test constructor
-        if (this.checkConstructor == CheckConstructor.ON) {
+        if (this.checkConstructor != CheckConstructor.OFF) {
             this.constructorsTest();
         }
 
