@@ -38,6 +38,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
+
 import lombok.Data;
 
 import net.sf.cglib.beans.BeanCopier;
@@ -212,6 +214,13 @@ class JavaBeanTesterWorker<T, E> {
             if (method.getName().equals("clear")) {
                 final T newClass = new ClassInstance<T>().newInstance(this.clazz);
                 try {
+                    // Perform any Post Construction on object without parameters
+                    for (final Method mt : methods) {
+                        if (mt.isAnnotationPresent(PostConstruct.class) && mt.getParameterTypes().length == 0) {
+                            // Invoke method
+                            mt.invoke(newClass);
+                        }
+                    }
                     newClass.getClass().getMethod("clear").invoke(newClass);
                     Assertions.assertEquals(new ClassInstance<T>().newInstance(this.clazz), newClass,
                             String.format("Clear method does not match new object '%s'", this.clazz));
