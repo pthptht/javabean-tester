@@ -15,9 +15,9 @@
 package com.codebox.enums;
 
 /**
- * The Enum Serializable.
+ * The Enum CheckSerialize.
  */
-public enum CanSerialize {
+public enum CheckSerialize {
 
     /** The on. */
     ON,

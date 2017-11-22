@@ -15,7 +15,7 @@
 package com.codebox.bean;
 
 import com.codebox.enums.CheckEquals;
-import com.codebox.enums.CanSerialize;
+import com.codebox.enums.CheckSerialize;
 import com.codebox.enums.LoadData;
 import com.codebox.enums.LoadType;
 import com.codebox.enums.SkipStrictSerialize;
@@ -62,12 +62,12 @@ class JavaBeanTesterWorker<T, E> {
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(JavaBeanTesterWorker.class);
 
-    /** The serializable. */
-    private CanSerialize checkSerializable;
 
     /** The check equals. */
     private CheckEquals checkEquals;
 
+    /** The check serializable. */
+    private CheckSerialize checkSerializable;
 
     /** The skip strict serialize. */
     private SkipStrictSerialize skipStrictSerializable;
@@ -142,6 +142,8 @@ class JavaBeanTesterWorker<T, E> {
         this.getterSetterTests(new ClassInstance<T>().newInstance(this.clazz));
         this.clearTest();
         this.constructorsTest();
+
+        // Test Serializable (internally uses on/off/strict checks)
         this.checkSerializableTest();
 
         // Test Equals
@@ -276,6 +278,7 @@ class JavaBeanTesterWorker<T, E> {
         final T object = new ClassInstance<T>().newInstance(this.clazz);
         if (this.implementsSerializable(object)) {
             final T newObject = this.canSerialize(object);
+            // Toggle to throw or not throw error with only one way working
             if (this.skipStrictSerializable != SkipStrictSerialize.ON) {
                 Assertions.assertEquals(object, newObject);
             } else {
@@ -283,7 +286,9 @@ class JavaBeanTesterWorker<T, E> {
             }
             return;
         }
-        if (this.checkSerializable == CanSerialize.ON) {
+
+        // Only throw error when specifically checking on serialization
+        if (this.checkSerializable == CheckSerialize.ON) {
             Assertions.fail(String.format("Class is not serializable '%s'", object.getClass().getName()));
         }
     }

@@ -15,7 +15,7 @@
 package com.codebox.bean;
 
 import com.codebox.enums.CheckEquals;
-import com.codebox.enums.CanSerialize;
+import com.codebox.enums.CheckSerialize;
 import com.codebox.enums.LoadData;
 import com.codebox.enums.SkipStrictSerialize;
 import com.codebox.instance.ConstructorInstance;
@@ -116,7 +116,7 @@ public class JavaBeanTesterBuilder<T, E> {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder<T, E> checkSerializable(final boolean value) {
-        this.worker.setCheckSerializable(value ? CanSerialize.ON : CanSerialize.OFF);
+        this.worker.setCheckSerializable(value ? CheckSerialize.ON : CheckSerialize.OFF);
         return this;
     }
 
