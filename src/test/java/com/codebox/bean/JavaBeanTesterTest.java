@@ -220,6 +220,22 @@ public class JavaBeanTesterTest {
     }
 
     /**
+     * Test_clear.
+     */
+    @Test
+    void test_clear() {
+        JavaBeanTester.builder(SerializableBean.class).checkClear().test();
+    }
+
+    /**
+     * Test_clear false.
+     */
+    @Test
+    void test_clearFalse() {
+        JavaBeanTester.builder(SerializableBean.class).checkClear(false).test();
+    }
+
+    /**
      * Test_temporary single mode.
      */
     // TODO 11/26/15 Temporary until we start using internalized extension logic

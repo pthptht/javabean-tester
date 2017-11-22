@@ -14,6 +14,7 @@
  */
 package com.codebox.bean;
 
+import com.codebox.enums.CheckClear;
 import com.codebox.enums.CheckEquals;
 import com.codebox.enums.CheckSerialize;
 import com.codebox.enums.LoadData;
@@ -55,6 +56,27 @@ public class JavaBeanTesterBuilder<T, E> {
      */
     JavaBeanTesterBuilder(final Class<T> clazz, final Class<E> extension) {
         this.worker = new JavaBeanTesterWorker<>(clazz, extension);
+    }
+
+    /**
+     * Check Clear.
+     *
+     * @return the java bean tester builder
+     */
+    public JavaBeanTesterBuilder<T, E> checkClear() {
+        return this.checkClear(true);
+    }
+
+    /**
+     * Check Clear.
+     *
+     * @param value
+     *            the value
+     * @return the java bean tester builder
+     */
+    public JavaBeanTesterBuilder<T, E> checkClear(final boolean value) {
+        this.worker.setCheckClear(value ? CheckClear.ON : CheckClear.OFF);
+        return this;
     }
 
     /**
