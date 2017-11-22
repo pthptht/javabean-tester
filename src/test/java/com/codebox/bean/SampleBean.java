@@ -117,6 +117,7 @@ public class SampleBean {
     public void init() {
         // Uncomment to see failures in equals occur
         // this.date = new Date(System.currentTimeMillis());
+        this.date = null;
     }
 
     /**
