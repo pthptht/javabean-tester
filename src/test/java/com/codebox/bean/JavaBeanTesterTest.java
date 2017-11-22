@@ -236,6 +236,22 @@ public class JavaBeanTesterTest {
     }
 
     /**
+     * Test_constructor.
+     */
+    @Test
+    void test_constructor() {
+        JavaBeanTester.builder(SerializableBean.class).checkConstructor().test();
+    }
+
+    /**
+     * Test_constructor false.
+     */
+    @Test
+    void test_constructorFalse() {
+        JavaBeanTester.builder(SerializableBean.class).checkConstructor(false).test();
+    }
+
+    /**
      * Test_temporary single mode.
      */
     // TODO 11/26/15 Temporary until we start using internalized extension logic

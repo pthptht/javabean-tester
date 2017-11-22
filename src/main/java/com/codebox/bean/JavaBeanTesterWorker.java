@@ -15,6 +15,7 @@
 package com.codebox.bean;
 
 import com.codebox.enums.CheckClear;
+import com.codebox.enums.CheckConstructor;
 import com.codebox.enums.CheckEquals;
 import com.codebox.enums.CheckSerialize;
 import com.codebox.enums.LoadData;
@@ -66,6 +67,8 @@ class JavaBeanTesterWorker<T, E> {
     /** The check clear. */
     private CheckClear checkClear;
 
+    /** The check constructor. */
+    private CheckConstructor checkConstructor;
 
     /** The check equals. */
     private CheckEquals checkEquals;
@@ -144,13 +147,16 @@ class JavaBeanTesterWorker<T, E> {
      */
     public void test() {
         this.getterSetterTests(new ClassInstance<T>().newInstance(this.clazz));
-        this.constructorsTest();
 
         // Test Clear
         if (this.checkClear == CheckClear.ON) {
             this.clearTest();
         }
 
+        // Test constructor
+        if (this.checkConstructor == CheckConstructor.ON) {
+            this.constructorsTest();
+        }
 
         // Test Serializable (internally uses on/off/strict checks)
         this.checkSerializableTest();
