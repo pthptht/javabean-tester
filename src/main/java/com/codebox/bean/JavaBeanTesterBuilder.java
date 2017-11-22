@@ -123,27 +123,6 @@ public class JavaBeanTesterBuilder<T, E> {
     }
 
     /**
-     * Load data.
-     *
-     * @return the java bean tester builder
-     */
-    public JavaBeanTesterBuilder<T, E> loadData() {
-        return this.loadData(true);
-    }
-
-    /**
-     * Load data.
-     *
-     * @param value
-     *            the value
-     * @return the java bean tester builder
-     */
-    public JavaBeanTesterBuilder<T, E> loadData(final boolean value) {
-        this.worker.setLoadData(value ? LoadData.ON : LoadData.OFF);
-        return this;
-    }
-
-    /**
      * Check Serializable.
      *
      * @return the java bean tester builder
@@ -161,6 +140,27 @@ public class JavaBeanTesterBuilder<T, E> {
      */
     public JavaBeanTesterBuilder<T, E> checkSerializable(final boolean value) {
         this.worker.setCheckSerializable(value ? CheckSerialize.ON : CheckSerialize.OFF);
+        return this;
+    }
+
+    /**
+     * Load data.
+     *
+     * @return the java bean tester builder
+     */
+    public JavaBeanTesterBuilder<T, E> loadData() {
+        return this.loadData(true);
+    }
+
+    /**
+     * Load data.
+     *
+     * @param value
+     *            the value
+     * @return the java bean tester builder
+     */
+    public JavaBeanTesterBuilder<T, E> loadData(final boolean value) {
+        this.worker.setLoadData(value ? LoadData.ON : LoadData.OFF);
         return this;
     }
 
