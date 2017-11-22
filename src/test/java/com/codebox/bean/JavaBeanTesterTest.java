@@ -166,8 +166,8 @@ public class JavaBeanTesterTest {
      */
     @Test
     void test_skipBeanPropertiesNull() {
-        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().loadData().skip((String[]) null)
-                .test();
+        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().loadData()
+                .skip((String[]) null).test();
     }
 
     /**
