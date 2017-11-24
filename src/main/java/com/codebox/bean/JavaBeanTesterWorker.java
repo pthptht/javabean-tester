@@ -237,16 +237,20 @@ class JavaBeanTesterWorker<T, E> {
         for (final Method method : methods) {
             if (method.getName().equals("clear")) {
                 final T newClass = new ClassInstance<T>().newInstance(this.clazz);
+                final T expectedClass = new ClassInstance<T>().newInstance(this.clazz);
                 try {
                     // Perform any Post Construction on object without parameters
                     for (final Method mt : methods) {
                         if (mt.isAnnotationPresent(PostConstruct.class) && mt.getParameterTypes().length == 0) {
-                            // Invoke method
+                            // Invoke method newClass
                             mt.invoke(newClass);
+                            // Invoke method expectedClass
+                            mt.invoke(expectedClass);
                         }
                     }
+                    // Invoke clear only on newClass
                     newClass.getClass().getMethod("clear").invoke(newClass);
-                    Assertions.assertEquals(new ClassInstance<T>().newInstance(this.clazz), newClass,
+                    Assertions.assertEquals(expectedClass, newClass,
                             String.format("Clear method does not match new object '%s'", this.clazz));
                 } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
                         | NoSuchMethodException | SecurityException e) {
