@@ -88,6 +88,6 @@ public class SampleDepthBean {
     private byte                          bytePrimitive;
 
     /** The date. */
-    private Date date;
+    private Date                          date;
 
 }

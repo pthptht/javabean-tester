@@ -99,7 +99,7 @@ public class SampleBean {
     private byte                          bytePrimitive;
 
     /** The date. */
-    private Date date;
+    private Date                          date;
 
     /**
      * Instantiates a new sample bean. Causes JVM to not create a default no-arg constructor
