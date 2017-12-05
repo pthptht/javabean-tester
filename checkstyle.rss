@@ -25,9 +25,9 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2012 - 2017 hazendaz</copyright>
     <item>
-      <title>File: 18,
+      <title>File: 16,
              Errors: 0,
-             Warnings: 527,
+             Warnings: 490,
              Infos: 0
       </title>
             <link>https://github.com/hazendaz/javabean-tester/checkstyle.html</link>
@@ -46,13 +46,13 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.enums.CheckConstructor.java">com/codebox/enums/CheckConstructor.java</a>
+                  <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.instance.ClassInstance.java">com/codebox/instance/ClassInstance.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  0
+                  27
                 </td>
                 <td>
                   0
@@ -60,13 +60,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.instance.ClassInstance.java">com/codebox/instance/ClassInstance.java</a>
+                  <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.enums.CanEquals.java">com/codebox/enums/CanEquals.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  23
+                  0
                 </td>
                 <td>
                   0
@@ -80,7 +80,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  116
+                  93
                 </td>
                 <td>
                   0
@@ -122,7 +122,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  19
+                  23
                 </td>
                 <td>
                   0
@@ -150,7 +150,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  67
+                  53
                 </td>
                 <td>
                   0
@@ -159,20 +159,6 @@ under the License.
                           <tr>
                 <td>
                   <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.enums.SkipStrictSerialize.java">com/codebox/enums/SkipStrictSerialize.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.enums.CheckSerialize.java">com/codebox/enums/CheckSerialize.java</a>
                 </td>
                 <td>
                   0
@@ -206,7 +192,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  238
+                  230
                 </td>
                 <td>
                   0
@@ -242,20 +228,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.enums.CheckEquals.java">com/codebox/enums/CheckEquals.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.instance.package-info.java">com/codebox/instance/package-info.java</a>
                 </td>
                 <td>
@@ -270,7 +242,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.enums.CheckClear.java">com/codebox/enums/CheckClear.java</a>
+                  <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.enums.LoadData.java">com/codebox/enums/LoadData.java</a>
                 </td>
                 <td>
                   0
@@ -284,7 +256,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.enums.LoadData.java">com/codebox/enums/LoadData.java</a>
+                  <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.enums.CanSerialize.java">com/codebox/enums/CanSerialize.java</a>
                 </td>
                 <td>
                   0

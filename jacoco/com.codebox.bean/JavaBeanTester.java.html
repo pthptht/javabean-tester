@@ -37,7 +37,7 @@ package com.codebox.bean;
      */
     public static &lt;T&gt; JavaBeanTesterBuilder&lt;T, ?&gt; builder(final Class&lt;T&gt; clazz) {
         // TODO For now push in Object.class as we eventually will internalize setup
-<span class="fc" id="L40">        return new JavaBeanTesterBuilder&lt;&gt;(clazz, Object.class);</span>
+<span class="fc" id="L40">        return new JavaBeanTesterBuilder&lt;T, Object&gt;(clazz, Object.class);</span>
     }
 
     /**
@@ -54,7 +54,7 @@ package com.codebox.bean;
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
     public static &lt;T, E&gt; JavaBeanTesterBuilder&lt;T, E&gt; builder(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension) {
-<span class="fc" id="L57">        return new JavaBeanTesterBuilder&lt;&gt;(clazz, extension);</span>
+<span class="fc" id="L57">        return new JavaBeanTesterBuilder&lt;T, E&gt;(clazz, extension);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

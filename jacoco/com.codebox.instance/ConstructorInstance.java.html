@@ -17,7 +17,7 @@ package com.codebox.instance;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import org.junit.jupiter.api.Assertions;
+import org.junit.Assert;
 
 /**
  * The Constructor Instance.
@@ -41,12 +41,17 @@ public final class ConstructorInstance {
     public static Object newInstance(final Constructor&lt;?&gt; constructor) {
         try {
 <span class="fc" id="L43">            return constructor.newInstance();</span>
-<span class="nc" id="L44">        } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {</span>
-<span class="nc" id="L45">            Assertions.fail(</span>
-<span class="nc" id="L46">                    String.format(&quot;An exception was thrown while testing the constructor (new instance) '%s': '%s'&quot;,</span>
-<span class="nc" id="L47">                            constructor.getName(), e.toString()));</span>
-        }
-<span class="nc" id="L49">        return null;</span>
+<span class="fc" id="L44">        } catch (InstantiationException e) {</span>
+<span class="pc" id="L45">            Assert.fail(String.format(&quot;An exception was thrown while testing the constructor '%s': '%s'&quot;,</span>
+<span class="fc" id="L46">                    constructor.getName(), e.toString()));</span>
+<span class="fc" id="L47">        } catch (IllegalAccessException e) {</span>
+<span class="pc" id="L48">            Assert.fail(String.format(&quot;An exception was thrown while testing the constructor '%s': '%s'&quot;,</span>
+<span class="fc" id="L49">                    constructor.getName(), e.toString()));</span>
+<span class="fc" id="L50">        } catch (InvocationTargetException e) {</span>
+<span class="pc" id="L51">            Assert.fail(String.format(&quot;An exception was thrown while testing the constructor '%s': '%s'&quot;,</span>
+<span class="fc" id="L52">                    constructor.getName(), e.toString()));</span>
+<span class="nc" id="L53">        }</span>
+<span class="nc" id="L54">        return null;</span>
     }
 
     /**
@@ -56,15 +61,15 @@ public final class ConstructorInstance {
      *            the clazz
      */
     public static void inaccessible(final Class&lt;?&gt; clazz) {
-<span class="fc" id="L59">        final Constructor&lt;?&gt;[] ctors = clazz.getDeclaredConstructors();</span>
-<span class="fc" id="L60">        Assertions.assertEquals(1, ctors.length, &quot;Utility class should only have one constructor&quot;);</span>
-<span class="fc" id="L61">        final Constructor&lt;?&gt; ctor = ctors[0];</span>
-<span class="fc" id="L62">        Assertions.assertFalse(ctor.isAccessible(), &quot;Utility class constructor should be inaccessible&quot;);</span>
+<span class="fc" id="L64">        final Constructor&lt;?&gt;[] ctors = clazz.getDeclaredConstructors();</span>
+<span class="fc" id="L65">        Assert.assertEquals(&quot;Utility class should only have one constructor&quot;, 1, ctors.length);</span>
+<span class="fc" id="L66">        final Constructor&lt;?&gt; ctor = ctors[0];</span>
+<span class="fc" id="L67">        Assert.assertFalse(&quot;Utility class constructor should be inaccessible&quot;, ctor.isAccessible());</span>
         // Make accessible in order to test following assert.
-<span class="fc" id="L64">        ctor.setAccessible(true);</span>
-<span class="fc" id="L65">        final Object object = ConstructorInstance.newInstance(ctor);</span>
-<span class="pc bpc" id="L66" title="1 of 2 branches missed.">        Assertions.assertEquals(clazz, object == null ? &quot;null&quot; : object.getClass(),</span>
-                &quot;You would expect the constructor to return the expected type&quot;);
-<span class="fc" id="L68">    }</span>
+<span class="fc" id="L69">        ctor.setAccessible(true);</span>
+<span class="fc" id="L70">        final Object object = ConstructorInstance.newInstance(ctor);</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">        Assert.assertEquals(&quot;You would expect the constructor to return the expected type&quot;, clazz,</span>
+<span class="fc" id="L72">                object == null ? &quot;null&quot; : object.getClass());</span>
+<span class="fc" id="L73">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
