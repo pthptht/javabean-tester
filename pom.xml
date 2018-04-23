@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    JavaBean Tester (https://github.com/hazendaz/javabean-tester)
+
+    Copyright (c) 2012 - 2017 Hazendaz.
+
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of The Apache Software License,
+    Version 2.0 which accompanies this distribution, and is available at
+    http://www.apache.org/licenses/LICENSE-2.0.txt
+
+    Contributors:
+        CodeBox (Rob Dawson).
+        Hazendaz (Jeremy Landis).
+
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -410,20 +426,18 @@
                     <configuration>
                         <header>license.txt</header>
                         <excludes>
-                            <exclude>target/**</exclude>
-                            <exclude>**/.gitignore</exclude>
-                            <exclude>**/*.txt</exclude>
-                            <exclude>**/*.xml</exclude>
-                            <exclude>**/*.properties</exclude>
-                            <exclude>**/*.html</exclude>
-                            <exclude>**/*.css</exclude>
+                          <exclude>**/*.lck</exclude>
+                            <exclude>**/*.log</exclude>
+                            <exclude>**/*maven-wrapper.properties</exclude>
+                            <exclude>**/*MavenWrapperDownloader.java</exclude>
+                            <exclude>.factorypath</exclude>
+                            <exclude>.gitattributes</exclude>
+                            <exclude>LICENSE</exclude>
+                            <exclude>LICENSE_HEADER</exclude>
+                            <exclude>license.txt</exclude>
+                            <exclude>mvnw</exclude>
+                            <exclude>mvnw.cmd</exclude>
                         </excludes>
-                        <includes>
-                            <include>**/*.java</include>
-                        </includes>
-                        <mapping>
-                            <java>JAVADOC_STYLE</java>
-                        </mapping>
                     </configuration>
                 </plugin>
                 <!-- Report Only -->
