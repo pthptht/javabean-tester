@@ -803,7 +803,7 @@
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
-                        <version>8.9</version>
+                        <version>8.10</version>
                     </dependency>
                     <dependency>
                         <groupId>com.github.hazendaz</groupId>
