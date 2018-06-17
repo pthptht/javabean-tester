@@ -1013,7 +1013,7 @@
                     <plugin>
                         <groupId>org.projectlombok</groupId>
                         <artifactId>lombok-maven-plugin</artifactId>
-                        <version>1.16.22.0</version>
+                        <version>1.18.0.0</version>
                         <dependencies>
                             <dependency>
                                 <groupId>sun.jdk</groupId>
