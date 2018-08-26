@@ -150,6 +150,9 @@
 
         <signature.artifact>java18</signature.artifact>
         <signature.version>1.0</signature.version>
+
+        <!-- Version Properties -->
+        <jmockit.version>1.41</jmockit.version>
     </properties>
 
     <dependencies>
@@ -199,7 +202,7 @@
         <dependency>
             <groupId>org.jmockit</groupId>
             <artifactId>jmockit</artifactId>
-            <version>1.39</version>
+            <version>${jmockit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -310,7 +313,7 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.22.0</version>
                     <configuration>
-                        <argLine>-Djdk.attach.allowAttachSelf</argLine>
+                        <argLine>-javaagent:${settings.localRepository}/org/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar</argLine>
                     </configuration>
                     <dependencies>
                         <dependency>
@@ -502,7 +505,7 @@
                     <artifactId>maven-surefire-report-plugin</artifactId>
                     <version>2.22.0</version>
                     <configuration>
-                        <argLine>-Djdk.attach.allowAttachSelf</argLine>
+                        <argLine>-javaagent:${settings.localRepository}/org/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar</argLine>
                     </configuration>
                     <dependencies>
                         <dependency>
