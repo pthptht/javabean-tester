@@ -103,6 +103,9 @@ public class ValueBuilder {
         } else if (clazz == Logger.class) {
             return LoggerFactory.getLogger(clazz);
 
+        } else if (clazz.isEnum()) {
+            return clazz.getEnumConstants()[0];
+
             // XXX Add additional rules here
 
         } else {
