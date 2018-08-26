@@ -416,10 +416,11 @@
                 <plugin>
                     <groupId>net.revelc.code</groupId>
                     <artifactId>impsort-maven-plugin</artifactId>
-                    <version>1.0.1</version>
+                    <version>1.2.0</version>
                     <configuration>
                         <groups>com,java,javax,lombok,mockit,net,org</groups>
                         <staticGroups>java,*</staticGroups>
+                        <removeUnused>true</removeUnused>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -1091,7 +1092,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>net.revelc.code</groupId>
                                                 <artifactId>impsort-maven-plugin</artifactId>
-                                                <versionRange>[1.0.1,)</versionRange>
+                                                <versionRange>[1.2.0,)</versionRange>
                                                 <goals>
                                                     <goal>sort</goal>
                                                 </goals>
