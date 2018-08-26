@@ -209,11 +209,17 @@ class JavaBeanTesterWorker<T, E> {
                         // Build a value of the correct type to be passed to the set method
                         final Object value = this.buildValue(returnType, LoadType.STANDARD_DATA);
 
+                        // Build an instance of the bean that we are testing (each property test gets a new instance)
+                        final T bean = new ClassInstance<T>().newInstance(this.clazz);
+
                         // Call the set method, then check the same value comes back out of the get method
+                        setter.invoke(bean, value);
+
+                        // Use data set on instance
                         setter.invoke(instance, value);
 
                         final Object expectedValue = value;
-                        final Object actualValue = getter.invoke(instance);
+                        final Object actualValue = getter.invoke(bean);
 
                         Assertions.assertEquals(expectedValue, actualValue,
                                 String.format("Failed while testing property '%s'", prop.getName()));
