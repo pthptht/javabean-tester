@@ -178,7 +178,7 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
-            <version>3.2.7</version>
+            <version>3.2.8</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
