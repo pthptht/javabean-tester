@@ -316,6 +316,7 @@
                         <argLine>${argLine} -javaagent:${settings.localRepository}/org/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar</argLine>
                     </configuration>
                 </plugin>
+
                 <!-- Build Plugins -->
                 <plugin>
                     <groupId>pl.project13.maven</groupId>
@@ -327,12 +328,14 @@
                     <artifactId>build-helper-maven-plugin</artifactId>
                     <version>3.0.0</version>
                 </plugin>
+
                 <!-- Packaging types / tools -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>3.1.0</version>
                 </plugin>
+
                 <!-- Reporting plugins -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -349,6 +352,7 @@
                     <artifactId>maven-pmd-plugin</artifactId>
                     <version>3.10.0</version>
                 </plugin>
+
                 <!-- Tools -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -378,6 +382,7 @@
                     <artifactId>maven-source-plugin</artifactId>
                     <version>3.0.1</version>
                 </plugin>
+
                 <!-- External Tools -->
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
@@ -441,6 +446,7 @@
                         </excludes>
                     </configuration>
                 </plugin>
+
                 <!-- Report Only -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -512,6 +518,7 @@
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>2.7</version>
                 </plugin>
+
                 <!-- SCM -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -595,6 +602,7 @@
                     </filesets>
                 </configuration>
             </plugin>
+
             <!-- Build Plugins -->
             <plugin>
                 <groupId>pl.project13.maven</groupId>
@@ -617,6 +625,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <!-- Packaging types / Tools -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -648,6 +657,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <!-- Reporting Plugins -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -680,6 +690,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <!-- Tools -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -788,6 +799,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <!-- Checkstyle dependencies required here or they won't be used (per maven) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -940,6 +952,7 @@
                             <failOnViolation>false</failOnViolation>
                         </configuration>
                     </plugin>
+
                     <!-- External Tools -->
                     <plugin>
                         <groupId>com.github.spotbugs</groupId>
