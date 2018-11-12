@@ -164,7 +164,7 @@
         <signature.version>1.0</signature.version>
 
         <!-- Version Properties -->
-        <jmockit.version>1.41</jmockit.version> <!-- Version 1.42 breaks Eclipse (no junit 5 found error) -->
+        <jmockit.version>1.43</jmockit.version>
     </properties>
 
     <dependencies>
