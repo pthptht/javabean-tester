@@ -40,6 +40,9 @@ import org.slf4j.LoggerFactory;
 @Data
 public class ValueBuilder {
 
+    /** The Constant Logger. */
+    private static final Logger logger = LoggerFactory.getLogger(ValueBuilder.class);
+
     /** The load data. */
     private LoadData loadData;
 
@@ -111,9 +114,9 @@ public class ValueBuilder {
         } else {
 
             // XXX Don't fail this...until alternative solution is determined
-            // Assert.fail(String.format(
-            // "Unable to build an instance of class '%s', please add some code to the '%s' class to do this.",
-            // clazz.getName(), JavaBeanTester.class.getName()));
+            ValueBuilder.logger.warn(
+                    "Unable to build value for class '{}', please raise ticket with JavaBeanTester for desired support.",
+                    clazz.getName());
             return null;
         }
     }
