@@ -233,11 +233,10 @@ class JavaBeanTesterWorker<T, E> {
                         // not exist and is not a typical getter/setter use-case. It is also deprecated but we don't
                         // want to simply skip all deprecated items as we intend to test as much as possible.
                         //
-                        if (this.clazz == Date.class && prop.getName().equals("month")) {
-                            if (expectedValue.equals(Integer.valueOf("1"))
-                                    && actualValue.equals(Integer.valueOf("2"))) {
-                                actualValue = Integer.valueOf("1");
-                            }
+                        if (this.clazz == Date.class && prop.getName().equals("month")
+                                && expectedValue.equals(Integer.valueOf("1"))
+                                && actualValue.equals(Integer.valueOf("2"))) {
+                            actualValue = Integer.valueOf("1");
                         }
 
                         Assertions.assertEquals(expectedValue, actualValue,
