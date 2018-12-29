@@ -19,8 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
-import javax.annotation.PostConstruct;
-
 import lombok.Data;
 
 import org.slf4j.Logger;
@@ -111,13 +109,6 @@ public class SampleBean {
      */
     public SampleBean(final String newString) {
         this.string = newString;
-    }
-
-    @PostConstruct
-    public void init() {
-        // Uncomment to see failures in equals occur
-        // this.date = new Date(System.currentTimeMillis());
-        this.date = null;
     }
 
     /**
