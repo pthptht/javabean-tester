@@ -101,7 +101,7 @@ public class ValueBuilder {
             return new ConcurrentHashMap<>();
 
         } else if (clazz.isAssignableFrom(Date.class)) {
-            return new Date(System.currentTimeMillis());
+            return new Date();
 
         } else if (clazz == Logger.class) {
             return LoggerFactory.getLogger(clazz);

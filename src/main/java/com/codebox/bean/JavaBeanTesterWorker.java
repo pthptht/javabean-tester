@@ -296,7 +296,7 @@ class JavaBeanTesterWorker<T, E> {
                                 constructor.getName(), Arrays.toString(values), e.toString()));
             }
 
-            // TODO: Add checking of new object properties
+            // TODO Add checking of new object properties
         }
     }
 
