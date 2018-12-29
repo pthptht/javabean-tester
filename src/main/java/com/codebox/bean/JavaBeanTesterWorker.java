@@ -234,8 +234,9 @@ class JavaBeanTesterWorker<T, E> {
                         // want to simply skip all deprecated items as we intend to test as much as possible.
                         //
                         if (this.clazz == Date.class && prop.getName().equals("month")) {
-                            if (expectedValue.equals("1") && actualValue.equals("2")) {
-                                actualValue = "1";
+                            if (expectedValue.equals(Integer.valueOf("1"))
+                                    && actualValue.equals(Integer.valueOf("2"))) {
+                                actualValue = Integer.valueOf("1");
                             }
                         }
 
