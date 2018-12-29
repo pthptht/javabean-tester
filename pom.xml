@@ -34,7 +34,7 @@
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
             <distribution>manual</distribution>
             <comments>A business-friendly OSS license</comments>
         </license>
@@ -45,7 +45,7 @@
             <id>jlandis</id>
             <name>Jeremy Landis</name>
             <email>jeremylandis@hotmail.com</email>
-            <url>http://www.linkedin.com/pub/jeremy-landis/19/b27/548/</url>
+            <url>https://www.linkedin.com/in/jeremy-landis-548b2719</url>
             <organization>hazendaz</organization>
             <organizationUrl>https://github.com/hazendaz</organizationUrl>
             <roles>
@@ -54,7 +54,7 @@
             </roles>
             <timezone>-5</timezone>
             <properties>
-                <picUrl>http://m.c.lnkd.licdn.com/mpr/mpr/shrink_200_200/p/1/000/128/174/30cff69.jpg</picUrl>
+                <picUrl>https://avatars0.githubusercontent.com/u/975267</picUrl>
             </properties>
         </developer>
     </developers>
@@ -62,7 +62,7 @@
         <contributor>
             <name>Jeremy Landis</name>
             <email>jeremylandis@hotmail.com</email>
-            <url>http://www.linkedin.com/pub/jeremy-landis/19/b27/548/</url>
+            <url>https://www.linkedin.com/in/jeremy-landis-548b2719</url>
             <organization>hazendaz</organization>
             <organizationUrl>https://github.com/hazendaz</organizationUrl>
             <roles>
@@ -71,7 +71,7 @@
             </roles>
             <timezone>-5</timezone>
             <properties>
-                <picUrl>http://m.c.lnkd.licdn.com/mpr/mpr/shrink_200_200/p/1/000/128/174/30cff69.jpg</picUrl>
+                <picUrl>https://avatars0.githubusercontent.com/u/975267</picUrl>
             </properties>
         </contributor>
         <contributor>
@@ -85,7 +85,7 @@
             </roles>
             <timezone>-5</timezone>
             <properties>
-                <picUrl>https://avatars1.githubusercontent.com/u/615829?s=460</picUrl>
+                <picUrl>https://avatars1.githubusercontent.com/u/615829</picUrl>
             </properties>
         </contributor>
     </contributors>
@@ -101,7 +101,7 @@
         <url>https://github.com/hazendaz/javabean-tester/issues</url>
     </issueManagement>
     <ciManagement>
-        <system>travis</system>
+        <system>travis-ci</system>
         <url>https://travis-ci.org/hazendaz/javabean-tester/</url>
         <notifiers>
             <notifier>
@@ -815,7 +815,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
+                    <configLocation>checkstyle-4space.xml</configLocation>
                 </configuration>
             </plugin>
             <plugin>
