@@ -222,7 +222,7 @@ class JavaBeanTesterWorker<T, E> {
                         final Object actualValue = getter.invoke(bean);
 
                         Assertions.assertEquals(expectedValue, actualValue,
-                                String.format("Failed while testing property '%s' of class '$s'", prop.getName(),
+                                String.format("Failed while testing property '%s' of class '%s'", prop.getName(),
                                         this.clazz.getName()));
 
                     } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException
