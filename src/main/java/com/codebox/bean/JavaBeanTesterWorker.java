@@ -222,11 +222,17 @@ class JavaBeanTesterWorker<T, E> {
                         final Object expectedValue = value;
                         Object actualValue = getter.invoke(bean);
 
-                        // Date normalization patch (in case of month 1 = 2 situation due to time zone changes close to
-                        // month end/beginning). This is done since we are not actually testing specific dates but
-                        // underlying object getter/setter which happens to be an 'int' that is normalized not
-                        // to mention the methods being tested in this case are deprecated and we logically are deep
-                        // testing objects for larger code coverage needs.
+                        // java.util.Date normalization patch
+                        //
+                        // Date is zero based so it adds 1 through normalization. Since we always pass '1' here, it is
+                        // the same as stating February. Thus we roll over the month quite often into March towards
+                        // end of the month resulting in '1' != '2' situation. The reason we pass '1' is that we are
+                        // testing the content of the object and have no idea it is a date to start with. It is simply
+                        // that it sees getters/setters and tries to load them appropriately. The underlying problem
+                        // with that is that the Date object performs normalization to avoid dates like 2-30 that do
+                        // not exist and is not a typical getter/setter use-case. It is also deprecated but we don't
+                        // want to simply skip all deprecated items as we intend to test as much as possible.
+                        //
                         if (this.clazz == Date.class && prop.getName().equals("month")) {
                             if (expectedValue.equals("1") && actualValue.equals("2")) {
                                 actualValue = "1";
