@@ -406,30 +406,30 @@ class JavaBeanTesterWorker<T, E> {
          */
         final E ext = new ClassInstance<E>().newInstance(this.extension);
 
-        // Test Equals, HashCode, and ToString
+        // Test Equals, HashCode, and ToString on Empty Objects
         Assertions.assertEquals(x, y);
         Assertions.assertEquals(x.hashCode(), y.hashCode());
         Assertions.assertEquals(x.toString(), y.toString());
 
-        // Test Extension Equals, HashCode, and ToString
+        // Test Extension Equals, HashCode, and ToString on Empty Objects
         Assertions.assertNotEquals(ext, y);
         Assertions.assertNotEquals(ext.hashCode(), y.hashCode());
 
-        // Test One Sided Tests
+        // Test One Sided Tests on Empty Objects
         Assertions.assertNotEquals(x, null);
         Assertions.assertEquals(x, x);
 
-        // Test Extension One Sided Tests
+        // Test Extension One Sided Tests on Empty Objects
         Assertions.assertNotEquals(ext, null);
         Assertions.assertEquals(ext, ext);
 
         // If the class has setters, the previous tests would have been against empty classes
-        // If so, load the classes and retest
-        if (classHasSetters(this.clazz)){
+        // If so, load the classes and re-test
+        if (classHasSetters(this.clazz)) {
             // Populate Side X
             JavaBeanTesterWorker.load(this.clazz, x, this.loadData);
 
-            // Populate Extension Side E
+            // Populate Extension Side Ext
             JavaBeanTesterWorker.load(this.extension, ext, this.loadData);
 
             // ReTest Equals (flip)
@@ -556,11 +556,26 @@ class JavaBeanTesterWorker<T, E> {
         }
     }
 
+    /**
+     * Class has setters.
+     *
+     * @param clazz
+     *            the clazz
+     * @return true, if successful
+     */
     private boolean classHasSetters(Class<T> clazz) {
-        return Arrays.stream(getProps(clazz)).anyMatch(propertyDescriptor -> propertyDescriptor.getWriteMethod() != null);
+        return Arrays.stream(getProps(clazz))
+                .anyMatch(propertyDescriptor -> propertyDescriptor.getWriteMethod() != null);
     }
 
-    private PropertyDescriptor[] getProps (Class<?> clazz){
+    /**
+     * Gets the props.
+     *
+     * @param clazz
+     *            the clazz
+     * @return the props
+     */
+    private PropertyDescriptor[] getProps(Class<?> clazz) {
         try {
             return Introspector.getBeanInfo(clazz).getPropertyDescriptors();
         } catch (final IntrospectionException e) {

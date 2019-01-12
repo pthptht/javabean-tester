@@ -263,6 +263,17 @@ public class JavaBeanTesterTest {
         Assertions.assertEquals(String.class, worker.getClazz());
     }
 
+    /**
+     * Serialize.
+     *
+     * @param <T>
+     *            the generic type
+     * @param object
+     *            the object
+     * @return the t
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("unchecked")
     private static <T> T serialize(final T object) throws Exception {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
