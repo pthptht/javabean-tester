@@ -255,7 +255,7 @@ public class JavaBeanTesterTest {
     /**
      * Test_temporary single mode.
      */
-    // TODO 11/26/15 Temporary until we start using internalized extension logic
+    // TODO 1/12/2019 JWL Temporary until we start using internalized extension logic
     @Test
     void test_temporarySingleMode() {
         final JavaBeanTesterBuilder<String, Object> builder = new JavaBeanTesterBuilder<>(String.class);

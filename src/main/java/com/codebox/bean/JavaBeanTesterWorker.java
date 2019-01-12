@@ -307,7 +307,7 @@ class JavaBeanTesterWorker<T, E> {
                                 constructor.getName(), Arrays.toString(values), e.toString()));
             }
 
-            // TODO Add checking of new object properties
+            // TODO 1/12/2019 JWL Add checking of new object properties
         }
     }
 
@@ -399,7 +399,7 @@ class JavaBeanTesterWorker<T, E> {
         final T x = new ClassInstance<T>().newInstance(this.clazz);
         final T y = new ClassInstance<T>().newInstance(this.clazz);
 
-        // TODO Internalize extension will require canEquals, equals, hashcode, and toString overrides.
+        // TODO 1/12/2019 JWL Internalize extension will require canEquals, equals, hashcode, and toString overrides.
         /*
          * try { this.extension = (Class<E>) new ExtensionBuilder<T>().generate(this.clazz); } catch (NotFoundException
          * e) { Assert.fail(e.getMessage()); } catch (CannotCompileException e) { Assert.fail(e.getMessage()); }

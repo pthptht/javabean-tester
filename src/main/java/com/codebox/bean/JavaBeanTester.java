@@ -36,7 +36,7 @@ public enum JavaBeanTester {
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
     public static <T> JavaBeanTesterBuilder<T, ?> builder(final Class<T> clazz) {
-        // TODO For now push in Object.class as we eventually will internalize setup
+        // TODO 1/12/2019 JWL For now push in Object.class as we eventually will internalize setup
         return new JavaBeanTesterBuilder<>(clazz, Object.class);
     }
 
