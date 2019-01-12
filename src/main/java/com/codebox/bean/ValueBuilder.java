@@ -35,7 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Builds values from given type.
+ * Value Builder Builds values from given type.
  */
 @Data
 public class ValueBuilder {

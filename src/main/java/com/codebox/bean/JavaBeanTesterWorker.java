@@ -180,14 +180,7 @@ class JavaBeanTesterWorker<T, E> {
      * @return the ter setter tests
      */
     void getterSetterTests(final T instance) {
-        PropertyDescriptor[] props;
-        try {
-            props = Introspector.getBeanInfo(this.clazz).getPropertyDescriptors();
-        } catch (final IntrospectionException e) {
-            Assertions.fail(String.format("An exception was thrown while testing class '%s': '%s'",
-                    this.clazz.getName(), e.toString()));
-            return;
-        }
+        PropertyDescriptor[] props = getProps(this.clazz);
         nextProp: for (final PropertyDescriptor prop : props) {
             // Check the list of properties that we don't want to test
             for (final String skipThis : this.skipThese) {
@@ -314,7 +307,7 @@ class JavaBeanTesterWorker<T, E> {
                                 constructor.getName(), Arrays.toString(values), e.toString()));
             }
 
-            // TODO Add checking of new object properties
+            // TODO 1/12/2019 JWL Add checking of new object properties
         }
     }
 
@@ -406,58 +399,62 @@ class JavaBeanTesterWorker<T, E> {
         final T x = new ClassInstance<T>().newInstance(this.clazz);
         final T y = new ClassInstance<T>().newInstance(this.clazz);
 
-        // TODO Internalize extension will require canEquals, equals, hashcode, and toString overrides.
+        // TODO 1/12/2019 JWL Internalize extension will require canEquals, equals, hashcode, and toString overrides.
         /*
          * try { this.extension = (Class<E>) new ExtensionBuilder<T>().generate(this.clazz); } catch (NotFoundException
          * e) { Assert.fail(e.getMessage()); } catch (CannotCompileException e) { Assert.fail(e.getMessage()); }
          */
         final E ext = new ClassInstance<E>().newInstance(this.extension);
 
-        // Test Empty Equals, HashCode, and ToString
+        // Test Equals, HashCode, and ToString on Empty Objects
         Assertions.assertEquals(x, y);
         Assertions.assertEquals(x.hashCode(), y.hashCode());
         Assertions.assertEquals(x.toString(), y.toString());
 
-        // Test Extension Empty Equals, HashCode, and ToString
+        // Test Extension Equals, HashCode, and ToString on Empty Objects
         Assertions.assertNotEquals(ext, y);
         Assertions.assertNotEquals(ext.hashCode(), y.hashCode());
 
-        // Test Empty One Sided Tests
+        // Test One Sided Tests on Empty Objects
         Assertions.assertNotEquals(x, null);
         Assertions.assertEquals(x, x);
 
-        // Test Extension Empty One Sided Tests
+        // Test Extension One Sided Tests on Empty Objects
         Assertions.assertNotEquals(ext, null);
         Assertions.assertEquals(ext, ext);
 
-        // Populate Side X
-        JavaBeanTesterWorker.load(this.clazz, x, this.loadData);
+        // If the class has setters, the previous tests would have been against empty classes
+        // If so, load the classes and re-test
+        if (classHasSetters(this.clazz)) {
+            // Populate Side X
+            JavaBeanTesterWorker.load(this.clazz, x, this.loadData);
 
-        // Populate Extension Side E
-        JavaBeanTesterWorker.load(this.extension, ext, this.loadData);
+            // Populate Extension Side Ext
+            JavaBeanTesterWorker.load(this.extension, ext, this.loadData);
 
-        // ReTest Equals (flip)
-        Assertions.assertNotEquals(y, x);
+            // ReTest Equals (flip)
+            Assertions.assertNotEquals(y, x);
 
-        // ReTest Extension Equals (flip)
-        Assertions.assertNotEquals(y, ext);
+            // ReTest Extension Equals (flip)
+            Assertions.assertNotEquals(y, ext);
 
-        // Populate Size Y
-        JavaBeanTesterWorker.load(this.clazz, y, this.loadData);
+            // Populate Size Y
+            JavaBeanTesterWorker.load(this.clazz, y, this.loadData);
 
-        // ReTest Equals and HashCode
-        if (this.loadData == LoadData.ON) {
-            Assertions.assertEquals(x, y);
-            Assertions.assertEquals(x.hashCode(), y.hashCode());
-        } else {
-            Assertions.assertNotEquals(x, y);
-            Assertions.assertNotEquals(x.hashCode(), y.hashCode());
+            // ReTest Equals and HashCode
+            if (this.loadData == LoadData.ON) {
+                Assertions.assertEquals(x, y);
+                Assertions.assertEquals(x.hashCode(), y.hashCode());
+            } else {
+                Assertions.assertNotEquals(x, y);
+                Assertions.assertNotEquals(x.hashCode(), y.hashCode());
+            }
+
+            // ReTest Extension Equals and HashCode
+            Assertions.assertNotEquals(ext, y);
+            Assertions.assertNotEquals(ext.hashCode(), y.hashCode());
+            Assertions.assertNotEquals(ext.toString(), y.toString());
         }
-
-        // ReTest Extension Equals and HashCode
-        Assertions.assertNotEquals(ext, y);
-        Assertions.assertNotEquals(ext.hashCode(), y.hashCode());
-        Assertions.assertNotEquals(ext.toString(), y.toString());
 
         // Create Immutable Instance
         try {
@@ -502,14 +499,7 @@ class JavaBeanTesterWorker<T, E> {
         final ValueBuilder valueBuilder = new ValueBuilder();
         valueBuilder.setLoadData(this.loadData);
 
-        PropertyDescriptor[] props;
-        try {
-            props = Introspector.getBeanInfo(instance.getClass()).getPropertyDescriptors();
-        } catch (final IntrospectionException e) {
-            Assertions.fail(String.format("An exception occurred during introspection of '%s': '%s'",
-                    instance.getClass().getName(), e.toString()));
-            return;
-        }
+        PropertyDescriptor[] props = getProps(instance.getClass());
         for (final PropertyDescriptor prop : props) {
             final Method getter = prop.getReadMethod();
             final Method setter = prop.getWriteMethod();
@@ -563,6 +553,35 @@ class JavaBeanTesterWorker<T, E> {
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Class has setters.
+     *
+     * @param clazz
+     *            the clazz
+     * @return true, if successful
+     */
+    private boolean classHasSetters(Class<T> clazz) {
+        return Arrays.stream(getProps(clazz))
+                .anyMatch(propertyDescriptor -> propertyDescriptor.getWriteMethod() != null);
+    }
+
+    /**
+     * Gets the props.
+     *
+     * @param clazz
+     *            the clazz
+     * @return the props
+     */
+    private PropertyDescriptor[] getProps(Class<?> clazz) {
+        try {
+            return Introspector.getBeanInfo(clazz).getPropertyDescriptors();
+        } catch (final IntrospectionException e) {
+            Assertions.fail(String.format("An exception was thrown while testing class '%s': '%s'",
+                    this.clazz.getName(), e.toString()));
+            return new PropertyDescriptor[0];
         }
     }
 

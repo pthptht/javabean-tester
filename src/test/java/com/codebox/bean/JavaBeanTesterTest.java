@@ -142,6 +142,7 @@ public class JavaBeanTesterTest {
     @Test
     void test_fullBeanNullExt() {
         JavaBeanTester.builder(SampleBean.class).checkEquals().loadData().test();
+        JavaBeanTester.builder(SampleValueObject.class).checkEquals().loadData().test();
     }
 
     /**
@@ -254,7 +255,7 @@ public class JavaBeanTesterTest {
     /**
      * Test_temporary single mode.
      */
-    // TODO 11/26/15 Temporary until we start using internalized extension logic
+    // TODO 1/12/2019 JWL Temporary until we start using internalized extension logic
     @Test
     void test_temporarySingleMode() {
         final JavaBeanTesterBuilder<String, Object> builder = new JavaBeanTesterBuilder<>(String.class);
@@ -262,6 +263,17 @@ public class JavaBeanTesterTest {
         Assertions.assertEquals(String.class, worker.getClazz());
     }
 
+    /**
+     * Serialize.
+     *
+     * @param <T>
+     *            the generic type
+     * @param object
+     *            the object
+     * @return the t
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("unchecked")
     private static <T> T serialize(final T object) throws Exception {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
