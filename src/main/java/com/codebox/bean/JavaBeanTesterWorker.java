@@ -14,19 +14,25 @@
  */
 package com.codebox.bean;
 
-import com.codebox.enums.*;
+import com.codebox.enums.CheckClear;
+import com.codebox.enums.CheckConstructor;
+import com.codebox.enums.CheckEquals;
+import com.codebox.enums.CheckSerialize;
+import com.codebox.enums.LoadData;
+import com.codebox.enums.LoadType;
+import com.codebox.enums.SkipStrictSerialize;
 import com.codebox.instance.ClassInstance;
-import lombok.Data;
-import net.sf.cglib.beans.BeanCopier;
-import org.junit.jupiter.api.Assertions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -34,6 +40,16 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.annotation.PostConstruct;
+
+import lombok.Data;
+
+import net.sf.cglib.beans.BeanCopier;
+
+import org.junit.jupiter.api.Assertions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class JavaBeanTesterWorker.

@@ -14,13 +14,12 @@
  */
 package com.codebox.bean;
 
-import lombok.Value;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
+import lombok.Value;
 
 /*
     From Lombok docs: https://projectlombok.org/features/Value
