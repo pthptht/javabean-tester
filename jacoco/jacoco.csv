@@ -3,7 +3,7 @@ javabean-tester,com.codebox.builders,ExtensionBuilder,11,239,0,2,1,48,0,7,0,6
 javabean-tester,com.codebox.instance,ConstructorInstance,21,35,1,1,5,9,1,2,0,2
 javabean-tester,com.codebox.instance,ClassInstance,24,66,1,5,4,12,1,5,0,3
 javabean-tester,com.codebox.bean,ValueBuilder,95,323,18,83,7,74,15,56,5,15
-javabean-tester,com.codebox.bean,JavaBeanTesterWorker,583,799,93,59,43,159,66,46,13,23
+javabean-tester,com.codebox.bean,JavaBeanTesterWorker,569,817,93,63,40,160,66,51,13,26
 javabean-tester,com.codebox.bean,JavaBeanTesterBuilder,0,130,0,12,0,36,0,25,0,19
 javabean-tester,com.codebox.bean,JavaBeanTester,0,16,0,0,0,3,0,3,0,3
 javabean-tester,com.codebox.enums,SkipStrictSerialize,0,24,0,0,0,3,0,1,0,1

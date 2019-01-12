@@ -36,7 +36,7 @@ package com.codebox.bean;
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
     public static &lt;T&gt; JavaBeanTesterBuilder&lt;T, ?&gt; builder(final Class&lt;T&gt; clazz) {
-        // TODO For now push in Object.class as we eventually will internalize setup
+        // TODO 1/12/2019 JWL For now push in Object.class as we eventually will internalize setup
 <span class="fc" id="L40">        return new JavaBeanTesterBuilder&lt;&gt;(clazz, Object.class);</span>
     }
 
