@@ -12,6 +12,7 @@
  *     CodeBox (Rob Dawson).
  *     Hazendaz (Jeremy Landis).
  */
+
 /**
  * Java Bean Tester Package contains wrapped instances for use by javabean tester.
  */

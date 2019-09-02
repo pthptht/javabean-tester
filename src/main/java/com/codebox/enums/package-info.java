@@ -12,6 +12,7 @@
  *     CodeBox (Rob Dawson).
  *     Hazendaz (Jeremy Landis).
  */
+
 /**
  * Java Bean Tester Package contains enums for use by javabean tester.
  */
