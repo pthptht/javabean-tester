@@ -14,6 +14,8 @@
  */
 package com.codebox.instance;
 
+import java.lang.reflect.InvocationTargetException;
+
 import mockit.Expectations;
 import mockit.Mocked;
 import mockit.Tested;
@@ -44,12 +46,17 @@ public class ClassInstanceTest {
      *             the instantiation exception
      * @throws IllegalAccessException
      *             the illegal access exception
+     * @throws NoSuchMethodException
+     *             the no such method exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
      */
     @Test
-    void newInstanceInstantiationException() throws InstantiationException, IllegalAccessException {
+    void newInstanceInstantiationException()
+            throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         Assertions.assertNotNull(new Expectations() {
             {
-                ClassInstanceTest.this.mockClazz.newInstance();
+                ClassInstanceTest.this.mockClazz.getDeclaredConstructor().newInstance();
                 this.result = new InstantiationException();
             }
         });
@@ -63,12 +70,17 @@ public class ClassInstanceTest {
      *             the instantiation exception
      * @throws IllegalAccessException
      *             the illegal access exception
+     * @throws NoSuchMethodException
+     *             the no such method exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
      */
     @Test
-    void newInstanceIllegalAccessException() throws InstantiationException, IllegalAccessException {
+    void newInstanceIllegalAccessException()
+            throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         Assertions.assertNotNull(new Expectations() {
             {
-                ClassInstanceTest.this.mockClazz.newInstance();
+                ClassInstanceTest.this.mockClazz.getDeclaredConstructor().newInstance();
                 this.result = new IllegalAccessException();
             }
         });
