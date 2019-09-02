@@ -20,11 +20,11 @@ import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import mockit.Deencapsulation;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.function.Try;
+import org.junit.platform.commons.util.ReflectionUtils;
 
 /**
  * The Class JavaBeanTesterTest.
@@ -254,13 +254,20 @@ public class JavaBeanTesterTest {
 
     /**
      * Test_temporary single mode.
+     * 
+     * This class was using 'Deencapsulation' from jmockit until that was removed. It is now using internal junit 5
+     * reflection which is stated to be at our own risk. If this breaks in the future, write our own reflection util.
+     *
+     * @throws Exception
+     *             the exception
      */
+    @SuppressWarnings("unchecked")
     // TODO 1/12/2019 JWL Temporary until we start using internalized extension logic
     @Test
-    void test_temporarySingleMode() {
+    void test_temporarySingleMode() throws Exception {
         final JavaBeanTesterBuilder<String, Object> builder = new JavaBeanTesterBuilder<>(String.class);
-        final JavaBeanTesterWorker<String, Object> worker = Deencapsulation.getField(builder, "worker");
-        Assertions.assertEquals(String.class, worker.getClazz());
+        final Try<Object> worker = ReflectionUtils.tryToReadFieldValue(JavaBeanTesterBuilder.class, "worker", builder);
+        Assertions.assertEquals(String.class, ((JavaBeanTesterWorker<String, Object>) worker.get()).getClazz());
     }
 
     /**
