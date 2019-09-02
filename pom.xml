@@ -156,6 +156,9 @@
         <!-- Maven minimum version -->
         <maven.min-version>3.6.3</maven.min-version>
 
+        <!-- Automatic Module Name -->
+        <module.name>com.codebox.javabean.tester</module.name>
+
         <!-- Project Encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
@@ -353,6 +356,7 @@
                                 <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                             </manifest>
                             <manifestEntries>
+                                <Automatic-Module-Name>${module.name}</Automatic-Module-Name>
                                 <Build-Time>${maven.build.timestamp}</Build-Time>
                                 <Copyright>${copyright}</Copyright>
                                 <Git-Revision>${git.commit.id}</Git-Revision>
