@@ -1,7 +1,7 @@
 /**
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2019 Hazendaz.
+ * Copyright 2012-2020 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -14,6 +14,9 @@
  */
 package com.codebox.bean;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -89,5 +92,14 @@ public class SampleDepthBean {
 
     /** The date. */
     private Date date;
+
+    /** The Local Date. */
+    private LocalDate localDate;
+
+    /** The Local Date Time. */
+    private LocalDateTime localDateTime;
+
+    /** The Local Time. */
+    private LocalTime localTime;
 
 }

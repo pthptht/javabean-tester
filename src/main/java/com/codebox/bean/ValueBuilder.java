@@ -1,7 +1,7 @@
 /**
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2019 Hazendaz.
+ * Copyright 2012-2020 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -21,6 +21,9 @@ import com.codebox.instance.ConstructorInstance;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -102,6 +105,15 @@ public class ValueBuilder {
 
         } else if (clazz.isAssignableFrom(Date.class)) {
             return new Date();
+
+        } else if (clazz.isAssignableFrom(LocalDate.class)) {
+            return LocalDate.now();
+
+        } else if (clazz.isAssignableFrom(LocalDateTime.class)) {
+             return LocalDateTime.of(2000, 10, 1, 0, 0);
+
+        } else if (clazz.isAssignableFrom(LocalTime.class)) {
+            return LocalTime.of(0, 0);
 
         } else if (clazz == Logger.class) {
             return LoggerFactory.getLogger(clazz);
