@@ -166,10 +166,10 @@
         <signature.version>1.0</signature.version>
 
         <!-- Version Properties -->
-        <jmockit.version>1.49</jmockit.version>
+        <jmockit.version>1.49.1</jmockit.version>
 
         <!-- Surefire Argline -->
-        <argLine>-javaagent:${settings.localRepository}/org/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar</argLine>
+        <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar</argLine>
     </properties>
 
     <dependencies>
@@ -211,7 +211,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.jmockit</groupId>
+            <groupId>com.github.hazendaz.jmockit</groupId>
             <artifactId>jmockit</artifactId>
             <version>${jmockit.version}</version>
             <scope>test</scope>
