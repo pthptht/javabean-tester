@@ -17,6 +17,7 @@ package com.codebox.bean;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -112,6 +113,9 @@ public class SampleBean {
 
     /** The Local Time. */
     private LocalTime localTime;
+
+    /** The Zoned Date Time. */
+    private ZonedDateTime zonedDateTime;
 
     /**
      * Instantiates a new sample bean. Causes JVM to not create a default no-arg constructor

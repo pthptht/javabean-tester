@@ -21,9 +21,7 @@ import com.codebox.instance.ConstructorInstance;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -115,6 +113,9 @@ public class ValueBuilder {
         } else if (clazz.isAssignableFrom(LocalTime.class)) {
             return LocalTime.of(0, 0);
 
+        } else if (clazz.isAssignableFrom(ZonedDateTime.class)) {
+            return ZonedDateTime.of(LocalDateTime.of(2020, 11, 16, 10, 26, 00, 01), ZoneId.of("UTC"));
+
         } else if (clazz == Logger.class) {
             return LoggerFactory.getLogger(clazz);
 
@@ -122,7 +123,6 @@ public class ValueBuilder {
             return clazz.getEnumConstants()[0];
 
             // XXX Add additional rules here
-
         } else {
 
             // XXX Don't fail this...until alternative solution is determined
