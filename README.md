@@ -1,5 +1,5 @@
-javabean-tester
-===============
+# javabean-tester
+
 [![Build Status](https://travis-ci.org/hazendaz/javabean-tester.svg?branch=master)](https://travis-ci.org/hazendaz/javabean-tester)
 [![Coverage Status](https://coveralls.io/repos/hazendaz/javabean-tester/badge.svg?branch=master&service=github)](https://coveralls.io/github/hazendaz/javabean-tester?branch=master)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=hazendaz/javabean-tester)](https://dependabot.com)
@@ -7,8 +7,29 @@ javabean-tester
 [![Project Stats](https://www.openhub.net/p/javabean-tester/widgets/project_thin_badge.gif)](https://www.openhub.net/p/javabean-tester)
 [![Apache 2](http://img.shields.io/badge/license-Apache%202-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
-Sites
------
+## Latest Release
+
+You can download source and binaries from our [releases page](https://github.com/hazendaz/javabean-tester/releases).
+
+Alternatively you can pull it from the central Maven repositories:
+
+```xml
+<dependency>
+  <groupId>com.github.hazendaz</groupId>
+  <artifactId>javabean-tester</artifactId>
+  <version>2.3.1</version>
+</dependency>
+```
+
+Or using Gradle:
+
+```groovy
+implementation 'com.github.hazendaz:javabean-tester:2.3.1'
+```
+
+Information for other build frameworks can be found [here](http://hazendaz.github.io/javabean-tester/dependency-info.html).
+
+## Sites
 
 * [site-page](http://hazendaz.github.io/javabean-tester/)
 * [sonarqube](https://sonarqube.com/dashboard/index?id=com.github.hazendaz:javabean-tester)
