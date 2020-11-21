@@ -411,22 +411,36 @@ class JavaBeanTesterWorker<T, E> {
          */
         final E ext = new ClassInstance<E>().newInstance(this.extension);
 
+        Assertions.assertNotNull(ext,
+                String.format("Create new instance of extension %s resulted in null", this.extension.getName()));
+
         // Test Equals, HashCode, and ToString on Empty Objects
-        Assertions.assertEquals(x, y);
-        Assertions.assertEquals(x.hashCode(), y.hashCode());
-        Assertions.assertEquals(x.toString(), y.toString());
+        Assertions.assertEquals(x, y,
+                String.format(".equals() should be consistent for two empty objects of type %s", this.clazz.getName()));
+        Assertions.assertEquals(x.hashCode(), y.hashCode(), String
+                .format(".hashCode() should be consistent for two empty objects of type %s", this.clazz.getName()));
+        Assertions.assertEquals(x.toString(), y.toString(), String
+                .format(".toString() should be consistent for two empty objects of type %s", this.clazz.getName()));
 
         // Test Extension Equals, HashCode, and ToString on Empty Objects
-        Assertions.assertNotEquals(ext, y);
-        Assertions.assertNotEquals(ext.hashCode(), y.hashCode());
+        Assertions.assertNotEquals(ext, y,
+                String.format(".equals() should not be equal for extension of type %s and empty object of type %s",
+                        this.extension.getName(), this.clazz.getName()));
+        Assertions.assertNotEquals(ext.hashCode(), y.hashCode(),
+                String.format(".hashCode() should not be equal for extension of type %s and empty object of type %s",
+                        this.extension.getName(), this.clazz.getName()));
 
         // Test One Sided Tests on Empty Objects
-        Assertions.assertNotEquals(x, null);
-        Assertions.assertEquals(x, x);
+        Assertions.assertNotEquals(x, null,
+                String.format("An empty object of type %s should not be equal to null", this.clazz.getName()));
+        Assertions.assertEquals(x, x,
+                String.format("An empty object of type %s should be equal to itself", this.clazz.getName()));
 
         // Test Extension One Sided Tests on Empty Objects
-        Assertions.assertNotEquals(ext, null);
-        Assertions.assertEquals(ext, ext);
+        Assertions.assertNotEquals(ext, null,
+                String.format("An empty extension of type %s should not be equal to null", this.clazz.getName()));
+        Assertions.assertEquals(ext, ext,
+                String.format("An empty extension of type %s should be equal to itself", this.extension.getName()));
 
         // If the class has setters, the previous tests would have been against empty classes
         // If so, load the classes and re-test
@@ -438,27 +452,42 @@ class JavaBeanTesterWorker<T, E> {
             JavaBeanTesterWorker.load(this.extension, ext, this.loadData);
 
             // ReTest Equals (flip)
-            Assertions.assertNotEquals(y, x);
+            Assertions.assertNotEquals(y, x, String
+                    .format(".equals() should be consistent for two empty objects of type %s", this.clazz.getName()));
 
             // ReTest Extension Equals (flip)
-            Assertions.assertNotEquals(y, ext);
+            Assertions.assertNotEquals(y, ext,
+                    String.format(".equals() should not be equal for extension of type %s and empty object of type %s",
+                            this.extension.getName(), this.clazz.getName()));
 
             // Populate Size Y
             JavaBeanTesterWorker.load(this.clazz, y, this.loadData);
 
             // ReTest Equals and HashCode
             if (this.loadData == LoadData.ON) {
-                Assertions.assertEquals(x, y);
-                Assertions.assertEquals(x.hashCode(), y.hashCode());
+                Assertions.assertEquals(x, y,
+                        String.format(".equals() should be equal for two instances of type %s with loaded data",
+                                this.clazz.getName()));
+                Assertions.assertEquals(x.hashCode(), y.hashCode(),
+                        String.format(".hashCode() should be equal for two instances of type %s with loaded data",
+                                this.clazz.getName()));
             } else {
                 Assertions.assertNotEquals(x, y);
                 Assertions.assertNotEquals(x.hashCode(), y.hashCode());
             }
 
             // ReTest Extension Equals and HashCode
-            Assertions.assertNotEquals(ext, y);
-            Assertions.assertNotEquals(ext.hashCode(), y.hashCode());
-            Assertions.assertNotEquals(ext.toString(), y.toString());
+            Assertions.assertNotEquals(ext, y,
+                    String.format(".equals() should not be equal for extension of type %s and empty object of type %s",
+                            this.extension.getName(), this.clazz.getName()));
+            Assertions.assertNotEquals(ext.hashCode(), y.hashCode(),
+                    String.format(
+                            ".hashCode() should not be equal for extension of type %s and empty object of type %s",
+                            this.extension.getName(), this.clazz.getName()));
+            Assertions.assertNotEquals(ext.toString(), y.toString(),
+                    String.format(
+                            ".toString() should not be equal for extension of type %s and empty object of type %s",
+                            this.extension.getName(), this.clazz.getName()));
         }
 
         // Create Immutable Instance
