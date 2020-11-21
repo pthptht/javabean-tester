@@ -18,13 +18,14 @@ Alternatively you can pull it from the central Maven repositories:
   <groupId>com.github.hazendaz</groupId>
   <artifactId>javabean-tester</artifactId>
   <version>2.3.1</version>
+  <scope>test</scope>
 </dependency>
 ```
 
 Or using Gradle:
 
 ```groovy
-implementation 'com.github.hazendaz:javabean-tester:2.3.1'
+testImplementation 'com.github.hazendaz:javabean-tester:2.3.1'
 ```
 
 Information for other build frameworks can be found [here](http://hazendaz.github.io/javabean-tester/dependency-info.html).
