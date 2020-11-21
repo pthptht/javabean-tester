@@ -1,7 +1,7 @@
 /**
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2019 Hazendaz.
+ * Copyright 2012-2020 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -398,6 +398,11 @@ class JavaBeanTesterWorker<T, E> {
         // Create Instances
         final T x = new ClassInstance<T>().newInstance(this.clazz);
         final T y = new ClassInstance<T>().newInstance(this.clazz);
+
+        Assertions.assertNotNull(x,
+                String.format("Create new instance of class '%s' resulted in null", this.clazz.getName()));
+        Assertions.assertNotNull(y,
+                String.format("Create new instance of class '%s' resulted in null", this.clazz.getName()));
 
         // TODO 1/12/2019 JWL Internalize extension will require canEquals, equals, hashcode, and toString overrides.
         /*
