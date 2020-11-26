@@ -1,6 +1,6 @@
 # javabean-tester
 
-[![Build Status](https://travis-ci.org/hazendaz/javabean-tester.svg?branch=master)](https://travis-ci.org/hazendaz/javabean-tester)
+[![Java CI](https://github.com/hazendaz/javabean-tester/workflows/Java%20CI/badge.svg)](https://github.com/hazendaz/javabean-tester/workflows/Java%20CI)
 [![Coverage Status](https://coveralls.io/repos/hazendaz/javabean-tester/badge.svg?branch=master&service=github)](https://coveralls.io/github/hazendaz/javabean-tester?branch=master)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=hazendaz/javabean-tester)](https://dependabot.com)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz/javabean-tester/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz/javabean-tester)
@@ -51,7 +51,7 @@ Actively accepting pull requests for documentation of this library.  Focus will 
 
 ```java
 JavaBeanTester.builder(Test.class, Extension.class).checkEquals().checkSerializable()
-		.loadData().skipStrictSerializable().skip("FieldToSkip", "AnotherFieldToSkip").test();
+        .loadData().skipStrictSerializable().skip("FieldToSkip", "AnotherFieldToSkip").test();
 ```
 
 ```java

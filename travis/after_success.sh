@@ -2,7 +2,7 @@
 #
 # JavaBean Tester (https://github.com/hazendaz/javabean-tester)
 #
-# Copyright 2012-2019 Hazendaz.
+# Copyright 2012-2020 Hazendaz.
 #
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of The Apache Software License,
@@ -24,13 +24,10 @@ echo "Current commit detected: ${commit_message}"
 # artifacts on a Maven repository, should only be made for one version.
  
 # If the version is 1.8, then perform the following actions.
-# 1. Upload artifacts to Sonatype.
+# 1. Notify Coveralls.
 #    a. Use -q option to only display Maven errors and warnings.
 #    b. Use --settings to force the usage of our "settings.xml" file.
-# 2. Notify Coveralls.
-#    a. Use -q option to only display Maven errors and warnings.
-#    b. Use --settings to force the usage of our "settings.xml" file.
-# 3. Deploy site
+# 2. Deploy site
 #    a. Use -q option to only display Maven errors and warnings.
 #    b. Use --settings to force the usage of our "settings.xml" file.
 
@@ -38,18 +35,14 @@ if [ $TRAVIS_REPO_SLUG == "hazendaz/javabean-tester" ] && [ "$TRAVIS_PULL_REQUES
 
   if [ ${TRAVIS_JDK_VERSION} == "oraclejdk8" ]; then
 
-    # Deploy snapshot to sonatype
-    ./mvnw clean deploy -q --settings ./travis/settings.xml
-    echo -e "Successfully deployed SNAPSHOT artifacts to Sonatype under Travis job ${TRAVIS_JOB_NUMBER}"
-
-	# Deploy coverage to coveralls
-    ./mvnw clean test jacoco:report coveralls:report -q --settings ./travis/settings.xml
+    # Deploy coverage to coveralls
+    ./mvnw clean test jacoco:report coveralls:report -q --settings ./mvn/settings.xml
     echo -e "Successfully ran coveralls under Travis job ${TRAVIS_JOB_NUMBER}"
 
     # Deploy site to ghpages
-	# Cannot currently run site this way
-	# ./mvnw site site:deploy -q --settings ./travis/settings.xml
-	# echo -e "Successfully deploy site under Travis job ${TRAVIS_JOB_NUMBER}"
+    # Cannot currently run site this way
+    # ./mvnw site site:deploy -q --settings ./mvn/settings.xml
+    # echo -e "Successfully deploy site under Travis job ${TRAVIS_JOB_NUMBER}"
   else
     echo "Java Version does not support additonal activity for travis CI"
   fi
