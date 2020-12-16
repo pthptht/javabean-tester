@@ -1,0 +1,48 @@
+#
+# JavaBean Tester (https://github.com/hazendaz/javabean-tester)
+#
+# Copyright 2012-2020 Hazendaz.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of The Apache Software License,
+# Version 2.0 which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0.txt
+#
+# Contributors:
+#     CodeBox (Rob Dawson).
+#     Hazendaz (Jeremy Landis).
+#
+
+name: Site
+
+on:
+  push:
+    branches:
+      - site
+
+jobs:
+  build:
+    if: github.repository_owner == 'hazendaz' && ! contains(toJSON(github.event.head_commit.message), '[maven-release-plugin]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - uses: webfactory/ssh-agent@master
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+      - name: Build site
+        run: ./mvnw site site:stage -DskipTests -B
+        env:
+          CI_DEPLOY_USERNAME: ${{ secrets.CI_DEPLOY_USERNAME }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy Site to gh-pages
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          SSH: true
+          BRANCH: gh-pages
+          FOLDER: target/staging
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

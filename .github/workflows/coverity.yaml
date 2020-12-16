@@ -1,0 +1,47 @@
+#
+# JavaBean Tester (https://github.com/hazendaz/javabean-tester)
+#
+# Copyright 2012-2020 Hazendaz.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of The Apache Software License,
+# Version 2.0 which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0.txt
+#
+# Contributors:
+#     CodeBox (Rob Dawson).
+#     Hazendaz (Jeremy Landis).
+#
+
+name: Coverity
+
+on:
+  push:
+    branches:
+      - coverity_scan
+
+jobs:
+  build:
+    if: github.repository_owner == 'hazendaz'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Analyze with Coverity
+        run: |
+          wget -q https://scan.coverity.com/download/linux64 --post-data "token=$COVERITY_TOKEN&project=hazendaz%2Fjavabean-tester" -O coverity_tool.tgz
+          tar -xf coverity_tool.tgz
+          ./cov-analysis-linux64-*/bin/cov-build --dir cov-int ./mvnw -B -DskipTests=true verify
+          tar czvf javabean-tester.tgz cov-int
+          curl --form token=$COVERITY_TOKEN \
+            --form email=$EMAIL \
+            --form file=@javabean-tester.tgz \
+            --form version="javabean-tester/coverity_scan" \
+            --form description="Javabean Tester Coverity Scan" \
+            https://scan.coverity.com/builds?project=hazendaz%2Fjavabean-tester
+        env:
+          COVERITY_TOKEN: ${{ secrets.COVERITY_TOKEN }}
+          EMAIL: ${{ secrets.EMAIL }}
