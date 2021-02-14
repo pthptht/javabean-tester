@@ -1,7 +1,7 @@
 /**
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2019 Hazendaz.
+ * Copyright 2012-2021 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -42,6 +42,26 @@ public class ClassInstance<T> {
      */
     @SuppressWarnings("unchecked")
     public final T newInstance(final Class<T> clazz) {
+        // Try no-arg constructor first
+        for (final Constructor<?> constructor : clazz.getConstructors()) {
+            // Skip deprecated constructors
+            if (constructor.isAnnotationPresent(Deprecated.class)) {
+                continue;
+            }
+
+            // Find available no-arg constructor and return it
+            if (constructor.getParameterCount() == 0) {
+                try {
+                    return (T) constructor.newInstance((Object[]) null);
+                } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                    Assertions.fail(String.format(
+                            "An exception was thrown while testing the class (new instance) '%s' with '%s': '%s'",
+                            constructor.getName(), Arrays.toString((Object[]) null), e.toString()));
+                }
+            }
+        }
+
+        // Try any constructor
         for (final Constructor<?> constructor : clazz.getConstructors()) {
 
             // Skip deprecated constructors
