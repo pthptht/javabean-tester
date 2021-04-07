@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
  */
 // TODO 1/12/2019 JWL Class is not mockable
 @Disabled
-public class ConstructorInstanceTest {
+class ConstructorInstanceTest {
 
     /** The constructor instance. */
     @Tested

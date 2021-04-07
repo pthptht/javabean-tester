@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * The Class ExtensionBuilderTest.
  */
-public class ExtensionBuilderTest {
+class ExtensionBuilderTest {
 
     /** The class. */
     private Class<SampleBean> clazz;
