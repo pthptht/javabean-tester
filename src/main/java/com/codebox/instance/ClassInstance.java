@@ -1,4 +1,4 @@
-/**
+/*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
  * Copyright 2012-2021 Hazendaz.
