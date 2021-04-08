@@ -21,7 +21,6 @@
     <groupId>com.github.hazendaz</groupId>
     <artifactId>javabean-tester</artifactId>
     <version>2.3.2-SNAPSHOT</version>
-    <packaging>jar</packaging>
 
     <name>javabean-tester</name>
     <description>Javabean Tester Simplifies POJO Testing and greatly simplifies Lombok Bean Testing!</description>
