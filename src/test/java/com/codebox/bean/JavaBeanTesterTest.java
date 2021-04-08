@@ -23,8 +23,7 @@ import java.io.ObjectOutputStream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.function.Try;
-import org.junit.platform.commons.util.ReflectionUtils;
+import org.powermock.reflect.Whitebox;
 
 /**
  * The Class JavaBeanTesterTest.
@@ -254,20 +253,13 @@ class JavaBeanTesterTest {
 
     /**
      * Test_temporary single mode.
-     * 
-     * This class was using 'Deencapsulation' from jmockit until that was removed. It is now using internal junit 5
-     * reflection which is stated to be at our own risk. If this breaks in the future, write our own reflection util.
-     *
-     * @throws Exception
-     *             the exception
      */
-    @SuppressWarnings("unchecked")
     // TODO 1/12/2019 JWL Temporary until we start using internalized extension logic
     @Test
-    void test_temporarySingleMode() throws Exception {
+    void test_temporarySingleMode() {
         final JavaBeanTesterBuilder<String, Object> builder = new JavaBeanTesterBuilder<>(String.class);
-        final Try<Object> worker = ReflectionUtils.tryToReadFieldValue(JavaBeanTesterBuilder.class, "worker", builder);
-        Assertions.assertEquals(String.class, ((JavaBeanTesterWorker<String, Object>) worker.get()).getClazz());
+        final JavaBeanTesterWorker<String, Object> worker = Whitebox.getInternalState(builder, "worker");
+        Assertions.assertEquals(String.class, worker.getClazz());
     }
 
     /**
