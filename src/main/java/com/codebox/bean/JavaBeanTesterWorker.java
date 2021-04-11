@@ -497,7 +497,7 @@ class JavaBeanTesterWorker<T, E> {
             clazzBeanCopier.copy(x, e, null);
             Assertions.assertEquals(e, x);
         } catch (final Exception e) {
-            JavaBeanTesterWorker.LOGGER.trace("Do nothing class is not mutable", e.toString());
+            JavaBeanTesterWorker.LOGGER.trace("Do nothing class is not mutable", e);
         }
 
         // Create Extension Immutable Instance
@@ -507,7 +507,7 @@ class JavaBeanTesterWorker<T, E> {
             extensionBeanCopier.copy(ext, e2, null);
             Assertions.assertEquals(e2, ext);
         } catch (final Exception e) {
-            JavaBeanTesterWorker.LOGGER.trace("Do nothing class is not mutable", e.toString());
+            JavaBeanTesterWorker.LOGGER.trace("Do nothing class is not mutable", e);
         }
     }
 
