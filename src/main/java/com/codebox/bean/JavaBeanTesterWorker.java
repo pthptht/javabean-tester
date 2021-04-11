@@ -188,8 +188,18 @@ class JavaBeanTesterWorker<T, E> {
                     continue nextProp;
                 }
             }
-            final Method getter = prop.getReadMethod();
+            Method getter = prop.getReadMethod();
             final Method setter = prop.getWriteMethod();
+
+            // Java Metro Bug Patch (Boolean Wrapper usage of 'is' possible
+            if (getter == null && setter != null) {
+                final String isBooleanWrapper = "is" + setter.getName().substring(3);
+                try {
+                    getter = this.clazz.getMethod(isBooleanWrapper, null);
+                } catch (NoSuchMethodException | SecurityException e) {
+                    // Do nothing
+                }
+            }
 
             if (getter != null && setter != null) {
                 // We have both a get and set method for this property
@@ -492,7 +502,7 @@ class JavaBeanTesterWorker<T, E> {
 
         // Create Immutable Instance
         try {
-            final BeanCopier clazzBeanCopier = BeanCopier.create(this.clazz, this.clazz, false);
+            final BeanCopier clazzBeanCopier = BeanCopier.create(this.clazz, this.clazz, true);
             final T e = new ClassInstance<T>().newInstance(this.clazz);
             clazzBeanCopier.copy(x, e, null);
             Assertions.assertEquals(e, x);
@@ -502,7 +512,7 @@ class JavaBeanTesterWorker<T, E> {
 
         // Create Extension Immutable Instance
         try {
-            final BeanCopier extensionBeanCopier = BeanCopier.create(this.extension, this.extension, false);
+            final BeanCopier extensionBeanCopier = BeanCopier.create(this.extension, this.extension, true);
             final E e2 = new ClassInstance<E>().newInstance(this.extension);
             extensionBeanCopier.copy(ext, e2, null);
             Assertions.assertEquals(e2, ext);
@@ -535,8 +545,18 @@ class JavaBeanTesterWorker<T, E> {
 
         PropertyDescriptor[] props = getProps(instance.getClass());
         for (final PropertyDescriptor prop : props) {
-            final Method getter = prop.getReadMethod();
+            Method getter = prop.getReadMethod();
             final Method setter = prop.getWriteMethod();
+
+            // Java Metro Bug Patch (Boolean Wrapper usage of 'is' possible
+            if (getter == null && setter != null) {
+                final String isBooleanWrapper = "is" + setter.getName().substring(3);
+                try {
+                    getter = this.clazz.getMethod(isBooleanWrapper, null);
+                } catch (NoSuchMethodException | SecurityException e) {
+                    // Do nothing
+                }
+            }
 
             if (getter != null && setter != null) {
                 // We have both a get and set method for this property

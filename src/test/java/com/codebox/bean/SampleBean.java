@@ -23,7 +23,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 
 import org.slf4j.Logger;
 
@@ -117,6 +119,10 @@ public class SampleBean {
     /** The Zoned Date Time. */
     private ZonedDateTime zonedDateTime;
 
+    /** The Boolean wrapper with is/setter style (non lombok - java metro style) */
+    @Getter(AccessLevel.NONE)
+    private Boolean booleanWrapperIsSetter;
+
     /**
      * Instantiates a new sample bean. Causes JVM to not create a default no-arg constructor
      *
@@ -132,6 +138,10 @@ public class SampleBean {
      */
     public void clear() {
         // Do nothing so this is the as class setup
+    }
+
+    public Boolean isBooleanWrapperIsSetter() {
+        return this.booleanWrapperIsSetter;
     }
 
 }
