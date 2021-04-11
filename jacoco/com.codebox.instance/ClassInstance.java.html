@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClassInstance.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">javabean-tester</a> &gt; <a href="index.source.html" class="el_package">com.codebox.instance</a> &gt; <span class="el_source">ClassInstance.java</span></div><h1>ClassInstance.java</h1><pre class="source lang-java linenums">/**
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClassInstance.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">javabean-tester</a> &gt; <a href="index.source.html" class="el_package">com.codebox.instance</a> &gt; <span class="el_source">ClassInstance.java</span></div><h1>ClassInstance.java</h1><pre class="source lang-java linenums">/*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2019 Hazendaz.
+ * Copyright 2012-2021 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -42,31 +42,51 @@ import org.junit.jupiter.api.Assertions;
      */
     @SuppressWarnings(&quot;unchecked&quot;)
     public final T newInstance(final Class&lt;T&gt; clazz) {
-<span class="pc bpc" id="L45" title="1 of 2 branches missed.">        for (final Constructor&lt;?&gt; constructor : clazz.getConstructors()) {</span>
-
+        // Try no-arg constructor first
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        for (final Constructor&lt;?&gt; constructor : clazz.getConstructors()) {</span>
             // Skip deprecated constructors
 <span class="fc bfc" id="L48" title="All 2 branches covered.">            if (constructor.isAnnotationPresent(Deprecated.class)) {</span>
 <span class="fc" id="L49">                continue;</span>
             }
 
-<span class="fc" id="L52">            final Class&lt;?&gt;[] types = constructor.getParameterTypes();</span>
+            // Find available no-arg constructor and return it
+<span class="fc bfc" id="L53" title="All 2 branches covered.">            if (constructor.getParameterCount() == 0) {</span>
+                try {
+<span class="fc" id="L55">                    return (T) constructor.newInstance((Object[]) null);</span>
+<span class="nc" id="L56">                } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {</span>
+<span class="nc" id="L57">                    Assertions.fail(String.format(</span>
+                            &quot;An exception was thrown while testing the class (new instance) '%s' with '%s': '%s'&quot;,
+<span class="nc" id="L59">                            constructor.getName(), Arrays.toString((Object[]) null), e.toString()));</span>
+                }
+            }
+        }
 
-<span class="fc" id="L54">            final Object[] values = new Object[constructor.getParameterTypes().length];</span>
+        // Try any constructor
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        for (final Constructor&lt;?&gt; constructor : clazz.getConstructors()) {</span>
+
+            // Skip deprecated constructors
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">            if (constructor.isAnnotationPresent(Deprecated.class)) {</span>
+<span class="nc" id="L69">                continue;</span>
+            }
+
+<span class="fc" id="L72">            final Class&lt;?&gt;[] types = constructor.getParameterTypes();</span>
+
+<span class="fc" id="L74">            final Object[] values = new Object[constructor.getParameterTypes().length];</span>
 
             // Load Data
-<span class="fc bfc" id="L57" title="All 2 branches covered.">            for (int i = 0; i &lt; values.length; i++) {</span>
-<span class="fc" id="L58">                values[i] = this.buildValue(types[i], LoadType.STANDARD_DATA);</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">            for (int i = 0; i &lt; values.length; i++) {</span>
+<span class="fc" id="L78">                values[i] = this.buildValue(types[i], LoadType.STANDARD_DATA);</span>
             }
 
             try {
-<span class="fc" id="L62">                return (T) constructor.newInstance(values);</span>
-<span class="nc" id="L63">            } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {</span>
-<span class="nc" id="L64">                Assertions.fail(String.format(</span>
+<span class="fc" id="L82">                return (T) constructor.newInstance(values);</span>
+<span class="nc" id="L83">            } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {</span>
+<span class="nc" id="L84">                Assertions.fail(String.format(</span>
                         &quot;An exception was thrown while testing the class (new instance) '%s' with '%s': '%s'&quot;,
-<span class="nc" id="L66">                        constructor.getName(), Arrays.toString(values), e.toString()));</span>
+<span class="nc" id="L86">                        constructor.getName(), Arrays.toString(values), e.toString()));</span>
             }
         }
-<span class="nc" id="L69">        return null;</span>
+<span class="nc" id="L89">        return null;</span>
     }
 
     /**
@@ -81,9 +101,9 @@ import org.junit.jupiter.api.Assertions;
      * @return the object
      */
     public &lt;R&gt; Object buildValue(final Class&lt;R&gt; returnType, final LoadType loadType) {
-<span class="fc" id="L84">        final ValueBuilder valueBuilder = new ValueBuilder();</span>
-<span class="fc" id="L85">        valueBuilder.setLoadData(LoadData.ON);</span>
-<span class="fc" id="L86">        return valueBuilder.buildValue(returnType, loadType);</span>
+<span class="fc" id="L104">        final ValueBuilder valueBuilder = new ValueBuilder();</span>
+<span class="fc" id="L105">        valueBuilder.setLoadData(LoadData.ON);</span>
+<span class="fc" id="L106">        return valueBuilder.buildValue(returnType, loadType);</span>
     }
 
 }
