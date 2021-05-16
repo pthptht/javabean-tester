@@ -23,6 +23,15 @@ updates:
       time: "11:00"
     open-pull-requests-limit: 10
     ignore:
+    - dependency-name: jakarta.annotation:jakarta.annotation-api
+      versions:
+      - ">= 2.0.0"
+    - dependency-name: jakarta.xml.bind:jakarta.xml.bind-api
+      versions:
+      - ">= 2.0.0"
+    - dependency-name: org.hibernate.validator:hibernate-validator-annotation-processor
+      versions:
+      - ">= 7.0.0.Final"
     - dependency-name: net.trajano.wagon:wagon-git
       versions:
       - "< 2.0.5"
