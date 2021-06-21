@@ -28,7 +28,7 @@ public class NonSerializableBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** The empty bean which is not serializable. */
-    private EmptyBean emptyBean;
+    private final EmptyBean emptyBean;
 
     /**
      * Make bean non serializable.

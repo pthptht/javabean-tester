@@ -54,7 +54,7 @@ public class SampleBean {
     private ConcurrentMap<String, String> concurrentMap;
 
     /** The string. */
-    private String string;
+    private final String string;
 
     /** The string array. */
     private String[] stringArray;

@@ -30,7 +30,7 @@ public class NonDeserializableBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** The array which can sometimes not be serializable. */
-    private List<Object> list;
+    private final List<Object> list;
 
     /**
      * Make bean non deserializable.
