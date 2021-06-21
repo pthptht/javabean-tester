@@ -269,7 +269,9 @@ class JavaBeanTesterTest {
      *            the generic type
      * @param object
      *            the object
+     *
      * @return the t
+     *
      * @throws Exception
      *             the exception
      */

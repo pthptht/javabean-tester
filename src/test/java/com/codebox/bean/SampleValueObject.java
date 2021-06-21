@@ -26,10 +26,10 @@ import lombok.Value;
 
 /**
  * The Class SampleValueObject.
- * 
+ *
  * <p>
  * From Lombok docs: https://projectlombok.org/features/Value
- * 
+ *
  * <p>
  * <code>@Value</code> is the immutable variant of <code>@Data</code>; all fields are made and final by default, and
  * setters are not generated. The class itself is also made final by default, because immutability is not something that

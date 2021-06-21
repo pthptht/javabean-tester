@@ -119,7 +119,7 @@ public class SampleBean {
     /** The Zoned Date Time. */
     private ZonedDateTime zonedDateTime;
 
-    /** The Boolean wrapper with is/setter style (non lombok - java metro style) */
+    /** The Boolean wrapper with is/setter style (non lombok - java metro style). */
     @Getter(AccessLevel.NONE)
     private Boolean booleanWrapperIsSetter;
 
@@ -140,6 +140,11 @@ public class SampleBean {
         // Do nothing so this is the as class setup
     }
 
+    /**
+     * Checks if is boolean wrapper is setter.
+     *
+     * @return the boolean
+     */
     public Boolean isBooleanWrapperIsSetter() {
         return this.booleanWrapperIsSetter;
     }

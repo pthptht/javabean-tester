@@ -41,6 +41,7 @@ class ConstructorInstanceTest {
      *
      * @param mockConstructor
      *            the mock constructor
+     *
      * @throws InstantiationException
      *             the instantiation exception
      * @throws IllegalAccessException
@@ -68,6 +69,7 @@ class ConstructorInstanceTest {
      *
      * @param mockConstructor
      *            the mock constructor
+     *
      * @throws InstantiationException
      *             the instantiation exception
      * @throws IllegalAccessException
@@ -95,6 +97,7 @@ class ConstructorInstanceTest {
      *
      * @param mockConstructor
      *            the mock constructor
+     *
      * @throws InstantiationException
      *             the instantiation exception
      * @throws IllegalAccessException
