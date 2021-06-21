@@ -218,19 +218,19 @@ public class ValueBuilder {
         } else if (clazz.isArray()) {
             return Array.newInstance(clazz.getComponentType(), arrayLength);
         } else if (clazz == boolean.class || clazz == Boolean.class) {
-            return initializeBoolean(clazz, booleanValue);
+            return ValueBuilder.initializeBoolean(clazz, booleanValue);
         } else if (clazz == int.class || clazz == Integer.class) {
-            return initializeInteger(clazz, integerValue);
+            return ValueBuilder.initializeInteger(clazz, integerValue);
         } else if (clazz == long.class || clazz == Long.class) {
-            return initializeLong(clazz, longValue);
+            return ValueBuilder.initializeLong(clazz, longValue);
         } else if (clazz == double.class || clazz == Double.class) {
-            return initializeDouble(clazz, doubleValue);
+            return ValueBuilder.initializeDouble(clazz, doubleValue);
         } else if (clazz == float.class || clazz == Float.class) {
-            return initializeFloat(clazz, floatValue);
+            return ValueBuilder.initializeFloat(clazz, floatValue);
         } else if (clazz == char.class || clazz == Character.class) {
-            return initializeCharacter(clazz, characterValue);
+            return ValueBuilder.initializeCharacter(clazz, characterValue);
         } else if (clazz == byte.class || clazz == Byte.class) {
-            return initializeByte(clazz, byteValue);
+            return ValueBuilder.initializeByte(clazz, byteValue);
         }
         return null;
     }

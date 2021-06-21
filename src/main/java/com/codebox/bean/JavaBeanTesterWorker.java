@@ -81,7 +81,7 @@ class JavaBeanTesterWorker<T, E> {
     private LoadData loadData;
 
     /** The clazz. */
-    private Class<T> clazz;
+    private final Class<T> clazz;
 
     /** The extension. */
     private Class<E> extension;
@@ -90,7 +90,7 @@ class JavaBeanTesterWorker<T, E> {
     private SkipStrictSerialize skipStrictSerializable;
 
     /** The skip these. */
-    private Set<String> skipThese = new HashSet<>();
+    private final Set<String> skipThese = new HashSet<>();
 
     /**
      * Instantiates a new java bean tester worker.
@@ -182,7 +182,7 @@ class JavaBeanTesterWorker<T, E> {
      * @return the ter setter tests
      */
     void getterSetterTests(final T instance) {
-        PropertyDescriptor[] props = getProps(this.clazz);
+        final PropertyDescriptor[] props = this.getProps(this.clazz);
         nextProp: for (final PropertyDescriptor prop : props) {
             // Check the list of properties that we don't want to test
             for (final String skipThis : this.skipThese) {
@@ -459,7 +459,7 @@ class JavaBeanTesterWorker<T, E> {
 
         // If the class has setters, the previous tests would have been against empty classes
         // If so, load the classes and re-test
-        if (classHasSetters(this.clazz)) {
+        if (this.classHasSetters(this.clazz)) {
             // Populate Side X
             JavaBeanTesterWorker.load(this.clazz, x, this.loadData);
 
@@ -548,7 +548,7 @@ class JavaBeanTesterWorker<T, E> {
         final ValueBuilder valueBuilder = new ValueBuilder();
         valueBuilder.setLoadData(this.loadData);
 
-        PropertyDescriptor[] props = getProps(instance.getClass());
+        final PropertyDescriptor[] props = this.getProps(instance.getClass());
         for (final PropertyDescriptor prop : props) {
             Method getter = prop.getReadMethod();
             final Method setter = prop.getWriteMethod();
@@ -623,8 +623,8 @@ class JavaBeanTesterWorker<T, E> {
      *
      * @return true, if successful
      */
-    private boolean classHasSetters(Class<T> clazz) {
-        return Arrays.stream(getProps(clazz))
+    private boolean classHasSetters(final Class<T> clazz) {
+        return Arrays.stream(this.getProps(clazz))
                 .anyMatch(propertyDescriptor -> propertyDescriptor.getWriteMethod() != null);
     }
 
@@ -636,7 +636,7 @@ class JavaBeanTesterWorker<T, E> {
      *
      * @return the props
      */
-    private PropertyDescriptor[] getProps(Class<?> clazz) {
+    private PropertyDescriptor[] getProps(final Class<?> clazz) {
         try {
             return Introspector.getBeanInfo(clazz).getPropertyDescriptors();
         } catch (final IntrospectionException e) {
