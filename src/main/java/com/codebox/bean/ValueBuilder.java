@@ -94,48 +94,58 @@ public class ValueBuilder {
                 returnObject = ValueBuilder.setStandardValues(clazz);
                 break;
         }
+
         if (returnObject != null || loadType == LoadType.NULL_DATA) {
             return returnObject;
-
-        } else if (clazz.isAssignableFrom(List.class)) {
-            return new ArrayList<>();
-
-        } else if (clazz.isAssignableFrom(Map.class)) {
-            return new HashMap<>();
-
-        } else if (clazz.isAssignableFrom(ConcurrentMap.class)) {
-            return new ConcurrentHashMap<>();
-
-        } else if (clazz.isAssignableFrom(Date.class)) {
-            return new Date();
-
-        } else if (clazz.isAssignableFrom(LocalDate.class)) {
-            return LocalDate.now();
-
-        } else if (clazz.isAssignableFrom(LocalDateTime.class)) {
-            return LocalDateTime.of(2000, 10, 1, 0, 0);
-
-        } else if (clazz.isAssignableFrom(LocalTime.class)) {
-            return LocalTime.of(0, 0);
-
-        } else if (clazz.isAssignableFrom(ZonedDateTime.class)) {
-            return ZonedDateTime.of(LocalDateTime.of(2020, 11, 16, 10, 26, 00, 01), ZoneId.of("UTC"));
-
-        } else if (clazz == Logger.class) {
-            return LoggerFactory.getLogger(clazz);
-
-        } else if (clazz.isEnum()) {
-            return clazz.getEnumConstants()[0];
-
-            // XXX Add additional rules here
-        } else {
-
-            // XXX Don't fail this...until alternative solution is determined
-            ValueBuilder.logger.warn(
-                    "Unable to build value for class '{}', please raise ticket with JavaBeanTester for desired support.",
-                    clazz.getName());
-            return null;
         }
+
+        if (clazz.isAssignableFrom(List.class)) {
+            return new ArrayList<>();
+        }
+
+        if (clazz.isAssignableFrom(Map.class)) {
+            return new HashMap<>();
+        }
+
+        if (clazz.isAssignableFrom(ConcurrentMap.class)) {
+            return new ConcurrentHashMap<>();
+        }
+
+        if (clazz.isAssignableFrom(Date.class)) {
+            return new Date();
+        }
+
+        if (clazz.isAssignableFrom(LocalDate.class)) {
+            return LocalDate.now();
+        }
+
+        if (clazz.isAssignableFrom(LocalDateTime.class)) {
+            return LocalDateTime.of(2000, 10, 1, 0, 0);
+        }
+
+        if (clazz.isAssignableFrom(LocalTime.class)) {
+            return LocalTime.of(0, 0);
+        }
+
+        if (clazz.isAssignableFrom(ZonedDateTime.class)) {
+            return ZonedDateTime.of(LocalDateTime.of(2020, 11, 16, 10, 26, 00, 01), ZoneId.of("UTC"));
+        }
+
+        if (clazz == Logger.class) {
+            return LoggerFactory.getLogger(clazz);
+        }
+
+        if (clazz.isEnum()) {
+            return clazz.getEnumConstants()[0];
+        }
+
+        // XXX Add additional rules here
+
+        // XXX Don't fail this...until alternative solution is determined
+        ValueBuilder.logger.warn(
+                "Unable to build value for class '{}', please raise ticket with JavaBeanTester for desired support.",
+                clazz.getName());
+        return null;
     }
 
     /**
@@ -215,21 +225,29 @@ public class ValueBuilder {
             final Float floatValue, final Character characterValue, final Byte byteValue) {
         if (clazz == String.class) {
             return string;
-        } else if (clazz.isArray()) {
+        }
+        if (clazz.isArray()) {
             return Array.newInstance(clazz.getComponentType(), arrayLength);
-        } else if (clazz == boolean.class || clazz == Boolean.class) {
+        }
+        if (clazz == boolean.class || clazz == Boolean.class) {
             return ValueBuilder.initializeBoolean(clazz, booleanValue);
-        } else if (clazz == int.class || clazz == Integer.class) {
+        }
+        if (clazz == int.class || clazz == Integer.class) {
             return ValueBuilder.initializeInteger(clazz, integerValue);
-        } else if (clazz == long.class || clazz == Long.class) {
+        }
+        if (clazz == long.class || clazz == Long.class) {
             return ValueBuilder.initializeLong(clazz, longValue);
-        } else if (clazz == double.class || clazz == Double.class) {
+        }
+        if (clazz == double.class || clazz == Double.class) {
             return ValueBuilder.initializeDouble(clazz, doubleValue);
-        } else if (clazz == float.class || clazz == Float.class) {
+        }
+        if (clazz == float.class || clazz == Float.class) {
             return ValueBuilder.initializeFloat(clazz, floatValue);
-        } else if (clazz == char.class || clazz == Character.class) {
+        }
+        if (clazz == char.class || clazz == Character.class) {
             return ValueBuilder.initializeCharacter(clazz, characterValue);
-        } else if (clazz == byte.class || clazz == Byte.class) {
+        }
+        if (clazz == byte.class || clazz == Byte.class) {
             return ValueBuilder.initializeByte(clazz, byteValue);
         }
         return null;
