@@ -33,6 +33,7 @@ public enum JavaBeanTester {
      *            the generic type
      * @param clazz
      *            the clazz
+     *
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
     public static <T> JavaBeanTesterBuilder<T, ?> builder(final Class<T> clazz) {
@@ -51,6 +52,7 @@ public enum JavaBeanTester {
      *            the clazz
      * @param extension
      *            the extension
+     *
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
     public static <T, E> JavaBeanTesterBuilder<T, E> builder(final Class<T> clazz, final Class<E> extension) {

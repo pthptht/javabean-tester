@@ -38,6 +38,7 @@ public class ClassInstance<T> {
      *
      * @param clazz
      *            the class
+     *
      * @return the t
      */
     @SuppressWarnings("unchecked")
@@ -98,6 +99,7 @@ public class ClassInstance<T> {
      *            the return type
      * @param loadType
      *            the load type
+     *
      * @return the object
      */
     public <R> Object buildValue(final Class<R> returnType, final LoadType loadType) {

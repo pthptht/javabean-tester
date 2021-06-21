@@ -36,6 +36,7 @@ public final class ConstructorInstance {
      *
      * @param constructor
      *            the instance
+     *
      * @return the Object
      */
     public static Object newInstance(final Constructor<?> constructor) {

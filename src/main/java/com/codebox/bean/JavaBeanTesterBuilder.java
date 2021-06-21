@@ -73,6 +73,7 @@ public class JavaBeanTesterBuilder<T, E> {
      *
      * @param value
      *            the value
+     *
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder<T, E> checkClear(final boolean value) {
@@ -94,6 +95,7 @@ public class JavaBeanTesterBuilder<T, E> {
      *
      * @param value
      *            the value
+     *
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder<T, E> checkConstructor(final boolean value) {
@@ -115,6 +117,7 @@ public class JavaBeanTesterBuilder<T, E> {
      *
      * @param value
      *            the value
+     *
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder<T, E> checkEquals(final boolean value) {
@@ -136,6 +139,7 @@ public class JavaBeanTesterBuilder<T, E> {
      *
      * @param value
      *            the value
+     *
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder<T, E> checkSerializable(final boolean value) {
@@ -157,6 +161,7 @@ public class JavaBeanTesterBuilder<T, E> {
      *
      * @param value
      *            the value
+     *
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder<T, E> loadData(final boolean value) {
@@ -182,6 +187,7 @@ public class JavaBeanTesterBuilder<T, E> {
      *
      * @param propertyNames
      *            the property names
+     *
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder<T, E> skip(final String... propertyNames) {

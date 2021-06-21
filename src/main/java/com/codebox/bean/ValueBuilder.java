@@ -60,6 +60,7 @@ public class ValueBuilder {
      *            the clazz
      * @param loadType
      *            the load type
+     *
      * @return the object
      */
     public <T> Object buildValue(final Class<T> clazz, final LoadType loadType) {
@@ -144,6 +145,7 @@ public class ValueBuilder {
      *            the type parameter associated with the class under test.
      * @param clazz
      *            the class under test.
+     *
      * @return Object the Object to use for test.
      */
     private static <T> Object setAlternateValues(final Class<T> clazz) {
@@ -158,6 +160,7 @@ public class ValueBuilder {
      *            the type parameter associated with the class under test.
      * @param clazz
      *            the class under test.
+     *
      * @return Object the Object to use for test.
      */
     private static <T> Object setNullValues(final Class<T> clazz) {
@@ -171,6 +174,7 @@ public class ValueBuilder {
      *            the type parameter associated with the class under test.
      * @param clazz
      *            the class under test.
+     *
      * @return Object the Object to use for test.
      */
     private static <T> Object setStandardValues(final Class<T> clazz) {
@@ -203,6 +207,7 @@ public class ValueBuilder {
      *            value of character object.
      * @param byteValue
      *            value of character object.
+     *
      * @return Object value determined by input class. If not found, returns null.
      */
     private static <T> Object setValues(final Class<T> clazz, final String string, final int arrayLength,
@@ -239,6 +244,7 @@ public class ValueBuilder {
      *            the clazz
      * @param booleanValue
      *            the boolean value
+     *
      * @return the object
      */
     private static <T> Object initializeBoolean(final Class<T> clazz, final Boolean booleanValue) {
@@ -257,6 +263,7 @@ public class ValueBuilder {
      *            the clazz
      * @param integerValue
      *            the integer value
+     *
      * @return the object
      */
     private static <T> Object initializeInteger(final Class<T> clazz, final Integer integerValue) {
@@ -275,6 +282,7 @@ public class ValueBuilder {
      *            the clazz
      * @param longValue
      *            the long value
+     *
      * @return the object
      */
     private static <T> Object initializeLong(final Class<T> clazz, final Long longValue) {
@@ -293,6 +301,7 @@ public class ValueBuilder {
      *            the clazz
      * @param doubleValue
      *            the double value
+     *
      * @return the object
      */
     private static <T> Object initializeDouble(final Class<T> clazz, final Double doubleValue) {
@@ -311,6 +320,7 @@ public class ValueBuilder {
      *            the clazz
      * @param floatValue
      *            the float value
+     *
      * @return the object
      */
     private static <T> Object initializeFloat(final Class<T> clazz, final Float floatValue) {
@@ -329,6 +339,7 @@ public class ValueBuilder {
      *            the clazz
      * @param characterValue
      *            the character value
+     *
      * @return the object
      */
     private static <T> Object initializeCharacter(final Class<T> clazz, final Character characterValue) {
@@ -347,6 +358,7 @@ public class ValueBuilder {
      *            the clazz
      * @param byteValue
      *            the byte value
+     *
      * @return the object
      */
     private static <T> Object initializeByte(final Class<T> clazz, final Byte byteValue) {

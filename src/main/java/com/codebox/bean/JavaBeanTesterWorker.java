@@ -128,6 +128,7 @@ class JavaBeanTesterWorker<T, E> {
      *            load recursively all underlying data objects.
      * @param skipThese
      *            the names of any properties that should not be tested.
+     *
      * @return the java bean tester worker
      */
     public static <L> JavaBeanTesterWorker<L, Object> load(final Class<L> clazz, final L instance,
@@ -177,6 +178,7 @@ class JavaBeanTesterWorker<T, E> {
      *
      * @param instance
      *            the instance of class under test.
+     *
      * @return the ter setter tests
      */
     void getterSetterTests(final T instance) {
@@ -348,6 +350,7 @@ class JavaBeanTesterWorker<T, E> {
      *
      * @param object
      *            the object
+     *
      * @return true, if successful
      */
     boolean implementsSerializable(final T object) {
@@ -359,6 +362,7 @@ class JavaBeanTesterWorker<T, E> {
      *
      * @param object
      *            the object
+     *
      * @return object read after serialization
      */
     @SuppressWarnings("unchecked")
@@ -393,6 +397,7 @@ class JavaBeanTesterWorker<T, E> {
      *            the return type
      * @param loadType
      *            the load type
+     *
      * @return the object
      */
     private <R> Object buildValue(final Class<R> returnType, final LoadType loadType) {
@@ -615,6 +620,7 @@ class JavaBeanTesterWorker<T, E> {
      *
      * @param clazz
      *            the clazz
+     *
      * @return true, if successful
      */
     private boolean classHasSetters(Class<T> clazz) {
@@ -627,6 +633,7 @@ class JavaBeanTesterWorker<T, E> {
      *
      * @param clazz
      *            the clazz
+     *
      * @return the props
      */
     private PropertyDescriptor[] getProps(Class<?> clazz) {

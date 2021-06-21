@@ -43,7 +43,9 @@ public class ExtensionBuilder<T> {
      *
      * @param clazz
      *            the clazz
+     *
      * @return the class
+     *
      * @throws NotFoundException
      *             the not found exception
      * @throws CannotCompileException
@@ -94,7 +96,9 @@ public class ExtensionBuilder<T> {
      *            the field name
      * @param fieldClass
      *            the field class
+     *
      * @return the ct method
+     *
      * @throws CannotCompileException
      *             the cannot compile exception
      */
@@ -123,7 +127,9 @@ public class ExtensionBuilder<T> {
      *            the field name
      * @param fieldClass
      *            the field class
+     *
      * @return the ct method
+     *
      * @throws CannotCompileException
      *             the cannot compile exception
      */
@@ -153,7 +159,9 @@ public class ExtensionBuilder<T> {
      *
      * @param clazz
      *            the clazz
+     *
      * @return the ct class
+     *
      * @throws NotFoundException
      *             the not found exception
      */
