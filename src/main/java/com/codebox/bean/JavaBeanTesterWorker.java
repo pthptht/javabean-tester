@@ -90,7 +90,7 @@ class JavaBeanTesterWorker<T, E> {
     private SkipStrictSerialize skipStrictSerializable;
 
     /** The skip these. */
-    private final Set<String> skipThese = new HashSet<>();
+    private Set<String> skipThese = new HashSet<>();
 
     /**
      * Instantiates a new java bean tester worker.
