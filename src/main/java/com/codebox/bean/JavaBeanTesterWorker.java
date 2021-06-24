@@ -557,7 +557,7 @@ class JavaBeanTesterWorker<T, E> {
             if (getter == null && setter != null) {
                 final String isBooleanWrapper = "is" + setter.getName().substring(3);
                 try {
-                    getter = this.clazz.getMethod(isBooleanWrapper, null);
+                    getter = this.clazz.getMethod(isBooleanWrapper);
                 } catch (NoSuchMethodException | SecurityException e) {
                     // Do nothing
                 }
