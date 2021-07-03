@@ -36,9 +36,11 @@ import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -183,13 +185,7 @@ class JavaBeanTesterWorker<T, E> {
      */
     void getterSetterTests(final T instance) {
         final PropertyDescriptor[] props = this.getProps(this.clazz);
-        nextProp: for (final PropertyDescriptor prop : props) {
-            // Check the list of properties that we don't want to test
-            for (final String skipThis : this.skipThese) {
-                if (skipThis.equals(prop.getName())) {
-                    continue nextProp;
-                }
-            }
+        for (final PropertyDescriptor prop : props) {
             Method getter = prop.getReadMethod();
             final Method setter = prop.getWriteMethod();
 
@@ -638,7 +634,20 @@ class JavaBeanTesterWorker<T, E> {
      */
     private PropertyDescriptor[] getProps(final Class<?> clazz) {
         try {
-            return Introspector.getBeanInfo(clazz).getPropertyDescriptors();
+            final List<PropertyDescriptor> usedProps = new ArrayList<>(
+                    Introspector.getBeanInfo(clazz).getPropertyDescriptors().length);
+            final List<PropertyDescriptor> props = Arrays
+                    .asList(Introspector.getBeanInfo(clazz).getPropertyDescriptors());
+            nextProp: for (final PropertyDescriptor prop : props) {
+                // Check the list of properties that we don't want to test
+                for (final String skipThis : this.skipThese) {
+                    if (skipThis.equals(prop.getName())) {
+                        continue nextProp;
+                    }
+                }
+                usedProps.add(prop);
+            }
+            return usedProps.toArray(new PropertyDescriptor[usedProps.size()]);
         } catch (final IntrospectionException e) {
             Assertions.fail(String.format("An exception was thrown while testing class '%s': '%s'",
                     this.clazz.getName(), e.toString()));
