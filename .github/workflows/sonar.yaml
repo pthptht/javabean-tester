@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 11
-          distribution: adopt
+          distribution: zulu
       - name: Analyze with SonarCloud
         run: ./mvnw verify sonar:sonar -B -D"sonar.projectKey=hazendaz_javabean-tester" -D"sonar.organization=hazendaz" -D"sonar.host.url=https://sonarcloud.io" -D"sonar.login=$SONAR_TOKEN"
         env:
