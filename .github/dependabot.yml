@@ -32,10 +32,6 @@ updates:
     - dependency-name: org.hibernate.validator:hibernate-validator-annotation-processor
       versions:
       - ">= 7.0.0.Final"
-    - dependency-name: net.trajano.wagon:wagon-git
-      versions:
-      - "< 2.0.5"
-      - ">= 2.0.4.a"
 
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: github-actions
