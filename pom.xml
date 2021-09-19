@@ -15,7 +15,7 @@
         Hazendaz (Jeremy Landis).
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.hazendaz</groupId>
@@ -117,9 +117,9 @@
     </ciManagement>
     <distributionManagement>
         <site>
-            <id>gh-pages</id>
+            <id>gh-pages-scm</id>
             <name>JavaBean Tester GitHub Pages</name>
-            <url>git:ssh://git@github.com/hazendaz/javabean-tester.git?gh-pages#</url>
+            <url>scm:git:ssh://git@github.com/hazendaz/javabean-tester.git</url>
         </site>
         <snapshotRepository>
             <id>ossrh</id>
@@ -153,7 +153,7 @@
         <maven.compiler.testTarget>${java.version}</maven.compiler.testTarget>
 
         <!-- Maven minimum version -->
-        <maven.min-version>3.8.1</maven.min-version>
+        <maven.min-version>3.8.2</maven.min-version>
 
         <!-- Automatic Module Name -->
         <module.name>com.codebox.javabean.tester</module.name>
@@ -170,6 +170,9 @@
         <!-- Version Properties -->
         <bind-api.version>2.3.3</bind-api.version>
         <jmockit.version>1.49.1</jmockit.version>
+        <plexus-utils.version>3.4.1</plexus-utils.version>
+        <scm.plugin>1.12.0</scm.plugin>
+        <wagon.version>3.4.3</wagon.version>
 
         <!-- Surefire Argline -->
         <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar</argLine>
@@ -307,14 +310,34 @@
                             <version>1.10</version>
                         </dependency>
                         <dependency>
-                            <groupId>net.trajano.wagon</groupId>
-                            <artifactId>wagon-git</artifactId>
-                            <version>2.0.3</version> <!-- Do not use 2.0.4 as it does not work with ssh -->
+                            <groupId>org.apache.maven.wagon</groupId>
+                            <artifactId>wagon-scm</artifactId>
+                            <version>${wagon.version}</version>
                         </dependency>
                         <dependency>
                             <groupId>org.apache.maven.wagon</groupId>
                             <artifactId>wagon-ssh</artifactId>
-                            <version>3.4.3</version>
+                            <version>${wagon.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.apache.maven.scm</groupId>
+                            <artifactId>maven-scm-api</artifactId>
+                            <version>${scm.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.apache.maven.scm</groupId>
+                            <artifactId>maven-scm-provider-gitexe</artifactId>
+                            <version>${scm.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.apache.maven.scm</groupId>
+                            <artifactId>maven-scm-manager-plexus</artifactId>
+                            <version>${scm.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.codehaus.plexus</groupId>
+                            <artifactId>plexus-utils</artifactId>
+                            <version>${plexus-utils.version}</version>
                         </dependency>
                         <!-- For reporting only of versions -->
                         <dependency>
@@ -1091,7 +1114,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>com.mycila</groupId>
                                                 <artifactId>license-maven-plugin</artifactId>
-                                                <versionRange>[3.0,)</versionRange>
+                                                <versionRange>[4.1,)</versionRange>
                                                 <goals>
                                                     <goal>format</goal>
                                                 </goals>
@@ -1109,7 +1132,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>net.revelc.code.formatter</groupId>
                                                 <artifactId>formatter-maven-plugin</artifactId>
-                                                <versionRange>[2.10.0,)</versionRange>
+                                                <versionRange>[2.16.0,)</versionRange>
                                                 <goals>
                                                     <goal>format</goal>
                                                 </goals>
@@ -1124,7 +1147,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>net.revelc.code</groupId>
                                                 <artifactId>impsort-maven-plugin</artifactId>
-                                                <versionRange>[1.3.0,)</versionRange>
+                                                <versionRange>[1.6.2,)</versionRange>
                                                 <goals>
                                                     <goal>sort</goal>
                                                 </goals>
@@ -1142,7 +1165,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>org.apache.maven.plugins</groupId>
                                                 <artifactId>maven-enforcer-plugin</artifactId>
-                                                <versionRange>[3.0.0-M2,)</versionRange>
+                                                <versionRange>[3.0.0,)</versionRange>
                                                 <goals>
                                                     <goal>enforce</goal>
                                                 </goals>
@@ -1157,7 +1180,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>org.jacoco</groupId>
                                                 <artifactId>jacoco-maven-plugin</artifactId>
-                                                <versionRange>[0.8.4,)</versionRange>
+                                                <versionRange>[0.8.7,)</versionRange>
                                                 <goals>
                                                     <goal>prepare-agent</goal>
                                                 </goals>
@@ -1222,9 +1245,9 @@
         </profile>
 
         <profile>
-            <id>jdk9</id>
+            <id>jdk11</id>
             <activation>
-                <jdk>[9,)</jdk>
+                <jdk>[11,)</jdk>
             </activation>
             <properties>
                 <maven.compiler.release>${java-release.version}</maven.compiler.release>
