@@ -588,7 +588,7 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>6.0.0.202111291000-r</version>
+                            <version>5.13.0.202109080827-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.apache.maven.scm</groupId>
@@ -673,7 +673,7 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>6.0.0.202111291000-r</version>
+                            <version>5.13.0.202109080827-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.apache.maven.scm</groupId>

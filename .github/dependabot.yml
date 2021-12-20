@@ -35,6 +35,9 @@ updates:
     - dependency-name: net.revelc.code.formatter:formatter-maven-plugin
       versions:
       - ">= 2.17.0"
+    - dependency-name: org.eclipse.jgit:org.eclipse.jgit
+      versions:
+      - ">= 6.0.0.202111291000-r"
 
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: github-actions
