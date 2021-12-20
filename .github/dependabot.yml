@@ -32,6 +32,9 @@ updates:
     - dependency-name: org.hibernate.validator:hibernate-validator-annotation-processor
       versions:
       - ">= 7.0.0.Final"
+    - dependency-name: net.revelc.code.formatter:formatter-maven-plugin
+      versions:
+      - ">= 2.17.0"
 
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: github-actions
