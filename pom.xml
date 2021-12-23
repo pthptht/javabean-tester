@@ -172,7 +172,7 @@
         <jmockit.version>1.49.2</jmockit.version>
         <plexus-utils.version>3.4.1</plexus-utils.version>
         <scm.version>1.12.0</scm.version>
-        <wagon.version>3.4.3</wagon.version>
+        <wagon.version>3.5.0</wagon.version>
 
         <!-- Surefire Argline -->
         <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar</argLine>
@@ -888,7 +888,7 @@
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-ssh</artifactId>
-                <version>3.4.3</version>
+                <version>3.5.0</version>
             </extension>
         </extensions>
     </build>
