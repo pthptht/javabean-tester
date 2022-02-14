@@ -11,3 +11,4 @@ target
 /.apt_generated_tests/
 *.releaseBackup
 release.properties
+.github/keys/
