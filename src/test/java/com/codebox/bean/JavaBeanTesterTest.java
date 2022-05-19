@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2021 Hazendaz.
+ * Copyright 2012-2022 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -199,7 +199,7 @@ class JavaBeanTesterTest {
      * Test_non serializable.
      */
     @Test
-    public void test_nonSerializableInternallyFails() {
+    void test_nonSerializableInternallyFails() {
         JavaBeanTester.builder(NonSerializableBean.class).checkSerializable().skipStrictSerializable().test();
     }
 
