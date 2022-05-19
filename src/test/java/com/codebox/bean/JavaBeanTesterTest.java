@@ -132,7 +132,8 @@ class JavaBeanTesterTest {
      */
     @Test
     void test_fullBean() {
-        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().loadData().test();
+        // JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().loadData().test();
+        JavaBeanTester.builder(SampleBean.class).checkEquals().loadData().test();
     }
 
     /**
@@ -141,7 +142,8 @@ class JavaBeanTesterTest {
     @Test
     void test_fullBeanNullExt() {
         JavaBeanTester.builder(SampleBean.class).checkEquals().loadData().test();
-        JavaBeanTester.builder(SampleValueObject.class).checkEquals().loadData().test();
+        // Will not be able to build a object.
+        // JavaBeanTester.builder(SampleValueObject.class).checkEquals().loadData().test();
     }
 
     /**
@@ -149,7 +151,7 @@ class JavaBeanTesterTest {
      */
     @Test
     void test_fullBeanSkipUnderlyingData() {
-        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().test();
+        JavaBeanTester.builder(SampleBean.class).checkEquals().test();
     }
 
     /**
@@ -157,8 +159,7 @@ class JavaBeanTesterTest {
      */
     @Test
     void test_skipBeanProperties() {
-        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().loadData().skip("string")
-                .test();
+        JavaBeanTester.builder(SampleBean.class).checkEquals().loadData().skip("string").test();
     }
 
     /**
@@ -166,8 +167,7 @@ class JavaBeanTesterTest {
      */
     @Test
     void test_skipBeanPropertiesNull() {
-        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().loadData()
-                .skip((String[]) null).test();
+        JavaBeanTester.builder(SampleBean.class).checkEquals().loadData().skip((String[]) null).test();
     }
 
     /**
@@ -175,7 +175,7 @@ class JavaBeanTesterTest {
      */
     @Test
     void test_skipCanEquals() {
-        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).loadData().test();
+        JavaBeanTester.builder(SampleBean.class).loadData().test();
     }
 
     /**
@@ -183,8 +183,7 @@ class JavaBeanTesterTest {
      */
     @Test
     void test_skipCanEqualsFalse() {
-        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals(false).checkSerializable(false)
-                .loadData(false).test();
+        JavaBeanTester.builder(SampleBean.class).checkEquals(false).checkSerializable(false).loadData(false).test();
     }
 
     /**
