@@ -100,8 +100,8 @@
         <url>https://github.com/hazendaz/javabean-tester/issues</url>
     </issueManagement>
     <ciManagement>
-        <system>travis-ci</system>
-        <url>https://travis-ci.org/hazendaz/javabean-tester/</url>
+        <system>GitHub</system>
+        <url>https://github.com/hazendaz/javabean-tester/actions</url>
         <notifiers>
             <notifier>
                 <type>mail</type>
