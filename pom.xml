@@ -533,7 +533,7 @@
                 <plugin>
                     <groupId>net.revelc.code</groupId>
                     <artifactId>impsort-maven-plugin</artifactId>
-                    <version>1.6.2</version>
+                    <version>1.7.0</version>
                     <configuration>
                         <groups>com,jakarta,java,javax,lombok,mockit,net,org</groups>
                         <staticGroups>java,*</staticGroups>
