@@ -574,7 +574,7 @@
                 <plugin>
                     <groupId>com.mycila</groupId>
                     <artifactId>license-maven-plugin</artifactId>
-                    <version>4.1</version>
+                    <version>4.2.rc3</version>
                     <configuration>
                         <header>LICENSE_HEADER</header>
                         <excludes>
@@ -586,7 +586,6 @@
                             <exclude>.gitattributes</exclude>
                             <exclude>LICENSE</exclude>
                             <exclude>LICENSE_HEADER</exclude>
-                            <exclude>license.txt</exclude>
                             <exclude>mvnw</exclude>
                             <exclude>mvnw.cmd</exclude>
                         </excludes>
@@ -595,7 +594,7 @@
                         <dependency>
                             <groupId>com.mycila</groupId>
                             <artifactId>license-maven-plugin-git</artifactId>
-                            <version>4.1</version>
+                            <version>4.2.rc3</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1110,7 +1109,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>com.mycila</groupId>
                                                 <artifactId>license-maven-plugin</artifactId>
-                                                <versionRange>[4.1,)</versionRange>
+                                                <versionRange>[4.2.rc3,)</versionRange>
                                                 <goals>
                                                     <goal>format</goal>
                                                 </goals>
