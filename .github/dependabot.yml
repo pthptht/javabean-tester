@@ -15,7 +15,12 @@
 
 version: 2
 updates:
-# Maintain dependencies for Maven dependencies
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: daily
+  # Maintain dependencies for Maven dependencies
   - package-ecosystem: maven
     directory: "/"
     schedule:
@@ -32,15 +37,4 @@ updates:
     - dependency-name: org.hibernate.validator:hibernate-validator-annotation-processor
       versions:
       - ">= 7.0.0.Final"
-    - dependency-name: net.revelc.code.formatter:formatter-maven-plugin
-      versions:
-      - ">= 2.17.0"
-    - dependency-name: org.eclipse.jgit:org.eclipse.jgit
-      versions:
-      - ">= 6.0.0.202111291000-r"
 
-  # Maintain dependencies for GitHub Actions
-  - package-ecosystem: github-actions
-    directory: "/"
-    schedule:
-      interval: daily
