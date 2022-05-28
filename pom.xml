@@ -92,8 +92,8 @@
     <scm>
         <connection>scm:git:ssh://git@github.com/hazendaz/javabean-tester.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/hazendaz/javabean-tester.git</developerConnection>
-        <url>https://github.com/hazendaz/javabean-tester</url>
         <tag>HEAD</tag>
+        <url>https://github.com/hazendaz/javabean-tester</url>
     </scm>
     <issueManagement>
         <system>Github</system>
@@ -116,19 +116,19 @@
         </notifiers>
     </ciManagement>
     <distributionManagement>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
         <site>
             <id>gh-pages-scm</id>
             <name>JavaBean Tester GitHub Pages</name>
             <url>scm:git:ssh://git@github.com/hazendaz/javabean-tester.git</url>
         </site>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
     </distributionManagement>
 
     <properties>
@@ -679,7 +679,7 @@
                                         </tag>
                                     </tags>
                                 </tagClass>
-                           </tagClasses>
+                            </tagClasses>
                         </tagListOptions>
                     </configuration>
                 </plugin>
@@ -819,17 +819,17 @@
                     </execution>
                     <execution>
                         <id>enforce-clean</id>
-                        <phase>pre-clean</phase>
                         <goals>
                             <goal>enforce</goal>
                         </goals>
+                        <phase>pre-clean</phase>
                     </execution>
                     <execution>
                         <id>enforce-site</id>
-                        <phase>pre-site</phase>
                         <goals>
                             <goal>enforce</goal>
                         </goals>
+                        <phase>pre-site</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -838,10 +838,10 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>compile</phase>
                         <goals>
                             <goal>format</goal>
                         </goals>
+                        <phase>compile</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -1014,10 +1014,10 @@
                         <artifactId>spotbugs-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <phase>verify</phase>
                                 <goals>
                                     <goal>check</goal>
                                 </goals>
+                                <phase>verify</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -1240,10 +1240,10 @@
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
-                                <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                                <phase>verify</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -1260,10 +1260,10 @@
                         <artifactId>sortpom-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <phase>verify</phase>
                                 <goals>
                                     <goal>sort</goal>
                                 </goals>
+                                <phase>verify</phase>
                             </execution>
                         </executions>
                     </plugin>
