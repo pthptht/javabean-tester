@@ -544,9 +544,17 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>tidy-maven-plugin</artifactId>
-                    <version>1.1.0</version>
+                    <groupId>com.github.ekryd.sortpom</groupId>
+                    <artifactId>sortpom-maven-plugin</artifactId>
+                    <version>3.1.2</version>
+                    <configuration>
+                        <predefinedSortOrder>recommended_2008_06</predefinedSortOrder>
+                        <createBackupFile>false</createBackupFile>
+                        <expandEmptyElements>false</expandEmptyElements>
+                        <keepBlankLines>true</keepBlankLines>
+                        <nrOfIndentSpace>4</nrOfIndentSpace>
+                        <spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>net.revelc.code.formatter</groupId>
@@ -1258,13 +1266,13 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>tidy-maven-plugin</artifactId>
+                        <groupId>com.github.ekryd.sortpom</groupId>
+                        <artifactId>sortpom-maven-plugin</artifactId>
                         <executions>
                             <execution>
                                 <phase>verify</phase>
                                 <goals>
-                                    <goal>pom</goal>
+                                    <goal>sort</goal>
                                 </goals>
                             </execution>
                         </executions>
