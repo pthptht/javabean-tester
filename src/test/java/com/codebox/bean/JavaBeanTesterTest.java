@@ -137,6 +137,14 @@ class JavaBeanTesterTest {
     }
 
     /**
+     * Test_full bean.
+     */
+    @Test
+    void test_fullBeanWithExtension() {
+        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().loadData().test();
+    }
+
+    /**
      * Test_full bean null ext.
      */
     @Test
@@ -155,11 +163,28 @@ class JavaBeanTesterTest {
     }
 
     /**
+     * Test_full bean skip underlying data.
+     */
+    @Test
+    void test_fullBeanSkipUnderlyingDataWithExtension() {
+        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().test();
+    }
+
+    /**
      * Test_skip bean properties.
      */
     @Test
     void test_skipBeanProperties() {
         JavaBeanTester.builder(SampleBean.class).checkEquals().loadData().skip("string").test();
+    }
+
+    /**
+     * Test_skip bean properties.
+     */
+    @Test
+    void test_skipBeanPropertiesWithExtension() {
+        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().loadData().skip("string")
+                .test();
     }
 
     /**
@@ -171,6 +196,15 @@ class JavaBeanTesterTest {
     }
 
     /**
+     * Test_skip bean properties null just ignores the skipping.
+     */
+    @Test
+    void test_skipBeanPropertiesNullWithExtension() {
+        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().loadData()
+                .skip((String[]) null).test();
+    }
+
+    /**
      * Test_skip can equals.
      */
     @Test
@@ -179,11 +213,28 @@ class JavaBeanTesterTest {
     }
 
     /**
+     * Test_skip can equals.
+     */
+    @Test
+    void test_skipCanEqualsWithExtension() {
+        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).loadData().test();
+    }
+
+    /**
      * Test_skip all as false.
      */
     @Test
     void test_skipCanEqualsFalse() {
         JavaBeanTester.builder(SampleBean.class).checkEquals(false).checkSerializable(false).loadData(false).test();
+    }
+
+    /**
+     * Test_skip all as false.
+     */
+    @Test
+    void test_skipCanEqualsFalseWithExtension() {
+        JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals(false).checkSerializable(false)
+                .loadData(false).test();
     }
 
     /**
