@@ -47,26 +47,26 @@ public enum JavaBeanTester {
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
     public static <T> JavaBeanTesterBuilder<T, ?> builder(final Class<T> clazz) {
+        // If class is final, use Object.class for comparison needs
         if (Modifier.isFinal(clazz.getModifiers())) {
             return new JavaBeanTesterBuilder<>(clazz, Object.class);
         }
-        try {
-            Class<? extends T> loaded = new ByteBuddy().with(new NamingStrategy.AbstractBase() {
-                @Override
-                protected String name(TypeDescription superClass) {
-                    return "com.codebox.bean.Extended" + superClass.getSimpleName();
-                }
-            }).subclass(clazz).method(ElementMatchers.any()).intercept(SuperMethodCall.INSTANCE)
-                    .method(ElementMatchers.named("equals")).intercept(EqualsMethod.requiringSuperClassEquality())
-                    .method(ElementMatchers.named("hashCode")).intercept(HashCodeMethod.usingSuperClassOffset())
-                    .method(ElementMatchers.named("toString")).intercept(ToStringMethod.prefixedBySimpleClassName())
-                    .defineField("extension", String.class, Visibility.PACKAGE_PRIVATE).make()
-                    .load(clazz.getClassLoader(), ClassLoadingStrategy.Default.WRAPPER).getLoaded();
-            // EqualsMethod
-            return builder(clazz, loaded);
-        } catch (Exception e) {
-            return builder(clazz, clazz);
-        }
+
+        // Build extension from class using byte buddy
+        Class<? extends T> loaded = new ByteBuddy().with(new NamingStrategy.AbstractBase() {
+            @Override
+            protected String name(TypeDescription superClass) {
+                return "com.codebox.bean.Extended" + superClass.getSimpleName();
+            }
+        }).subclass(clazz).method(ElementMatchers.any()).intercept(SuperMethodCall.INSTANCE)
+                .method(ElementMatchers.named("equals")).intercept(EqualsMethod.requiringSuperClassEquality())
+                .method(ElementMatchers.named("hashCode")).intercept(HashCodeMethod.usingSuperClassOffset())
+                .method(ElementMatchers.named("toString")).intercept(ToStringMethod.prefixedBySimpleClassName())
+                .defineField("extension", String.class, Visibility.PACKAGE_PRIVATE).make()
+                .load(clazz.getClassLoader(), ClassLoadingStrategy.Default.WRAPPER).getLoaded();
+
+        // Builder with proper extension class
+        return builder(clazz, loaded);
     }
 
     /**
