@@ -132,7 +132,6 @@ class JavaBeanTesterTest {
      */
     @Test
     void test_fullBean() {
-        // JavaBeanTester.builder(SampleBean.class, SampleExtensionBean.class).checkEquals().loadData().test();
         JavaBeanTester.builder(SampleBean.class).checkEquals().loadData().test();
     }
 
@@ -150,8 +149,7 @@ class JavaBeanTesterTest {
     @Test
     void test_fullBeanNullExt() {
         JavaBeanTester.builder(SampleBean.class).checkEquals().loadData().test();
-        // Will not be able to build a object.
-        // JavaBeanTester.builder(SampleValueObject.class).checkEquals().loadData().test();
+        JavaBeanTester.builder(SampleValueObject.class).checkEquals().loadData().test();
     }
 
     /**

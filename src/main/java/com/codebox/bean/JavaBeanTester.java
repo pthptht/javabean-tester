@@ -14,6 +14,8 @@
  */
 package com.codebox.bean;
 
+import java.lang.reflect.Modifier;
+
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.NamingStrategy;
 import net.bytebuddy.description.modifier.Visibility;
@@ -28,9 +30,6 @@ import net.bytebuddy.matcher.ElementMatchers;
 /**
  * This helper class can be used to unit test the get/set/equals/canEqual/toString/hashCode methods of JavaBean-style
  * Value Objects.
- *
- * @author rob.dawson
- * @author jeremy.landis
  */
 public enum JavaBeanTester {
 
@@ -47,7 +46,10 @@ public enum JavaBeanTester {
      *
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
-    public static <T> JavaBeanTesterBuilder<T, ? extends T> builder(final Class<T> clazz) {
+    public static <T> JavaBeanTesterBuilder<T, ?> builder(final Class<T> clazz) {
+        if (Modifier.isFinal(clazz.getModifiers())) {
+            return new JavaBeanTesterBuilder<>(clazz, Object.class);
+        }
         try {
             Class<? extends T> loaded = new ByteBuddy().with(new NamingStrategy.AbstractBase() {
                 @Override
