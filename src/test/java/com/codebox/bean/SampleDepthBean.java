@@ -105,6 +105,6 @@ public class SampleDepthBean {
     /** SampleBean nesting would not cause stack overflow as no no-arg constructor. */
     private SampleBean sampleBean;
 
-    /** SampleDepthBean nesting would cause stack overflow.  Fixed by not deeply testing in value builder. */
+    /** SampleDepthBean nesting would cause stack overflow. Fixed by not deeply testing in value builder. */
     private SampleDepthBean sampleDepthBean;
 }

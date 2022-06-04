@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2021 Hazendaz.
+ * Copyright 2012-2022 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -21,12 +21,14 @@ import com.codebox.instance.ConstructorInstance;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -68,8 +70,8 @@ public class ValueBuilder {
         final Constructor<?>[] ctrs = clazz.getConstructors();
         for (final Constructor<?> ctr : ctrs) {
             if (ctr.getParameterTypes().length == 0 && clazz != String.class) {
-                if (this.loadData == LoadData.ON) {
-                    // Load Underlying Data
+                if (this.loadData == LoadData.ON && !containsSelf(clazz)) {
+                    // Load Underlying Data to deeply test when it doesn't contain self
                     final JavaBeanTesterWorker<T, Object> beanTesterWorker = new JavaBeanTesterWorker<>(clazz);
                     beanTesterWorker.setLoadData(this.loadData);
                     beanTesterWorker.getterSetterTests(new ClassInstance<T>().newInstance(clazz));
@@ -384,6 +386,25 @@ public class ValueBuilder {
             return Byte.valueOf((byte) -1);
         }
         return byteValue;
+    }
+
+    /**
+     * Contains self.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @return true, if successful
+     */
+    private <T> boolean containsSelf(final Class<T> clazz) {
+        final List<Field> fields = Arrays.asList(clazz.getDeclaredFields());
+        for (int i = 0; i < fields.size(); i++) {
+            if (fields.get(i).getType().equals(clazz)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
