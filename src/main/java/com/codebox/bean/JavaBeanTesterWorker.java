@@ -490,7 +490,7 @@ class JavaBeanTesterWorker<T, E> {
                 Assertions.assertNotEquals(x.hashCode(), y.hashCode());
             }
 
-            // ReTest Extension Equals and HashCode
+            // ReTest Extension Equals, HashCode, and ToString
             Assertions.assertNotEquals(ext, y,
                     String.format(".equals() should not be equal for extension of type %s and empty object of type %s",
                             this.extension.getName(), this.clazz.getName()));
