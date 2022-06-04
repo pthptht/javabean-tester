@@ -464,7 +464,7 @@ class JavaBeanTesterWorker<T, E> {
 
             // ReTest Equals (flip)
             Assertions.assertNotEquals(y, x, String
-                    .format(".equals() should be consistent for two empty objects of type %s", this.clazz.getName()));
+                    .format(".equals() should not be consistent for one empty and one loaded object of type %s", this.clazz.getName()));
 
             // ReTest Extension Equals (flip)
             Assertions.assertNotEquals(y, ext,
