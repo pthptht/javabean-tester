@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2021 Hazendaz.
+ * Copyright 2012-2022 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -102,4 +102,9 @@ public class SampleDepthBean {
     /** The Local Time. */
     private LocalTime localTime;
 
+    /** SampleBean nesting would not cause stack overflow as no no-arg constructor. */
+    private SampleBean sampleBean;
+
+    /** SampleDepthBean nesting would cause stack overflow.  Fixed by not deeply testing in value builder. */
+    private SampleDepthBean sampleDepthBean;
 }
