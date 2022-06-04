@@ -59,9 +59,9 @@ public enum JavaBeanTester {
                 return "com.codebox.bean.Extended" + superClass.getSimpleName();
             }
         }).subclass(clazz).method(ElementMatchers.any()).intercept(SuperMethodCall.INSTANCE)
-                .method(ElementMatchers.named("equals")).intercept(EqualsMethod.requiringSuperClassEquality())
-                .method(ElementMatchers.named("hashCode")).intercept(HashCodeMethod.usingSuperClassOffset())
-                .method(ElementMatchers.named("toString")).intercept(ToStringMethod.prefixedBySimpleClassName())
+                .method(ElementMatchers.isEquals()).intercept(EqualsMethod.requiringSuperClassEquality())
+                .method(ElementMatchers.isHashCode()).intercept(HashCodeMethod.usingSuperClassOffset())
+                .method(ElementMatchers.isToString()).intercept(ToStringMethod.prefixedBySimpleClassName())
                 .defineField("extension", String.class, Visibility.PACKAGE_PRIVATE).make()
                 .load(clazz.getClassLoader(), ClassLoadingStrategy.Default.WRAPPER).getLoaded();
 
