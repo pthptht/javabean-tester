@@ -62,7 +62,7 @@ public enum JavaBeanTester {
                 .method(ElementMatchers.isEquals()).intercept(EqualsMethod.requiringSuperClassEquality())
                 .method(ElementMatchers.isHashCode()).intercept(HashCodeMethod.usingSuperClassOffset())
                 .method(ElementMatchers.isToString()).intercept(ToStringMethod.prefixedBySimpleClassName())
-                .defineField("extension", String.class, Visibility.PACKAGE_PRIVATE).make()
+                .defineField("javabeanExtension", String.class, Visibility.PACKAGE_PRIVATE).make()
                 .load(clazz.getClassLoader(), ClassLoadingStrategy.Default.WRAPPER).getLoaded();
 
         // Builder with proper extension class
