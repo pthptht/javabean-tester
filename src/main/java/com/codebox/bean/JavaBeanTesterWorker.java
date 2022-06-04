@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2021 Hazendaz.
+ * Copyright 2012-2022 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -439,6 +439,9 @@ class JavaBeanTesterWorker<T, E> {
                         this.extension.getName(), this.clazz.getName()));
         Assertions.assertNotEquals(ext.hashCode(), y.hashCode(),
                 String.format(".hashCode() should not be equal for extension of type %s and empty object of type %s",
+                        this.extension.getName(), this.clazz.getName()));
+        Assertions.assertNotEquals(ext.toString(), y.toString(),
+                String.format(".toString() should not be equal for extension of type %s and empty object of type %s",
                         this.extension.getName(), this.clazz.getName()));
 
         // Test One Sided Tests on Empty Objects
