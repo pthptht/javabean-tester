@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.lang.AssertionError;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -48,6 +49,8 @@ import javax.annotation.PostConstruct;
 import lombok.Data;
 
 import net.sf.cglib.beans.BeanCopier;
+
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
@@ -406,6 +409,13 @@ class JavaBeanTesterWorker<T, E> {
      * Tests the equals/hashCode/toString methods of the specified class.
      */
     public void equalsHashCodeToStringSymmetricTest() {
+        // Run Equals Verifier
+        try {
+            EqualsVerifier.simple().forClass(this.clazz).verify();
+        } catch (AssertionError e) {
+            JavaBeanTesterWorker.LOGGER.warn("EqualsVerifier attempt failed: {}", e.getMessage());
+        }
+
         // Create Instances
         final T x = new ClassInstance<T>().newInstance(this.clazz);
         final T y = new ClassInstance<T>().newInstance(this.clazz);
