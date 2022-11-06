@@ -1235,6 +1235,7 @@
             </build>
         </profile>
 
+        <!-- Add when moving to jdk 11
         <profile>
             <id>jdk11on</id>
             <activation>
@@ -1248,7 +1249,7 @@
                             <artifactId>maven-javadoc-plugin</artifactId>
                             <configuration>
                                 <additionalOptions combine.children="append">
-                                    <option>--add-modules</option>
+                                    <option>- -add-modules</option>
                                     <option>java.desktop</option>
                                 </additionalOptions>
                             </configuration>
@@ -1257,6 +1258,7 @@
                 </pluginManagement>
             </build>
         </profile>
+        -->
 
         <profile>
             <id>release</id>
