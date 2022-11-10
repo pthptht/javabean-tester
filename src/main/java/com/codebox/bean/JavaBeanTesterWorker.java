@@ -271,7 +271,8 @@ class JavaBeanTesterWorker<T, E> {
                         List<Annotation> annotations = Arrays.asList(mt.getAnnotations());
                         for (final Annotation annotation : annotations) {
                             // XXX On purpose logic change to support both javax and jakarta namespace for annotations
-                            if ("PostConstruct".equals(annotation.annotationType().getSimpleName()) && mt.getParameterTypes().length == 0) {
+                            if ("PostConstruct".equals(annotation.annotationType().getSimpleName())
+                                    && mt.getParameterTypes().length == 0) {
                                 // Invoke method newClass
                                 mt.invoke(newClass);
                                 // Invoke method expectedClass
