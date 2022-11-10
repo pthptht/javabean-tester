@@ -33,7 +33,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.lang.AssertionError;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -43,8 +43,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.annotation.PostConstruct;
 
 import lombok.Data;
 
@@ -270,11 +268,15 @@ class JavaBeanTesterWorker<T, E> {
                 try {
                     // Perform any Post Construction on object without parameters
                     for (final Method mt : methods) {
-                        if (mt.isAnnotationPresent(PostConstruct.class) && mt.getParameterTypes().length == 0) {
-                            // Invoke method newClass
-                            mt.invoke(newClass);
-                            // Invoke method expectedClass
-                            mt.invoke(expectedClass);
+                        List<Annotation> annotations = Arrays.asList(mt.getAnnotations());
+                        for (final Annotation annotation : annotations) {
+                            // XXX On purpose logic change to support both javax and jakarta namespace for annotations
+                            if ("PostConstruct".equals(annotation.annotationType().getSimpleName()) && mt.getParameterTypes().length == 0) {
+                                // Invoke method newClass
+                                mt.invoke(newClass);
+                                // Invoke method expectedClass
+                                mt.invoke(expectedClass);
+                            }
                         }
                     }
                     // Invoke clear only on newClass

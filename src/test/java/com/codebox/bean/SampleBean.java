@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2021 Hazendaz.
+ * Copyright 2012-2022 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -13,6 +13,8 @@
  *     Hazendaz (Jeremy Landis).
  */
 package com.codebox.bean;
+
+import jakarta.annotation.PostConstruct;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -149,4 +151,11 @@ public class SampleBean {
         return this.booleanWrapperIsSetter;
     }
 
+    /**
+     * Sample post construct.
+     */
+    @PostConstruct
+    public void init() {
+        // Do nothing support to invoke code in clearTest()
+    }
 }
