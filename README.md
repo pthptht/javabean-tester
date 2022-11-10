@@ -2,7 +2,7 @@
 
 [![Java CI](https://github.com/hazendaz/javabean-tester/workflows/Java%20CI/badge.svg)](https://github.com/hazendaz/javabean-tester/workflows/Java%20CI)
 [![Coverage Status](https://coveralls.io/repos/hazendaz/javabean-tester/badge.svg?branch=master&service=github)](https://coveralls.io/github/hazendaz/javabean-tester?branch=master)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=hazendaz/javabean-tester)](https://dependabot.com)
+[![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz/javabean-tester/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz/javabean-tester)
 [![Project Stats](https://www.openhub.net/p/javabean-tester/widgets/project_thin_badge.gif)](https://www.openhub.net/p/javabean-tester)
 [![Apache 2](http://img.shields.io/badge/license-Apache%202-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
