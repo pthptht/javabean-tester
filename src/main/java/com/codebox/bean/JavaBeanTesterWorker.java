@@ -267,8 +267,9 @@ class JavaBeanTesterWorker<T, E> {
                 final T expectedClass = new ClassInstance<T>().newInstance(this.clazz);
                 try {
                     // Perform any Post Construction on object without parameters
+                    List<Annotation> annotations = null;
                     for (final Method mt : methods) {
-                        List<Annotation> annotations = Arrays.asList(mt.getAnnotations());
+                        annotations = Arrays.asList(mt.getAnnotations());
                         for (final Annotation annotation : annotations) {
                             // XXX On purpose logic change to support both javax and jakarta namespace for annotations
                             if ("PostConstruct".equals(annotation.annotationType().getSimpleName())
