@@ -175,7 +175,7 @@
 
         <!-- Version Properties -->
         <bind-api.version>2.3.3</bind-api.version>
-        <jmockit.version>1.49.3</jmockit.version>
+        <jmockit.version>1.49.4</jmockit.version>
         <plexus-utils.version>3.5.0</plexus-utils.version>
         <scm.version>1.13.0</scm.version>
         <wagon.version>3.5.2</wagon.version>
