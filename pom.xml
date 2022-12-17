@@ -1142,22 +1142,6 @@
                                                 </execute>
                                             </action>
                                         </pluginExecution>
-
-                                        <!-- Ignore enforcer plugin with m2e -->
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
-                                                <groupId>org.apache.maven.plugins</groupId>
-                                                <artifactId>maven-enforcer-plugin</artifactId>
-                                                <versionRange>[3.0.0,)</versionRange>
-                                                <goals>
-                                                    <goal>enforce</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <ignore />
-                                            </action>
-                                        </pluginExecution>
-
                                         <!-- Ignore jacoco with m2e -->
                                         <pluginExecution>
                                             <pluginExecutionFilter>
