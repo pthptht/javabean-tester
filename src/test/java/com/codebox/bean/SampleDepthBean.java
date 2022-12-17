@@ -14,6 +14,7 @@
  */
 package com.codebox.bean;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -89,6 +90,9 @@ public class SampleDepthBean {
 
     /** The byte primitive. */
     private byte bytePrimitive;
+
+    /** The big decimal. */
+    private BigDecimal bigDecimal;
 
     /** The date. */
     private Date date;

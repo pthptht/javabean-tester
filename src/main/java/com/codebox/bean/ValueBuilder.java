@@ -22,6 +22,7 @@ import com.codebox.instance.ConstructorInstance;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -101,6 +102,10 @@ public class ValueBuilder {
 
         if (returnObject != null || loadType == LoadType.NULL_DATA) {
             return returnObject;
+        }
+
+        if (clazz.isAssignableFrom(BigDecimal.class)) {
+            return new BigDecimal(1);
         }
 
         if (clazz.isAssignableFrom(List.class)) {

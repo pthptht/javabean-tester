@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2021 Hazendaz.
+ * Copyright 2012-2022 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -14,6 +14,7 @@
  */
 package com.codebox.bean;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -103,6 +104,9 @@ public class SampleValueObject {
 
     /** The byte primitive. */
     byte bytePrimitive;
+
+    /** The big decimal. */
+    BigDecimal bigDecimal;
 
     /** The date. */
     Date date;
