@@ -18,11 +18,15 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.Value;
 
 /**
@@ -120,4 +124,13 @@ public class SampleValueObject {
     /** The Local Time. */
     LocalTime localTime;
 
+    /** The Offset Date Time. */
+    OffsetDateTime offsetDateTime;
+
+    /** The Zoned Date Time. */
+    ZonedDateTime zonedDateTime;
+
+    /** The Boolean wrapper with is/setter style (non lombok - java metro style). */
+    @Getter(AccessLevel.NONE)
+    Boolean booleanWrapperIsSetter;
 }

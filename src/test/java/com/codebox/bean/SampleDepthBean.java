@@ -18,12 +18,16 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 
 /**
  * Instantiates a new sample depth bean.
@@ -105,6 +109,16 @@ public class SampleDepthBean {
 
     /** The Local Time. */
     private LocalTime localTime;
+
+    /** The Offset Date Time. */
+    private OffsetDateTime offsetDateTime;
+
+    /** The Zoned Date Time. */
+    private ZonedDateTime zonedDateTime;
+
+    /** The Boolean wrapper with is/setter style (non lombok - java metro style). */
+    @Getter(AccessLevel.NONE)
+    private Boolean booleanWrapperIsSetter;
 
     /** SampleBean nesting would not cause stack overflow as no no-arg constructor. */
     private SampleBean sampleBean;
