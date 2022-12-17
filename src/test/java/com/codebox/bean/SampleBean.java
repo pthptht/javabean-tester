@@ -19,6 +19,7 @@ import jakarta.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
@@ -117,6 +118,9 @@ public class SampleBean {
 
     /** The Local Time. */
     private LocalTime localTime;
+
+    /** The Offset Date Time. */
+    private OffsetDateTime offsetDateTime;
 
     /** The Zoned Date Time. */
     private ZonedDateTime zonedDateTime;

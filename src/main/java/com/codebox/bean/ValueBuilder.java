@@ -25,7 +25,9 @@ import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -127,6 +129,10 @@ public class ValueBuilder {
 
         if (clazz.isAssignableFrom(LocalTime.class)) {
             return LocalTime.of(0, 0);
+        }
+
+        if (clazz.isAssignableFrom(OffsetDateTime.class)) {
+            return OffsetDateTime.of(2000, 10, 1, 0, 0, 0, 0, ZoneOffset.MIN);
         }
 
         if (clazz.isAssignableFrom(ZonedDateTime.class)) {
