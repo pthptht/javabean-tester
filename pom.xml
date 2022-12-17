@@ -1125,22 +1125,7 @@
                                             </action>
                                         </pluginExecution>
 
-                                        <!-- Ignore formatter plugin with m2e -->
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
-                                                <groupId>net.revelc.code.formatter</groupId>
-                                                <artifactId>formatter-maven-plugin</artifactId>
-                                                <versionRange>[2.21.0,)</versionRange>
-                                                <goals>
-                                                    <goal>format</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <ignore />
-                                            </action>
-                                        </pluginExecution>
-
-                                        <!-- Run impsort plugin with m2e -->
+                                        <!-- Run impsort plugin with m2e (in metadata but ignored) -->
                                         <pluginExecution>
                                             <pluginExecutionFilter>
                                                 <groupId>net.revelc.code</groupId>
