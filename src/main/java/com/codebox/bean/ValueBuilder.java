@@ -36,6 +36,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -118,6 +120,10 @@ public class ValueBuilder {
 
         if (clazz.isAssignableFrom(ConcurrentMap.class)) {
             return new ConcurrentHashMap<>();
+        }
+
+        if (clazz.isAssignableFrom(Set.class)) {
+            return new TreeSet<>();
         }
 
         if (clazz.isAssignableFrom(Date.class)) {

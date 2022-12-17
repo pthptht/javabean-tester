@@ -23,6 +23,7 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentMap;
 
 import lombok.AccessLevel;
@@ -57,6 +58,9 @@ public class SampleValueObject {
 
     /** The concurrent map. */
     ConcurrentMap<String, String> concurrentMap;
+
+    /** The tree set. */
+    TreeSet<String> treeSet;
 
     /** The string. */
     String string;
