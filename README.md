@@ -17,7 +17,7 @@ Alternatively you can pull it from the central Maven repositories:
 <dependency>
   <groupId>com.github.hazendaz</groupId>
   <artifactId>javabean-tester</artifactId>
-  <version>2.4.0</version>
+  <version>2.5.0</version>
   <scope>test</scope>
 </dependency>
 ```
@@ -25,7 +25,7 @@ Alternatively you can pull it from the central Maven repositories:
 Or using Gradle:
 
 ```groovy
-testImplementation 'com.github.hazendaz:javabean-tester:2.4.0'
+testImplementation 'com.github.hazendaz:javabean-tester:2.5.0'
 ```
 
 Information for other build frameworks can be found [here](http://hazendaz.github.io/javabean-tester/dependency-info.html).
