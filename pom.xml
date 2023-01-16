@@ -162,6 +162,9 @@
         <maven.compiler.testSource>${java.version}</maven.compiler.testSource>
         <maven.compiler.testTarget>${java.version}</maven.compiler.testTarget>
 
+        <!-- Get method parameter names via reflection -->
+        <maven.compiler.parameters>true</maven.compiler.parameters>
+
         <!-- Maven minimum version -->
         <maven.min-version>3.8.6</maven.min-version>
 
