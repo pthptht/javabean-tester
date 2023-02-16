@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2022 Hazendaz.
+ * Copyright 2012-2023 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -416,8 +416,8 @@ public class ValueBuilder {
      */
     private <T> boolean containsSelf(final Class<T> clazz) {
         final List<Field> fields = Arrays.asList(clazz.getDeclaredFields());
-        for (int i = 0; i < fields.size(); i++) {
-            if (fields.get(i).getType().equals(clazz)) {
+        for (Field field : fields) {
+            if (field.getType().equals(clazz)) {
                 return true;
             }
         }
