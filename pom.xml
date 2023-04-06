@@ -611,19 +611,11 @@
                     <artifactId>license-maven-plugin</artifactId>
                     <version>4.2</version>
                     <configuration>
-                        <header>LICENSE_HEADER</header>
-                        <excludes>
-                            <exclude>**/*.lck</exclude>
-                            <exclude>**/*.log</exclude>
-                            <exclude>**/*maven-wrapper.properties</exclude>
-                            <exclude>**/*MavenWrapperDownloader.java</exclude>
-                            <exclude>.factorypath</exclude>
-                            <exclude>.gitattributes</exclude>
-                            <exclude>LICENSE</exclude>
-                            <exclude>LICENSE_HEADER</exclude>
-                            <exclude>mvnw</exclude>
-                            <exclude>mvnw.cmd</exclude>
-                        </excludes>
+                        <licenseSets>
+                            <licenseSet>
+                                <header>LICENSE_HEADER</header>
+                            </licenseSet>
+                        </licenseSets>
                     </configuration>
                     <dependencies>
                         <dependency>
