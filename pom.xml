@@ -179,9 +179,7 @@
         <!-- Version Properties -->
         <bind-api.version>2.3.3</bind-api.version>
         <jmockit.version>1.50.0</jmockit.version>
-        <plexus-utils.version>3.5.1</plexus-utils.version>
         <scm.version>2.0.1</scm.version>
-        <wagon.version>3.5.3</wagon.version>
 
         <!-- Surefire Argline -->
         <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar</argLine>
@@ -348,41 +346,6 @@
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.12.1</version>
                     <dependencies>
-                        <dependency>
-                            <groupId>org.apache.maven.doxia</groupId>
-                            <artifactId>doxia-module-markdown</artifactId>
-                            <version>1.12.0</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.maven.wagon</groupId>
-                            <artifactId>wagon-scm</artifactId>
-                            <version>${wagon.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.maven.wagon</groupId>
-                            <artifactId>wagon-ssh</artifactId>
-                            <version>${wagon.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.maven.scm</groupId>
-                            <artifactId>maven-scm-api</artifactId>
-                            <version>${scm.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.maven.scm</groupId>
-                            <artifactId>maven-scm-provider-gitexe</artifactId>
-                            <version>${scm.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.maven.scm</groupId>
-                            <artifactId>maven-scm-manager-plexus</artifactId>
-                            <version>${scm.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.codehaus.plexus</groupId>
-                            <artifactId>plexus-utils</artifactId>
-                            <version>${plexus-utils.version}</version>
-                        </dependency>
                         <!-- For reporting only of versions -->
                         <dependency>
                             <groupId>org.apache.maven.skins</groupId>
@@ -915,14 +878,6 @@
                 </dependencies>
             </plugin>
         </plugins>
-
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh</artifactId>
-                <version>3.5.3</version>
-            </extension>
-        </extensions>
     </build>
 
     <reporting>
