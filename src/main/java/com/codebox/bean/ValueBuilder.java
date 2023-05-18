@@ -107,7 +107,7 @@ public class ValueBuilder {
         }
 
         if (clazz.isAssignableFrom(BigDecimal.class)) {
-            return new BigDecimal(1);
+            return BigDecimal.ONE;
         }
 
         if (clazz.isAssignableFrom(List.class)) {
