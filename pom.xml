@@ -178,8 +178,12 @@
 
         <!-- Version Properties -->
         <bind-api.version>2.3.3</bind-api.version>
+        <byte-buddy.version>1.14.4</byte-buddy.version>
+        <jgit.version>6.5.0.202303070854-r</jgit.version>
         <jmockit.version>1.50.0</jmockit.version>
+        <license.version>4.2</license.version>
         <scm.version>2.0.1</scm.version>
+        <slf4j.version>2.0.7</slf4j.version>
 
         <!-- Surefire Argline -->
         <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar</argLine>
@@ -214,13 +218,13 @@
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
-            <version>1.14.4</version>
+            <version>${byte-buddy.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy-agent</artifactId>
-            <version>1.14.4</version>
+            <version>${byte-buddy.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -262,14 +266,14 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.7</version>
+            <version>${slf4j.version}</version>
             <scope>compile</scope>
         </dependency>
         <!-- Ensure binding during running of tests -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>2.0.7</version>
+            <version>${slf4j.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -572,7 +576,7 @@
                 <plugin>
                     <groupId>com.mycila</groupId>
                     <artifactId>license-maven-plugin</artifactId>
-                    <version>4.2</version>
+                    <version>${license.version}</version>
                     <configuration>
                         <licenseSets>
                             <licenseSet>
@@ -584,7 +588,7 @@
                         <dependency>
                             <groupId>com.mycila</groupId>
                             <artifactId>license-maven-plugin-git</artifactId>
-                            <version>4.2</version>
+                            <version>${license.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -603,12 +607,12 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>6.5.0.202303070854-r</version>
+                            <version>${jgit.version}</version>
                         </dependency>
                         <dependency>
                             <groupId>org.apache.maven.scm</groupId>
                             <artifactId>maven-scm-provider-jgit</artifactId>
-                            <version>2.0.1</version>
+                            <version>${scm.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
