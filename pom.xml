@@ -1167,6 +1167,7 @@
             </properties>
         </profile>
 
+        <!-- Skipping jdk 21 entirely until this is fixed https://github.com/projectlombok/lombok/issues/3393.  At such time, most likely below will be needed to test before they push release. -->
         <profile>
             <id>jdk21on</id>
             <activation>
