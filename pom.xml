@@ -1172,23 +1172,22 @@
             <activation>
                 <jdk>[21,)</jdk>
             </activation>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-compiler-plugin</artifactId>
-                            <configuration>
-                                <fork>true</fork>
-                                <compilerArgs combine.children="append">
-                                    <!-- Lombok Configuration -->
-                                    <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
-                                </compilerArgs>
-                            </configuration>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
+
+            <repositories>
+                <repository>
+                    <id>projectlombok.org</id>
+                    <url>https://projectlombok.org/edge-releases</url>
+                </repository>
+            </repositories>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok</artifactId>
+                    <version>edge-SNAPSHOT</version>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
         </profile>
 
         <profile>
