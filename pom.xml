@@ -347,8 +347,24 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-scm-publish-plugin</artifactId>
+                    <version>${scm-publish.plugin}</version>
+                    <configuration>
+                        <checkoutDirectory>${user.home}/maven-sites/${project.name}</checkoutDirectory>
+                        <!-- no need for site:stage, use target/site or target/checkout/target/site on release -->
+                        <content>${project.reporting.outputDirectory}</content>
+                        <scmBranch>gh-pages</scmBranch>
+                        <tryUpdate>true</tryUpdate>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.12.1</version>
+                    <configuration>
+                        <!-- don't deploy site with maven-site-plugin (instead use scm publish during release) -->
+                        <skipDeploy>true</skipDeploy>
+                    </configuration>
                     <dependencies>
                         <!-- For reporting only of versions -->
                         <dependency>
@@ -1205,6 +1221,20 @@
                                     <goal>sign</goal>
                                 </goals>
                                 <phase>verify</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- deploy site with maven-scm-publish-plugin -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-scm-publish-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>scm-publish</id>
+                                <goals>
+                                    <goal>publish-scm</goal>
+                                </goals>
+                                <phase>site-deploy</phase>
                             </execution>
                         </executions>
                     </plugin>
