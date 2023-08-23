@@ -1176,7 +1176,7 @@
             </properties>
         </profile>
 
-        <!-- Skipping jdk 21 entirely until this is fixed https://github.com/projectlombok/lombok/issues/3393.  At such time, most likely below will be needed to test before they push release. -->
+        <!-- Run lombok-edge against jdk 21+ until lombok releases. -->
         <profile>
             <id>jdk21on</id>
             <activation>
@@ -1194,7 +1194,7 @@
                 <dependency>
                     <groupId>org.projectlombok</groupId>
                     <artifactId>lombok</artifactId>
-                    <version>1.18.28</version>
+                    <version>edge-SNAPSHOT</version>
                     <scope>provided</scope>
                 </dependency>
             </dependencies>
