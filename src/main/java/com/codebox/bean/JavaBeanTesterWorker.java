@@ -532,9 +532,9 @@ class JavaBeanTesterWorker<T, E> {
         // Create Extension Immutable Instance
         try {
             final BeanCopier extensionBeanCopier = BeanCopier.create(this.extension, this.extension, true);
-            final E e2 = new ClassInstance<E>().newInstance(this.extension);
-            extensionBeanCopier.copy(ext, e2, null);
-            Assertions.assertEquals(e2, ext);
+            final E e = new ClassInstance<E>().newInstance(this.extension);
+            extensionBeanCopier.copy(ext, e, null);
+            Assertions.assertEquals(e, ext);
         } catch (final Exception e) {
             JavaBeanTesterWorker.LOGGER.trace("Do nothing class is not mutable", e);
         }
