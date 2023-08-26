@@ -348,7 +348,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-scm-publish-plugin</artifactId>
-                    <version>${scm-publish.plugin}</version>
+                    <version>3.2.1</version>
                     <configuration>
                         <checkoutDirectory>${user.home}/maven-sites/${project.name}</checkoutDirectory>
                         <!-- no need for site:stage, use target/site or target/checkout/target/site on release -->
