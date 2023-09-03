@@ -179,7 +179,7 @@
         <!-- Version Properties -->
         <bind-api.version>2.3.3</bind-api.version>
         <byte-buddy.version>1.14.7</byte-buddy.version>
-        <jgit.version>6.6.0.202305301015-r</jgit.version>
+        <jgit.version>6.6.1.202309021850-r</jgit.version>
         <jmockit.version>1.50.0</jmockit.version>
         <license.version>4.2</license.version>
         <scm.version>2.0.1</scm.version>
