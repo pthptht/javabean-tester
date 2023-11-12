@@ -1020,12 +1020,12 @@
                                 <lifecycleMappingMetadata>
                                     <pluginExecutions>
 
-                                        <!-- Run license plugin with m2e -->
+                                        <!-- Run license plugin with m2e (in metadata but ignored) -->
                                         <pluginExecution>
                                             <pluginExecutionFilter>
                                                 <groupId>com.mycila</groupId>
                                                 <artifactId>license-maven-plugin</artifactId>
-                                                <versionRange>[4.2,)</versionRange>
+                                                <versionRange>[4.3,)</versionRange>
                                                 <goals>
                                                     <goal>format</goal>
                                                 </goals>
