@@ -1150,13 +1150,6 @@
                 <jdk>[21,)</jdk>
             </activation>
 
-            <repositories>
-                <repository>
-                    <id>projectlombok.org</id>
-                    <url>https://projectlombok.org/edge-releases</url>
-                </repository>
-            </repositories>
-
             <dependencies>
                 <dependency>
                     <groupId>org.projectlombok</groupId>
@@ -1165,6 +1158,13 @@
                     <scope>provided</scope>
                 </dependency>
             </dependencies>
+
+            <repositories>
+                <repository>
+                    <id>projectlombok.org</id>
+                    <url>https://projectlombok.org/edge-releases</url>
+                </repository>
+            </repositories>
         </profile>
 
         <profile>
