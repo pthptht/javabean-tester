@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2021 Hazendaz.
+ * Copyright 2012-2023 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -60,7 +60,7 @@ public final class ConstructorInstance {
         final Constructor<?>[] ctors = clazz.getDeclaredConstructors();
         Assertions.assertEquals(1, ctors.length, "Utility class should only have one constructor");
         final Constructor<?> ctor = ctors[0];
-        Assertions.assertFalse(ctor.isAccessible(), "Utility class constructor should be inaccessible");
+        Assertions.assertFalse(ctor.canAccess(null), "Utility class constructor should be inaccessible");
         // Make accessible in order to test following assert.
         ctor.setAccessible(true);
         final Object object = ConstructorInstance.newInstance(ctor);
