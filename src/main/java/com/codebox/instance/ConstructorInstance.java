@@ -61,10 +61,12 @@ public final class ConstructorInstance {
         Assertions.assertEquals(1, ctors.length, "Utility class should only have one constructor");
         final Constructor<?> ctor = ctors[0];
         Assertions.assertFalse(ctor.canAccess(null), "Utility class constructor should be inaccessible");
-        // Make accessible in order to test following assert.
+        // Make accessible 'true' in order to test following assert.
         ctor.setAccessible(true);
         final Object object = ConstructorInstance.newInstance(ctor);
         Assertions.assertEquals(clazz, object == null ? "null" : object.getClass(),
                 "You would expect the constructor to return the expected type");
+        // Set accessible back to 'false'
+        ctor.setAccessible(false);
     }
 }
