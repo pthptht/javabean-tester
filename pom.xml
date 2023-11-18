@@ -155,12 +155,17 @@
 
         <!-- Maven compiler options -->
         <java.version>11</java.version>
-        <java-release.version>11</java-release.version>
-        <maven.compiler.release>${java-release.version}</maven.compiler.release>
+        <java.release.version>11</java.release.version>
+        <java.test.version>${java.version}</java.test.version>
+        <java.test.release.version>${java.release.version}</java.test.release.version>
+
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven.compiler.testSource>${java.version}</maven.compiler.testSource>
-        <maven.compiler.testTarget>${java.version}</maven.compiler.testTarget>
+        <maven.compiler.testSource>${java.test.version}</maven.compiler.testSource>
+        <maven.compiler.testTarget>${java.test.version}</maven.compiler.testTarget>
+
+        <maven.compiler.release>${java.release.version}</maven.compiler.release>
+        <maven.compiler.testRelease>${java.test.release.version}</maven.compiler.testRelease>
 
         <!-- Get method parameter names via reflection -->
         <maven.compiler.parameters>true</maven.compiler.parameters>
@@ -1006,6 +1011,12 @@
                     <name>m2e.version</name>
                 </property>
             </activation>
+            <properties>
+                <!-- Make m2e use java at test revision level -->
+                <maven.compiler.source>${java.test.version}</maven.compiler.source>
+                <maven.compiler.target>${java.test.version}</maven.compiler.target>
+                <maven.compiler.release>${java.test.release.version}</maven.compiler.release>
+            </properties>
             <build>
                 <pluginManagement>
                     <plugins>
@@ -1056,14 +1067,6 @@
                                         </pluginExecution>
                                     </pluginExecutions>
                                 </lifecycleMappingMetadata>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-compiler-plugin</artifactId>
-                            <configuration>
-                                <source>${maven.compiler.testSource}</source>
-                                <target>${maven.compiler.testTarget}</target>
                             </configuration>
                         </plugin>
                     </plugins>
