@@ -177,7 +177,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Version Properties -->
-        <bind-api.version>2.3.3</bind-api.version>
         <byte-buddy.version>1.14.9</byte-buddy.version>
         <jgit.version>6.7.0.202309050840-r</jgit.version>
         <jmockit.version>1.51.0</jmockit.version>
@@ -556,16 +555,9 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>io.jsonwebtoken.coveralls</groupId>
+                    <groupId>com.github.hazendaz.maven</groupId>
                     <artifactId>coveralls-maven-plugin</artifactId>
-                    <version>4.4.1</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>jakarta.xml.bind</groupId>
-                            <artifactId>jakarta.xml.bind-api</artifactId>
-                            <version>${bind-api.version}</version>
-                        </dependency>
-                    </dependencies>
+                    <version>4.5.0-M2</version>
                 </plugin>
                 <plugin>
                     <groupId>com.github.ekryd.sortpom</groupId>
