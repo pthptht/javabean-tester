@@ -9,15 +9,15 @@
 
 ## Latest Release
 
-You can download source and binaries from our [releases page](https://github.com/hazendaz/javabean-tester/releases).
+You can download source binaries from our [releases page](https://github.com/hazendaz/javabean-tester/releases) and release binaries from [Maven central](https://search.maven.org/search?q=g:com.github.hazendaz%20AND%20a:javabean-tester)
 
-Alternatively you can pull it from the central Maven repositories:
+Alternatively you can pull it using Maven:
 
 ```xml
 <dependency>
   <groupId>com.github.hazendaz</groupId>
   <artifactId>javabean-tester</artifactId>
-  <version>2.5.0</version>
+  <version>2.6.1</version>
   <scope>test</scope>
 </dependency>
 ```
@@ -25,10 +25,12 @@ Alternatively you can pull it from the central Maven repositories:
 Or using Gradle:
 
 ```groovy
-testImplementation 'com.github.hazendaz:javabean-tester:2.5.0'
+testImplementation 'com.github.hazendaz:javabean-tester:2.6.1'
 ```
 
 Information for other build frameworks can be found [here](http://hazendaz.github.io/javabean-tester/dependency-info.html).
+
+Requires java 11+
 
 ## Sites
 
