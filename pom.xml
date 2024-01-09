@@ -187,7 +187,7 @@
         <jmockit.version>1.52.0</jmockit.version>
         <license.version>4.3</license.version>
         <scm.version>2.0.1</scm.version>
-        <slf4j.version>2.0.10</slf4j.version>
+        <slf4j.version>2.0.11</slf4j.version>
 
         <!-- Surefire Argline -->
         <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar</argLine>
