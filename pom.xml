@@ -1150,7 +1150,7 @@
             </properties>
         </profile>
 
-        <!-- Run lombok-edge against jdk 22+ until lombok releases. -->
+        <!-- Run lombok-edge when necessary for newer support. -->
         <profile>
             <id>jdk22on</id>
             <activation>
@@ -1161,7 +1161,7 @@
                 <dependency>
                     <groupId>org.projectlombok</groupId>
                     <artifactId>lombok</artifactId>
-                    <version>1.18.30</version>
+                    <version>edge-SNAPSHOT</version>
                     <scope>provided</scope>
                 </dependency>
             </dependencies>
