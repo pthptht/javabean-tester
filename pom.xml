@@ -183,7 +183,6 @@
 
         <!-- Version Properties -->
         <byte-buddy.version>1.14.12</byte-buddy.version>
-        <jgit.version>6.7.0.202309050840-r</jgit.version>
         <jmockit.version>1.52.0</jmockit.version>
         <license.version>4.3</license.version>
         <scm.version>2.0.1</scm.version>
