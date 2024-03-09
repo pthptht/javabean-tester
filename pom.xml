@@ -465,6 +465,8 @@
                     <configuration>
                         <additionalOptions>
                             <option>-html5</option>
+                            <option>--add-modules</option>
+                            <option>java.desktop</option>
                         </additionalOptions>
                         <archive>
                             <manifest>
@@ -1135,29 +1137,6 @@
                         </executions>
                     </plugin>
                 </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>jdk11on</id>
-            <activation>
-                <jdk>[11,)</jdk>
-            </activation>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-javadoc-plugin</artifactId>
-                            <configuration>
-                                <additionalOptions combine.children="append">
-                                    <option>--add-modules</option>
-                                    <option>java.desktop</option>
-                                </additionalOptions>
-                            </configuration>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
             </build>
         </profile>
 
