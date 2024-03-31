@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2023 Hazendaz.
+ * Copyright 2012-2024 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -23,6 +23,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -38,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -108,6 +110,14 @@ public class ValueBuilder {
 
         if (clazz.isAssignableFrom(BigDecimal.class)) {
             return BigDecimal.ONE;
+        }
+
+        if (clazz.isAssignableFrom(UUID.class)) {
+            return UUID.fromString("00000000-0000-0000-0000-000123456789");
+        }
+
+        if (clazz.isAssignableFrom(Instant.class)) {
+            return Instant.ofEpochSecond(1L);
         }
 
         if (clazz.isAssignableFrom(List.class)) {

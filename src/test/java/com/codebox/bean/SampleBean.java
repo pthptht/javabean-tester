@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2022 Hazendaz.
+ * Copyright 2012-2024 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -17,6 +17,7 @@ package com.codebox.bean;
 import jakarta.annotation.PostConstruct;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -26,6 +27,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 
 import lombok.AccessLevel;
@@ -114,6 +116,12 @@ public class SampleBean {
 
     /** The big decimal. */
     private BigDecimal bigDecimal;
+
+    /** The uuid. */
+    UUID uuid;
+
+    /** The instant. */
+    Instant instant;
 
     /** The date. */
     private Date date;
