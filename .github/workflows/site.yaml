@@ -14,8 +14,9 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
+          cache: maven
+          distribution: temurin
           java-version: 21
-          distribution: zulu
       - uses: webfactory/ssh-agent@master
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
